@@ -43,13 +43,15 @@ build_arm64:
     - rake dockerhub:project:push:version:arm64
 
     # Create and push docker latest manifest if amd64 image exists
-    - if rake dockerhub:project:pull:latest:amd64; then \
-        rake dockerhub:project:manifest:create:latest; \
-        rake dockerhub:project:manifest:push:latest; \
+    - >
+      if rake dockerhub:project:pull:latest:amd64; then
+        rake dockerhub:project:manifest:create:latest;
+        rake dockerhub:project:manifest:push:latest;
       fi
 
     # Create and push docker version manifest if amd64 image exists
-    - if rake dockerhub:project:pull:version:amd64; then \
-       rake dockerhub:project:manifest:create:version; \
-       rake dockerhub:project:manifest:push:version; \
-     fi
+    - >
+      if rake dockerhub:project:pull:version:amd64; then
+        rake dockerhub:project:manifest:create:version;
+        rake dockerhub:project:manifest:push:version;
+      fi
