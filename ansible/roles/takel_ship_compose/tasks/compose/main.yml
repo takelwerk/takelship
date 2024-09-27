@@ -1,28 +1,21 @@
 ---
-- name: (compose) (main) include install
-  ansible.builtin.include_tasks: install.yml
-  tags:
-    - takel
-    - takel_ships
-    - takel_ship_compose_install
-
 - name: (compose) (main) include compose dirs
   ansible.builtin.include_tasks: compose/dirs.yml
   tags:
     - takel
     - takel_ships
-    - takel_ship_compose_compose_dirs
+    - takel_ship_compose_dirs
 
 - name: (compose) (main) include compose services
   ansible.builtin.include_tasks: compose/services.yml
   tags:
     - takel
     - takel_ships
-    - takel_ship_compose_compose_services
+    - takel_ship_compose_services
 
 - name: (compose) (main) include compose projects
   ansible.builtin.include_tasks: compose/projects.yml
   tags:
     - takel
     - takel_ships
-    - takel_ship_compose_compose_projects
+    - takel_ship_compose_projects
