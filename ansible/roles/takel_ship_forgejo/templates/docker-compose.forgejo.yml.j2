@@ -14,7 +14,7 @@ services:
     networks:
       - {{ takel_ship_forgejo_service['name'] }}
     volumes:
-      - ./{{ takel_ship_services_include }}data:/data
+      - ./{{ takel_ship_compose_include }}data:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:

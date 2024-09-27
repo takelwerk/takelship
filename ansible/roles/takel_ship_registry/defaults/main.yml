@@ -19,24 +19,24 @@ takel_ship_registry_script_registries:
   name: registries.conf
   role: takel_ship_registry
   template: registries.conf.j2
-  owner: "{{ takel_ship_services_user.owner }}"
-  group: "{{ takel_ship_services_user.group }}"
+  owner: "{{ takel_ship_compose_user.owner }}"
+  group: "{{ takel_ship_compose_user.group }}"
   mode: '0644'
   path: >-
-    {{ takel_ship_services_home_dir
+    {{ takel_ship_compose_home_dir
     }}/.config/containers
 
 takel_ship_registry_script_mirror:
   name: mirror
   role: takel_ship_registry
   template: mirror.bash.j2
-  owner: "{{ takel_ship_services_user.owner }}"
-  group: "{{ takel_ship_services_user.group }}"
+  owner: "{{ takel_ship_compose_user.owner }}"
+  group: "{{ takel_ship_compose_user.group }}"
   mode: '0755'
   path: >-
-    {{ takel_ship_services_home_dir }}/{{
-    takel_ship_services_dist_dir }}/{{
-      takel_ship_services_compose_dir }}/{{
+    {{ takel_ship_compose_home_dir }}/{{
+    takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
 
     takel_ship_registry_service.name }}
 

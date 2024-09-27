@@ -2,5 +2,5 @@
 - name: (molecule) converge
   hosts: all
   roles:
-    - takel_ship_services
+    - takel_ship_compose
     - takel_ship_scripts

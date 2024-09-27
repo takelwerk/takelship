@@ -23,7 +23,7 @@ class ChangeID(object):
         self._logger = self._logger_init_(self._debug)
         self._logger.debug('takelship entrypoint '
                            'log starting: {now}'.format(now=now))
-        self._username = '{{ takel_ship_services_user.owner }}'
+        self._username = '{{ takel_ship_compose_user.owner }}'
         self._newgroup = 'podgrp'
         self._uid = os.environ.get("TAKELSHIP_UID",
                                    args.uid)
@@ -149,12 +149,12 @@ class ChangeID(object):
             "--gid",
             type=str,
             default=default_gid,
-            help=f"Group ID of the {{ takel_ship_services_user.owner }} user")
+            help=f"Group ID of the {{ takel_ship_compose_user.owner }} user")
         parser.add_argument(
             "--uid",
             type=str,
             default=default_uid,
-            help=f"User ID of the {{ takel_ship_services_user.owner }} user")
+            help=f"User ID of the {{ takel_ship_compose_user.owner }} user")
 
         return parser.parse_args()
 

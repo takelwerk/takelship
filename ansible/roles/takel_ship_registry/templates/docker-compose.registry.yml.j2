@@ -11,7 +11,7 @@ services:
     networks:
       - {{ takel_ship_registry_service['name'] }}
     volumes:
-      - ./{{ takel_ship_services_include }}data:/var/lib/registry
+      - ./{{ takel_ship_compose_include }}data:/var/lib/registry
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:

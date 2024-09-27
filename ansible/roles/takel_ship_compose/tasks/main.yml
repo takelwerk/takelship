@@ -4,11 +4,11 @@
   tags:
     - takel
     - takel_ships
-    - takel_ship_services_install
+    - takel_ship_compose_install
 
 - name: (main) include compose dir
   ansible.builtin.include_tasks: compose/main.yml
   tags:
     - takel
     - takel_ships
-    - takel_ship_services_compose
+    - takel_ship_compose_compose

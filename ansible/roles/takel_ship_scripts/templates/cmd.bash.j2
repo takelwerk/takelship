@@ -5,8 +5,8 @@ set -euo pipefail
 usage(){
 >&2 cat << EOF
 Usage: $(basename $0)
-   [ ( -w | --workdir ) <directory> ]      (default: {{ takel_ship_services_home_dir }})
-   <command>                               (will be run as {{ takel_ship_services_user.owner }} user)
+   [ ( -w | --workdir ) <directory> ]      (default: {{ takel_ship_compose_home_dir }})
+   <command>                               (will be run as {{ takel_ship_compose_user.owner }} user)
 
 Login shell: $(basename $0) shell
 Example: $(basename $0) podman ps -a
@@ -34,6 +34,6 @@ if [[ $# -gt 1 ]]; then
 fi
 
 mount / --make-rshare
-dir=${WORKDIR:-"{{ takel_ship_services_home_dir }}"}
+dir=${WORKDIR:-"{{ takel_ship_compose_home_dir }}"}
 cd $dir
 su podman -c "$(echo "$@")"

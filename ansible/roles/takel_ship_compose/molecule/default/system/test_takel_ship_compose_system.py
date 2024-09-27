@@ -3,11 +3,11 @@ import takeltest
 testinfra_hosts = [takeltest.hosts()[0]]
 
 
-def test_takel_ship_services_system_dry_run_compose(host, testvars):
-    home_dir = testvars['takel_ship_services_home_dir']
-    data_dir = testvars['takel_ship_services_dist_dir']
-    compose_dir = testvars['takel_ship_services_compose_dir']
-    services = testvars['takel_ship_services_services']
+def test_takel_ship_compose_system_dry_run_compose(host, testvars):
+    home_dir = testvars['takel_ship_compose_home_dir']
+    data_dir = testvars['takel_ship_compose_dist_dir']
+    compose_dir = testvars['takel_ship_compose_compose_dir']
+    services = testvars['takel_ship_compose_services']
     cmd = testvars['takel_ship_scripts_script_cmd']['name']
     for service in services:
         service_dir = (f"{home_dir}/{data_dir}/"

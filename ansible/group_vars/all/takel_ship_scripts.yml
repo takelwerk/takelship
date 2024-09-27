@@ -3,7 +3,7 @@ takel_ship_scripts_scripts:
   - "{{ takel_ship_scripts_script_cli }}"
   - "{{ takel_ship_scripts_script_cmd }}"
   - "{{ takel_ship_forgejo_script_forgejo }}"
-  - "{{ takel_ship_services_script_containers }}"
+  - "{{ takel_ship_compose_script_containers }}"
   - "{{ takel_ship_registry_script_mirror }}"
   - "{{ takel_ship_registry_script_registries }}"
   - "{{ takel_ship_entrypoint_script_change_id }}"

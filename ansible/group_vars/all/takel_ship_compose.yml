@@ -1,9 +1,9 @@
 ---
-takel_ship_services_services:
+takel_ship_compose_services:
   - "{{ takel_ship_registry_service }}"
   - "{{ takel_ship_forgejo_service }}"
 
-takel_ship_services_projects:
+takel_ship_compose_projects:
   - name: default
     services:
       - "{{ takel_ship_forgejo_service }}"

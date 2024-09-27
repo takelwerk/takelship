@@ -1,10 +1,10 @@
 unqualified-search-registries = ["docker.io"]
 
 [aliases]
-{% for service in takel_ship_services_services %}
+{% for service in takel_ship_compose_services %}
 {% if 'images' in service %}
 {% for image in service.images %}
-"{{ image.alias }}" = "{{ takel_ship_services_local_registry }}/{{ image.name }}"
+"{{ image.alias }}" = "{{ takel_ship_compose_local_registry }}/{{ image.name }}"
 {% endfor %}
 {% endif %}
 {% endfor %}
