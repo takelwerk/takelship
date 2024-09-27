@@ -1,0 +1,4 @@
+---
+takel_cleanup_enable: true
+takel_cleanup_absent_files:
+  - /tmp/storage-run-1000

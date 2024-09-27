@@ -1,0 +1,45 @@
+---
+- name: (compose) (dirs) create compose dir
+  ansible.builtin.file:
+    path: >-
+      {{ takel_pod_services_home_dir }}/{{
+      takel_pod_services_dist_dir }}/{{
+      takel_pod_services_compose_dir }}
+    state: directory
+    owner: "{{ takel_pod_services_user.owner }}"
+    group: "{{ takel_pod_services_user.group }}"
+    mode: '0755'
+
+- name: (compose) (dirs) create service dir
+  ansible.builtin.file:
+    path: >-
+      {{ takel_pod_services_home_dir }}/{{
+      takel_pod_services_dist_dir }}/{{
+      takel_pod_services_compose_dir }}/{{
+      takel_pod_services_service.name }}
+    state: directory
+    owner: "{{ takel_pod_services_user.owner }}"
+    group: "{{ takel_pod_services_user.group }}"
+    mode: '0755'
+  loop: "{{ takel_pod_services_services }}"
+  loop_control:
+    loop_var: takel_pod_services_service
+
+- name: (compose) (dirs) create volume dirs
+  ansible.builtin.file:
+    path: >-
+      {{ takel_pod_services_home_dir }}/{{
+      takel_pod_services_dist_dir }}/{{
+      takel_pod_services_compose_dir }}/{{
+      item[0].name }}/{{ item[1].name }}
+    state: directory
+    owner: "{{ takel_pod_services_user.owner }}"
+    group: "{{ takel_pod_services_user.group }}"
+    mode: '0755'
+  loop: >-
+    {{ q('ansible.builtin.subelements',
+    takel_pod_services_services,
+    'volumes',
+    {'skip_missing': True}) }}
+  loop_control:
+    label: "{{ item[0].name }}/{{ item[1].name }}"

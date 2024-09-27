@@ -1,0 +1,40 @@
+# frozen_string_literal: true
+
+require 'rake'
+
+cmd_login_root = 'docker exec ' \
+    '--interactive ' \
+    '--tty ' \
+    'molecule_default_takelbeta_takelship_%<unique>s ' \
+    'bash'
+
+cmd_login_user = 'docker exec ' \
+    '--interactive ' \
+    '--tty ' \
+    'molecule_default_takelbeta_takelship_%<unique>s ' \
+    'bash -c "su - %<user>s"'
+
+namespace :login do
+  begin
+    unique = ENV['HOSTNAME'][-11..]
+  rescue StandardError
+    unique = 'nonunique'
+  end
+  desc 'Login as root'
+  task :root do
+    @commands << format(
+      cmd_login_root,
+      unique: unique
+    )
+  end
+  ['podmac'].each do |user|
+    desc "Login as #{user}"
+    task user.to_sym do
+      @commands << format(
+        cmd_login_user,
+        unique: unique,
+        user: user
+      )
+    end
+  end
+end

@@ -1,0 +1,49 @@
+---
+driver:
+  name: docker
+platforms:
+  # yamllint disable-line rule:line-length
+  - name: molecule_image_${TAKELAGE_UNQIUE:-nonunique}_${TAKELAGE_PROJECT_IMG:-noimage}
+    # yamllint disable-line rule:line-length
+    image: packer_local/${TAKELAGE_PROJECT_NAME:-name}-${TAKELAGE_PROJECT_IMG:-noimage}
+    pre_build_image: true
+    privileged: true
+    groups:
+      - ${TAKELAGE_PROJECT_IMG:-noimage}
+      - users
+      - molecule
+provisioner:
+  name: ansible
+  playbooks:
+    converge: >-
+      ../../${TAKELAGE_MOLECULE_CONVERGE_PLAYBOOK:-playbook-site.yml}
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      stdout_callback: yaml
+      bin_ansible_callbacks: true
+  inventory:
+    links:
+      group_vars: ../../group_vars/
+verifier:
+  name: testinfra
+  options:
+    v: true
+  env:
+    TESTVARS_ROLES_PLAYBOOKS: >-
+      ${TAKELAGE_MOLECULE_VERIFIER_PLAYS:-../../playbook-site.yml}
+    PYTEST_ADDOPTS: '--color=yes'
+  additional_files_or_dirs: ${TAKELAGE_MOLECULE_VERIFIER_FILES:-[]}
+scenario:
+  create_sequence:
+    - create
+  converge_sequence:
+    - create
+  destroy_sequence:
+    - destroy
+  test_sequence:
+    - destroy
+    - create
+    - verify
+    - syntax
+    - destroy

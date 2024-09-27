@@ -1,0 +1,44 @@
+---
+takel_pod_registry_service:
+  name: registry
+  role: takel_pod_registry
+  template: docker-compose.registry.yml.j2
+  volumes:
+    - name: data
+      mount: /data
+
+takel_pod_registry_image:
+  name: docker.io/library/registry
+  tag: 2
+  alias: registry
+
+takel_pod_registry_images:
+  - "{{ takel_pod_registry_image }}"
+
+takel_pod_registry_script_registries:
+  name: registries.conf
+  role: takel_pod_registry
+  template: registries.conf.j2
+  owner: "{{ takel_pod_services_user.owner }}"
+  group: "{{ takel_pod_services_user.group }}"
+  mode: '0644'
+  path: >-
+    {{ takel_pod_services_home_dir
+    }}/.config/containers
+
+takel_pod_registry_script_mirror:
+  name: mirror
+  role: takel_pod_registry
+  template: mirror.bash.j2
+  owner: "{{ takel_pod_services_user.owner }}"
+  group: "{{ takel_pod_services_user.group }}"
+  mode: '0755'
+  path: >-
+    {{ takel_pod_services_home_dir }}/{{
+    takel_pod_services_dist_dir }}/{{
+      takel_pod_services_compose_dir }}/{{
+
+    takel_pod_registry_service.name }}
+
+takel_pod_registry_restart: always
+takel_pod_registry_http_port: 5000

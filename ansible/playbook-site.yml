@@ -1,0 +1,12 @@
+---
+- name: (playbook-site) create project
+  hosts: all
+  gather_facts: false
+  roles:
+    - takel_anarchism
+    - takel_pod_services
+    - takel_pod_scripts
+    - takel_pod_entrypoint
+    - takel_pod_registry
+    - takel_pod_forgejo
+    - takel_cleanup

@@ -1,0 +1,28 @@
+---
+- name: (compose) (main) include install
+  ansible.builtin.include_tasks: install.yml
+  tags:
+    - takel
+    - takel_pods
+    - takel_pod_services_install
+
+- name: (compose) (main) include compose dirs
+  ansible.builtin.include_tasks: compose/dirs.yml
+  tags:
+    - takel
+    - takel_pods
+    - takel_pod_services_compose_dirs
+
+- name: (compose) (main) include compose services
+  ansible.builtin.include_tasks: compose/services.yml
+  tags:
+    - takel
+    - takel_pods
+    - takel_pod_services_compose_services
+
+- name: (compose) (main) include compose projects
+  ansible.builtin.include_tasks: compose/projects.yml
+  tags:
+    - takel
+    - takel_pods
+    - takel_pod_services_compose_projects

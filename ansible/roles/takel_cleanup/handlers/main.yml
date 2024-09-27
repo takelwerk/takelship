@@ -1,0 +1,7 @@
+---
+- name: (handler) remove files
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  listen: remove files
+  loop: "{{ takel_cleanup_absent_files }}"

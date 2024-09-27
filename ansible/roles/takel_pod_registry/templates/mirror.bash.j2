@@ -1,0 +1,10 @@
+{{ takel_pod_scripts_shebang }}
+
+{% for service in takel_pod_services_services %}
+{% if 'images' in service %}
+{% for image in service.images %}
+# copy image {{ image.alias }}
+skopeo copy docker://{{ image.name }}:{{ image.tag }} docker://localhost:5000/{{ image.name }}:{{ image.tag }}
+{% endfor %}
+{% endif %}
+{% endfor %}

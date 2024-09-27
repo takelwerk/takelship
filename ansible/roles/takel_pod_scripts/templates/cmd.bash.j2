@@ -1,0 +1,39 @@
+{{ takel_pod_scripts_shebang }}
+
+set -euo pipefail
+
+usage(){
+>&2 cat << EOF
+Usage: $(basename $0)
+   [ ( -w | --workdir ) <directory> ]      (default: {{ takel_pod_services_home_dir }})
+   <command>                               (will be run as {{ takel_pod_services_user.owner }} user)
+
+Login shell: $(basename $0) shell
+Example: $(basename $0) podman ps -a
+EOF
+exit 1
+}
+
+unset WORKDIR
+
+if [[ $# -eq 0 ]]; then
+  usage
+  exit
+fi
+
+if [[ $# -eq 1 ]] && [[ "$1" == "shell" ]]; then
+  su - podman
+  exit
+fi
+
+if [[ $# -gt 1 ]]; then
+  if [[ "$1" == "-w" ]] || [[ "$1" == "--workdir" ]]; then
+    WORKDIR="$2"
+    shift 2
+  fi
+fi
+
+mount / --make-rshare
+dir=${WORKDIR:-"{{ takel_pod_services_home_dir }}"}
+cd $dir
+su podman -c "$(echo "$@")"

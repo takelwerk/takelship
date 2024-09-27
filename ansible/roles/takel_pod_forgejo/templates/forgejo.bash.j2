@@ -1,0 +1,10 @@
+{{ takel_pod_scripts_shebang }}
+
+mount / --make-rshare
+cd /home/podman
+if [ $# -eq 0 ]; then
+  CONTAINER_COMMAND="{{ takel_pod_forgejo_bin_container_command }} --help"
+else
+  CONTAINER_COMMAND="{{ takel_pod_forgejo_bin_container_command }} $@"
+fi
+{{ takel_pod_scripts_script_cmd['name'] }} "$CONTAINER_COMMAND"

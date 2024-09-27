@@ -1,0 +1,18 @@
+---
+networks:
+  {{ takel_pod_registry_service['name'] }}:
+    external: false
+
+services:
+  {{ takel_pod_registry_service['name'] }}:
+    image: {{ takel_pod_registry_image['name'] }}:{{ takel_pod_registry_image['tag'] }}
+    container_name: {{ takel_pod_registry_service['name'] }}
+    restart: {{ takel_pod_registry_restart }}
+    networks:
+      - {{ takel_pod_registry_service['name'] }}
+    volumes:
+      - ./{{ takel_pod_services_include }}data:/var/lib/registry
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "{{ takel_pod_registry_http_port }}:5000"

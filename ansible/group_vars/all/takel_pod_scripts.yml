@@ -1,0 +1,10 @@
+---
+takel_pod_scripts_scripts:
+  - "{{ takel_pod_scripts_script_cli }}"
+  - "{{ takel_pod_forgejo_script_forgejo }}"
+  - "{{ takel_pod_scripts_script_cmd }}"
+  - "{{ takel_pod_services_script_containers }}"
+  - "{{ takel_pod_registry_script_mirror }}"
+  - "{{ takel_pod_registry_script_registries }}"
+  - "{{ takel_pod_entrypoint_script_change_id }}"
+  - "{{ takel_pod_entrypoint_script_entrypoint }}"

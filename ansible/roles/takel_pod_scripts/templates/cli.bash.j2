@@ -1,0 +1,6 @@
+{{ takel_pod_scripts_shebang }}
+
+echo takelship command line interface:
+{% for takel_pod_scripts_script in takel_pod_scripts_scripts if 'list' in takel_pod_scripts_script and takel_pod_scripts_script.list %}
+echo "    {{ takel_pod_scripts_script.name }}"
+{% endfor %}

@@ -1,0 +1,31 @@
+services:
+  takelship:
+    image: packer_local/takelship-project:latest
+    container_name: takelship
+    hostname: takelship
+    privileged: true
+    ##################################
+    # entrypoint: /usr/bin/tail -f /dev/null
+    ##################################
+    ### run entrypoint script manually
+    ###
+    ### usually: docker compose up; docker compose down
+    ###
+    ### now first: $ docker run -it --rm --privileged
+    ### --hostname takelship --name takelship
+    ### --entrypoint bash packer_local/takelship-project:latest
+    ###
+    ### then: root@takelship:~# TAKELSHIP_DEBUG=true /entrypoint
+    ###
+    ##################################
+    # environment:
+    #   TAKELSHIP_DEBUG: "false"
+    #   TAKELSH_UPDATE:
+    #   TAKELSHIP_PROJECT: "default"
+    volumes:
+      - ./data:/home/podman/data
+    ports:
+      - 127.0.0.1:30022:22   # forgejo ssh
+      # - 127.0.0.1:30080:80   # TODO http
+      - 127.0.0.1:33000:3000 # forgejo http
+      - 127.0.0.1:35000:5000 # registry http

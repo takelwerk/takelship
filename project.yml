@@ -1,0 +1,16 @@
+---
+name: takelship
+version: 0.1.0
+
+images:
+  project:
+    base_user: takelwerk
+    base_repo: takelpodslim
+    base_tag: latest
+    target_user: takelwerk
+    target_repo: takelship
+    packer_template_dir: templates/takelship/docker
+    layers:
+      - site
+
+local_user: packer_local

@@ -1,0 +1,12 @@
+{{ takel_pod_scripts_shebang }}
+
+# podman compose is a thin wrapper around an external compose provider
+# the default compose providers are docker-compose and podman-compose
+# if installed, docker-compose takes precedence
+
+# echo starting local registry
+podman compose --file {{ takel_pod_services_home_dir }}/{{ takel_pod_services_data_dir }}/{{ takel_pod_services_compose_dir }}/registry/{{ takel_pod_services_service_filename }}.{{ takel_pod_services_service_fileext }} up -d
+# copying images to local registry
+{{ takel_pod_services_home_dir }}/{{ takel_pod_services_dist_dir }}/{{ takel_pod_services_compose_dir }}/registry/mirror
+# starting {{ takel_pod_services_project.name }}
+podman compose --file {{ takel_pod_services_home_dir }}/{{ takel_pod_services_data_dir }}/{{ takel_pod_services_compose_dir }}/{{ takel_pod_services_service_filename }}-{{ takel_pod_services_project.name }}.{{ takel_pod_services_service_fileext }} up

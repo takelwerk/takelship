@@ -1,0 +1,53 @@
+default:
+  image:
+    name: takelwerk/takelbuild:latest
+  services:
+    - name: docker:dind
+      command: [ "dockerd", "-H", "tcp://0.0.0.0:2375", "--tls=false", "--mtu=1410" ]
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ''  # unset means: "unencrypted"
+  GITHUB_API_TOKEN: $GITHUB_API_TOKEN
+
+stages:
+  - build
+
+build:
+  stage: build
+  only:
+    - tags
+  script:
+    # Link project directory
+    - ln -fs $CI_PROJECT_DIR /project
+
+    # Lint ruby
+    - rake rubylint
+
+    # Update debian base image
+    - rake images:project:update
+
+    # Build image with packer
+    - rake images:project:build
+
+    # Test takelage project image
+    - rake images:project:molecule:test
+
+    # Login to dockerhub
+    - docker login --username takelwerk --password $DOCKERHUB_TOKEN
+
+    # Tag and push image
+    - rake dockerhub:project:tag:latest:arm64
+    - rake dockerhub:project:push:latest:arm64
+    - rake dockerhub:project:tag:version:arm64
+    - rake dockerhub:project:push:version:arm64
+
+    # Pull amd64 images
+    #- rake dockerhub:project:pull:latest:amd64
+    #- rake dockerhub:project:pull:version:amd64
+
+    # Create and push docker manifests
+    #- rake dockerhub:project:manifest:create:latest
+    #- rake dockerhub:project:manifest:push:latest
+    #- rake dockerhub:project:manifest:create:version
+    #- rake dockerhub:project:manifest:push:version
