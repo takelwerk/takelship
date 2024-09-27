@@ -43,11 +43,11 @@ build:
     - rake dockerhub:project:push:version:arm64
 
     # Pull amd64 images
-    #- rake dockerhub:project:pull:latest:amd64
-    #- rake dockerhub:project:pull:version:amd64
+    - rake dockerhub:project:pull:latest:amd64
+    - rake dockerhub:project:pull:version:amd64
 
     # Create and push docker manifests
-    #- rake dockerhub:project:manifest:create:latest
-    #- rake dockerhub:project:manifest:push:latest
-    #- rake dockerhub:project:manifest:create:version
-    #- rake dockerhub:project:manifest:push:version
+    - rake dockerhub:project:manifest:create:latest
+    - rake dockerhub:project:manifest:push:latest
+    - rake dockerhub:project:manifest:create:version
+    - rake dockerhub:project:manifest:push:version
