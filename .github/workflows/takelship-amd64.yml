@@ -71,22 +71,16 @@ jobs:
           tau docker container command "rake dockerhub:project:tag:version:amd64"
           tau docker container command "rake dockerhub:project:push:version:amd64"
 
-      - name: Pull arm64 latest image
+      - name: Create and push docker latest manifest if arm64 image exists
         run: |
           if tau docker container command "rake dockerhub:project:pull:latest:arm64"; then \
-            ARM64_VERSION_EXISTS='true'; \ 
-          fi
-
-      - name: Create and push docker latest manifest if arm64 version image exists
-        run: |
-          if [[ "$ARM64_VERSION_EXISTS" == "true" ]]; then \
-            tau docker container command "rake dockerhub:project:manifest:create:latest" && \
+            tau docker container command "rake dockerhub:project:manifest:create:latest"; \
             tau docker container command "rake dockerhub:project:manifest:push:latest"; \
           fi
 
-      - name: Create and push docker version manifest if arm64 version image exists
+      - name: Create and push docker version manifest if arm64 image exists
         run: |
-          if [[ "$ARM64_VERSION_EXISTS" == "true" ]]; then \
-            tau docker container command "rake dockerhub:project:manifest:create:version" && \
+          if tau docker container command "rake dockerhub:project:pull:version:arm64"; then \
+            tau docker container command "rake dockerhub:project:manifest:create:version"; \
             tau docker container command "rake dockerhub:project:manifest:push:version"; \
           fi
