@@ -73,14 +73,18 @@ jobs:
 
       - name: Create and push docker latest manifest if arm64 image exists
         run: |
-          if tau docker container command "rake dockerhub:project:pull:latest:arm64"; then \
-            tau docker container command "rake dockerhub:project:manifest:create:latest"; \
-            tau docker container command "rake dockerhub:project:manifest:push:latest"; \
+          if tau docker container command "rake dockerhub:project:pull:latest:arm64"; then
+            tau docker container command "rake dockerhub:project:manifest:create:latest"
+            tau docker container command "rake dockerhub:project:manifest:push:latest"
+          else
+            true
           fi
 
       - name: Create and push docker version manifest if arm64 image exists
         run: |
-          if tau docker container command "rake dockerhub:project:pull:version:arm64"; then \
-            tau docker container command "rake dockerhub:project:manifest:create:version"; \
-            tau docker container command "rake dockerhub:project:manifest:push:version"; \
+          if tau docker container command "rake dockerhub:project:pull:version:arm64"; then
+            tau docker container command "rake dockerhub:project:manifest:create:version"
+            tau docker container command "rake dockerhub:project:manifest:push:version"
+          else
+            true
           fi
