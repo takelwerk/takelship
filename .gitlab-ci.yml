@@ -11,10 +11,10 @@ variables:
   GITHUB_API_TOKEN: $GITHUB_API_TOKEN
 
 stages:
-  - build
+  - build_arm64
 
-build:
-  stage: build
+build_arm64:
+  stage: build_arm64
   only:
     - tags
   script:
