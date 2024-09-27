@@ -9,7 +9,9 @@ services:
     ##################################
     ### run entrypoint script manually
     ###
-    ### usually: docker compose up; docker compose down
+    ### usually: docker compose down;
+    ###          docker compose up;
+    ###          docker compose down
     ###
     ### now first: $ docker run -it --rm --privileged
     ### --hostname takelship --name takelship
