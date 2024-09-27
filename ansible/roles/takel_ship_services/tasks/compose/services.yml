@@ -1,0 +1,42 @@
+---
+- name: (compose) (services) deploy project file
+  ansible.builtin.template:
+    src: >-
+      ../../{{ takel_ship_services_service.role }}/templates/{{
+      takel_ship_services_service.template }}
+    dest: >-
+      {{ takel_ship_services_home_dir }}/{{
+      takel_ship_services_dist_dir }}/{{
+      takel_ship_services_compose_dir }}/{{
+      takel_ship_services_service.name }}/{{
+      takel_ship_services_service_filename }}.{{
+      takel_ship_services_service_fileext }}
+    owner: "{{ takel_ship_services_user.owner }}"
+    group: "{{ takel_ship_services_user.group }}"
+    mode: '0644'
+  vars:
+    takel_ship_services_include: ''
+  loop: "{{ takel_ship_services_services }}"
+  loop_control:
+    loop_var: takel_ship_services_service
+
+- name: (compose) (services) deploy service include file
+  ansible.builtin.template:
+    src: >-
+      ../../{{ takel_ship_services_service.role }}/templates/{{
+      takel_ship_services_service.template }}
+    dest: >-
+      {{ takel_ship_services_home_dir }}/{{
+      takel_ship_services_dist_dir }}/{{
+      takel_ship_services_compose_dir }}/{{
+      takel_ship_services_service.name }}/{{
+      takel_ship_services_service_include_filename }}.{{
+      takel_ship_services_service_fileext }}
+    owner: "{{ takel_ship_services_user.owner }}"
+    group: "{{ takel_ship_services_user.group }}"
+    mode: '0644'
+  vars:
+    takel_ship_services_include: "{{ takel_ship_services_service.name }}/"
+  loop: "{{ takel_ship_services_services }}"
+  loop_control:
+    loop_var: takel_ship_services_service

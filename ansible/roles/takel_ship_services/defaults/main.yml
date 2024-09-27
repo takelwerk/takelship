@@ -1,0 +1,61 @@
+---
+takel_ship_services_example_service:
+  name: example
+  role: takel_ship_services
+  template: docker-compose.example.yml.j2
+  images:
+    - "{{ takel_ship_services_example_image }}"
+
+takel_ship_services_example_image:
+  name: alpine
+  tag: latest
+  alias: alpine
+
+takel_ship_services_services:
+  - "{{ takel_ship_services_example_service }}"
+
+takel_ship_services_projects:
+  - name: default
+    services:
+      - "{{ takel_ship_services_example_service }}"
+
+takel_ship_services_deb_install_packages:
+  - curl
+  - iproute2
+  - jq
+  - nano
+  - skopeo
+  - tmux
+  - tree
+  - vim
+  - wget
+  - yq
+
+takel_ship_services_user:
+  owner: podman
+  group: podman
+
+takel_ship_services_script_containers:
+  name: containers.conf
+  role: takel_ship_services
+  template: containers.conf.j2
+  owner: "{{ takel_ship_services_user.owner }}"
+  group: "{{ takel_ship_services_user.group }}"
+  mode: '0644'
+  path: >-
+    {{ takel_ship_services_home_dir
+    }}/.config/containers
+
+takel_ship_services_home_dir: >-
+  /home/{{ takel_ship_services_user.owner }}
+takel_ship_services_data_dir: data
+takel_ship_services_dist_dir: dist
+takel_ship_services_compose_dir: compose
+takel_ship_services_service_filename: docker-compose
+takel_ship_services_service_fileext: yml
+takel_ship_services_service_include_filename: >-
+  docker-compose.include
+
+takel_ship_services_local_registry: localhost:5000
+
+takel_ship_services_log_prefix: [takelship]

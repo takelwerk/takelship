@@ -4,9 +4,9 @@
   gather_facts: false
   roles:
     - takel_anarchism
-    - takel_pod_services
-    - takel_pod_scripts
-    - takel_pod_entrypoint
-    - takel_pod_registry
-    - takel_pod_forgejo
+    - takel_ship_services
+    - takel_ship_scripts
+    - takel_ship_entrypoint
+    - takel_ship_registry
+    - takel_ship_forgejo
     - takel_cleanup

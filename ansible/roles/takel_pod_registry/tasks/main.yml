@@ -1,7 +1,0 @@
----
-- name: (main) include images
-  ansible.builtin.include_tasks: images.yml
-  tags:
-    - takel
-    - takel_pods
-    - takel_pod_services_images

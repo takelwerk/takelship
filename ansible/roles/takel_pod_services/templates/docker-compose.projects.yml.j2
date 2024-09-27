@@ -1,6 +1,0 @@
----
-include:
-{% for service in takel_pod_services_project.services %}
-  - {{ service.name }}/{{ takel_pod_services_service_include_filename }}.{{ takel_pod_services_service_fileext }}
-{% endfor %}
-

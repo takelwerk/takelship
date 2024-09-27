@@ -1,6 +1,0 @@
----
-- name: (molecule) converge
-  hosts: all
-  roles:
-    - takel_pod_services
-    - takel_pod_scripts

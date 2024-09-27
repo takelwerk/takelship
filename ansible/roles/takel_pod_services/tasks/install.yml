@@ -1,6 +1,0 @@
----
-- name: (install) install deb packages
-  ansible.builtin.apt:
-    name: "{{ takel_pod_services_deb_install_packages }}"
-    state: present
-    update_cache: true

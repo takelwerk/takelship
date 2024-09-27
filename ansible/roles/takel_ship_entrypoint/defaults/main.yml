@@ -1,0 +1,11 @@
+---
+takel_ship_entrypoint_script_entrypoint:
+  name: entrypoint
+  role: takel_ship_entrypoint
+  template: entrypoint.bash.j2
+  path: /
+
+takel_ship_entrypoint_script_change_id:
+  name: change_id.py
+  role: takel_ship_entrypoint
+  template: change_id.py.j2

@@ -1,0 +1,15 @@
+---
+- name: (install) deploy executable file
+  ansible.builtin.template:
+    src: >-
+      ../../{{ takel_ship_scripts_file.role }}/templates/{{
+      takel_ship_scripts_file.template }}
+    dest: >-
+      {{ takel_ship_scripts_file.path | default(takel_ship_scripts_dir) }}/{{
+      takel_ship_scripts_file.name }}
+    owner: "{{ takel_ship_scripts_file.owner | default('root') }}"
+    group: "{{ takel_ship_scripts_file.group | default('root') }}"
+    mode: "{{ takel_ship_scripts_file.mode | default('0755') }}"
+  loop: "{{ takel_ship_scripts_scripts }}"
+  loop_control:
+    loop_var: takel_ship_scripts_file

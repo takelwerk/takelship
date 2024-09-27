@@ -1,0 +1,6 @@
+---
+include:
+{% for service in takel_ship_services_project.services %}
+  - {{ service.name }}/{{ takel_ship_services_service_include_filename }}.{{ takel_ship_services_service_fileext }}
+{% endfor %}
+

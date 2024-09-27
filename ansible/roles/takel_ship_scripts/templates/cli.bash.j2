@@ -1,0 +1,6 @@
+{{ takel_ship_scripts_shebang }}
+
+echo takelship command line interface:
+{% for takel_ship_scripts_script in takel_ship_scripts_scripts if 'list' in takel_ship_scripts_script and takel_ship_scripts_script.list %}
+echo "    {{ takel_ship_scripts_script.name }}"
+{% endfor %}

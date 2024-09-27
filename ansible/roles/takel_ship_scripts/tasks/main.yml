@@ -1,0 +1,7 @@
+---
+- name: (main) include install
+  ansible.builtin.include_tasks: install.yml
+  tags:
+    - takel
+    - takel_ship_scripts
+    - takel_ship_scripts_install

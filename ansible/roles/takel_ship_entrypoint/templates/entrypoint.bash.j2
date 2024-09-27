@@ -1,0 +1,45 @@
+{{ takel_ship_scripts_shebang }}
+
+DEBUG=${TAKELSHIP_DEBUG:-"false"}
+DEBUG=${DEBUG,,}
+debug() {
+  [[ "$DEBUG" == "true" ]] && echo $@
+}
+
+echo {{ takel_ship_services_log_prefix }} This is a takelwerk takelship container
+echo {{ takel_ship_services_log_prefix }} It runs {{ project['images']['project']['target_user'] }}/{{ project['images']['project']['target_repo'] }}:{{ project['version'] }}
+echo {{ takel_ship_services_log_prefix }} Preparing podman container environment
+
+debug suppress warning message about shared mount
+mount / --make-rshare
+
+debug check if containers are running then exit
+{{ takel_ship_scripts_script_cmd['name'] }} podman container exists registry && exit
+
+debug change uid and git
+change_id.py
+
+debug make sure that the data dir exists
+{{ takel_ship_scripts_script_cmd['name'] }} mkdir --parents {{takel_ship_services_home_dir}}/{{ takel_ship_services_data_dir }}
+
+UPDATE="false"
+
+debug check if we have to prepopulate the data dir
+[ ! -f "{{takel_ship_services_home_dir}}/{{ takel_ship_services_data_dir }}/{{ takel_ship_services_compose_dir }}/run.default" ] && UPDATE="true"
+
+UPDATE=${TAKELSHIP_UPDATE:-$UPDATE}
+UPDATE=${UPDATE,,}
+
+if [ "$UPDATE" == "true" ]; then
+  debug copy dist files to data volume
+  {{ takel_ship_scripts_script_cmd['name'] }} cp --recursive /home/podman/dist/* /home/podman/data
+fi
+
+PROJECT=${TAKELSHIP_PROJECT:-"default"}
+PROJECT=${PROJECT,,}
+
+echo {{ takel_ship_services_log_prefix }} Starting podman compose project: "$PROJECT"
+{{ takel_ship_scripts_script_cmd['name'] }} --workdir /home/podman/data/compose "./run.$PROJECT" & >/dev/null 2>&1
+
+echo {{ takel_ship_services_log_prefix }} Boarding podman compose logs
+while true; do {{ takel_ship_scripts_script_cmd['name'] }} --workdir {{takel_ship_services_home_dir}}/{{ takel_ship_services_data_dir }}/{{ takel_ship_services_compose_dir }} podman compose --file "{{takel_ship_services_home_dir}}/{{ takel_ship_services_data_dir }}/{{ takel_ship_services_compose_dir }}/{{ takel_ship_services_service_filename}}-$PROJECT.yml" logs --follow 2>/dev/null; done

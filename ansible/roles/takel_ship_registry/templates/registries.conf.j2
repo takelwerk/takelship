@@ -1,0 +1,14 @@
+unqualified-search-registries = ["docker.io"]
+
+[aliases]
+{% for service in takel_ship_services_services %}
+{% if 'images' in service %}
+{% for image in service.images %}
+"{{ image.alias }}" = "{{ takel_ship_services_local_registry }}/{{ image.name }}"
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+[[registry]]
+location = "localhost:5000"
+insecure = true

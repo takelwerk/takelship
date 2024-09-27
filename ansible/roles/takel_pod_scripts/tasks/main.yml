@@ -1,7 +1,0 @@
----
-- name: (main) include install
-  ansible.builtin.include_tasks: install.yml
-  tags:
-    - takel
-    - takel_pod_scripts
-    - takel_pod_scripts_install
