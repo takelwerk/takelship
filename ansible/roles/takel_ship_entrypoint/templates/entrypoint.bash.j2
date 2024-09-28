@@ -39,7 +39,7 @@ PROJECT=${TAKELSHIP_PROJECT:-"default"}
 PROJECT=${PROJECT,,}
 
 echo {{ takel_ship_compose_log_prefix }} Starting podman compose project: "$PROJECT"
-{{ takel_ship_scripts_script_cmd['name'] }} --workdir /home/podman/data/compose "./run.$PROJECT" & >/dev/null 2>&1
+{{ takel_ship_scripts_script_cmd['name'] }} --workdir {{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }} "./run.$PROJECT" & >/dev/null 2>&1
 
 echo {{ takel_ship_compose_log_prefix }} Boarding podman compose logs
 while true; do {{ takel_ship_scripts_script_cmd['name'] }} --workdir {{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }} podman compose --file "{{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_service_filename}}-$PROJECT.yml" logs --follow 2>/dev/null; done
