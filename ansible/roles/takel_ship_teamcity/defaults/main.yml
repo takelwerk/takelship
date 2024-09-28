@@ -1,0 +1,26 @@
+---
+takel_ship_teamcity_service:
+  name: teamcity
+  role: takel_ship_teamcity
+  template: docker-compose.teamcity.yml.j2
+  volumes:
+    - name: teamcity-data
+      mount: /data/teamcity_server/datadir
+    - name: teamcity-logs
+      mount: /opt/teamcity/logs
+  images:
+    - "{{ takel_ship_teamcity_server_image }}"
+    - "{{ takel_ship_teamcity_agent_image }}"
+
+takel_ship_teamcity_server_image:
+  name: jetbrains/teamcity-server
+  tag: 2024.07.2
+  alias: teamcity-server
+
+takel_ship_teamcity_agent_image:
+  name: jetbrains/teamcity-agent
+  tag: 2024.07.2-linux-sudo
+  alias: teamcity-agent-linux-sudo
+
+takel_ship_teamcity_restart: always
+takel_ship_teamcity_http_port: 8111

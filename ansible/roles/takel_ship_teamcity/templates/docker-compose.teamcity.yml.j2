@@ -1,0 +1,40 @@
+---
+name: {{ takel_ship_teamcity_service['name'] }}
+
+services:
+    {{ takel_ship_teamcity_service['name'] }}:
+        container_name: {{ takel_ship_teamcity_service['name'] }}
+        image: {{ takel_ship_teamcity_server_image['alias'] }}:{{ takel_ship_teamcity_server_image['tag'] }}
+        ports:
+            - "{{ takel_ship_teamcity_http_port }}:8111"
+        volumes:
+            - ./{{ takel_ship_compose_include }}teamcity-data:/data/teamcity_server/datadir
+            - ./{{ takel_ship_compose_include }}teamcity-logs:/opt/teamcity/logs
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
+
+    {{ takel_ship_teamcity_service['name'] }}-agent-1:
+        image: {{ takel_ship_teamcity_agent_image['alias'] }}:{{ takel_ship_teamcity_agent_image['tag'] }}
+        container_name: {{ takel_ship_teamcity_service['name'] }}-agent-1
+        privileged: true
+        environment:
+            SERVER_URL: http://{{ takel_ship_teamcity_service['name'] }}:8111
+            DOCKER_IN_DOCKER: start
+            AGENT_NAME: {{ takel_ship_teamcity_service['name'] }}-agent-sudo-1
+            AGENT_OPTS: >-
+                docker.server.osType=Linux
+                docker.server.version=N/A
+                teamcity.agent.os.family=Linux
+
+    {{ takel_ship_teamcity_service['name'] }}-agent-2:
+        image: {{ takel_ship_teamcity_agent_image['alias'] }}:{{ takel_ship_teamcity_agent_image['tag'] }}
+        container_name: {{ takel_ship_teamcity_service['name'] }}-agent-2
+        privileged: true
+        environment:
+            SERVER_URL: http://{{ takel_ship_teamcity_service['name'] }}:8111
+            DOCKER_IN_DOCKER: start
+            AGENT_NAME: {{ takel_ship_teamcity_service['name'] }}-agent-sudo-2
+            AGENT_OPTS: >-
+              docker.server.osType=Linux
+              docker.server.version=N/A
+              teamcity.agent.os.family=Linux

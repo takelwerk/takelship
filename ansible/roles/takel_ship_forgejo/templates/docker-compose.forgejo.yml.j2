@@ -11,12 +11,10 @@ services:
       - USER_UID={{ takel_ship_forgejo_uid }}
       - USER_GID={{ takel_ship_forgejo_gid }}
     restart: {{ takel_ship_forgejo_restart }}
-    networks:
-      - {{ takel_ship_forgejo_service['name'] }}
-    volumes:
-      - ./{{ takel_ship_compose_include }}data:/data
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
     ports:
       - "{{ takel_ship_forgejo_http_port }}:3000"
       - "{{ takel_ship_forgejo_ssh_port }}:22"
+    volumes:
+        - ./{{ takel_ship_compose_include }}data:/data
+        - /etc/timezone:/etc/timezone:ro
+        - /etc/localtime:/etc/localtime:ro

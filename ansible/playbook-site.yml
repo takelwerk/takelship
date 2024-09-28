@@ -9,4 +9,5 @@
     - takel_ship_entrypoint
     - takel_ship_registry
     - takel_ship_forgejo
+    - takel_ship_teamcity
     - takel_cleanup

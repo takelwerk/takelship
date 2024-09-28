@@ -2,6 +2,7 @@
 takel_ship_compose_services:
   - "{{ takel_ship_registry_service }}"
   - "{{ takel_ship_forgejo_service }}"
+  - "{{ takel_ship_teamcity_service }}"
 
 takel_ship_compose_projects:
   - name: default
@@ -10,3 +11,7 @@ takel_ship_compose_projects:
   - name: "{{ takel_ship_forgejo_service.name }}"
     services:
       - "{{ takel_ship_forgejo_service }}"
+  - name: "{{ takel_ship_teamcity_service.name }}"
+    services:
+      - "{{ takel_ship_forgejo_service }}"
+      - "{{ takel_ship_teamcity_service }}"
