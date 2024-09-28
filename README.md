@@ -6,7 +6,7 @@ At the moment, these setups have been tested:
   - [Docker Engine on Debian](https://docs.docker.com/engine/install/debian/) (amd64 and arm64)
   - [Docker Desktop on macOS](https://docs.docker.com/desktop/install/mac-install/) (arm64)
 
-It is not possible to run the *takelship* with podman although (or because?) it uses podman to run containers. 
+You have to run docker as user, not as root. It is not possible to run the *takelship* container with podman although (or because?) it uses itself podman to run containers.
 
 ## Framework Versions
 
