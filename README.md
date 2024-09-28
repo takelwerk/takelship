@@ -44,23 +44,19 @@ It is not possible to run the *takelship* with podman although (or because?) it 
 
 ## Examples
 
-Start a forgejo server:
+Start a forgejo server (<Ctrl-c> will terminate):
 
 ```bash
 mkdir -p data; docker run -it --rm --privileged --name takelship --hostname takelship -p 127.0.0.1:30022:22 -p 127.0.0.1:33000:3000 -v ./data:/home/podman/data --env TAKELSHIP_PROJECT=forgejo takelwerk/takelship
 ```
 
-Start a teamcity server, two team city agents and a forgejo server:
+Start a teamcity server, two teamcity agents and a forgejo server:
 
 ```bash
 mkdir -p data; docker run -it --rm --privileged --name takelship --hostname takelship -p 127.0.0.1:30022:22 -p 127.0.0.1:33000:3000 -p 38111:8111 -v ./data:/home/podman/data --env TAKELSHIP_PROJECT=teamcity takelwerk/takelship
 ```
 
-```bash
-docker exec -it takelship cli
-```
-
-List available container commands:
+List the available container commands:
 
 ```bash
 docker exec -it takelship cli
@@ -72,7 +68,7 @@ Run a command as podman user:
 docker exec -it takelship cmd podman ps -a
 ```
 
-Run a command as podman user in a different directory (`-w` or `--workdir`) than the default /home/podman directory:
+Run a command as podman user in a different directory (`-w` or `--workdir`) than the default directory (/home/podman):
 
 ```bash
 docker exec -it takelship cmd -w /tmp "podman info > ./podman_info"
