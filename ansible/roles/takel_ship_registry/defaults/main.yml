@@ -1,8 +1,17 @@
 ---
+takel_ship_registry_services:
+  - "{{ takel_ship_registry_service }}"
+
+takel_ship_registry_scripts:
+  - "{{ takel_ship_registry_script_mirror }}"
+
+### end of group_vars
+
 takel_ship_registry_service:
   name: registry
   role: takel_ship_registry
   template: docker-compose.registry.yml.j2
+  env: env.registry.j2
   volumes:
     - name: data
       mount: /data
@@ -41,4 +50,4 @@ takel_ship_registry_script_mirror:
     takel_ship_registry_service.name }}
 
 takel_ship_registry_restart: always
-takel_ship_registry_http_port: 5000
+takel_ship_registry_http_port: 35000

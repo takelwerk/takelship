@@ -8,11 +8,11 @@ cmd_login_root = 'docker exec ' \
     'molecule_default_takelbeta_takelship_%<unique>s ' \
     'bash'
 
-cmd_login_user = 'docker exec ' \
+cmd_login_podman = 'docker exec ' \
     '--interactive ' \
     '--tty ' \
     'molecule_default_takelbeta_takelship_%<unique>s ' \
-    'bash -c "su - %<user>s"'
+    'cmd shell'
 
 namespace :login do
   begin
@@ -27,14 +27,11 @@ namespace :login do
       unique: unique
     )
   end
-  ['podmac'].each do |user|
-    desc "Login as #{user}"
-    task user.to_sym do
-      @commands << format(
-        cmd_login_user,
-        unique: unique,
-        user: user
-      )
-    end
+  desc 'Login as podman'
+  task :podman do
+    @commands << format(
+      cmd_login_podman,
+      unique: unique,
+    )
   end
 end

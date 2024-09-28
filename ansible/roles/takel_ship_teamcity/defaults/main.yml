@@ -1,8 +1,14 @@
 ---
+takel_ship_teamcity_services:
+  - "{{ takel_ship_teamcity_service }}"
+
+### end of group_vars
+
 takel_ship_teamcity_service:
   name: teamcity
   role: takel_ship_teamcity
   template: docker-compose.teamcity.yml.j2
+  env: env.teamcity.j2
   volumes:
     - name: teamcity-data
       mount: /data/teamcity_server/datadir
@@ -23,4 +29,5 @@ takel_ship_teamcity_agent_image:
   alias: teamcity-agent-linux-sudo
 
 takel_ship_teamcity_restart: always
-takel_ship_teamcity_http_port: 8111
+takel_ship_teamcity_http_port: 38111
+takel_ship_teamcity_agents: 3

@@ -5,8 +5,8 @@
 # if installed, docker-compose takes precedence
 
 # echo starting local registry
-podman compose --file {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/registry/{{ takel_ship_compose_service_filename }}.{{ takel_ship_compose_service_fileext }} up -d
+${TAKELSHIP_PODMAN_COMPOSE:-podman compose} --file {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/registry/{{ takel_ship_compose_service_filename }}.{{ takel_ship_compose_service_fileext }} up --detach
 # copying images to local registry
-{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_dist_dir }}/{{ takel_ship_compose_compose_dir }}/registry/mirror
+${TAKELSHIP_COMPOSE_DIR:-{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}}/registry/mirror
 # starting {{ takel_ship_compose_project.name }}
-podman compose --file {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_service_filename }}-{{ takel_ship_compose_project.name }}.{{ takel_ship_compose_service_fileext }} up
+${TAKELSHIP_PODMAN_COMPOSE:-podman compose} --file {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_service_filename }}-{{ takel_ship_compose_project.name }}.{{ takel_ship_compose_service_fileext }} up

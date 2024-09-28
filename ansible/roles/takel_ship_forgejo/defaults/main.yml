@@ -1,8 +1,17 @@
 ---
+takel_ship_forgejo_services:
+  - "{{ takel_ship_forgejo_service }}"
+
+takel_ship_forgejo_scripts:
+  - "{{ takel_ship_forgejo_script_forgejo }}"
+
+### end of group_vars
+
 takel_ship_forgejo_service:
   name: forgejo
   role: takel_ship_forgejo
   template: docker-compose.forgejo.yml.j2
+  env: env.forgejo.j2
   volumes:
     - name: data
       mount: /data
@@ -23,8 +32,8 @@ takel_ship_forgejo_script_forgejo:
 takel_ship_forgejo_uid: 1000
 takel_ship_forgejo_gid: 1000
 takel_ship_forgejo_restart: always
-takel_ship_forgejo_http_port: 3000
-takel_ship_forgejo_ssh_port: 22
+takel_ship_forgejo_http_port: 33000
+takel_ship_forgejo_ssh_port: 30022
 
 takel_ship_forgejo_bin_cli: forgejo
 takel_ship_forgejo_bin_container_command: >-
