@@ -41,3 +41,52 @@ It is not possible to run the *takelship* with podman although (or because?) it 
 |                                                                                                                                                                | [![test takelpad](https://img.shields.io/github/actions/workflow/status/takelwerk/takelage-pad/test_takelpad.yml?label=test%20takelpad)](https://github.com/takelwerk/takelage-pad/actions/workflows/test_takelpad.yml) [![test roles](https://img.shields.io/github/actions/workflow/status/takelwerk/takelage-pad/test_roles.yml?label=test%20roles)](https://github.com/takelwerk/takelage-pad/actions/workflows/test_roles.yml)                                 |
 | [![takelship](https://img.shields.io/badge/github-takelship-purple)](https://github.com/takelwerk/takelship)                                                   | [![takelship docker](https://img.shields.io/github/actions/workflow/status/takelwerk/takelship/takelship-amd64.yml?label=takelship%20docker)](https://github.com/takelwerk/takelship/actions/workflows/takelship-amd64.yml)                                                                                                                                                                                                                                         |
 |
+
+## Examples
+
+Start a forgejo server:
+
+```bash
+mkdir -p data; docker run -it --rm --privileged --name takelship --hostname takelship -p 127.0.0.1:30022:22 -p 127.0.0.1:33000:3000 -v ./data:/home/podman/data --env TAKELSHIP_PROJECT=forgejo takelwerk/takelship
+```
+
+Start a teamcity server, two team city agents and a forgejo server:
+
+```bash
+mkdir -p data; docker run -it --rm --privileged --name takelship --hostname takelship -p 127.0.0.1:30022:22 -p 127.0.0.1:33000:3000 -p 38111:8111 -v ./data:/home/podman/data --env TAKELSHIP_PROJECT=teamcity takelwerk/takelship
+```
+
+```bash
+docker exec -it takelship cli
+```
+
+List available container commands:
+
+```bash
+docker exec -it takelship cli
+```
+
+Run a command as podman user:
+
+```bash
+docker exec -it takelship cmd podman ps -a
+```
+
+Run a command as podman user in a different directory (`-w` or `--workdir`) than the default /home/podman directory:
+
+```bash
+docker exec -it takelship cmd -w /tmp "podman info > ./podman_info"
+docker exec -it takelship cmd cat /tmp/podman_info
+```
+
+Enter a login shell as podman user:
+
+```bash
+docker exec -it takelship cmd shell
+```
+
+Become root:
+
+```bash
+docker exec -it takelship bash
+```

@@ -28,6 +28,7 @@ services:
       - ./data:/home/podman/data
     ports:
       - 127.0.0.1:30022:22   # forgejo ssh
-      # - 127.0.0.1:30080:80   # TODO http
+      # - 127.0.0.1:30080:80 # TODO http
       - 127.0.0.1:33000:3000 # forgejo http
       - 127.0.0.1:35000:5000 # registry http
+      - 127.0.0.1:38111:8111 # teamcity http
