@@ -46,13 +46,13 @@ You have to run docker as user, not as root. It is not possible to run the *take
 Start a forgejo server (<Ctrl-c> will terminate):
 
 ```bash
-mkdir -p data; docker run -it --rm --privileged --name takelship --hostname takelship -p 127.0.0.1:30022:22 -p 127.0.0.1:33000:3000 -v ./data:/home/podman/data --env TAKELSHIP_PROJECT=forgejo takelwerk/takelship
+mkdir -p data; docker run -it --rm --privileged --name takelship --hostname takelship -p 127.0.0.1:30022:30022 -p 127.0.0.1:33000:33000 -v ./data:/home/podman/data --env TAKELSHIP_PROJECT=forgejo takelwerk/takelship
 ```
 
 Start a teamcity server, three teamcity agents and a forgejo server:
 
 ```bash
-mkdir -p data; docker run -it --rm --privileged --name takelship --hostname takelship -p 127.0.0.1:30022:22 -p 127.0.0.1:33000:3000 -p 38111:8111 -v ./data:/home/podman/data --env TAKELSHIP_PROJECT=teamcity takelwerk/takelship
+mkdir -p data; docker run -it --rm --privileged --name takelship --hostname takelship -p 127.0.0.1:30022:30022 -p 127.0.0.1:33000:33000 -p 38111:38111 -v ./data:/home/podman/data --env TAKELSHIP_PROJECT=teamcity takelwerk/takelship
 ```
 
 List the available container commands:

@@ -10,5 +10,5 @@ unqualified-search-registries = ["docker.io"]
 {% endfor %}
 
 [[registry]]
-location = "localhost:5000"
+location = "{{ takel_ship_compose_local_registry }}"
 insecure = true

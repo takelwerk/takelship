@@ -1,5 +1,12 @@
 ---
-takel_ship_scripts_scripts:
+takel_ship_scripts_scripts_scripts:
+  - "{{ takel_ship_scripts_script_cli }}"
+  - "{{ takel_ship_scripts_script_cmd }}"
+
+### end of group_vars
+
+# default vars for role unit test
+takel_ship_scripts:
   - "{{ takel_ship_scripts_script_cli }}"
   - "{{ takel_ship_scripts_script_cmd }}"
 

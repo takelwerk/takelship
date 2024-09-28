@@ -4,7 +4,7 @@
 {% if 'images' in service %}
 {% for image in service.images %}
 # copy image {{ image.alias }}
-skopeo copy docker://{{ image.name }}:{{ image.tag }} docker://localhost:5000/{{ image.name }}:{{ image.tag }}
+skopeo copy docker://{{ image.name }}:{{ image.tag }} docker://{{ takel_ship_compose_local_registry }}/{{ image.name }}:{{ image.tag }}
 {% endfor %}
 {% endif %}
 {% endfor %}

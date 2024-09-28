@@ -1,4 +1,20 @@
 ---
+takel_ship_compose_services_services: []
+
+takel_ship_compose_scripts:
+  - "{{ takel_ship_compose_script_containers }}"
+
+### end of group_vars
+
+# default vars for role unit test
+takel_ship_compose_services:
+  - "{{ takel_ship_compose_example_service }}"
+
+takel_ship_compose_projects:
+  - name: default
+    services:
+      - "{{ takel_ship_compose_example_service }}"
+
 takel_ship_compose_example_service:
   name: example
   role: takel_ship_compose
@@ -10,14 +26,6 @@ takel_ship_compose_example_image:
   name: alpine
   tag: latest
   alias: alpine
-
-takel_ship_compose_services:
-  - "{{ takel_ship_compose_example_service }}"
-
-takel_ship_compose_projects:
-  - name: default
-    services:
-      - "{{ takel_ship_compose_example_service }}"
 
 takel_ship_compose_deb_install_packages:
   - curl
@@ -53,9 +61,7 @@ takel_ship_compose_dist_dir: dist
 takel_ship_compose_compose_dir: compose
 takel_ship_compose_service_filename: docker-compose
 takel_ship_compose_service_fileext: yml
-takel_ship_compose_service_include_filename: >-
-  docker-compose.include
 
-takel_ship_compose_local_registry: localhost:5000
+takel_ship_compose_local_registry: localhost:35000
 
 takel_ship_compose_log_prefix: [takelship]

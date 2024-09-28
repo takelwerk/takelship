@@ -1,5 +1,5 @@
 ---
-- name: (compose) (services) deploy project file
+- name: (compose) (services) deploy service file
   ansible.builtin.template:
     src: >-
       ../../{{ takel_ship_compose_service.role }}/templates/{{
@@ -14,29 +14,23 @@
     owner: "{{ takel_ship_compose_user.owner }}"
     group: "{{ takel_ship_compose_user.group }}"
     mode: '0644'
-  vars:
-    takel_ship_compose_include: ''
   loop: "{{ takel_ship_compose_services }}"
   loop_control:
     loop_var: takel_ship_compose_service
 
-- name: (compose) (services) deploy service include file
+- name: (compose) (services) deploy env file
   ansible.builtin.template:
     src: >-
       ../../{{ takel_ship_compose_service.role }}/templates/{{
-      takel_ship_compose_service.template }}
+      takel_ship_compose_service.env }}
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
-      takel_ship_compose_service.name }}/{{
-      takel_ship_compose_service_include_filename }}.{{
-      takel_ship_compose_service_fileext }}
+      takel_ship_compose_service.name }}/.env
     owner: "{{ takel_ship_compose_user.owner }}"
     group: "{{ takel_ship_compose_user.group }}"
     mode: '0644'
-  vars:
-    takel_ship_compose_include: "{{ takel_ship_compose_service.name }}/"
   loop: "{{ takel_ship_compose_services }}"
   loop_control:
     loop_var: takel_ship_compose_service

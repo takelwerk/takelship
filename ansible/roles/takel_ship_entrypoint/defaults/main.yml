@@ -1,11 +1,23 @@
 ---
+takel_ship_entrypoint_scripts:
+  - "{{ takel_ship_entrypoint_script_entrypoint }}"
+  - "{{ takel_ship_entrypoint_script_change_ids }}"
+  - "{{ takel_ship_entrypoint_script_export_envvars }}"
+
+### end of group_vars
+
 takel_ship_entrypoint_script_entrypoint:
   name: entrypoint
   role: takel_ship_entrypoint
   template: entrypoint.bash.j2
   path: /
 
-takel_ship_entrypoint_script_change_id:
-  name: change_id.py
+takel_ship_entrypoint_script_change_ids:
+  name: takelship_change_podman_ids.py
   role: takel_ship_entrypoint
   template: change_id.py.j2
+
+takel_ship_entrypoint_script_export_envvars:
+  name: takelship_export_envvars
+  role: takel_ship_entrypoint
+  template: export_envvars.bash.j2

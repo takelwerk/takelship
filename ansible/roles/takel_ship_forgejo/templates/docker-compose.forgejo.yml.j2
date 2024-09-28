@@ -1,20 +1,19 @@
 ---
-networks:
-  {{ takel_ship_forgejo_service['name'] }}:
-    external: false
+name: forgejo
 
 services:
-  {{ takel_ship_forgejo_service['name'] }}:
-    image: {{ takel_ship_forgejo_image['alias'] }}:{{ takel_ship_forgejo_image['tag'] }}
-    container_name: {{ takel_ship_forgejo_service['name'] }}
+  forgejo:
+    container_name: ${TAKELSHIP_FORGEJO_CONTAINER_NAME:-forgejo}
+    hostname: ${TAKELSHIP_FORGEJO_HOSTNAME:-forgejo}
+    image: ${TAKELSHIP_FORGEJO_IMAGE:-{{ takel_ship_forgejo_image['alias'] }}:{{ takel_ship_forgejo_image['tag'] }}}
+    restart: ${TAKELSHIP_FORGEJO_RESTART:-{{ takel_ship_forgejo_restart }}}
     environment:
-      - USER_UID={{ takel_ship_forgejo_uid }}
-      - USER_GID={{ takel_ship_forgejo_gid }}
-    restart: {{ takel_ship_forgejo_restart }}
+      - USER_UID=${TAKELSHIP_FORGEJO_UID:-{{ takel_ship_forgejo_uid }}}
+      - USER_GID=${TAKELSHIP_FORGEJO_GID:-{{ takel_ship_forgejo_gid }}}
     ports:
-      - "{{ takel_ship_forgejo_http_port }}:3000"
-      - "{{ takel_ship_forgejo_ssh_port }}:22"
+      - "${TAKELSHIP_FORGEJO_HTTP_PORT:-{{ takel_ship_forgejo_http_port }}}:3000"
+      - "${TAKELSHIP_FORGEJO_SSH_PORT:-{{ takel_ship_forgejo_ssh_port }}}:22"
     volumes:
-        - ./{{ takel_ship_compose_include }}data:/data
+        - ${TAKELSHIP_FORGEJO_DATA_DIR:-./data}:/data
         - /etc/timezone:/etc/timezone:ro
         - /etc/localtime:/etc/localtime:ro
