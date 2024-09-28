@@ -43,7 +43,7 @@ You have to run docker as user, not as root. It is not possible to run the *take
 
 ## Examples
 
-Start a forgejo server (<Ctrl-c> will terminate):
+Start a forgejo server (Ctrl-c will stop and remove both the forgero and the takelship container):
 
 ```bash
 mkdir -p data; docker run -it --rm --privileged --name takelship --hostname takelship -p 127.0.0.1:30022:22 -p 127.0.0.1:33000:3000 -v ./data:/home/podman/data --env TAKELSHIP_PROJECT=forgejo takelwerk/takelship
@@ -67,7 +67,7 @@ Run a command as podman user:
 docker exec -it takelship cmd podman ps -a
 ```
 
-Run a command as podman user in a different directory (`-w` or `--workdir`) than the default directory (/home/podman):
+Run a command as podman user in a different directory (`-w` or `--workdir`) than the default directory (`/home/podman`):
 
 ```bash
 docker exec -it takelship cmd -w /tmp "podman info > ./podman_info"
