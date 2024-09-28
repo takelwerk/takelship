@@ -38,3 +38,16 @@ services:
               docker.server.osType=Linux
               docker.server.version=N/A
               teamcity.agent.os.family=Linux
+
+    {{ takel_ship_teamcity_service['name'] }}-agent-3:
+        image: {{ takel_ship_teamcity_agent_image['alias'] }}:{{ takel_ship_teamcity_agent_image['tag'] }}
+        container_name: {{ takel_ship_teamcity_service['name'] }}-agent-1
+        privileged: true
+        environment:
+            SERVER_URL: http://{{ takel_ship_teamcity_service['name'] }}:8111
+            DOCKER_IN_DOCKER: start
+            AGENT_NAME: {{ takel_ship_teamcity_service['name'] }}-agent-sudo-3
+            AGENT_OPTS: >-
+                docker.server.osType=Linux
+                docker.server.version=N/A
+                teamcity.agent.os.family=Linux

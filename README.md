@@ -49,7 +49,7 @@ Start a forgejo server (<Ctrl-c> will terminate):
 mkdir -p data; docker run -it --rm --privileged --name takelship --hostname takelship -p 127.0.0.1:30022:22 -p 127.0.0.1:33000:3000 -v ./data:/home/podman/data --env TAKELSHIP_PROJECT=forgejo takelwerk/takelship
 ```
 
-Start a teamcity server, two teamcity agents and a forgejo server:
+Start a teamcity server, three teamcity agents and a forgejo server:
 
 ```bash
 mkdir -p data; docker run -it --rm --privileged --name takelship --hostname takelship -p 127.0.0.1:30022:22 -p 127.0.0.1:33000:3000 -p 38111:8111 -v ./data:/home/podman/data --env TAKELSHIP_PROJECT=teamcity takelwerk/takelship
