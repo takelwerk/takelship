@@ -1,6 +1,6 @@
 services:
   takelship:
-    image: {{ project['images']['project']['target_user'] }}/{{  project['images']['project']['target_repo'] }}
+    image: {{ project['images']['project']['target_user'] }}/{{ project['images']['project']['target_repo'] }}
     ##################################
     ### takelage debug image
     ###
@@ -33,13 +33,13 @@ services:
     environment:
       TAKELSHIP_PROJECT: default
     ###
-    #   TAKELSHIP_DEBUG: false
+    #  TAKELSHIP_DEBUG: false
     ### enables debug logging to stdout
-    #   TAKELSHIP_UPDATE:
+    #  TAKELSHIP_UPDATE:
     ### controls updates of compose filese in the compose dir
     ### see {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}{{ takel_ship_compose_compose_dir }}/<service>/env
     ### for service specific environment variables
-    ### {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}{{ takel_ship_compose_compose_dir }}
+    ###
     volumes:
       - ${TAKELSHIP_DATADIR:-./data}:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}
     ports:
