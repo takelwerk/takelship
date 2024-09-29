@@ -1,5 +1,0 @@
-data/tests/test_default.py.i
-data/molecule.yml.i
-data/.hgignore.i
-data/side_effect.yml.i
-data/molecule.yml.orig.i
