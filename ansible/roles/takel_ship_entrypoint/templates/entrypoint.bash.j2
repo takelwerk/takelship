@@ -29,6 +29,10 @@ fi
 
 [[ "$PROJECT" == "default" ]] && PROJECT={{ takel_ship_compose_default_project }}
 
+if [ -z "$PROJECT" ] && [[ $# -eq 0 ]]; then
+  {{ takel_ship_scripts_script_first_aid['name'] }}
+fi
+
 echo {{ takel_ship_entrypoint_log_prefix }} Preparing podman container environment
 
 debug export takelship environment variables
