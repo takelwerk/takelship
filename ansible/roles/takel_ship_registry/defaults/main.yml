@@ -48,4 +48,3 @@ takel_ship_registry_http_port:
 
 takel_ship_registry_local_registry: >-
   localhost:{{ takel_ship_registry_http_port['port'] }}
-

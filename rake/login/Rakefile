@@ -31,7 +31,7 @@ namespace :login do
   task :podman do
     @commands << format(
       cmd_login_podman,
-      unique: unique,
+      unique: unique
     )
   end
 end
