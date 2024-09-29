@@ -48,6 +48,18 @@ fi
 PROJECT=${TAKELSHIP_PROJECT:-"{{ takel_ship_compose_default_project }}"}
 PROJECT=${PROJECT,,}
 
+if [[ "$PROJECT" != "default" ]] &&
+{% for project in takel_ship_compose_projects %}
+  [[ "$PROJECT" != {{ project['name'] }} ]] &&
+{% endfor %}
+  true; then
+  echo {{ takel_ship_entrypoint_log_prefix }} There is no project: "$PROJECT"
+  {{ takel_ship_scripts_script_first_aid['name'] }}
+  exit
+fi
+
+[[ "$PROJECT" == "default" ]] && PROJECT={{ takel_ship_compose_default_project }}
+
 echo {{ takel_ship_entrypoint_log_prefix }} Starting podman compose project: "$PROJECT"
 {{ takel_ship_scripts_script_cmd['name'] }} --workdir {{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }} "./run.$PROJECT" & >/dev/null 2>&1
 
