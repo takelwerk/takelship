@@ -1,0 +1,12 @@
+---
+- name: (localhost) check if local docker-compose.yml e
+  stat:
+    path: /project/docker-compose.yml
+  register: docker_compose_yml
+
+- name: (localhost) update local docker-compose.yml
+  ansible.builtin.template:
+    src: docker-compose.takelship.yml.j2
+    dest: /project/docker-compose.yml
+  when: docker_compose_yml.stat.exists
+  delegate_to: localhost

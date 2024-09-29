@@ -1,10 +1,10 @@
 services:
   takelship:
-    image: takelwerk/takelship
+    image: {{ project['images']['project']['target_user'] }}/{{  project['images']['project']['target_repo'] }}
     ##################################
     ### takelage debug image
     ###
-    # image: packer_local/ takelship-project
+    # image: {{ project['local_user'] }}/ {{ project['name'] }}-project
     ###
     ##################################
     container_name: takelship
@@ -32,18 +32,19 @@ services:
     privileged: true
     environment:
       TAKELSHIP_PROJECT: default
-    ### 
+    ###
     #   TAKELSHIP_DEBUG: false
     ### enables debug logging to stdout
     #   TAKELSHIP_UPDATE:
     ### controls updates of compose filese in the compose dir
-    ### see /home/podman/datacompose/<service>/env
+    ### see {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}{{ takel_ship_compose_compose_dir }}/<service>/env
     ### for service specific environment variables
-    ### /home/podman/datacompose
+    ### {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}{{ takel_ship_compose_compose_dir }}
     volumes:
-      - ${TAKELSHIP_DATADIR:-./data}:/home/podman/data
+      - ${TAKELSHIP_DATADIR:-./data}:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}
     ports:
-      - "35000:35000"  #  registry http
-      - "30022:30022"  #  forgejo ssh
-      - "33000:33000"  #  forgejo http
-      - "38111:38111"  #  teamcity http
+{% for service in takel_ship_compose_services %}
+{% for port in service['ports'] | default([]) %}
+      - "{{ port['port'] }}:{{ port['port'] }}"  #  {{ service['name'] }} {{ port['name'] }}
+{% endfor %}
+{% endfor %}

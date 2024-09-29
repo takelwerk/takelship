@@ -6,6 +6,13 @@
     - takel_ships
     - takel_ship_compose_install
 
+- name: (main) include localhost
+  ansible.builtin.include_tasks: localhost.yml
+  tags:
+    - takel
+    - takel_ships
+    - takel_ship_compose_localhost
+
 - name: (main) include compose dir
   ansible.builtin.include_tasks: compose/main.yml
   tags:

@@ -31,7 +31,7 @@ takel_ship_teamcity_agent_image:
   alias: teamcity-agent-linux-sudo
 
 takel_ship_teamcity_http_port:
-  name: hhtp
+  name: http
   port: 38111
 
 takel_ship_teamcity_restart: always
