@@ -13,6 +13,10 @@ echo {{ takel_ship_entrypoint_log_prefix }} See: https://github.com/takelwerk/ta
 PROJECT=${TAKELSHIP_PROJECT:-"{{ takel_ship_compose_default_project }}"}
 PROJECT=${PROJECT,,}
 
+if [[ $# -eq 0 ]]; then
+  {{ takel_ship_scripts_script_first_aid['name'] }}
+fi
+
 if [[ $# -eq 1 ]]; then
   PROJECT="$1"
 fi
@@ -29,7 +33,7 @@ fi
 
 [[ "$PROJECT" == "default" ]] && PROJECT={{ takel_ship_compose_default_project }}
 
-if [ -z "$PROJECT" ] && [[ $# -eq 0 ]]; then
+if [ -z "$PROJECT" ]; then
   {{ takel_ship_scripts_script_first_aid['name'] }}
 fi
 
