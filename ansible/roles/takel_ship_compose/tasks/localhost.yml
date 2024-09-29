@@ -1,7 +1,7 @@
 ---
-- name: (localhost) check if local docker-compose.yml e
+- name: (localhost) check if local docker-compose.yml
   stat:
-    path:
+    path: /project/docker-compose.yml
   register: docker_compose_yml
 
 - name: (localhost) update local docker-compose.yml
