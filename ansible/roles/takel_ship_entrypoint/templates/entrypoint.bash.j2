@@ -10,10 +10,24 @@ echo {{ takel_ship_entrypoint_log_prefix }} This is a takelwerk takelship contai
 echo {{ takel_ship_entrypoint_log_prefix }} It runs: {{ project['images']['project']['target_user'] }}/{{ project['images']['project']['target_repo'] }}:{{ project['version'] }}
 echo {{ takel_ship_entrypoint_log_prefix }} See: https://github.com/takelwerk/takelship
 
-if [ -z "$TAKELSHIP_PROJECT" ]; then
+PROJECT=${TAKELSHIP_PROJECT:-"{{ takel_ship_compose_default_project }}"}
+PROJECT=${PROJECT,,}
+
+if [[ $# -eq 1 ]]; then
+  PROJECT="$1"
+fi
+
+if [[ "$PROJECT" != "default" ]] &&
+{% for project in takel_ship_compose_projects %}
+  [[ "$PROJECT" != {{ project['name'] }} ]] &&
+{% endfor %}
+  true; then
+  echo {{ takel_ship_entrypoint_log_prefix }} There is no project: "$PROJECT"
   {{ takel_ship_scripts_script_first_aid['name'] }}
   exit
 fi
+
+[[ "$PROJECT" == "default" ]] && PROJECT={{ takel_ship_compose_default_project }}
 
 echo {{ takel_ship_entrypoint_log_prefix }} Preparing podman container environment
 
@@ -44,26 +58,6 @@ if [ "$UPDATE" == "true" ]; then
   debug copy dist files to data volume
   {{ takel_ship_scripts_script_cmd['name'] }} cp --recursive /home/podman/dist/* /home/podman/data
 fi
-
-PROJECT=${TAKELSHIP_PROJECT:-"{{ takel_ship_compose_default_project }}"}
-PROJECT=${PROJECT,,}
-
-if [[ $# -eq 1 ]]; then
-  PROJECT="$1"
-  exit
-fi
-
-if [[ "$PROJECT" != "default" ]] &&
-{% for project in takel_ship_compose_projects %}
-  [[ "$PROJECT" != {{ project['name'] }} ]] &&
-{% endfor %}
-  true; then
-  echo {{ takel_ship_entrypoint_log_prefix }} There is no project: "$PROJECT"
-  {{ takel_ship_scripts_script_first_aid['name'] }}
-  exit
-fi
-
-[[ "$PROJECT" == "default" ]] && PROJECT={{ takel_ship_compose_default_project }}
 
 echo {{ takel_ship_entrypoint_log_prefix }} Starting podman compose project: "$PROJECT"
 {{ takel_ship_scripts_script_cmd['name'] }} --workdir {{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }} "./run.$PROJECT" & >/dev/null 2>&1
