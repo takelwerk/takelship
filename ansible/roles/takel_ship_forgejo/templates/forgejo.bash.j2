@@ -3,8 +3,9 @@
 mount / --make-rshare
 cd /home/podman
 if [ $# -eq 0 ]; then
-  CONTAINER_COMMAND="{{ takel_ship_forgejo_bin_container_command }} --help"
+  CONTAINER_COMMAND="podman exec -it forgejo forgejo --help"
 else
-  CONTAINER_COMMAND="{{ takel_ship_forgejo_bin_container_command }} $@"
+  FORGEJO_COMMAND="su git -c 'forgejo $@'"
+  CONTAINER_COMMAND="podman exec -it forgejo bash -c \"$FORGEJO_COMMAND\""
 fi
 {{ takel_ship_scripts_script_cmd['name'] }} "$CONTAINER_COMMAND"

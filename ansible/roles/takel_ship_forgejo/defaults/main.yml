@@ -45,5 +45,4 @@ takel_ship_forgejo_gid: 1000
 takel_ship_forgejo_restart: always
 
 takel_ship_forgejo_bin_cli: forgejo
-takel_ship_forgejo_bin_container_command: >-
-  podman exec -it forgejo forgejo
+

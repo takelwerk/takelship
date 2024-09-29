@@ -27,7 +27,7 @@
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
-      takel_ship_compose_service.name }}/.env
+      takel_ship_compose_service.name }}/env
     owner: "{{ takel_ship_compose_user.owner }}"
     group: "{{ takel_ship_compose_user.group }}"
     mode: '0644'

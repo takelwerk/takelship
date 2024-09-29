@@ -23,3 +23,26 @@ def test_takel_ship_compose_compose_services_compose_files(
         assert file.user == user
         assert file.group == group
         assert file.mode == 0o644
+
+
+def test_takel_ship_compose_compose_services_env_files(
+        host, testvars):
+    user = testvars['takel_ship_compose_user']['owner']
+    group = testvars['takel_ship_compose_user']['group']
+    home_dir = testvars['takel_ship_compose_home_dir']
+    dist_dir = testvars['takel_ship_compose_dist_dir']
+    compose_dir = testvars['takel_ship_compose_compose_dir']
+    services = testvars['takel_ship_compose_services']
+    for service in services:
+        if 'env' not in service:
+            continue
+
+        file = host.file(
+            f"{home_dir}/{dist_dir}/{compose_dir}/"
+            f"{service['name']}/env")
+
+        assert file.exists
+        assert file.is_file
+        assert file.user == user
+        assert file.group == group
+        assert file.mode == 0o644
