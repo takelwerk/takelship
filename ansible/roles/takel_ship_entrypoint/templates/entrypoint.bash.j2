@@ -16,7 +16,7 @@ echo "TAKELSHIP_PROJECT: $TAKELSHIP_PROJECT"
 [ -z "$1" ] && echo cli parameter empty
 [ -z "$TAKELSHIP_PROJECT" ] && echo envvar empty
 
-if [ -z "$1" ] && [ -z "$TAKELSHIP_PROJECT" ]; then
+if [ -z "$1" ] && [[ "$1" != "/bin/bash" ]] && [ -z "$TAKELSHIP_PROJECT" ]; then
   echo {{ takel_ship_entrypoint_log_prefix }} No project selected
   {{ takel_ship_scripts_script_first_aid['name'] }}
   exit
