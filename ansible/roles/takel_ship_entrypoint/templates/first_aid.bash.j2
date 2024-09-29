@@ -5,7 +5,6 @@ echo {{ takel_ship_entrypoint_log_prefix }} Run this for takelship project: {{ p
 echo "\
 mkdir -p data && \
 docker run \
---env TAKELSHIP_PROJECT={{ project['name'] }} \
 --rm \
 --interactive \
 --tty \
@@ -18,5 +17,5 @@ docker run \
 {% endfor %}
 {% endfor %}
 --volume ./data:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }} \
-${TAKELSHIP_IMAGE:-takelwerk/takelship}"
+${TAKELSHIP_IMAGE:-takelwerk/takelship} {{ project['name'] }}"
 {% endfor %}

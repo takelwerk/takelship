@@ -48,6 +48,11 @@ fi
 PROJECT=${TAKELSHIP_PROJECT:-"{{ takel_ship_compose_default_project }}"}
 PROJECT=${PROJECT,,}
 
+if [[ $# -eq 1 ]]; then
+  PROJECT="$1"
+  exit
+fi
+
 if [[ "$PROJECT" != "default" ]] &&
 {% for project in takel_ship_compose_projects %}
   [[ "$PROJECT" != {{ project['name'] }} ]] &&
