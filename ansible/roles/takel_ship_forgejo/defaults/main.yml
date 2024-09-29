@@ -12,11 +12,14 @@ takel_ship_forgejo_service:
   role: takel_ship_forgejo
   template: docker-compose.forgejo.yml.j2
   env: env.forgejo.j2
+  images:
+    - "{{ takel_ship_forgejo_image }}"
+  ports:
+    - "{{ takel_ship_forgejo_ssh_port }}"
+    - "{{ takel_ship_forgejo_http_port }}"
   volumes:
     - name: data
       mount: /data
-  images:
-    - "{{ takel_ship_forgejo_image }}"
 
 takel_ship_forgejo_image:
   name: codeberg.org/forgejo/forgejo
@@ -29,11 +32,17 @@ takel_ship_forgejo_script_forgejo:
   template: forgejo.bash.j2
   list: true
 
+takel_ship_forgejo_ssh_port:
+  name: ssh
+  port: 30022
+
+takel_ship_forgejo_http_port:
+  name: http
+  port: 33000
+
 takel_ship_forgejo_uid: 1000
 takel_ship_forgejo_gid: 1000
 takel_ship_forgejo_restart: always
-takel_ship_forgejo_http_port: 33000
-takel_ship_forgejo_ssh_port: 30022
 
 takel_ship_forgejo_bin_cli: forgejo
 takel_ship_forgejo_bin_container_command: >-

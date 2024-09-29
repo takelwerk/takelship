@@ -29,7 +29,6 @@ source "docker" "takelpodslim" {
   changes = [
     "WORKDIR /",
     "ENTRYPOINT /entrypoint",
-    "ENV IMAGE=${var.base_user}/${var.base_repo}",
     "ENV VERSION=${var.version}",
     "ENV DEBIAN_FRONTEND=noninteractive",
     "ENV LANG=C.UTF-8",

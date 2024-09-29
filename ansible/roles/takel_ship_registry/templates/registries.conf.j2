@@ -4,11 +4,11 @@ unqualified-search-registries = ["docker.io"]
 {% for service in takel_ship_compose_services %}
 {% if 'images' in service %}
 {% for image in service.images %}
-"{{ image.alias }}" = "{{ takel_ship_compose_local_registry }}/{{ image.name }}"
+"{{ image.alias }}" = "{{ takel_ship_registry_local_registry }}/{{ image.name }}"
 {% endfor %}
 {% endif %}
 {% endfor %}
 
 [[registry]]
-location = "{{ takel_ship_compose_local_registry }}"
+location = "{{ takel_ship_registry_local_registry }}"
 insecure = true

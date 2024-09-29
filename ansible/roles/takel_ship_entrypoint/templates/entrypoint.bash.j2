@@ -6,9 +6,19 @@ debug() {
   [[ "$DEBUG" == "true" ]] && echo $@
 }
 
-echo {{ takel_ship_compose_log_prefix }} This is a takelwerk takelship container
-echo {{ takel_ship_compose_log_prefix }} It runs {{ project['images']['project']['target_user'] }}/{{ project['images']['project']['target_repo'] }}:{{ project['version'] }}
-echo {{ takel_ship_compose_log_prefix }} Preparing podman container environment
+echo {{ takel_ship_entrypoint_log_prefix }} This is a takelwerk takelship container
+echo {{ takel_ship_entrypoint_log_prefix }} It runs: {{ project['images']['project']['target_user'] }}/{{ project['images']['project']['target_repo'] }}:{{ project['version'] }}
+echo {{ takel_ship_entrypoint_log_prefix }} See: https://github.com/takelwerk/takelship
+
+if [ -z "$TAKELSHIP_PROJECT" ]; then
+  {{ takel_ship_scripts_script_first_aid['name'] }}
+  exit
+fi
+
+echo {{ takel_ship_entrypoint_log_prefix }} Preparing podman container environment
+
+debug export takelship environment variables
+{{ takel_ship_entrypoint_script_export_envvars['name'] }} "$(env)"
 
 debug suppress warning message about shared mount
 mount / --make-rshare
@@ -19,16 +29,13 @@ debug check if containers are running then exit
 debug change podman uid and git
 {{ takel_ship_entrypoint_script_change_ids['name'] }}
 
-debug export takelship environment variables
-{{ takel_ship_entrypoint_script_export_envvars['name'] }} "$(env)"
-
 debug make sure that the data dir exists
 {{ takel_ship_scripts_script_cmd['name'] }} mkdir --parents {{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}
 
 UPDATE="false"
 
 debug check if we have to prepopulate the data dir
-[ ! -f "{{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/run.default" ] && UPDATE="true"
+[ ! -e "{{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}" ] && UPDATE="true"
 
 UPDATE=${TAKELSHIP_UPDATE:-$UPDATE}
 UPDATE=${UPDATE,,}
@@ -38,11 +45,11 @@ if [ "$UPDATE" == "true" ]; then
   {{ takel_ship_scripts_script_cmd['name'] }} cp --recursive /home/podman/dist/* /home/podman/data
 fi
 
-PROJECT=${TAKELSHIP_PROJECT:-"default"}
+PROJECT=${TAKELSHIP_PROJECT:-"{{ takel_ship_compose_default_project }}"}
 PROJECT=${PROJECT,,}
 
-echo {{ takel_ship_compose_log_prefix }} Starting podman compose project: "$PROJECT"
+echo {{ takel_ship_entrypoint_log_prefix }} Starting podman compose project: "$PROJECT"
 {{ takel_ship_scripts_script_cmd['name'] }} --workdir {{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }} "./run.$PROJECT" & >/dev/null 2>&1
 
-echo {{ takel_ship_compose_log_prefix }} Boarding podman compose logs
+echo {{ takel_ship_entrypoint_log_prefix }} Boarding podman compose logs
 while true; do {{ takel_ship_scripts_script_cmd['name'] }} --workdir {{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }} podman compose --file "{{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_service_filename}}-$PROJECT.yml" logs --follow 2>/dev/null; done

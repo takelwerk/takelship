@@ -1,0 +1,15 @@
+---
+takel_ship_compose_projects:
+  - name: forgejo
+    description: >-
+      Forgejo (forgejo.org)
+    services:
+      - "{{ takel_ship_forgejo_service }}"
+  - name: teamcity
+    description: >-
+      TeamCity from JetBrains (jetbrains.com/teamcity). Runs with Forgejo.
+    services:
+      - "{{ takel_ship_forgejo_service }}"
+      - "{{ takel_ship_teamcity_service }}"
+
+takel_ship_compose_default_project: forgejo

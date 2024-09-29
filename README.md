@@ -43,16 +43,23 @@ You have to run docker as user, not as root. It is not possible to run the *take
 
 ## Examples
 
-Start a forgejo server (Ctrl-c will stop and remove both the forgero and the takelship container):
+Get info how to run a takelship project:
 
 ```bash
-mkdir -p data; docker run -it --rm --privileged --name takelship --hostname takelship -p 127.0.0.1:30022:30022 -p 127.0.0.1:33000:33000 -v ./data:/home/podman/data --env TAKELSHIP_PROJECT=forgejo takelwerk/takelship
+docker run -it takelwerk/takelship
 ```
 
-Start a teamcity server, three teamcity agents and a forgejo server:
+Choose a project and run the respective command 
+to run a takelship server. For example
 
-```bash
-mkdir -p data; docker run -it --rm --privileged --name takelship --hostname takelship -p 127.0.0.1:30022:30022 -p 127.0.0.1:33000:33000 -p 38111:38111 -v ./data:/home/podman/data --env TAKELSHIP_PROJECT=teamcity takelwerk/takelship
+```
+[takelship] This is a takelwerk takelship container
+[takelship] It runs: takelwerk/takelship:0.1.8
+[takelship] See: https://github.com/takelwerk/takelship
+[takelship] Run this for takelship project: forgejo
+mkdir -p data && docker run --env TAKELSHIP_PROJECT=forgejo --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "30022:30022" --publish "33000:33000" --volume ./data:/home/podman/data takelwerk/takelship
+[takelship] Run this for takelship project: teamcity
+mkdir -p data && docker run --env TAKELSHIP_PROJECT=teamcity --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "30022:30022" --publish "33000:33000" --publish "38111:38111" --volume ./data:/home/podman/data takelwerk/takelship```
 ```
 
 List the available container commands:

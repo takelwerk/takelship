@@ -11,8 +11,8 @@ services:
       - USER_UID=${TAKELSHIP_FORGEJO_UID:-{{ takel_ship_forgejo_uid }}}
       - USER_GID=${TAKELSHIP_FORGEJO_GID:-{{ takel_ship_forgejo_gid }}}
     ports:
-      - "${TAKELSHIP_FORGEJO_HTTP_PORT:-{{ takel_ship_forgejo_http_port }}}:3000"
-      - "${TAKELSHIP_FORGEJO_SSH_PORT:-{{ takel_ship_forgejo_ssh_port }}}:22"
+      - "${TAKELSHIP_FORGEJO_HTTP_PORT:-{{ takel_ship_forgejo_http_port['port'] }}}:3000"
+      - "${TAKELSHIP_FORGEJO_SSH_PORT:-{{ takel_ship_forgejo_ssh_port['port'] }}}:22"
     volumes:
         - ${TAKELSHIP_FORGEJO_DATA_DIR:-./data}:/data
         - /etc/timezone:/etc/timezone:ro

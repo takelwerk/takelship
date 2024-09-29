@@ -1,6 +1,7 @@
 ---
 takel_ship_entrypoint_scripts:
   - "{{ takel_ship_entrypoint_script_entrypoint }}"
+  - "{{ takel_ship_scripts_script_first_aid }}"
   - "{{ takel_ship_entrypoint_script_change_ids }}"
   - "{{ takel_ship_entrypoint_script_export_envvars }}"
 
@@ -12,8 +13,13 @@ takel_ship_entrypoint_script_entrypoint:
   template: entrypoint.bash.j2
   path: /
 
+takel_ship_scripts_script_first_aid:
+  name: takelship_first_aid
+  role: takel_ship_entrypoint
+  template: first_aid.bash.j2
+
 takel_ship_entrypoint_script_change_ids:
-  name: takelship_change_podman_ids.py
+  name: takelship_change_ids.py
   role: takel_ship_entrypoint
   template: change_id.py.j2
 
@@ -21,3 +27,7 @@ takel_ship_entrypoint_script_export_envvars:
   name: takelship_export_envvars
   role: takel_ship_entrypoint
   template: export_envvars.bash.j2
+
+takel_ship_entrypoint_profile_file: /etc/profile.d/takelship
+
+takel_ship_entrypoint_log_prefix: "[takelship]"

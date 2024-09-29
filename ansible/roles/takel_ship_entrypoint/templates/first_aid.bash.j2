@@ -1,0 +1,22 @@
+#{{ takel_ship_scripts_shebang }}
+
+{% for project in takel_ship_compose_projects %}
+echo {{ takel_ship_entrypoint_log_prefix }} Run this for takelship project: {{ project['name'] }}
+echo "\
+mkdir -p data && \
+docker run \
+--env TAKELSHIP_PROJECT={{ project['name'] }} \
+--rm \
+--interactive \
+--tty \
+--name takelship \
+--hostname takelship \
+--privileged \
+{% for service in project['services'] %}
+{% for port in service['ports'] | default([]) %}
+--publish \"{{ port['port'] }}:{{ port['port'] }}\" \
+{% endfor %}
+{% endfor %}
+--volume ./data:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }} \
+${TAKELSHIP_IMAGE:-takelwerk/takelship}"
+{% endfor %}

@@ -4,9 +4,19 @@
 # the default compose providers are docker-compose and podman-compose
 # if installed, docker-compose takes precedence
 
-# echo starting local registry
+# start local registry
 ${TAKELSHIP_PODMAN_COMPOSE:-podman compose} --file {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/registry/{{ takel_ship_compose_service_filename }}.{{ takel_ship_compose_service_fileext }} up --detach
-# copying images to local registry
-${TAKELSHIP_COMPOSE_DIR:-{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}}/registry/mirror
-# starting {{ takel_ship_compose_project.name }}
-${TAKELSHIP_PODMAN_COMPOSE:-podman compose} --file {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_service_filename }}-{{ takel_ship_compose_project.name }}.{{ takel_ship_compose_service_fileext }} up
+
+{% for project in takel_ship_compose_projects %}
+{% if project['name'] == takel_ship_compose_project['name'] %}
+{% for service in project['services'] %}
+{% for image in service['images'] | default([]) %}
+# copy image {{ image.alias }} to local registry
+skopeo copy docker://{{ image['name'] }}:{{ image['tag'] }} docker://{{ takel_ship_registry_local_registry }}/{{ image['name'] }}:{{ image['tag'] }}
+
+{% endfor %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+# start {{ takel_ship_compose_project.name }}
+${TAKELSHIP_PODMAN_COMPOSE:-podman compose} --file {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_service_filename }}-{{ takel_ship_compose_project['name'] }}.{{ takel_ship_compose_service_fileext }} up
