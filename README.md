@@ -50,16 +50,17 @@ docker run -it takelwerk/takelship
 ```
 
 Choose a project and run the respective command 
-to run a takelship server. For example
+to run a takelship server. For example:
 
 ```
 [takelship] This is a takelwerk takelship container
-[takelship] It runs: takelwerk/takelship:0.1.8
+[takelship] It runs: takelwerk/takelship:0.1.24
 [takelship] See: https://github.com/takelwerk/takelship
+[takelship] No project selected
 [takelship] Run this for takelship project: forgejo
-mkdir -p data && docker run --env TAKELSHIP_PROJECT=forgejo --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "30022:30022" --publish "33000:33000" --volume ./data:/home/podman/data takelwerk/takelship
+mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "30022:30022" --publish "33000:33000" --volume ./data:/home/podman/data takelwerk/takelship forgejo
 [takelship] Run this for takelship project: teamcity
-mkdir -p data && docker run --env TAKELSHIP_PROJECT=teamcity --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "30022:30022" --publish "33000:33000" --publish "38111:38111" --volume ./data:/home/podman/data takelwerk/takelship```
+mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "30022:30022" --publish "33000:33000" --publish "38111:38111" --volume ./data:/home/podman/data takelwerk/takelship teamcity
 ```
 
 List the available container commands:

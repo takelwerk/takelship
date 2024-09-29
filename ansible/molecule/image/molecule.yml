@@ -8,9 +8,7 @@ platforms:
     image: packer_local/${TAKELAGE_PROJECT_NAME:-name}-${TAKELAGE_PROJECT_IMG:-noimage}
     pre_build_image: true
     privileged: true
-    env:
-      TAKELSHIP_PROJECT: "default"
-      TAKELSHIP_DEBUG: "true"
+    command: default
     groups:
       - ${TAKELAGE_PROJECT_IMG:-noimage}
       - users

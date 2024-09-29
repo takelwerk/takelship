@@ -15,7 +15,7 @@ def test_image_meta_env_version(testvars, image_meta_data):
 
 
 def test_image_meta_entrypoint(testvars, image_meta_data):
-    expected = ['/bin/sh', '-c', '/entrypoint']
+    expected = ['/entrypoint']
 
     assert expected == image_meta_data['Config']['Entrypoint']
 

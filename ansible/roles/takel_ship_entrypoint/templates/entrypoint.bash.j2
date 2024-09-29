@@ -10,27 +10,14 @@ echo {{ takel_ship_entrypoint_log_prefix }} This is a takelwerk takelship contai
 echo {{ takel_ship_entrypoint_log_prefix }} It runs: {{ project['images']['project']['target_user'] }}/{{ project['images']['project']['target_repo'] }}:{{ project['version'] }}
 echo {{ takel_ship_entrypoint_log_prefix }} See: https://github.com/takelwerk/takelship
 
-echo "first cli parameter: $1"
-echo "all cli parameter: $@"
-echo "TAKELSHIP_PROJECT: $TAKELSHIP_PROJECT"
-[ -z "$1" ] && echo cli parameter empty
-[ -z "$TAKELSHIP_PROJECT" ] && echo envvar empty
-
-if ([ -z "$1" ] || [[ "$1" == "/bin/bash" ]]) &&
-  [ -z "$TAKELSHIP_PROJECT" ]; then
+if [ -z "$1" ] || [[ "$1" == "/bin/bash" ]]; then
   echo {{ takel_ship_entrypoint_log_prefix }} No project selected
   {{ takel_ship_scripts_script_first_aid['name'] }}
   exit
 fi
 
-PROJECT=${TAKELSHIP_PROJECT:-"{{ takel_ship_compose_default_project }}"}
-PROJECT=${PROJECT,,}
-debug project is set to: $PROJECT
-
-if [ -n "$1" ]; then
-  PROJECT="$1"
-  debug project by cli: $PROJECT
-fi
+PROJECT="$1"
+debug project is set to project
 
 if [[ "$PROJECT" != "default" ]] &&
 {% for project in takel_ship_compose_projects %}
