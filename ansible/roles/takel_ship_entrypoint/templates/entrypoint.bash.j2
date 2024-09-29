@@ -15,6 +15,7 @@ PROJECT=${PROJECT,,}
 
 if [[ $# -eq 0 ]]; then
   {{ takel_ship_scripts_script_first_aid['name'] }}
+  exit
 fi
 
 if [[ $# -eq 1 ]]; then
@@ -35,6 +36,7 @@ fi
 
 if [ -z "$PROJECT" ]; then
   {{ takel_ship_scripts_script_first_aid['name'] }}
+  exit
 fi
 
 echo {{ takel_ship_entrypoint_log_prefix }} Preparing podman container environment
