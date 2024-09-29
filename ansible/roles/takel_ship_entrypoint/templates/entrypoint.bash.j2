@@ -10,16 +10,25 @@ echo {{ takel_ship_entrypoint_log_prefix }} This is a takelwerk takelship contai
 echo {{ takel_ship_entrypoint_log_prefix }} It runs: {{ project['images']['project']['target_user'] }}/{{ project['images']['project']['target_repo'] }}:{{ project['version'] }}
 echo {{ takel_ship_entrypoint_log_prefix }} See: https://github.com/takelwerk/takelship
 
-PROJECT=${TAKELSHIP_PROJECT:-"{{ takel_ship_compose_default_project }}"}
-PROJECT=${PROJECT,,}
+echo "first cli parameter: $1"
+echo "all cli parameter: $@"
+echo "TAKELSHIP_PROJECT: $TAKELSHIP_PROJECT"
+[ -z "$1" ] && echo cli parameter empty
+[ -z "$TAKELSHIP_PROJECT" ] && echo envvar empty
 
-if [[ $# -eq 0 ]]; then
+if [ -z "$1" ] && [ -z "$TAKELSHIP_PROJECT" ]; then
+  echo {{ takel_ship_entrypoint_log_prefix }} No project selected
   {{ takel_ship_scripts_script_first_aid['name'] }}
   exit
 fi
 
-if [[ $# -eq 1 ]]; then
+PROJECT=${TAKELSHIP_PROJECT:-"{{ takel_ship_compose_default_project }}"}
+PROJECT=${PROJECT,,}
+debug project is set to: $PROJECT
+
+if [ -n "$1" ]; then
   PROJECT="$1"
+  debug project by cli: $PROJECT
 fi
 
 if [[ "$PROJECT" != "default" ]] &&
@@ -32,11 +41,9 @@ if [[ "$PROJECT" != "default" ]] &&
   exit
 fi
 
-[[ "$PROJECT" == "default" ]] && PROJECT={{ takel_ship_compose_default_project }}
-
-if [ -z "$PROJECT" ]; then
-  {{ takel_ship_scripts_script_first_aid['name'] }}
-  exit
+if [[ "$PROJECT" == "default" ]]; then
+  PROJECT={{ takel_ship_compose_default_project }}
+  debug project is set to: $PROJECT
 fi
 
 echo {{ takel_ship_entrypoint_log_prefix }} Preparing podman container environment
@@ -50,11 +57,11 @@ mount / --make-rshare
 debug check if containers are running then exit
 {{ takel_ship_scripts_script_cmd['name'] }} podman container exists registry && exit
 
-debug change podman uid and git
-{{ takel_ship_entrypoint_script_change_ids['name'] }}
-
 debug make sure that the data dir exists
 {{ takel_ship_scripts_script_cmd['name'] }} mkdir --parents {{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}
+
+debug change podman uid and git and chown data dir
+{{ takel_ship_entrypoint_script_change_ids['name'] }}
 
 UPDATE="false"
 

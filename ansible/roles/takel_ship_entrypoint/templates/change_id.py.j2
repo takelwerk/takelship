@@ -24,6 +24,7 @@ class ChangeID(object):
         self._logger.debug('takelship entrypoint '
                            'log starting: {now}'.format(now=now))
         self._username = '{{ takel_ship_compose_user.owner }}'
+        self._groupname = '{{ takel_ship_compose_user.group }}'
         self._newgroup = 'podgrp'
         self._uid = os.environ.get("TAKELSHIP_UID",
                                    args.uid)
@@ -55,6 +56,7 @@ class ChangeID(object):
             self._create_group_(self._newgroup, self._gid)
             self._logger.debug(
                 f"created group {self._newgroup} with gid {self._gid}")
+            self._groupname = self._newgroup
 
         if self._change_gid_(self._username, self._gid) == 0:
             self._logger.debug(
@@ -84,6 +86,28 @@ class ChangeID(object):
                 f"unable to change uid of user "
                 f"{self._username} to {self._uid}")
             return False
+
+    def chown_datadir(self):
+        self._logger.debug(
+                'changing ownership of data dir '
+                '{{ takel_ship_compose_home_dir }}/'
+                '{{ takel_ship_compose_data_dir }}')
+
+        command = [
+            '/bin/chown',
+            '--recursive',
+            '{user}:{group}'.format(
+                user=self._username,
+                group=self._groupname),
+            '{{ takel_ship_compose_home_dir }}/'
+            '{{ takel_ship_compose_data_dir }}']
+        result = self._run_(command)
+        if result.returncode:
+            return False
+
+        self._logger.info(
+            'changed ownership of data directory')
+        return True
 
     def _change_gid_(self, name, gid):
         self._logger.debug(
@@ -195,6 +219,7 @@ def main():
     change_id = ChangeID()
     change_id.configure_gid()
     change_id.configure_uid()
+    change_id.chown_datadir()
 
 if __name__ == "__main__":
     main()

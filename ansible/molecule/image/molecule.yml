@@ -9,7 +9,8 @@ platforms:
     pre_build_image: true
     privileged: true
     env:
-      TAKELSHIP_PROJECT: default
+      TAKELSHIP_PROJECT: "default"
+      TAKELSHIP_DEBUG: "true"
     groups:
       - ${TAKELAGE_PROJECT_IMG:-noimage}
       - users
