@@ -45,4 +45,3 @@ takel_ship_forgejo_gid: 1000
 takel_ship_forgejo_restart: always
 
 takel_ship_forgejo_bin_cli: forgejo
-
