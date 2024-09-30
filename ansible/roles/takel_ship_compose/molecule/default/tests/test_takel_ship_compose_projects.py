@@ -26,7 +26,7 @@ def test_takel_ship_compose_compose_projects_compose_files(host, testvars):
         assert file.mode == mode
 
 
-def test_takel_ship_compose_compose_projects_bash_files(host, testvars):
+def test_takel_ship_compose_compose_projects_copy_files(host, testvars):
     user = testvars['takel_ship_compose_user']['owner']
     group = testvars['takel_ship_compose_user']['group']
     # we assume that file is executable
@@ -40,7 +40,7 @@ def test_takel_ship_compose_compose_projects_bash_files(host, testvars):
         file = host.file(
             f"{home_dir}/{dist_dir}/"
             f"{compose_dir}/{projects_dir}/"
-            f"run.{project['name']}")
+            f"download-{project['name']}")
 
         assert file.exists
         assert file.is_file
