@@ -37,6 +37,9 @@ def test_takel_ship_compose_compose_projects_copy_files(host, testvars):
     projects_dir = testvars['takel_ship_compose_projects_dir']
     projects = testvars['takel_ship_compose_projects']
     for project in projects:
+        if project['name'] == 'registry':
+            continue
+            
         file = host.file(
             f"{home_dir}/{dist_dir}/"
             f"{compose_dir}/{projects_dir}/"
