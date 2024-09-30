@@ -40,7 +40,7 @@ debug export takelship environment variables
 {{ takel_ship_entrypoint_script_export_envvars['name'] }} "$(env)"
 
 debug make sure that the data dir exists
-{{ takel_ship_scripts_script_cmd['name'] }} mkdir {{ takel_ship_compose_data_dir }}
+{{ takel_ship_scripts_script_cmd['name'] }} mkdir --parents {{ takel_ship_compose_data_dir }}
 
 debug change podman uid and git and chown data dir
 {{ takel_ship_entrypoint_script_change_ids['name'] }}
