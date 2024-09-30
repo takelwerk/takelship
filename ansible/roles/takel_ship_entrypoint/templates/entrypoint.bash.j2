@@ -17,9 +17,14 @@ if [ -z "$1" ] || [[ "$1" == "/bin/bash" ]]; then
 fi
 
 PROJECT="$1"
-debug project is set to project
+debug project is set to $PROJECT
 
-if [[ "$PROJECT" != "default" ]] &&
+if [[ "$PROJECT" == "default" ]]; then
+  PROJECT={{ takel_ship_compose_default_project }}
+  debug project is set to: $PROJECT
+fi
+
+if true &&
 {% for project in takel_ship_compose_projects %}
   [[ "$PROJECT" != {{ project['name'] }} ]] &&
 {% endfor %}
@@ -29,24 +34,13 @@ if [[ "$PROJECT" != "default" ]] &&
   exit
 fi
 
-if [[ "$PROJECT" == "default" ]]; then
-  PROJECT={{ takel_ship_compose_default_project }}
-  debug project is set to: $PROJECT
-fi
-
 echo {{ takel_ship_entrypoint_log_prefix }} Preparing podman container environment
 
 debug export takelship environment variables
 {{ takel_ship_entrypoint_script_export_envvars['name'] }} "$(env)"
 
-debug suppress warning message about shared mount
-mount / --make-rshare
-
-debug check if containers are running then exit
-{{ takel_ship_scripts_script_cmd['name'] }} podman container exists registry && exit
-
 debug make sure that the data dir exists
-{{ takel_ship_scripts_script_cmd['name'] }} mkdir --parents {{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}
+{{ takel_ship_scripts_script_cmd['name'] }} mkdir {{ takel_ship_compose_data_dir }}
 
 debug change podman uid and git and chown data dir
 {{ takel_ship_entrypoint_script_change_ids['name'] }}
@@ -63,6 +57,9 @@ if [ "$UPDATE" == "true" ]; then
   debug copy dist files to data volume
   {{ takel_ship_scripts_script_cmd['name'] }} cp --recursive /home/podman/dist/* /home/podman/data
 fi
+
+debug suppress warning message about shared mount
+mount / --make-rshare
 
 echo {{ takel_ship_entrypoint_log_prefix }} Starting podman compose project: "$PROJECT"
 {{ takel_ship_scripts_script_cmd['name'] }} --workdir {{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }} "./run.$PROJECT" & >/dev/null 2>&1
