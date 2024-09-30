@@ -1,6 +1,5 @@
 ---
-
-- name: (images) download images
+- name: (images) download internal images
   ansible.builtin.shell:
     cmd: >-
       mount / --make-rshare;

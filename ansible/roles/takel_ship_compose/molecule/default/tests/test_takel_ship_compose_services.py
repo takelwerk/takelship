@@ -7,6 +7,7 @@ def test_takel_ship_compose_compose_services_compose_files(
         host, testvars):
     user = testvars['takel_ship_compose_user']['owner']
     group = testvars['takel_ship_compose_user']['group']
+    mode = int(testvars['takel_ship_compose_user']['mode']['file'], 8)
     home_dir = testvars['takel_ship_compose_home_dir']
     dist_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
@@ -22,13 +23,14 @@ def test_takel_ship_compose_compose_services_compose_files(
         assert file.is_file
         assert file.user == user
         assert file.group == group
-        assert file.mode == 0o644
+        assert file.mode == mode
 
 
 def test_takel_ship_compose_compose_services_env_files(
         host, testvars):
     user = testvars['takel_ship_compose_user']['owner']
     group = testvars['takel_ship_compose_user']['group']
+    mode = int(testvars['takel_ship_compose_user']['mode']['file'], 8)
     home_dir = testvars['takel_ship_compose_home_dir']
     dist_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
@@ -45,4 +47,4 @@ def test_takel_ship_compose_compose_services_env_files(
         assert file.is_file
         assert file.user == user
         assert file.group == group
-        assert file.mode == 0o644
+        assert file.mode == mode

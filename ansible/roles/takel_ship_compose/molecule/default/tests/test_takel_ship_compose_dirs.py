@@ -6,6 +6,7 @@ testinfra_hosts = [takeltest.hosts()[0]]
 def test_takel_ship_compose_compose_dirs_service_dir(host, testvars):
     user = testvars['takel_ship_compose_user']['owner']
     group = testvars['takel_ship_compose_user']['group']
+    mode = int(testvars['takel_ship_compose_user']['mode']['dir'], 8)
     home_dir = testvars['takel_ship_compose_home_dir']
     data_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
@@ -15,12 +16,30 @@ def test_takel_ship_compose_compose_dirs_service_dir(host, testvars):
     assert dir.is_directory
     assert dir.user == user
     assert dir.group == group
-    assert dir.mode == 0o755
+    assert dir.mode == mode
+
+
+def test_takel_ship_compose_compose_dirs_projects_dir(host, testvars):
+    user = testvars['takel_ship_compose_user']['owner']
+    group = testvars['takel_ship_compose_user']['group']
+    mode = int(testvars['takel_ship_compose_user']['mode']['dir'], 8)
+    home_dir = testvars['takel_ship_compose_home_dir']
+    data_dir = testvars['takel_ship_compose_dist_dir']
+    compose_dir = testvars['takel_ship_compose_compose_dir']
+    projects_dir = testvars['takel_ship_compose_projects_dir']
+    dir = host.file(f"{home_dir}/{data_dir}/{compose_dir}/{projects_dir}")
+
+    assert dir.exists
+    assert dir.is_directory
+    assert dir.user == user
+    assert dir.group == group
+    assert dir.mode == mode
 
 
 def test_takel_ship_compose_compose_dirs_service_dirs(host, testvars):
     user = testvars['takel_ship_compose_user']['owner']
     group = testvars['takel_ship_compose_user']['group']
+    mode = int(testvars['takel_ship_compose_user']['mode']['dir'], 8)
     home_dir = testvars['takel_ship_compose_home_dir']
     data_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
@@ -34,12 +53,13 @@ def test_takel_ship_compose_compose_dirs_service_dirs(host, testvars):
         assert dir.is_directory
         assert dir.user == user
         assert dir.group == group
-        assert dir.mode == 0o755
+        assert dir.mode == mode
 
 
 def test_takel_ship_compose_compose_dirs_volumes(host, testvars):
     user = testvars['takel_ship_compose_user']['owner']
     group = testvars['takel_ship_compose_user']['group']
+    mode = int(testvars['takel_ship_compose_user']['mode']['dir'], 8)
     home_dir = testvars['takel_ship_compose_home_dir']
     data_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
@@ -58,4 +78,4 @@ def test_takel_ship_compose_compose_dirs_volumes(host, testvars):
             assert dir.is_directory
             assert dir.user == user
             assert dir.group == group
-            assert dir.mode == 0o755
+            assert dir.mode == mode

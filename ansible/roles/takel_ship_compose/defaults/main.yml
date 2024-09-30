@@ -42,6 +42,9 @@ takel_ship_compose_deb_install_packages:
 takel_ship_compose_user:
   owner: podman
   group: podman
+  mode:
+    dir: "0755"
+    file: "0644"
 
 takel_ship_compose_script_containers:
   name: containers.conf
@@ -49,7 +52,7 @@ takel_ship_compose_script_containers:
   template: containers.conf.j2
   owner: "{{ takel_ship_compose_user.owner }}"
   group: "{{ takel_ship_compose_user.group }}"
-  mode: '0644'
+  mode: "{{ takel_ship_compose_user.mode.file }}"
   path: >-
     {{ takel_ship_compose_home_dir
     }}/.config/containers
@@ -59,5 +62,6 @@ takel_ship_compose_home_dir: >-
 takel_ship_compose_data_dir: data
 takel_ship_compose_dist_dir: dist
 takel_ship_compose_compose_dir: compose
+takel_ship_compose_projects_dir: projects
 takel_ship_compose_service_filename: docker-compose
 takel_ship_compose_service_fileext: yml

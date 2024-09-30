@@ -22,5 +22,12 @@ takel_ship_scripts_script_cmd:
   template: cmd.bash.j2
   list: true
 
+takel_ship_scripts_root:
+  owner: root
+  group: root
+  mode:
+    dir: "0755"
+    file: "0644"
+
 takel_ship_scripts_dir: /usr/local/bin
 takel_ship_scripts_shebang: '#!/usr/bin/env bash'

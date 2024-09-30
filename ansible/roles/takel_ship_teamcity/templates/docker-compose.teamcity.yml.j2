@@ -1,6 +1,4 @@
 ---
-name: teamcity
-
 services:
   teamcity:
     container_name: ${TAKELSHIP_TEAMCITY_CONTAINER_NAME:-teamcity}
@@ -8,10 +6,10 @@ services:
     image: ${TAKELSHIP_TEAMCITY_IMAGE_SERVER:-{{ takel_ship_teamcity_server_image['alias'] }}:{{ takel_ship_teamcity_server_image['tag'] }}}
     restart: ${TAKELSHIP_TEAMCITY_RESTART:-{{ takel_ship_teamcity_restart }}}
     ports:
-        - "${TAKELSHIP_TEAMCITY_HTTP_PORT:-{{ takel_ship_teamcity_http_port }}}:8111"
+        - "${TAKELSHIP_TEAMCITY_HTTP_PORT:-{{ takel_ship_teamcity_http_port['port'] }}}:8111"
     volumes:
-      - ${TAKELSHIP_TEAMCITY_DATA_DIR:-./teamcity-data}:/data/teamcity_server/datadir
-      - ${TAKELSHIP_TEAMCITY_LOGS_DIR:-./teamcity-logs}:/opt/teamcity/logs
+      - ${TAKELSHIP_TEAMCITY_DATA_DIR:-../teamcity/teamcity-data}:/data/teamcity_server/datadir
+      - ${TAKELSHIP_TEAMCITY_LOGS_DIR:-../{{ takel_ship_teamcity_service['name'] }}/teamcity-logs}:/opt/teamcity/logs
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
 

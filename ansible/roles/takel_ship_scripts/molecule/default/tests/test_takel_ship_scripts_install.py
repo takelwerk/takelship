@@ -8,9 +8,10 @@ def test_takel_ship_scripts_install_files(
     scripts = testvars['takel_ship_scripts_scripts']
     for script in scripts:
         dir = testvars['takel_ship_scripts_dir']
-        user = 'root'
-        group = 'root'
-        mode = 0o755
+        user = testvars['takel_ship_scripts_root']['owner']
+        group = testvars['takel_ship_scripts_root']['group']
+        # we assume that file is executable
+        mode = int(testvars['takel_ship_compose_user']['mode']['dir'], 8)
         if 'path' in script:
             dir = script['path']
         if 'owner' in script:
@@ -18,10 +19,8 @@ def test_takel_ship_scripts_install_files(
         if 'group' in script:
             group = script['group']
         if 'mode' in script:
-            if script['mode'] == '0755':
-                mode = 0o755
-            elif script['mode'] == '0644':
-                mode = 0o644
+            mode = int(script['mode'], 8)
+
         file = host.file(f"{dir}/{script['name']}")
 
         assert file.exists

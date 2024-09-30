@@ -1,6 +1,4 @@
 ---
-name: forgejo
-
 services:
   forgejo:
     container_name: ${TAKELSHIP_FORGEJO_CONTAINER_NAME:-forgejo}
@@ -14,6 +12,6 @@ services:
       - "${TAKELSHIP_FORGEJO_HTTP_PORT:-{{ takel_ship_forgejo_http_port['port'] }}}:3000"
       - "${TAKELSHIP_FORGEJO_SSH_PORT:-{{ takel_ship_forgejo_ssh_port['port'] }}}:22"
     volumes:
-        - ${TAKELSHIP_FORGEJO_DATA_DIR:-./data}:/data
+        - ${TAKELSHIP_FORGEJO_DATA_DIR:-../{{ takel_ship_forgejo_service['name'] }}/data}:/data
         - /etc/timezone:/etc/timezone:ro
         - /etc/localtime:/etc/localtime:ro

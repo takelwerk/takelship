@@ -1,36 +1,30 @@
 #!/usr/bin/env python3
 
-import argparse
 import logging
 import os
 import subprocess
 from datetime import datetime
 from pathlib import Path
 
-default_uid = '1000'
-default_gid = '1000'
-
 
 class ChangeID(object):
 
     def __init__(self):
-        args = self._parse_args_()
-        self._debug = False
-        if (os.environ.get("TAKELSHIP_DEBUG", "").lower() == "true"
-                or args.debug):
-            self._debug = True
         now = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+        self._debug = False
+        if (os.environ.get("TAKELSHIP_DEBUG", "false").lower()) == "true":
+            self._debug = True
         self._logger = self._logger_init_(self._debug)
-        self._logger.debug('takelship entrypoint '
-                           'log starting: {now}'.format(now=now))
+        self._logger.debug('log starting: {now}'.format(now=now))
         self._username = '{{ takel_ship_compose_user.owner }}'
         self._groupname = '{{ takel_ship_compose_user.group }}'
         self._newgroup = 'podgrp'
-        self._uid = os.environ.get("TAKELSHIP_UID",
-                                   args.uid)
-        self._gid = os.environ.get("TAKELSHIP_GID",
-                                   args.gid)
-        self._logger.debug('command line arguments: {args}'.format(args=args))
+        self._default_uid = 1000
+        self._default_gid = 1000
+        self._uid = os.environ.get("TAKELSHIP_UID", self._default_uid)
+        self._gid = os.environ.get("TAKELSHIP_GID", self._default_gid)
+        self._logger.debug(f"uid: {self._uid}")
+        self._logger.debug(f"gid: {self._gid}")
 
     def make_rshare(self):
         self._logger.debug(
@@ -45,7 +39,7 @@ class ChangeID(object):
         self._logger.debug(
             f"configure {self._username} gid")
 
-        if self._gid == default_gid:
+        if self._gid == self._default_gid:
             self._logger.debug(
                 f"{self._username} gid is already {self._gid}")
             return
@@ -72,7 +66,7 @@ class ChangeID(object):
         self._logger.debug(
             f"configure {self._username} uid")
 
-        if self._uid == default_uid:
+        if self._uid == self._default_uid:
             self._logger.debug(
                 f"{self._username} uid is already {self._uid}")
             return
@@ -105,7 +99,7 @@ class ChangeID(object):
         if result.returncode:
             return False
 
-        self._logger.info(
+        self._logger.debug(
             'changed ownership of data directory')
         return True
 
@@ -149,10 +143,9 @@ class ChangeID(object):
 
     def _logger_init_(self, debug):
         logger = logging.getLogger(__file__)
-        logger.setLevel(logging.DEBUG)
+        logger.setLevel(logging.INFO)
         if debug:
             logger.setLevel(logging.DEBUG)
-        Path('/debug').mkdir(exist_ok=True)
         ch = logging.StreamHandler()
         formatter = logging.Formatter(
             '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -161,26 +154,6 @@ class ChangeID(object):
         logger.addHandler(ch)
         return logger
 
-    def _parse_args_(self):
-        parser = argparse.ArgumentParser()
-        parser.add_argument(
-            "--debug",
-            dest="debug",
-            action="store_true",
-            default=False,
-            help="Set debug flag")
-        parser.add_argument(
-            "--gid",
-            type=str,
-            default=default_gid,
-            help=f"Group ID of the {{ takel_ship_compose_user.owner }} user")
-        parser.add_argument(
-            "--uid",
-            type=str,
-            default=default_uid,
-            help=f"User ID of the {{ takel_ship_compose_user.owner }} user")
-
-        return parser.parse_args()
 
     def _run_(self, command):
         self._logger.debug(

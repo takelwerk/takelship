@@ -1,0 +1,16 @@
+{{ takel_ship_scripts_shebang }}
+
+{% for project in takel_ship_compose_projects %}
+{% if project['name'] == takel_ship_compose_project['name'] %}
+{% for service in project['services'] %}
+{% for image in service['images'] | default([]) %}
+# copy image {{ image.alias }} to local registry
+{% if not image == takel_ship_registry_image %}
+skopeo copy \
+  docker://{{ image['name'] }}:{{ image['tag'] }} \
+  docker://${TAKELSHIP_LOCAL_REGISTRY_HOST:-localhost}:${TAKELSHIP_LOCAL_REGISTRY_PORT:-{{ takel_ship_registry_takelship_registry_port }}}/{{ image['name'] }}:{{ image['tag'] }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+{% endfor %}

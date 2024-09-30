@@ -1,17 +1,34 @@
 ---
 takel_ship_registry_services:
   - "{{ takel_ship_registry_service }}"
+  - "{{ takel_ship_registry_takelship_service }}"
 
 takel_ship_registry_scripts:
   - "{{ takel_ship_registry_script_registries }}"
 
 ### end of group_vars
 
+takel_ship_registry_image:
+  name: docker.io/library/registry
+  tag: 2
+  alias: registry
+
 # these images will pulled in the container
 # the registry image is necessary
 # but refrain from adding more images!
 takel_ship_registry_images:
   - "{{ takel_ship_registry_image }}"
+
+takel_ship_registry_takelship_service:
+  name: takelship-registry
+  role: takel_ship_registry
+  template: docker-compose.takelship-registry.yml.j2
+  env: env.takelship-registry.j2
+  ports:
+    - "{{ takel_ship_registry_takelship_registry_port }}"
+  volumes:
+    - name: data
+      mount: ../../cache
 
 takel_ship_registry_service:
   name: registry
@@ -24,27 +41,23 @@ takel_ship_registry_service:
     - name: data
       mount: /data
 
-takel_ship_registry_image:
-  name: docker.io/library/registry
-  tag: 2
-  alias: registry
-
 takel_ship_registry_script_registries:
   name: registries.conf
   role: takel_ship_registry
   template: registries.conf.j2
   owner: "{{ takel_ship_compose_user.owner }}"
   group: "{{ takel_ship_compose_user.group }}"
-  mode: '0644'
+  mode: "{{ takel_ship_compose_user.mode.file }}"
   path: >-
     {{ takel_ship_compose_home_dir
     }}/.config/containers
 
 takel_ship_registry_restart: always
 
+takel_ship_registry_cache_dir: cache
+
+takel_ship_registry_takelship_registry_port: 5555
+
 takel_ship_registry_http_port:
   name: http
   port: 35000
-
-takel_ship_registry_local_registry: >-
-  localhost:{{ takel_ship_registry_http_port['port'] }}

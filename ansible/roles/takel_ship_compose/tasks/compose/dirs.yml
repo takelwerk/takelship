@@ -8,9 +8,21 @@
     state: directory
     owner: "{{ takel_ship_compose_user.owner }}"
     group: "{{ takel_ship_compose_user.group }}"
-    mode: '0755'
+    mode: "{{ takel_ship_compose_user.mode.dir }}"
 
-- name: (compose) (dirs) create service dir
+- name: (compose) (dirs) create projects dir
+  ansible.builtin.file:
+    path: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_projects_dir }}
+    state: directory
+    owner: "{{ takel_ship_compose_user.owner }}"
+    group: "{{ takel_ship_compose_user.group }}"
+    mode: "{{ takel_ship_compose_user.mode.dir }}"
+
+- name: (compose) (dirs) create service dirs
   ansible.builtin.file:
     path: >-
       {{ takel_ship_compose_home_dir }}/{{
@@ -20,7 +32,7 @@
     state: directory
     owner: "{{ takel_ship_compose_user.owner }}"
     group: "{{ takel_ship_compose_user.group }}"
-    mode: '0755'
+    mode: "{{ takel_ship_compose_user.mode.dir }}"
   loop: "{{ takel_ship_compose_services }}"
   loop_control:
     loop_var: takel_ship_compose_service
@@ -35,7 +47,7 @@
     state: directory
     owner: "{{ takel_ship_compose_user.owner }}"
     group: "{{ takel_ship_compose_user.group }}"
-    mode: '0755'
+    mode: "{{ takel_ship_compose_user.mode.dir }}"
   loop: >-
     {{ q('ansible.builtin.subelements',
     takel_ship_compose_services,

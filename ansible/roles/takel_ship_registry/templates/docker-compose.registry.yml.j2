@@ -6,7 +6,7 @@ services:
     image: ${TAKELSHIP_REGISTRY_IMAGE:-{{ takel_ship_registry_image['name'] }}:{{ takel_ship_registry_image['tag'] }}}
     restart: ${TAKELSHIP_REGISTRY_RESTART:-{{ takel_ship_registry_restart }}}
     volumes:
-      - ${TAKELSHIP_REGISTRY_DATA_DIR:-./data}:/var/lib/registry
+      - ${TAKELSHIP_REGISTRY_DATA_DIR:-../{{ takel_ship_registry_service['name'] }}/data}:/var/lib/registry
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:

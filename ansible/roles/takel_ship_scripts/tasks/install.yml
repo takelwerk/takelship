@@ -7,9 +7,17 @@
     dest: >-
       {{ takel_ship_scripts_file.path | default(takel_ship_scripts_dir) }}/{{
       takel_ship_scripts_file.name }}
-    owner: "{{ takel_ship_scripts_file.owner | default('root') }}"
-    group: "{{ takel_ship_scripts_file.group | default('root') }}"
-    mode: "{{ takel_ship_scripts_file.mode | default('0755') }}"
+    owner: >-
+      {{ takel_ship_scripts_file.owner |
+      default(takel_ship_scripts_root.owner) }}
+    group: >-
+      {{ takel_ship_scripts_file.group |
+      default(takel_ship_scripts_root.group) }}
+    # we use default(takel_ship_scripts_root.mode.dir)
+    # as the file should be executable
+    mode: >-
+      {{ takel_ship_scripts_file.mode |
+      default(takel_ship_scripts_root.mode.dir) }}
   loop: "{{ takel_ship_scripts_scripts }}"
   loop_control:
     loop_var: takel_ship_scripts_file

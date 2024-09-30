@@ -1,5 +1,9 @@
 ---
 include:
-{% for service in takel_ship_compose_project.services %}
-  - {{ service.name }}/{{ takel_ship_compose_service_filename }}.{{ takel_ship_compose_service_fileext }}
+{% for project in takel_ship_compose_projects %}
+{% if project['name'] == takel_ship_compose_project['name'] %}
+{% for service in project['services'] %}
+  - ../{{ service['name'] }}/{{ takel_ship_compose_service_filename }}.{{ takel_ship_compose_service_fileext }}
+{% endfor %}
+{% endif %}
 {% endfor %}

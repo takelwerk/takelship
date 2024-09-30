@@ -11,10 +11,9 @@ platforms:
       - users
       - molecule
     published_ports:
-      - 127.0.0.1:20022:22/tcp
-      - 127.0.0.1:20080:80/tcp
-      - 127.0.0.1:23000:3000/tcp
-      - 127.0.0.1:25000:5000/tcp
+      - 127.0.0.1:43000:3000/tcp
+      - 127.0.0.1:45000:5000/tcp
+      - 127.0.0.1:48111:8111/tcp
 provisioner:
   name: ansible
   playbooks:

@@ -3,5 +3,5 @@
   ansible.builtin.include_tasks: images.yml
   tags:
     - takel
-    - takel_ships
-    - takel_ship_compose_images
+    - takel_ship_registry
+    - takel_ship_registry_images

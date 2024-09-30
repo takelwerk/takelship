@@ -13,6 +13,10 @@ platforms:
       - ${TAKELAGE_PROJECT_IMG:-noimage}
       - users
       - molecule
+    published_ports:
+      - 127.0.0.1:53000:3000/tcp
+      - 127.0.0.1:55000:5000/tcp
+      - 127.0.0.1:58111:8111/tcp
 provisioner:
   name: ansible
   playbooks:
