@@ -149,7 +149,7 @@ class ChangeID(object):
 
     def _logger_init_(self, debug):
         logger = logging.getLogger(__file__)
-        logger.setLevel(logging.INFO)
+        logger.setLevel(logging.DEBUG)
         if debug:
             logger.setLevel(logging.DEBUG)
         Path('/debug').mkdir(exist_ok=True)
