@@ -1,6 +1,6 @@
 # takelage-dev
 
-*takelship* is a podman container runtime environment for docker.
+*takelship* is a podman container runtime environment for docker with minimal footprint.
 
 At the moment, these setups have been tested:
  - [Docker Engine for Linux (Debian)](https://docs.docker.com/engine/install/debian/) (amd64 and arm64)
@@ -51,24 +51,37 @@ docker run -it takelwerk/takelship
 ```
 
 Choose a project and run the respective command 
-to run a takelship server. For example:
+to run a takelship server:
 
 ```
+$ docker run -it --rm takelwerk/takelship
 [takelship] This is a takelwerk takelship container
-[takelship] Image: takelwerk/takelship:0.1.31
-[takelship] See: https://github.com/takelwerk/takelship
-[takelship] No project selected
-[takelship] [all]
-mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "30022:30022" --publish "33000:33000" --publish "38111:38111" --volume ./data:/home/podman/data takelwerk/takelship all
-[takelship] [registry]
+[takelship] Image: takelwerk/takelship:0.1.42
+[takelship] More info: https://github.com/takelwerk/takelship
+[takelship] No project selected. Available projects:
+
+== Project: all
+= All services of all projects.
+mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "35000:35000" --publish "30022:30022" --publish "33000:33000" --publish "38111:38111" --volume ./data:/home/podman/data takelwerk/takelship all
+
+== Project: registry
+= Docker registry (docs.docker.com/registry). Provides image hosting.
 mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "35000:35000" --volume ./data:/home/podman/data takelwerk/takelship registry
-[takelship] [forgejo]
+
+== Project: forgejo
+= Forgejo Gitea fork (forgejo.org). Provides git hosting. Provides CI/CD pipelines (GitHub style). Provides image hosting.
 mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "30022:30022" --publish "33000:33000" --volume ./data:/home/podman/data takelwerk/takelship forgejo
-[takelship] [teamcity]
+
+== Project: teamcity
+= TeamCity build server (jetbrains.com/teamcity). Provides CI/CD pipelines (JetBrains style). Runs with Forgejo for git hosting.
 mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "30022:30022" --publish "33000:33000" --publish "38111:38111" --volume ./data:/home/podman/data takelwerk/takelship teamcity
+
+== Project: update
+= Update service files and run scripts in data directory.
+mkdir -p data && docker run --rm --interactive --tty --volume ./data:/home/podman/data takelwerk/takelship update
 ```
 
-List the available container commands:
+List available container commands:
 
 ```bash
 docker exec -it takelship cli
