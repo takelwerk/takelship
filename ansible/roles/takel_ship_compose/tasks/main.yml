@@ -1,6 +1,7 @@
 ---
 - name: (main) include localhost
   ansible.builtin.include_tasks: localhost.yml
+  when: takel_ship_compose_create_local_compose_file is true
   tags:
     - takel
     - takel_ships
