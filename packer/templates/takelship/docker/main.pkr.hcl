@@ -49,9 +49,7 @@ build {
     ]
     groups = [
       "all",
-      "private",
-      "users",
-      "image",
+      "packer",
       "${var.image_name}"
     ]
     playbook_file = "../ansible/${var.ansible_playbook}"

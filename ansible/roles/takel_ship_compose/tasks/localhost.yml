@@ -4,3 +4,4 @@
     src: docker-compose.takelship.yml.j2
     dest: /project/docker-compose.yml
   delegate_to: localhost
+  when: takel_ship_compose_create_local_compose_file is true

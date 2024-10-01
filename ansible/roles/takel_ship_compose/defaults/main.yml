@@ -46,3 +46,5 @@ takel_ship_compose_compose_dir: compose
 takel_ship_compose_projects_dir: projects
 takel_ship_compose_service_filename: docker-compose
 takel_ship_compose_service_fileext: yml
+
+takel_ship_compose_create_local_compose_file: true
