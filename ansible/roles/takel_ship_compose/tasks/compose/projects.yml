@@ -17,7 +17,7 @@
   loop_control:
     loop_var: takel_ship_compose_project
 
-- name: (compose) (projects) deploy bash copy script
+- name: (compose) (projects) deploy bash download script
   ansible.builtin.template:
     src: templates/download.bash.j2
     dest: >-
