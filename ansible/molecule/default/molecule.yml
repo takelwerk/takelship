@@ -8,7 +8,6 @@ platforms:
     pre_build_image: true
     privileged: true
     groups:
-      - users
       - molecule
     published_ports:
       - 127.0.0.1:43000:3000/tcp
