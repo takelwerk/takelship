@@ -17,5 +17,6 @@ docker run \
 {% endfor %}
 {% endfor %}
 --volume ./data:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }} \
+--env TAKELSHIP_UPDATE=true \
 ${TAKELSHIP_IMAGE:-takelwerk/takelship} {{ project['name'] }}"
 {% endfor %}

@@ -55,12 +55,16 @@ to run a takelship server. For example:
 
 ```
 [takelship] This is a takelwerk takelship container
-[takelship] It runs: takelwerk/takelship:0.1.24
+[takelship] Image: takelwerk/takelship:0.1.31
 [takelship] See: https://github.com/takelwerk/takelship
 [takelship] No project selected
-[takelship] Run this for takelship project: forgejo
+[takelship] [all]
+mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "30022:30022" --publish "33000:33000" --publish "38111:38111" --volume ./data:/home/podman/data takelwerk/takelship all
+[takelship] [registry]
+mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "35000:35000" --volume ./data:/home/podman/data takelwerk/takelship registry
+[takelship] [forgejo]
 mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "30022:30022" --publish "33000:33000" --volume ./data:/home/podman/data takelwerk/takelship forgejo
-[takelship] Run this for takelship project: teamcity
+[takelship] [teamcity]
 mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "30022:30022" --publish "33000:33000" --publish "38111:38111" --volume ./data:/home/podman/data takelwerk/takelship teamcity
 ```
 
