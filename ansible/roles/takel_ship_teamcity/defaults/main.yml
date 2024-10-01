@@ -1,17 +1,17 @@
 ---
 takel_ship_teamcity_services:
-  - "{{ takel_ship_teamcity_service }}"
+  - "{{ takel_ship_teamcity_server_service }}"
+  - "{{ takel_ship_teamcity_runner_service }}"
 
 ### end of group_vars
 
-takel_ship_teamcity_service:
-  name: teamcity
+takel_ship_teamcity_server_service:
+  name: teamcity-server
   role: takel_ship_teamcity
-  template: docker-compose.teamcity.yml.j2
-  env: env.teamcity.j2
+  template: docker-compose.teamcity-server.yml.j2
+  env: env.teamcity-server.j2
   images:
     - "{{ takel_ship_teamcity_server_image }}"
-    - "{{ takel_ship_teamcity_agent_image }}"
   ports:
     - "{{ takel_ship_teamcity_http_port }}"
   volumes:
@@ -19,6 +19,14 @@ takel_ship_teamcity_service:
       mount: /data/teamcity_server/datadir
     - name: teamcity-logs
       mount: /opt/teamcity/logs
+
+takel_ship_teamcity_runner_service:
+  name: teamcity-runner
+  role: takel_ship_teamcity
+  template: docker-compose.teamcity-runner.yml.j2
+  env: env.teamcity-runner.j2
+  images:
+    - "{{ takel_ship_teamcity_agent_image }}"
 
 takel_ship_teamcity_server_image:
   name: jetbrains/teamcity-server

@@ -6,7 +6,8 @@ takel_ship_compose_projects:
     services:
       - "{{ takel_ship_registry_service }}"
       - "{{ takel_ship_forgejo_service }}"
-      - "{{ takel_ship_teamcity_service }}"
+      - "{{ takel_ship_teamcity_server_service }}"
+      - "{{ takel_ship_teamcity_runner_service }}"
   - name: registry
     description: >-
       Docker registry (docs.docker.com/registry).
@@ -28,6 +29,7 @@ takel_ship_compose_projects:
       Runs with Forgejo.
     services:
       - "{{ takel_ship_forgejo_service }}"
-      - "{{ takel_ship_teamcity_service }}"
+      - "{{ takel_ship_teamcity_server_service }}"
+      - "{{ takel_ship_teamcity_runner_service }}"
 
 takel_ship_compose_default_project: forgejo
