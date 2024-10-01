@@ -6,11 +6,22 @@
       'TAKELAGE_PROJECT_BASE_DIR') }}/docker-compose.yml
   register: docker_compose_yml
 
+- name: (localhost) ls
+  ansible.builtin.cmd: ls /project
+  delegate_to: localhost
+
+- name: (localhost) ls
+  ansible.builtin.debug:
+    msg: >-
+      lookup('ansible.builtin.env', 
+      'TAKELAGE_PROJECT_BASE_DIR')
+  delegate_to: localhost
+
 - name: (localhost) update local docker-compose.yml
   ansible.builtin.template:
     src: docker-compose.takelship.yml.j2
     dest: >-
       {{ lookup('ansible.builtin.env',
       'TAKELAGE_PROJECT_BASE_DIR') }}/docker-compose.yml
-  when: docker_compose_yml.stat.exists
+  #when: docker_compose_yml.stat.exists
   delegate_to: localhost

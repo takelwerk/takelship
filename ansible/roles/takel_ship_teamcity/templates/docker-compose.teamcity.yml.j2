@@ -20,7 +20,7 @@ services:
     image: ${TAKELSHIP_TEAMCITY_IMAGE_AGENT:-{{ takel_ship_teamcity_agent_image['alias'] }}:{{ takel_ship_teamcity_agent_image['tag'] }}}
     privileged: true
     environment:
-      SERVER_URL: http://teamcity:8111
+      SERVER_URL: http://teamcity:${TAKELSHIP_TEAMCITY_HTTP_PORT:-{{ takel_ship_teamcity_http_port['port'] }}}
       DOCKER_IN_DOCKER: start
       AGENT_NAME: >-
         ${TAKELSHIP_TEAMCITY_CONTAINER_NAME:-teamcity}-agent-{{ agent }}
