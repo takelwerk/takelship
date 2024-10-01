@@ -4,6 +4,7 @@ takel_ship_compose_projects:
     description: >-
       All services.
     services:
+      - "{{ takel_ship_registry_service }}"
       - "{{ takel_ship_forgejo_service }}"
       - "{{ takel_ship_teamcity_service }}"
   - name: registry
