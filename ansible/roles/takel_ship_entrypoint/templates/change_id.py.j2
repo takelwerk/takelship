@@ -16,8 +16,8 @@ class ChangeID(object):
             self._debug = True
         self._logger = self._logger_init_(self._debug)
         self._logger.debug('log starting: {now}'.format(now=now))
-        self._username = '{{ takel_ship_compose_user.owner }}'
-        self._groupname = '{{ takel_ship_compose_user.group }}'
+        self._username = '{{ takel_ship_podman_user.owner }}'
+        self._groupname = '{{ takel_ship_podman_user.group }}'
         self._newgroup = 'podgrp'
         self._default_uid = 1000
         self._default_gid = 1000

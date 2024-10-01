@@ -1,6 +1,6 @@
 ---
 - name: (install) install deb packages
   ansible.builtin.apt:
-    name: "{{ takel_ship_compose_deb_install_packages }}"
+    name: "{{ takel_ship_podman_deb_install_packages }}"
     state: present
     update_cache: true

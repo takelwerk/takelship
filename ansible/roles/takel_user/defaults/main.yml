@@ -9,6 +9,8 @@ takel_user_groups: []
 takel_user_shell: /bin/false
 takel_user_password: '*'
 takel_user_sshpubkeys: []
+takel_user_mode_dir: '0755'
+takel_user_mode_file: '0644'
 
 takel_user_create: true
 

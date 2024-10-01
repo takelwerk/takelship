@@ -3,5 +3,3 @@
   hosts: all
   roles:
     - takel_ship_podman
-    - takel_ship_compose
-    - takel_ship_scripts

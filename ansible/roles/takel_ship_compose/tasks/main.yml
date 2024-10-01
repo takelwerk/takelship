@@ -1,11 +1,4 @@
 ---
-- name: (main) include install
-  ansible.builtin.include_tasks: install.yml
-  tags:
-    - takel
-    - takel_ships
-    - takel_ship_compose_install
-
 - name: (main) include localhost
   ansible.builtin.include_tasks: localhost.yml
   tags:

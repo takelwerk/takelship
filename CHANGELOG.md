@@ -6,10 +6,11 @@
 - Added registry role.
 - Added scripts role.
 - Added compose role.
+- Added registry service.
 - Added forgejo server service. 
 - Added forgejo runner service. (TODO)
-- Added teamcity service.
-- Added teamcity runners. (TODO)
+- Added teamcity server service.
+- Added teamcity runner service.
 
 ### Version 0.2.x
 - Added systemd role. (TODO)

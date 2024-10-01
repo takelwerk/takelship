@@ -1,7 +1,9 @@
 #{{ takel_ship_scripts_shebang }}
 
+echo
 {% for project in takel_ship_compose_projects %}
-echo {{ takel_ship_entrypoint_log_prefix }} [{{ project['name'] }}]
+echo '== Project: {{ project['name'] }}'
+echo '= {{ project['description'] }}'
 echo "\
 mkdir -p data && \
 docker run \
@@ -17,6 +19,16 @@ docker run \
 {% endfor %}
 {% endfor %}
 --volume ./data:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }} \
---env TAKELSHIP_UPDATE=true \
 ${TAKELSHIP_IMAGE:-takelwerk/takelship} {{ project['name'] }}"
+echo
 {% endfor %}
+echo '== Project: update'
+echo '= Update service files and run scripts in data directory.'
+echo "\
+mkdir -p data && \
+docker run \
+--rm \
+--interactive \
+--tty \
+--volume ./data:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }} \
+${TAKELSHIP_IMAGE:-takelwerk/takelship} update"

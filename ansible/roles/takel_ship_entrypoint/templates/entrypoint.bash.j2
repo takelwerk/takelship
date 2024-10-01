@@ -15,7 +15,7 @@ echo {{ takel_ship_entrypoint_log_prefix }} Image: {{ project['images']['project
 echo {{ takel_ship_entrypoint_log_prefix }} More info: https://github.com/takelwerk/takelship
 
 if [ -z "$1" ] || [[ "$1" == "/bin/bash" ]]; then
-  echo {{ takel_ship_entrypoint_log_prefix }} No project selected
+  echo {{ takel_ship_entrypoint_log_prefix }} No project selected. Available projects:
   {{ takel_ship_scripts_script_first_aid['name'] }}
   exit
 fi
@@ -23,7 +23,7 @@ fi
 PROJECT="$1"
 debug project is set to "$PROJECT"
 
-if true &&
+if [[ "$PROJECT" != "update" ]] &&
 {% for project in takel_ship_compose_projects %}
   [[ "$PROJECT" != {{ project['name'] }} ]] &&
 {% endfor %}
@@ -38,12 +38,6 @@ echo {{ takel_ship_entrypoint_log_prefix }} Preparing podman container environme
 debug export takelship environment variables
 {{ takel_ship_entrypoint_script_export_envvars['name'] }} "$(env)"
 
-debug make sure that the data dir exists
-{{ takel_ship_scripts_script_cmd['name'] }} mkdir --parents {{ takel_ship_compose_data_dir }}
-
-debug change podman uid and git and chown data dir
-{{ takel_ship_entrypoint_script_change_ids['name'] }}
-
 UPDATE="false"
 
 debug check if we have to prepopulate the data dir
@@ -52,10 +46,20 @@ debug check if we have to prepopulate the data dir
 UPDATE="${TAKELSHIP_UPDATE:-$UPDATE}"
 UPDATE="${UPDATE,,}"
 
-if [ "$UPDATE" == "true" ]; then
-  debug copy dist files to data volume
-  {{ takel_ship_scripts_script_cmd['name'] }} cp --recursive /home/podman/dist/* /home/podman/data
+debug make sure that the data dir exists
+mkdir --parents {{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}
+
+if [[ "$UPDATE" == "true" ]] || [[ "$PROJECT" == "update" ]]; then
+  echo {{ takel_ship_entrypoint_log_prefix }} Updating data directory
+  cp --recursive /home/podman/dist/* /home/podman/data
 fi
+
+debug change podman uid and git and chown data dir
+{{ takel_ship_entrypoint_script_change_ids['name'] }}
+
+[[ "$PROJECT" == "update" ]] && exit
+
+# From here on non-privileged containers will fail
 
 debug suppress warning message about shared mount
 mount / --make-rshare

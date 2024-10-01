@@ -2,7 +2,7 @@
 takel_ship_compose_projects:
   - name: all
     description: >-
-      All services.
+      All services of all projects.
     services:
       - "{{ takel_ship_registry_service }}"
       - "{{ takel_ship_forgejo_service }}"
@@ -16,17 +16,17 @@ takel_ship_compose_projects:
       - "{{ takel_ship_registry_service }}"
   - name: forgejo
     description: >-
-      Forgejo Gitea clone (forgejo.org).
-      Provides image hosting.
+      Forgejo Gitea fork (forgejo.org).
       Provides git hosting.
       Provides CI/CD pipelines (GitHub style).
+      Provides image hosting.
     services:
       - "{{ takel_ship_forgejo_service }}"
   - name: teamcity
     description: >-
       TeamCity build server (jetbrains.com/teamcity).
       Provides CI/CD pipelines (JetBrains style).
-      Runs with Forgejo.
+      Runs with Forgejo for git hosting.
     services:
       - "{{ takel_ship_forgejo_service }}"
       - "{{ takel_ship_teamcity_server_service }}"

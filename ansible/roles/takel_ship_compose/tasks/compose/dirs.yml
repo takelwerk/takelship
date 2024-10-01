@@ -6,9 +6,9 @@
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}
     state: directory
-    owner: "{{ takel_ship_compose_user.owner }}"
-    group: "{{ takel_ship_compose_user.group }}"
-    mode: "{{ takel_ship_compose_user.mode.dir }}"
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
 
 - name: (compose) (dirs) create projects dir
   ansible.builtin.file:
@@ -18,9 +18,9 @@
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_projects_dir }}
     state: directory
-    owner: "{{ takel_ship_compose_user.owner }}"
-    group: "{{ takel_ship_compose_user.group }}"
-    mode: "{{ takel_ship_compose_user.mode.dir }}"
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
 
 - name: (compose) (dirs) create service dirs
   ansible.builtin.file:
@@ -30,9 +30,9 @@
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_service.name }}
     state: directory
-    owner: "{{ takel_ship_compose_user.owner }}"
-    group: "{{ takel_ship_compose_user.group }}"
-    mode: "{{ takel_ship_compose_user.mode.dir }}"
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
   loop: "{{ takel_ship_compose_services }}"
   loop_control:
     loop_var: takel_ship_compose_service
@@ -45,9 +45,9 @@
       takel_ship_compose_compose_dir }}/{{
       item[0].name }}/{{ item[1].name }}
     state: directory
-    owner: "{{ takel_ship_compose_user.owner }}"
-    group: "{{ takel_ship_compose_user.group }}"
-    mode: "{{ takel_ship_compose_user.mode.dir }}"
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
   loop: >-
     {{ q('ansible.builtin.subelements',
     takel_ship_compose_services,

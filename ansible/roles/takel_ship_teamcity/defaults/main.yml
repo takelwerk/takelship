@@ -28,14 +28,19 @@ takel_ship_teamcity_runner_service:
   images:
     - "{{ takel_ship_teamcity_agent_image }}"
 
+takel_ship_teamcity_version: 2024.07.3
+
 takel_ship_teamcity_server_image:
   name: jetbrains/teamcity-server
-  tag: 2024.07.2
+  tag: "{{ takel_ship_teamcity_version }}"
   alias: teamcity-server
 
 takel_ship_teamcity_agent_image:
   name: jetbrains/teamcity-agent
-  tag: 2024.07.2-linux-sudo
+  # default is the amd64 version of the runner
+  # if you want arm64 runners then use
+  # "{{ takel_ship_teamcity_version }}-linux-arm64-sudo"
+  tag: "{{ takel_ship_teamcity_version }}-linux-sudo"
   alias: teamcity-agent-linux-sudo
 
 takel_ship_teamcity_http_port:

@@ -4,9 +4,9 @@ testinfra_hosts = [takeltest.hosts()[0]]
 
 
 def test_takel_ship_compose_compose_dirs_service_dir(host, testvars):
-    user = testvars['takel_ship_compose_user']['owner']
-    group = testvars['takel_ship_compose_user']['group']
-    mode = int(testvars['takel_ship_compose_user']['mode']['dir'], 8)
+    user = testvars['takel_ship_podman_user']['owner']
+    group = testvars['takel_ship_podman_user']['group']
+    mode = int(testvars['takel_ship_podman_user']['mode']['dir'], 8)
     home_dir = testvars['takel_ship_compose_home_dir']
     data_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
@@ -20,9 +20,9 @@ def test_takel_ship_compose_compose_dirs_service_dir(host, testvars):
 
 
 def test_takel_ship_compose_compose_dirs_projects_dir(host, testvars):
-    user = testvars['takel_ship_compose_user']['owner']
-    group = testvars['takel_ship_compose_user']['group']
-    mode = int(testvars['takel_ship_compose_user']['mode']['dir'], 8)
+    user = testvars['takel_ship_podman_user']['owner']
+    group = testvars['takel_ship_podman_user']['group']
+    mode = int(testvars['takel_ship_podman_user']['mode']['dir'], 8)
     home_dir = testvars['takel_ship_compose_home_dir']
     data_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
@@ -37,9 +37,9 @@ def test_takel_ship_compose_compose_dirs_projects_dir(host, testvars):
 
 
 def test_takel_ship_compose_compose_dirs_service_dirs(host, testvars):
-    user = testvars['takel_ship_compose_user']['owner']
-    group = testvars['takel_ship_compose_user']['group']
-    mode = int(testvars['takel_ship_compose_user']['mode']['dir'], 8)
+    user = testvars['takel_ship_podman_user']['owner']
+    group = testvars['takel_ship_podman_user']['group']
+    mode = int(testvars['takel_ship_podman_user']['mode']['dir'], 8)
     home_dir = testvars['takel_ship_compose_home_dir']
     data_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
@@ -57,9 +57,9 @@ def test_takel_ship_compose_compose_dirs_service_dirs(host, testvars):
 
 
 def test_takel_ship_compose_compose_dirs_volumes(host, testvars):
-    user = testvars['takel_ship_compose_user']['owner']
-    group = testvars['takel_ship_compose_user']['group']
-    mode = int(testvars['takel_ship_compose_user']['mode']['dir'], 8)
+    user = testvars['takel_ship_podman_user']['owner']
+    group = testvars['takel_ship_podman_user']['group']
+    mode = int(testvars['takel_ship_podman_user']['mode']['dir'], 8)
     home_dir = testvars['takel_ship_compose_home_dir']
     data_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']

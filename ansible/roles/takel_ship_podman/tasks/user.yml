@@ -1,0 +1,16 @@
+---
+- name: (user) configure podman user
+  ansible.builtin.include_role:
+    name: takel_user
+  vars:
+    takel_user_name: "{{ takel_ship_podman_user.owner }}"
+    takel_user_group: "{{ takel_ship_podman_user.group }}"
+    takel_user_home: "/home/{{ takel_ship_podman_user.owner }}"
+    takel_user_mode_dir: "{{ takel_ship_podman_user.mode.dir }}"
+    takel_user_mode_file: "{{ takel_ship_podman_user.mode.file }}"
+    takel_user_create: false
+
+- name: (user) remove ~/.bash_logout
+  ansible.builtin.file:
+    path: "/home/{{ takel_ship_podman_user.owner }}/.bash_logout"
+    state: absent

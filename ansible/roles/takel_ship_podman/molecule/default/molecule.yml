@@ -2,7 +2,7 @@
 driver:
   name: docker
 platforms:
-  - name: molecule-takel-ship-services
+  - name: molecule-takel-ship-podman
     image: takelwerk/takelpodslim
     command: /usr/bin/tail -f /dev/null
     privileged: true

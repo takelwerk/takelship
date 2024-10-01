@@ -9,5 +9,5 @@
     chdir: "{{ takel_ship_compose_home_dir }}"
   loop: "{{ takel_ship_registry_images }}"
   vars:
-    user: "{{ takel_ship_compose_user.owner }}"
+    user: "{{ takel_ship_podman_user.owner }}"
   changed_when: false

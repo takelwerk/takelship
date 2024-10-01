@@ -11,7 +11,7 @@ def test_takel_ship_scripts_install_files(
         user = testvars['takel_ship_scripts_root']['owner']
         group = testvars['takel_ship_scripts_root']['group']
         # we assume that file is executable
-        mode = int(testvars['takel_ship_compose_user']['mode']['dir'], 8)
+        mode = int(testvars['takel_ship_podman_user']['mode']['dir'], 8)
         if 'path' in script:
             dir = script['path']
         if 'owner' in script:

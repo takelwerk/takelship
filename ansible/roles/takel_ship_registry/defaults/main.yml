@@ -45,9 +45,9 @@ takel_ship_registry_script_registries:
   name: registries.conf
   role: takel_ship_registry
   template: registries.conf.j2
-  owner: "{{ takel_ship_compose_user.owner }}"
-  group: "{{ takel_ship_compose_user.group }}"
-  mode: "{{ takel_ship_compose_user.mode.file }}"
+  owner: "{{ takel_ship_podman_user.owner }}"
+  group: "{{ takel_ship_podman_user.group }}"
+  mode: "{{ takel_ship_podman_user.mode.file }}"
   path: >-
     {{ takel_ship_compose_home_dir
     }}/.config/containers

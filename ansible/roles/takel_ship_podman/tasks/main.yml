@@ -1,0 +1,14 @@
+---
+- name: (main) include install
+  ansible.builtin.include_tasks: install.yml
+  tags:
+    - takel
+    - takel_ships
+    - takel_ship_podman_install
+
+- name: (main) include user
+  ansible.builtin.include_tasks: user.yml
+  tags:
+    - takel
+    - takel_ships
+    - takel_ship_podman_user

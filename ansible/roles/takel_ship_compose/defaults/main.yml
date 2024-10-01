@@ -27,38 +27,19 @@ takel_ship_compose_example_image:
   tag: latest
   alias: alpine
 
-takel_ship_compose_deb_install_packages:
-  - curl
-  - iproute2
-  - jq
-  - nano
-  - skopeo
-  - tmux
-  - tree
-  - vim
-  - wget
-  - yq
-
-takel_ship_compose_user:
-  owner: podman
-  group: podman
-  mode:
-    dir: "0755"
-    file: "0644"
-
 takel_ship_compose_script_containers:
   name: containers.conf
   role: takel_ship_compose
   template: containers.conf.j2
-  owner: "{{ takel_ship_compose_user.owner }}"
-  group: "{{ takel_ship_compose_user.group }}"
-  mode: "{{ takel_ship_compose_user.mode.file }}"
+  owner: "{{ takel_ship_podman_user.owner }}"
+  group: "{{ takel_ship_podman_user.group }}"
+  mode: "{{ takel_ship_podman_user.mode.file }}"
   path: >-
     {{ takel_ship_compose_home_dir
     }}/.config/containers
 
 takel_ship_compose_home_dir: >-
-  /home/{{ takel_ship_compose_user.owner }}
+  /home/{{ takel_ship_podman_user.owner }}
 takel_ship_compose_data_dir: data
 takel_ship_compose_dist_dir: dist
 takel_ship_compose_compose_dir: compose

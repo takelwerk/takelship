@@ -6,7 +6,7 @@ usage(){
 >&2 cat << EOF
 Usage: $(basename $0)
    [ ( -w | --workdir ) <directory> ]      (default: {{ takel_ship_compose_home_dir }})
-   <command>                               (will be run as {{ takel_ship_compose_user.owner }} user)
+   <command>                               (will be run as {{ takel_ship_podman_user.owner }} user)
 
 Login shell: $(basename $0) shell
 Example: $(basename $0) podman ps -a
