@@ -12,7 +12,7 @@ debug() {
 
 echo {{ takel_ship_entrypoint_log_prefix }} This is a takelwerk takelship container
 echo {{ takel_ship_entrypoint_log_prefix }} Image: {{ project['images']['project']['target_user'] }}/{{ project['images']['project']['target_repo'] }}:{{ project['version'] }}
-echo {{ takel_ship_entrypoint_log_prefix }} See: https://github.com/takelwerk/takelship
+echo {{ takel_ship_entrypoint_log_prefix }} More info: https://github.com/takelwerk/takelship
 
 if [ -z "$1" ] || [[ "$1" == "/bin/bash" ]]; then
   echo {{ takel_ship_entrypoint_log_prefix }} No project selected
