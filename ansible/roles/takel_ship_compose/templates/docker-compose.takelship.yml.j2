@@ -21,12 +21,13 @@ services:
     ###     docker compose down
     ###
     ### to debug you start it instead with:
-    ###   $  docker run -it --rm --privileged \
+    ###   $ docker run -it --rm --privileged \
     ###     --hostname takelship --name takelship \
     ###     --entrypoint bash \
     ###     packer_local/takelship-project:latest
     ###
-    ### then inside the container you run: root@takelship:~# TAKELSHIP_DEBUG=true /entrypoint
+    ### then inside the container you run:
+    ###   root@takelship:~# TAKELSHIP_DEBUG=true /entrypoint
     ###
     ##################################
     privileged: true
@@ -37,14 +38,18 @@ services:
     ### enables debug logging to stdout
     #  TAKELSHIP_UPDATE:
     ### controls updates of compose filese in the compose dir
-    ### see {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}{{ takel_ship_compose_compose_dir }}/<service>/env
+    ### see {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/<service>/env
     ### for service specific environment variables
     ###
     volumes:
       - ${TAKELSHIP_DATADIR:-./data}:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}
     ports:
 {% for service in takel_ship_compose_services %}
-{% for port in service['ports'] | default([]) %}
-      - "{{ port['port'] }}:{{ port['port'] }}"  #  {{ service['name'] }} {{ port['name'] }}
+{% if not service['name'] == 'takelship-registry' %}
+{% if 'ports' in service %}
+{% for port in service['ports'] %}
+      - "{{ port['port'] }}:{{ port['port'] }}"  #  {{ service['name'] }} {{ port['protocol'] }}
 {% endfor %}
+{% endif %}
+{% endif %}
 {% endfor %}

@@ -33,12 +33,12 @@ takel_ship_forgejo_script_forgejo:
   list: true
 
 takel_ship_forgejo_ssh_port:
-  name: ssh
   port: 30022
+  protocol: ssh
 
 takel_ship_forgejo_http_port:
-  name: http
   port: 33000
+  protocol: http
 
 takel_ship_forgejo_uid: 1000
 takel_ship_forgejo_gid: 1000

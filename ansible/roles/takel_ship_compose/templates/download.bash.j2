@@ -8,7 +8,7 @@
 {% if not image == takel_ship_registry_image %}
 skopeo copy \
   docker://{{ image['name'] }}:{{ image['tag'] }} \
-  docker://${TAKELSHIP_LOCAL_REGISTRY_HOST:-localhost}:${TAKELSHIP_LOCAL_REGISTRY_PORT:-{{ takel_ship_registry_takelship_registry_port }}}/{{ image['name'] }}:{{ image['tag'] }}
+  docker://${TAKELSHIP_LOCAL_REGISTRY_HOST:-localhost}:${TAKELSHIP_LOCAL_REGISTRY_PORT:-{{ takel_ship_registry_takelship_registry_port['port'] }}}/{{ image['name'] }}:{{ image['tag'] }}
 {% endif %}
 {% endfor %}
 {% endfor %}

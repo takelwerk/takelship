@@ -4,7 +4,7 @@ unqualified-search-registries = ["docker.io"]
 {% for service in takel_ship_compose_services %}
 {% if 'images' in service %}
 {% for image in service.images %}
-"{{ image.alias }}" = "localhost:{{ takel_ship_registry_takelship_registry_port }}/{{ image.name }}"
+"{{ image.alias }}" = "localhost:{{ takel_ship_registry_takelship_registry_port['port'] }}/{{ image.name }}"
 {% endfor %}
 {% endif %}
 {% endfor %}

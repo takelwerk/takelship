@@ -1,16 +1,6 @@
 ---
-- name: (localhost) check if local docker-compose.yml exists
-  stat:
-    path: >-
-      {{ lookup('ansible.builtin.env',
-      'TAKELAGE_PROJECT_BASE_DIR') }}/docker-compose.yml
-  register: docker_compose_yml
-
-- name: (localhost) update local docker-compose.yml
+- name: (localhost) create takelship docker compose file
   ansible.builtin.template:
     src: docker-compose.takelship.yml.j2
-    dest: >-
-      {{ lookup('ansible.builtin.env',
-      'TAKELAGE_PROJECT_BASE_DIR') }}/docker-compose.yml
-  when: docker_compose_yml.stat.exists
+    dest: /project/docker-compose.yml
   delegate_to: localhost

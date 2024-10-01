@@ -65,7 +65,7 @@ debug suppress warning message about shared mount
 mount / --make-rshare
 
 # start registry
-echo {{ takel_ship_entrypoint_log_prefix }} Starting local registry on localhost:{{ takel_ship_registry_takelship_registry_port }}
+echo {{ takel_ship_entrypoint_log_prefix }} Starting local registry on localhost:{{ takel_ship_registry_takelship_registry_port['port'] }}
 {{ takel_ship_scripts_script_cmd['name'] }} mkdir --parents {{ takel_ship_compose_data_dir }}/{{ takel_ship_registry_cache_dir }}
 {{ takel_ship_scripts_script_cmd['name'] }} \
   --workdir {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/takelship-registry \

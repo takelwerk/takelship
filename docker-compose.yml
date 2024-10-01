@@ -21,29 +21,30 @@ services:
     ###     docker compose down
     ###
     ### to debug you start it instead with:
-    ###   $  docker run -it --rm --privileged \
+    ###   $ docker run -it --rm --privileged \
     ###     --hostname takelship --name takelship \
     ###     --entrypoint bash \
     ###     packer_local/takelship-project:latest
     ###
-    ### then inside the container you run: root@takelship:~# TAKELSHIP_DEBUG=true /entrypoint
+    ### then inside the container you run:
+    ###   root@takelship:~# TAKELSHIP_DEBUG=true /entrypoint
     ###
     ##################################
     privileged: true
     environment:
       TAKELSHIP_PROJECT: default
     ###
-    #   TAKELSHIP_DEBUG: false
+    #  TAKELSHIP_DEBUG: false
     ### enables debug logging to stdout
-    #   TAKELSHIP_UPDATE:
+    #  TAKELSHIP_UPDATE:
     ### controls updates of compose filese in the compose dir
-    ### see /home/podman/datacompose/<service>/env
+    ### see /home/podman/data/compose/<service>/env
     ### for service specific environment variables
-    ### /home/podman/datacompose
+    ###
     volumes:
       - ${TAKELSHIP_DATADIR:-./data}:/home/podman/data
     ports:
-      - "35000:35000"  #  registry htt
+      - "35000:35000"  #  registry http
       - "30022:30022"  #  forgejo ssh
       - "33000:33000"  #  forgejo http
-      - "38111:38111"  #  teamcity http
+      - "38111:38111"  #  teamcity-server http

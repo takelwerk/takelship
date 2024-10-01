@@ -56,8 +56,10 @@ takel_ship_registry_restart: always
 
 takel_ship_registry_cache_dir: cache
 
-takel_ship_registry_takelship_registry_port: 5555
+takel_ship_registry_takelship_registry_port:
+  port: 5555
+  protocol: http
 
 takel_ship_registry_http_port:
-  name: http
   port: 35000
+  protocol: http

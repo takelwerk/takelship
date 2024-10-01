@@ -42,7 +42,7 @@
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
-      takel_ship_compose_service.name 
+      takel_ship_compose_service.name
       }}/run
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
