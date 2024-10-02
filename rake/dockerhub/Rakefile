@@ -62,10 +62,8 @@ cmd_dockerhub_tag_custom = \
   '%<target_user>s/%<target_repo>s:%<target_tag>s-%<target_arch>s'
 
 # rubocop:disable Metrics/BlockLength
-namespace :dockerhub do |env|
-  subtasks(env.scope.path) do
-
-
+namespace :dockerhub do |env_dockerhub|
+  subtasks(env_dockerhub.scope.path) do
     desc 'Log in to hub.docker.com'
     task :login do
       @commands << cmd_dockerhub_login
