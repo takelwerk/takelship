@@ -1,6 +1,8 @@
 ---
 takel_ship_podman_deb_install_packages:
+  - bash-completion
   - curl
+  - git
   - iproute2
   - jq
   - nano

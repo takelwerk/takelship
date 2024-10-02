@@ -1,0 +1,13 @@
+---
+services:
+  registry-ui:
+    container_name: ${TAKELSHIP_REGISTRY_UI_CONTAINER_NAME:-registry-ui}
+    hostname: ${TAKELSHIP_REGISTRY_UI_HOSTNAME:-registry-ui}
+    image: ${TAKELSHIP_REGISTRY_UI_IMAGE:-{{ takel_ship_registry_ui_image['name'] }}:{{ takel_ship_registry_ui_image['tag'] }}}
+    restart: ${TAKELSHIP_REGISTRY_UI_RESTART:-{{ takel_ship_registry_restart }}}
+    environment:
+      TZ: Europe/Amsterdam
+    ports:
+      - "${TAKELSHIP_REGISTRY_UI_HTTP_PORT:-{{ takel_ship_registry_ui_http_port['port'] }}}:8000"
+    volumes:
+      - ${TAKELSHIP_REGISTRY_UI_CONFIG_YML:-../{{ takel_ship_registry_ui_service['name'] }}/{{ takel_ship_registry_ui_script_config['name'] }}}:/opt/config.yml:ro

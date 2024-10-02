@@ -1,0 +1,14 @@
+---
+services:
+  registry-server:
+    container_name: ${TAKELSHIP_REGISTRY_SERVER_CONTAINER_NAME:-registry-server}
+    hostname: ${TAKELSHIP_REGISTRY_SERVER_HOSTNAME:-registry-server}
+    image: ${TAKELSHIP_REGISTRY_SERVER_IMAGE:-{{ takel_ship_registry_server_image['name'] }}:{{ takel_ship_registry_server_image['tag'] }}}
+    restart: ${TAKELSHIP_REGISTRY_SERVER_RESTART:-{{ takel_ship_registry_restart }}}
+    volumes:
+      - ${TAKELSHIP_REGISTRY_SERVER_DATA_DIR:-../{{ takel_ship_registry_server_service['name'] }}/data}:/var/lib/registry
+      - ${TAKELSHIP_REGISTRY_SERVER_CONFIG_YML:-../{{ takel_ship_registry_server_service['name'] }}/{{ takel_ship_registry_server_script_config['name'] }}}:/etc/docker/registry/config.yml:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "${TAKELSHIP_REGISTRY_SERVER_HTTP_PORT:-{{ takel_ship_registry_server_http_port['port'] }}}:5000"

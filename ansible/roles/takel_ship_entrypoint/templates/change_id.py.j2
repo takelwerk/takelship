@@ -26,15 +26,6 @@ class ChangeID(object):
         self._logger.debug(f"uid: {self._uid}")
         self._logger.debug(f"gid: {self._gid}")
 
-    def make_rshare(self):
-        self._logger.debug(
-            f"share root mount")
-        command = [
-            'mount',
-            '/',
-            '--make-rshare']
-        self._run_(command)
-
     def configure_gid(self):
         self._logger.debug(
             f"configure {self._username} gid")

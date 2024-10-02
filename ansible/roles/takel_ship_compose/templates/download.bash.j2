@@ -5,7 +5,7 @@
 {% for service in project['services'] %}
 {% if 'images' in service %}
 {% for image in service['images'] %}
-{% if image in takel_ship_registry_podman_images %}
+{% if image in takel_ship_registry_takelship_images %}
 {{ '#' }} echo Downloading {{ image['name'] }}:{{ image['tag'] }}
 {{ '#' }} skopeo copy \
 {{ '#' }}    docker://{{ image['name'] }}:{{ image['tag'] }} \

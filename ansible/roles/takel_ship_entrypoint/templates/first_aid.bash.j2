@@ -15,7 +15,7 @@ docker run \
 --privileged \
 {% for service in project['services'] %}
 {% for port in service['ports'] | default([]) %}
---publish \"{{ port['port'] }}:{{ port['port'] }}\" \
+--publish \"127.0.0.1:{{ port['port'] }}:{{ port['port'] }}\" \
 {% endfor %}
 {% endfor %}
 --volume ./data:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }} \

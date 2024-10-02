@@ -1,0 +1,8 @@
+---
+- name: (molecule) converge
+  hosts: all
+  roles:
+    - takel_ship_podman
+    - takel_ship_services
+    - takel_ship_scripts
+    - takel_ship_registry

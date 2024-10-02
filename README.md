@@ -47,7 +47,7 @@ You have to run docker as user, not as root. It is not possible to run the *take
 Get info how to run a takelship project:
 
 ```bash
-docker run -it takelwerk/takelship
+docker run -it --rm takelwerk/takelship
 ```
 
 Choose a project and run the respective command 

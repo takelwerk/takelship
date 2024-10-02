@@ -4,16 +4,19 @@ takel_ship_compose_projects:
     description: >-
       All services of all projects.
     services:
-      - "{{ takel_ship_registry_service }}"
+      - "{{ takel_ship_registry_server_service }}"
+      - "{{ takel_ship_registry_ui_service }}"
       - "{{ takel_ship_forgejo_service }}"
       - "{{ takel_ship_teamcity_server_service }}"
       - "{{ takel_ship_teamcity_runner_service }}"
   - name: registry
     description: >-
-      Docker registry (docs.docker.com/registry).
+      Docker registry (distribution.github.io/distribution).
+      Registry UI (github.com/Quiq/registry-ui).
       Provides image hosting.
     services:
-      - "{{ takel_ship_registry_service }}"
+      - "{{ takel_ship_registry_server_service }}"
+      - "{{ takel_ship_registry_ui_service }}"
   - name: forgejo
     description: >-
       Forgejo Gitea fork (forgejo.org).

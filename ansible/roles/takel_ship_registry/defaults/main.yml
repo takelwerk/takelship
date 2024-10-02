@@ -1,36 +1,54 @@
 ---
 takel_ship_registry_services:
-  - "{{ takel_ship_registry_service }}"
+  - "{{ takel_ship_registry_server_service }}"
+  - "{{ takel_ship_registry_ui_service }}"
   - "{{ takel_ship_registry_takelship_service }}"
 
 takel_ship_registry_scripts:
   - "{{ takel_ship_registry_script_registries }}"
+  - "{{ takel_ship_registry_ui_script_config }}"
+  - "{{ takel_ship_registry_server_script_config }}"
 
 ### end of group_vars
 
-takel_ship_registry_image:
+takel_ship_registry_server_image:
   name: docker.io/library/registry
   tag: 2
   alias: registry
 
+takel_ship_registry_ui_image:
+  name: quiq/registry-ui
+  tag: latest
+  alias: registry-ui
+
 # these images will pulled in the container
 # the registry image is necessary
 # but refrain from adding more images!
-takel_ship_registry_podman_images:
-  - "{{ takel_ship_registry_image }}"
+takel_ship_registry_takelship_images:
+  - "{{ takel_ship_registry_server_image }}"
 
-takel_ship_registry_service:
-  name: registry
+takel_ship_registry_server_service:
+  name: registry-server
   role: takel_ship_registry
-  template: docker-compose.registry.yml.j2
-  env: env.registry.j2
+  template: docker-compose.registry-server.yml.j2
+  env: env.registry-server.j2
   images:
-    - "{{ takel_ship_registry_image }}"
+    - "{{ takel_ship_registry_server_image }}"
   ports:
-    - "{{ takel_ship_registry_http_port }}"
+    - "{{ takel_ship_registry_server_http_port }}"
   volumes:
     - name: data
       mount: /data
+
+takel_ship_registry_ui_service:
+  name: registry-ui
+  role: takel_ship_registry
+  template: docker-compose.registry-ui.yml.j2
+  env: env.registry-ui.j2
+  images:
+    - "{{ takel_ship_registry_ui_image }}"
+  ports:
+    - "{{ takel_ship_registry_ui_http_port }}"
 
 takel_ship_registry_takelship_service:
   name: takelship-registry
@@ -42,6 +60,34 @@ takel_ship_registry_takelship_service:
   volumes:
     - name: data
       mount: ../../cache
+
+takel_ship_registry_ui_script_config:
+  name: config.yml
+  role: takel_ship_registry
+  template: config.registry-ui.yml.j2
+  owner: "{{ takel_ship_podman_user.owner }}"
+  group: "{{ takel_ship_podman_user.group }}"
+  mode: "{{ takel_ship_podman_user.mode.file }}"
+  path: >-
+    {{ takel_ship_compose_home_dir }}/{{
+    takel_ship_compose_dist_dir }}/{{
+    takel_ship_compose_compose_dir }}/{{
+    takel_ship_registry_ui_service.name
+    }}
+
+takel_ship_registry_server_script_config:
+  name: config.yml
+  role: takel_ship_registry
+  template: config.registry-server.yml.j2
+  owner: "{{ takel_ship_podman_user.owner }}"
+  group: "{{ takel_ship_podman_user.group }}"
+  mode: "{{ takel_ship_podman_user.mode.file }}"
+  path: >-
+    {{ takel_ship_compose_home_dir }}/{{
+    takel_ship_compose_dist_dir }}/{{
+    takel_ship_compose_compose_dir }}/{{
+    takel_ship_registry_server_service.name
+    }}
 
 takel_ship_registry_script_registries:
   name: registries.conf
@@ -62,6 +108,10 @@ takel_ship_registry_takelship_registry_port:
   port: 5555
   protocol: http
 
-takel_ship_registry_http_port:
+takel_ship_registry_server_http_port:
   port: 35000
+  protocol: http
+
+takel_ship_registry_ui_http_port:
+  port: 35080
   protocol: http

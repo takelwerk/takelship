@@ -3,7 +3,7 @@ services:
   registry:
     container_name: takelship-registry
     hostname: takelship-registry
-    image: {{ takel_ship_registry_image['name'] }}:{{ takel_ship_registry_image['tag'] }}
+    image: {{ takel_ship_registry_server_image['name'] }}:{{ takel_ship_registry_server_image['tag'] }}
     restart: always
     volumes:
       - ../../{{ takel_ship_registry_cache_dir }}:/var/lib/registry

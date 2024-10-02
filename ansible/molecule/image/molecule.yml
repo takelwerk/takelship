@@ -3,7 +3,7 @@ driver:
   name: docker
 platforms:
   # yamllint disable-line rule:line-length
-  - name: molecule_image_${TAKELAGE_UNQIUE:-nonunique}_${TAKELAGE_PROJECT_IMG:-noimage}
+  - name: molecule_image_${HOSTNAME:-name}
     # yamllint disable-line rule:line-length
     image: packer_local/${TAKELAGE_PROJECT_NAME:-name}-${TAKELAGE_PROJECT_IMG:-noimage}
     pre_build_image: true
@@ -13,9 +13,8 @@ platforms:
       - ${TAKELAGE_PROJECT_IMG:-noimage}
       - molecule
     published_ports:
-      - 127.0.0.1:53000:3000/tcp
-      - 127.0.0.1:55000:5000/tcp
-      - 127.0.0.1:58111:8111/tcp
+      - 127.0.0.1:55080:35080/tcp
+      - 127.0.0.1:55000:35000/tcp
 provisioner:
   name: ansible
   playbooks:

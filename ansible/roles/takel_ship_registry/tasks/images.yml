@@ -7,7 +7,7 @@
       "podman image exists {{ item.name }}:{{ item.tag }}
       || podman pull {{ item.name }}:{{ item.tag }}"
     chdir: "{{ takel_ship_compose_home_dir }}"
-  loop: "{{ takel_ship_registry_podman_images }}"
+  loop: "{{ takel_ship_registry_takelship_images }}"
   vars:
     user: "{{ takel_ship_podman_user.owner }}"
   changed_when: false
