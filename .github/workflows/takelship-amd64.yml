@@ -50,7 +50,7 @@ jobs:
         run: tau docker container command "rake rubylint"
 
       - name: Lint project
-        run: tau docker container command "rake images:project:molecule:lint"
+        run: tau docker container command "rake images:project:registry:molecule:lint"
 
       - name: Build takelage project image with packer
         run: tau docker container command "rake images:project:build"
