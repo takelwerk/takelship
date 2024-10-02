@@ -25,10 +25,12 @@ def test_image_registry_server(host, testvars):
     tag = testvars['takel_ship_registry_server_image']['tag']
     port = testvars['takel_ship_registry_server_http_port']['port']
     cmd = testvars['takel_ship_scripts_script_pod']['name']
-    cmd_tag = f"{cmd} podman tag {image}:{tag} localhost:{port}/myregistry:{tag}"
+    cmd_tag = (f"{cmd} podman tag "
+               f"{image}:{tag} localhost:{port}/myregistry:{tag}")
 
     assert host.run_expect([0], cmd_tag)
-    cmd_push = f"{cmd} podman push localhost:{port}/myregistry:{tag}"
+    cmd_push = (f"{cmd} podman push "
+                f"localhost:{port}/myregistry:{tag}")
 
     assert host.run_expect([0], cmd_push)
     cmd_curl_server = (
