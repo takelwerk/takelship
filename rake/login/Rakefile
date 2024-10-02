@@ -14,24 +14,26 @@ cmd_login_podman = 'docker exec ' \
     'molecule_default_takelbeta_takelship_%<unique>s ' \
     'cmd shell'
 
-namespace :login do
-  begin
-    unique = ENV['HOSTNAME'][-11..]
-  rescue StandardError
-    unique = 'nonunique'
-  end
-  desc 'Login as root'
-  task :root do
-    @commands << format(
-      cmd_login_root,
-      unique: unique
-    )
-  end
-  desc 'Login as podman'
-  task :podman do
-    @commands << format(
-      cmd_login_podman,
-      unique: unique
-    )
+namespace :login do |env|
+  subtasks(env.scope.path) do
+    begin
+      unique = ENV['HOSTNAME'][-11..]
+    rescue StandardError
+      unique = 'nonunique'
+    end
+    desc 'Login as root'
+    task :root do
+      @commands << format(
+        cmd_login_root,
+        unique: unique
+      )
+    end
+    desc 'Login as podman'
+    task :podman do
+      @commands << format(
+        cmd_login_podman,
+        unique: unique
+      )
+    end
   end
 end

@@ -46,6 +46,6 @@ services:
     ports:
       - "127.0.0.1:35000:35000"  #  registry-server http
       - "127.0.0.1:35080:35080"  #  registry-ui http
-      - "127.0.0.1:30022:30022"  #  forgejo ssh
-      - "127.0.0.1:33000:33000"  #  forgejo http
+      - "127.0.0.1:30022:30022"  #  forgejo-server ssh
+      - "127.0.0.1:33000:33000"  #  forgejo-server http
       - "127.0.0.1:38111:38111"  #  teamcity-server http

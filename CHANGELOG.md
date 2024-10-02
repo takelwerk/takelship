@@ -6,7 +6,8 @@
 - Added registry role.
 - Added scripts role.
 - Added compose role.
-- Added registry service.
+- Added registry server service.
+- Added registry ui service.
 - Added forgejo server service. 
 - Added forgejo runner service. (TODO)
 - Added teamcity server service.

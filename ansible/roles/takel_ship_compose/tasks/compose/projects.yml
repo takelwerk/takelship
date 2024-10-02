@@ -1,7 +1,7 @@
 ---
 - name: (compose) (projects) deploy compose file
   ansible.builtin.template:
-    src: templates/docker-compose.projects.yml.j2
+    src: docker-compose.projects.yml.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
@@ -17,15 +17,15 @@
   loop_control:
     loop_var: takel_ship_compose_project
 
-- name: (compose) (projects) deploy bash download script
+- name: (compose) (projects) deploy bash copy script
   ansible.builtin.template:
-    src: templates/download.bash.j2
+    src: copy.project.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_projects_dir
-      }}/download-{{ takel_ship_compose_project.name }}
+      }}/copy.{{ takel_ship_compose_project.name }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     mode: "{{ takel_ship_podman_user.mode.dir }}"
