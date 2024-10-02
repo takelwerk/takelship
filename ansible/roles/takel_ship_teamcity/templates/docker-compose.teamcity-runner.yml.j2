@@ -1,9 +1,9 @@
 ---
 services:
 {% for agent in range(takel_ship_teamcity_agents) %}
-  teamcity-agent-{{ agent }}:
-    container_name: ${TAKELSHIP_TEAMCITY_RUNNER_CONTAINER_NAME:-teamcity}-agent-{{ agent }}
-    hostname: ${TAKELSHIP_TEAMCITY_RUNNER_HOSTNAME:-teamcity}-agent-{{ agent }}
+  teamcity-agent-{{ agent + 1 }}:
+    container_name: ${TAKELSHIP_TEAMCITY_RUNNER_CONTAINER_NAME:-teamcity}-agent-{{ agent + 1 }}
+    hostname: ${TAKELSHIP_TEAMCITY_RUNNER_HOSTNAME:-teamcity}-agent-{{ agent + 1 }}
     image: ${TAKELSHIP_TEAMCITY_RUNNER_IMAGE:-{{ takel_ship_teamcity_agent_image['alias'] }}:{{ takel_ship_teamcity_agent_image['tag'] }}}
     privileged: true
     restart: ${TAKELSHIP_TEAMCITY_RESTART:-{{ takel_ship_teamcity_restart }}}
@@ -11,6 +11,6 @@ services:
       SERVER_URL: http://teamcity-server:8111
       DOCKER_IN_DOCKER: start
       AGENT_NAME: >-
-        ${TAKELSHIP_TEAMCITY_RUNNER_CONTAINER_NAME:-teamcity}-agent-{{ agent }}
+        ${TAKELSHIP_TEAMCITY_RUNNER_CONTAINER_NAME:-teamcity}-agent-{{ agent + 1 }}
       AGENT_OPTS: ${TAKELSHIP_TEAMCITY_RUNNER_AGENT_OPTS:-"docker.server.osType=Linux docker.server.version=N/A teamcity.agent.os.family=Linux"}
 {% endfor %}

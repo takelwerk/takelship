@@ -71,11 +71,9 @@ echo {{ takel_ship_entrypoint_log_prefix }} Starting local registry on localhost
   --workdir {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/takelship-registry \
   podman-compose --file {{ takel_ship_compose_service_filename }}.{{ takel_ship_compose_service_fileext }} up -d
 
-# copy images (except for the registry which is already downloaded)
-if [[ "$PROJECT" != "registry" ]]; then
-  echo {{ takel_ship_entrypoint_log_prefix }} Downloading images for project: $PROJECT
-  {{ takel_ship_scripts_script_cmd['name'] }} "{{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_projects_dir }}/download-$PROJECT"
-fi
+# copy images
+echo {{ takel_ship_entrypoint_log_prefix }} Downloading images for project: $PROJECT
+{{ takel_ship_scripts_script_cmd['name'] }} "{{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_projects_dir }}/download-$PROJECT"
 
 # start project
 {{ takel_ship_scripts_script_cmd['name'] }} --workdir {{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }} podman-compose --file "{{takel_ship_compose_home_dir}}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_projects_dir }}/{{ takel_ship_compose_service_filename}}.$PROJECT.yml" up -d

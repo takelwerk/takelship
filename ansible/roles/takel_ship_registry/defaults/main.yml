@@ -24,6 +24,8 @@ takel_ship_registry_takelship_service:
   role: takel_ship_registry
   template: docker-compose.takelship-registry.yml.j2
   env: env.takelship-registry.j2
+  images:
+    - "{{ takel_ship_registry_image }}"
   ports:
     - "{{ takel_ship_registry_takelship_registry_port }}"
   volumes:
