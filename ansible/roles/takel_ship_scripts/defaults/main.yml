@@ -1,14 +1,14 @@
 ---
 takel_ship_scripts_scripts_scripts:
   - "{{ takel_ship_scripts_script_cli }}"
-  - "{{ takel_ship_scripts_script_cmd }}"
+  - "{{ takel_ship_scripts_script_pod }}"
 
 ### end of group_vars
 
 # default vars for role unit test
 takel_ship_scripts:
   - "{{ takel_ship_scripts_script_cli }}"
-  - "{{ takel_ship_scripts_script_cmd }}"
+  - "{{ takel_ship_scripts_script_pod }}"
 
 takel_ship_scripts_script_cli:
   name: cli
@@ -16,10 +16,10 @@ takel_ship_scripts_script_cli:
   template: cli.bash.j2
   list: true
 
-takel_ship_scripts_script_cmd:
-  name: cmd
+takel_ship_scripts_script_pod:
+  name: pod
   role: takel_ship_scripts
-  template: cmd.bash.j2
+  template: pod.bash.j2
   list: true
 
 takel_ship_scripts_root:

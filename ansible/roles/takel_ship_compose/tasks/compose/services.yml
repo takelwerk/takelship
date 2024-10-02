@@ -43,7 +43,7 @@
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_service.name
-      }}/copy
+      }}/copy-image
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     # we use dir mode as the file should be executable
@@ -60,7 +60,7 @@
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_service.name
-      }}/run
+      }}/run-docker
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     # we use dir mode as the file should be executable

@@ -65,7 +65,7 @@ def test_takel_ship_compose_compose_services_copy_files(
 
         file = host.file(
             f"{home_dir}/{dist_dir}/{compose_dir}/"
-            f"{service['name']}/copy")
+            f"{service['name']}/copy-image")
 
         assert file.exists
         assert file.is_file
@@ -89,7 +89,7 @@ def test_takel_ship_compose_compose_services_run_files(
 
         file = host.file(
             f"{home_dir}/{dist_dir}/{compose_dir}/"
-            f"{service['name']}/run")
+            f"{service['name']}/run-docker")
 
         assert file.exists
         assert file.is_file

@@ -30,8 +30,11 @@ build_arm64:
     # Build image with packer
     - rake images:project:build
 
-    # Test takelage project image
-    - rake images:project:molecule:test
+    # Test takelship project registry
+    - rake images:project:registry:molecule:test
+
+    # Test takelship project forgejo
+    - rake images:project:forgejo:molecule:test
 
     # Login to dockerhub
     - docker login --username takelwerk --password $DOCKERHUB_TOKEN

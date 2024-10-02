@@ -90,20 +90,20 @@ docker exec -it takelship cli
 Run a command as podman user:
 
 ```bash
-docker exec -it takelship cmd podman ps -a
+docker exec -it takelship pod podman ps -a
 ```
 
 Run a command as podman user in a different directory (`-w` or `--workdir`) than the default directory (`/home/podman`):
 
 ```bash
-docker exec -it takelship cmd -w /tmp "podman info > ./podman_info"
-docker exec -it takelship cmd cat /tmp/podman_info
+docker exec -it takelship pod -w /tmp "podman info > ./podman_info"
+docker exec -it takelship pod cat /tmp/podman_info
 ```
 
 Enter a login shell as podman user:
 
 ```bash
-docker exec -it takelship cmd shell
+docker exec -it takelship pod shell
 ```
 
 Become root:

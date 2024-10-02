@@ -43,7 +43,7 @@ def test_takel_ship_compose_compose_projects_copy_files(host, testvars):
         file = host.file(
             f"{home_dir}/{dist_dir}/"
             f"{compose_dir}/{projects_dir}/"
-            f"copy.{project['name']}")
+            f"copy-images.{project['name']}")
 
         assert file.exists
         assert file.is_file
@@ -66,7 +66,7 @@ def test_takel_ship_compose_compose_projects_run_files(host, testvars):
         file = host.file(
             f"{home_dir}/{dist_dir}/"
             f"{compose_dir}/{projects_dir}/"
-            f"run-{project['name']}")
+            f"run-docker.{project['name']}")
 
         assert file.exists
         assert file.is_file

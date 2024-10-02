@@ -8,4 +8,4 @@ else
   FORGEJO_COMMAND="su git -c 'forgejo $@'"
   CONTAINER_COMMAND="podman exec -it forgejo bash -c \"$FORGEJO_COMMAND\""
 fi
-{{ takel_ship_scripts_script_cmd['name'] }} "$CONTAINER_COMMAND"
+{{ takel_ship_scripts_script_pod['name'] }} "$CONTAINER_COMMAND"
