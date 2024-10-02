@@ -16,32 +16,32 @@ takel_ship_registry_image:
 # these images will pulled in the container
 # the registry image is necessary
 # but refrain from adding more images!
-takel_ship_registry_images:
+takel_ship_registry_podman_images:
   - "{{ takel_ship_registry_image }}"
-
-takel_ship_registry_takelship_service:
-  name: takelship-registry
-  role: takel_ship_registry
-  template: docker-compose.takelship-registry.yml.j2
-  env: env.takelship-registry.j2
-  images:
-    - "{{ takel_ship_registry_image }}"
-  ports:
-    - "{{ takel_ship_registry_takelship_registry_port }}"
-  volumes:
-    - name: data
-      mount: ../../cache
 
 takel_ship_registry_service:
   name: registry
   role: takel_ship_registry
   template: docker-compose.registry.yml.j2
   env: env.registry.j2
+  images:
+    - "{{ takel_ship_registry_image }}"
   ports:
     - "{{ takel_ship_registry_http_port }}"
   volumes:
     - name: data
       mount: /data
+
+takel_ship_registry_takelship_service:
+  name: takelship-registry
+  role: takel_ship_registry
+  template: docker-compose.takelship-registry.yml.j2
+  env: env.takelship-registry.j2
+  ports:
+    - "{{ takel_ship_registry_takelship_registry_port }}"
+  volumes:
+    - name: data
+      mount: ../../cache
 
 takel_ship_registry_script_registries:
   name: registries.conf
