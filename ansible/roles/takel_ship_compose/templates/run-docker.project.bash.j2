@@ -6,9 +6,9 @@ docker compose \
 {% for service in project['services'] %}
   --env-file ../{{ service['name'] }}/env \
 {% endfor %}
-{% endif %}
-{% endfor %}
   --file {{
       takel_ship_compose_service_filename }}.{{ project['name'] }}.{{
       takel_ship_compose_service_fileext }} \
   up -d
+{% endif %}
+{% endfor %}

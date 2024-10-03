@@ -77,14 +77,14 @@ debug create podman socket
 # start takelship registry
 echo $LOG Starting registry on localhost:{{ takel_ship_registry_takelship_registry_port['port'] }}
 $POD mkdir --parents {{ takel_ship_compose_data_dir }}/{{ takel_ship_registry_cache_dir }}
-$POD --workdir $COMPOSE_DIR/{{ takel_ship_registry_takelship_service['name'] }} {{ takel_ship_compose_run_podman }}
+$POD --workdir $COMPOSE_DIR/{{ takel_ship_registry_takelship_service['name'] }} ./{{ takel_ship_compose_run_podman }}
 
 # copy images
 echo $LOG Copying images for project: $PROJECT
 $POD $PROJECTS_DIR/{{ takel_ship_compose_copy_images }}.$PROJECT
 
 # start project
-$POD --workdir $PROJECTS_DIR {{ takel_ship_compose_run_podman }}.$PROJECT
+$POD --workdir $PROJECTS_DIR ./{{ takel_ship_compose_run_podman }}.$PROJECT
 
 # show logs
 echo $LOG Boarding podman compose logs

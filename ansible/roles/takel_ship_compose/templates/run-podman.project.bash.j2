@@ -1,18 +1,4 @@
 {{ takel_ship_scripts_shebang }}
 
-{% for project in takel_ship_compose_projects %}
-{% if project['name'] == takel_ship_compose_project['name'] %}
-{% for service in project['services'] %}
-{% if 'nonroot' in service %}
-{% if service['nonroot'] == 'true' %}
-{{ takel_ship_scripts_script_compose_nonroot['name'] }} \
-{% else %}
-podman-compose \
-{% endif %}
-{% endif %}
-{% endfor %}
-{% endif %}
-  --file {{ takel_ship_compose_service_filename }}.{{ project['name'] }}.{{
-  takel_ship_compose_service_fileext }} \
-{% endfor %}
-  up -d
+podman-compose --file {{ takel_ship_compose_service_filename }}.{{ takel_ship_compose_project['name'] }}.{{
+  takel_ship_compose_service_fileext }} up -d
