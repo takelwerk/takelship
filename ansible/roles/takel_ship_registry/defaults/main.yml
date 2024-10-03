@@ -32,7 +32,6 @@ takel_ship_registry_server_service:
   role: takel_ship_registry
   template: docker-compose.registry-server.yml.j2
   env: env.registry-server.j2
-  nonroot: false
   images:
     - "{{ takel_ship_registry_server_image }}"
   ports:
@@ -46,7 +45,6 @@ takel_ship_registry_ui_service:
   role: takel_ship_registry
   template: docker-compose.registry-ui.yml.j2
   env: env.registry-ui.j2
-  nonroot: false
   images:
     - "{{ takel_ship_registry_ui_image }}"
   ports:
@@ -57,7 +55,6 @@ takel_ship_registry_takelship_service:
   role: takel_ship_registry
   template: docker-compose.takelship-registry.yml.j2
   env: env.takelship-registry.j2
-  nonroot: false
   ports:
     - "{{ takel_ship_registry_takelship_registry_port }}"
   volumes:

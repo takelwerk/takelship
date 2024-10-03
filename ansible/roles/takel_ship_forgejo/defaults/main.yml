@@ -13,7 +13,6 @@ takel_ship_forgejo_server_service:
   role: takel_ship_forgejo
   template: docker-compose.forgejo-server.yml.j2
   env: env.forgejo-server.j2
-  nonroot: false
   images:
     - "{{ takel_ship_forgejo_server_image }}"
   ports:
