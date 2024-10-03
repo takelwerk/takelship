@@ -4,3 +4,12 @@
     name: "{{ takel_ship_podman_deb_install_packages }}"
     state: present
     update_cache: true
+
+- name: (install) create bat symlink
+  ansible.builtin.file:
+    src: /usr/bin/batcat
+    dest: /usr/local/bin/bat
+    owner: root
+    group: root
+    mode: '0755'
+    state: link

@@ -1,0 +1,10 @@
+{{ takel_ship_scripts_shebang }}
+
+{% if takel_ship_compose_service['nonroot'] == true %}
+{{ takel_ship_scripts_script_compose_nonroot['name'] }} \
+{% else %}
+podman-compose \
+{% endif %}
+  --file {{
+  takel_ship_compose_service_filename }}.{{
+  takel_ship_compose_service_fileext }} up -d

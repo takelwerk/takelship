@@ -14,3 +14,11 @@
   ansible.builtin.file:
     path: "/home/{{ takel_ship_podman_user.owner }}/.bash_logout"
     state: absent
+
+- name: (user) add ~/.run
+  ansible.builtin.file:
+    path: "/home/{{ takel_ship_podman_user.owner }}/.run"
+    state: directory
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.dir }}"

@@ -2,6 +2,7 @@
 takel_ship_scripts_scripts_scripts:
   - "{{ takel_ship_scripts_script_cli }}"
   - "{{ takel_ship_scripts_script_pod }}"
+  - "{{ takel_ship_scripts_script_compose_nonroot }}"
 
 ### end of group_vars
 
@@ -9,18 +10,28 @@ takel_ship_scripts_scripts_scripts:
 takel_ship_scripts:
   - "{{ takel_ship_scripts_script_cli }}"
   - "{{ takel_ship_scripts_script_pod }}"
+  - "{{ takel_ship_scripts_script_compose_nonroot }}"
 
 takel_ship_scripts_script_cli:
   name: cli
+  description: List available commands.
+  list: true
   role: takel_ship_scripts
   template: cli.bash.j2
-  list: true
 
 takel_ship_scripts_script_pod:
   name: pod
+  description: "Run as {{ takel_ship_podman_user.owner }} user."
+  list: true
   role: takel_ship_scripts
   template: pod.bash.j2
+
+takel_ship_scripts_script_compose_nonroot:
+  name: compose-nonroot
+  description: Run nonroot podman-compose.
+  role: takel_ship_scripts
   list: true
+  template: compose-nonroot.bash.j2
 
 takel_ship_scripts_root:
   owner: root

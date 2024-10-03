@@ -1,7 +1,27 @@
 ---
 services:
-  forgejo:
+  docker-in-docker:
+    image: docker:dind
+    container_name: 'docker_dind'
+    privileged: 'true'
+    command: ['dockerd', '-H', 'tcp://0.0.0.0:2375', '--tls=false']
+    restart: 'unless-stopped'
+
+  forgejo-runner:
     container_name: ${TAKELSHIP_FORGEJO_CONTAINER_NAME:-forgejo-runner}
     hostname: ${TAKELSHIP_FORGEJO_HOSTNAME:-forgejo-runner}
     image: ${TAKELSHIP_FORGEJO_IMAGE:-{{ takel_ship_forgejo_runner_image['alias'] }}:{{ takel_ship_forgejo_runner_image['tag'] }}}
-    restart: ${TAKELSHIP_FORGEJO_RESTART:-always}
+    links:
+      - docker-in-docker
+    depends_on:
+      docker-in-docker:
+        condition: service_started
+    environment:
+      DOCKER_HOST: tcp://docker-in-docker:2375
+    # User without root privileges, but with access to `./data`.
+    user: 999:999
+    volumes:
+      - ../forgejo-runner/data:/data
+    restart: 'unless-stopped'
+
+    command: '/bin/sh -c "while : ; do sleep 1 ; done ;"'

@@ -1,6 +1,9 @@
 {{ takel_ship_scripts_shebang }}
 
 echo takelship command line interface:
-{% for takel_ship_scripts_script in takel_ship_scripts_scripts if 'list' in takel_ship_scripts_script and takel_ship_scripts_script.list %}
-echo "    {{ takel_ship_scripts_script.name }}"
+echo
+{% for takel_ship_scripts_script in takel_ship_scripts_scripts
+   if 'list' in takel_ship_scripts_script and takel_ship_scripts_script.list
+   if 'description' in takel_ship_scripts_script and takel_ship_scripts_script.description %}
+printf "    %-10s %s\n" "{{ takel_ship_scripts_script.name }}" "{{ takel_ship_scripts_script.description }}"
 {% endfor %}

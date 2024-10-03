@@ -13,6 +13,7 @@ takel_ship_forgejo_server_service:
   role: takel_ship_forgejo
   template: docker-compose.forgejo-server.yml.j2
   env: env.forgejo-server.j2
+  nonroot: false
   images:
     - "{{ takel_ship_forgejo_server_image }}"
   ports:
@@ -27,8 +28,12 @@ takel_ship_forgejo_runner_service:
   role: takel_ship_forgejo
   template: docker-compose.forgejo-runner.yml.j2
   env: env.forgejo-runner.j2
+  nonroot: true
   images:
     - "{{ takel_ship_forgejo_runner_image }}"
+  volumes:
+    - name: data
+      mount: /data
 
 takel_ship_forgejo_server_image:
   name: codeberg.org/forgejo/forgejo
@@ -42,9 +47,10 @@ takel_ship_forgejo_runner_image:
 
 takel_ship_forgejo_script_forgejo:
   name: "{{ takel_ship_forgejo_bin_cli }}"
+  description: Forgejo command line interface.
+  list: true
   role: takel_ship_forgejo
   template: forgejo.bash.j2
-  list: true
 
 takel_ship_forgejo_server_ssh_port:
   port: 30022

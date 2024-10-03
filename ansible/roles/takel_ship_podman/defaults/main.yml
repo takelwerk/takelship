@@ -1,11 +1,14 @@
 ---
 takel_ship_podman_deb_install_packages:
   - bash-completion
+  - bat
   - curl
+  - fzf
   - git
   - iproute2
   - jq
   - nano
+  - ripgrep
   - skopeo
   - tmux
   - tree
@@ -19,3 +22,7 @@ takel_ship_podman_user:
   mode:
     dir: "0755"
     file: "0644"
+
+takel_ship_podman_socket:
+  path: /home/podman/.run/podman.sock
+  socket: unix:///home/podman/.run/podman.sock

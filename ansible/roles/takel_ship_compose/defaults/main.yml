@@ -19,6 +19,12 @@ takel_ship_compose_example_service:
   name: example
   role: takel_ship_compose
   template: docker-compose.example.yml.j2
+  # nonroot: true means that the container thinks
+  # it is run as podman user (uid: 1000)
+  # nonroot: false means that the container thinks
+  # it is run as root user (uid: 0)
+  # default is nonroot: false
+  nonroot: false
   images:
     - "{{ takel_ship_compose_example_image }}"
 
@@ -26,6 +32,13 @@ takel_ship_compose_example_image:
   name: alpine
   tag: latest
   alias: alpine
+
+takel_ship_compose_env: env
+takel_ship_compose_run_docker: run-docker
+takel_ship_compose_run_podman: run-podman
+takel_ship_compose_copy_image: copy-image
+takel_ship_compose_copy_images: copy-images
+
 
 takel_ship_compose_script_containers:
   name: containers.conf

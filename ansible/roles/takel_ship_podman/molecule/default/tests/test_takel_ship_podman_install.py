@@ -11,3 +11,13 @@ def test_takel_ship_podman_install_packages_installed(host, testvars):
         deb = host.package(package)
 
         assert deb.is_installed
+
+def test_takel_ship_podman_create_bat_symlink(host):
+    bat = host.file('/usr/local/bin/bat')
+
+    assert bat.exists
+    assert bat.is_symlink
+    assert bat.linked_to == '/usr/bin/batcat'
+    assert bat.user == 'root'
+    assert bat.group == 'root'
+    assert bat.mode == 0o755

@@ -1,0 +1,7 @@
+{{ takel_ship_scripts_shebang }}
+
+set -euo pipefail
+
+PODMAN_USERNS=keep-id podman-compose --in-pod=false "$@"
+
+
