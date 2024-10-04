@@ -28,7 +28,7 @@
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_service.name }}/{{
-      takel_ship_compose_docker_env }}
+      takel_ship_compose_env_docker }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     mode: "{{ takel_ship_podman_user.mode.file }}"
