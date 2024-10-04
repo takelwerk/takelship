@@ -18,7 +18,7 @@
   loop_control:
     loop_var: takel_ship_compose_service
 
-- name: (compose) (services) deploy env file
+- name: (compose) (services) deploy docker env file
   ansible.builtin.template:
     src: >-
       ../../{{ takel_ship_compose_service.role }}/templates/{{

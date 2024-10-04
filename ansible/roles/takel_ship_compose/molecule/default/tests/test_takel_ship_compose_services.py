@@ -34,7 +34,7 @@ def test_takel_ship_compose_compose_services_env_files(
     home_dir = testvars['takel_ship_compose_home_dir']
     dist_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
-    env = testvars['takel_ship_compose_env']
+    env = testvars['takel_ship_compose_env_docker']
     services = testvars['takel_ship_compose_services']
     for service in services:
         if 'env' not in service:

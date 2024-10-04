@@ -25,7 +25,7 @@
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_projects_dir
-      }}/{{ takel_ship_compose_copy_images }}.{{ 
+      }}/{{ takel_ship_compose_copy_images }}.{{
       takel_ship_compose_project.name }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
@@ -42,7 +42,7 @@
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_projects_dir
-      }}/{{ takel_ship_compose_run_docker }}.{{ 
+      }}/{{ takel_ship_compose_run_docker }}.{{
       takel_ship_compose_project.name }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
@@ -59,7 +59,7 @@
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_projects_dir
-      }}/{{ takel_ship_compose_run_podman }}.{{ 
+      }}/{{ takel_ship_compose_run_podman }}.{{
       takel_ship_compose_project.name }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"

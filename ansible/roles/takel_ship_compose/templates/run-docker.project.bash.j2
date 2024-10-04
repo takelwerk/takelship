@@ -4,7 +4,7 @@ docker compose \
 {% for project in takel_ship_compose_projects %}
 {% if project['name'] == takel_ship_compose_project['name'] %}
 {% for service in project['services'] %}
-  --env-file ../{{ service['name'] }}/env \
+  --env-file ../{{ service['name'] }}/{{ takel_ship_compose_env_docker }} \
 {% endfor %}
   --file {{
       takel_ship_compose_service_filename }}.{{ project['name'] }}.{{
