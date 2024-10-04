@@ -34,7 +34,6 @@ verifier:
   name: testinfra
   options:
     v: true
-    m: cli
   env:
     TESTVARS_ROLES_PLAYBOOKS: >-
       ${TAKELAGE_MOLECULE_VERIFIER_PLAYS:-../../playbook-site.yml}
