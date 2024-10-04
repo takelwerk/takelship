@@ -3,7 +3,6 @@ takel_ship_podman_deb_install_packages:
   - bash-completion
   - bat
   - curl
-  - fzf
   - git
   - iproute2
   - jq
