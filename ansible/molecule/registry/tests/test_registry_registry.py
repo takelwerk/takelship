@@ -4,7 +4,7 @@ import json
 testinfra_hosts = [takeltest.hosts()[0]]
 
 
-def test_image_takelship_registry(host, testvars):
+def test_registry_takelship_registry(host, testvars):
     image = testvars['takel_ship_registry_ui_image']['name']
     expected_images = [image]
     port = testvars['takel_ship_registry_takelship_registry_port']['port']
@@ -19,7 +19,7 @@ def test_image_takelship_registry(host, testvars):
     assert expected_images == registry_images
 
 
-def test_image_registry_server(host, testvars):
+def test_registry_registry_server(host, testvars):
     expected_images = ['myregistry']
     image = testvars['takel_ship_registry_server_image']['name']
     tag = testvars['takel_ship_registry_server_image']['tag']
@@ -43,7 +43,7 @@ def test_image_registry_server(host, testvars):
     assert expected_images == registry_images
 
 
-def test_image_registry_ui(host, testvars):
+def test_registry_registry_ui(host, testvars):
     port = testvars['takel_ship_registry_ui_http_port']['port']
     cmd = testvars['takel_ship_scripts_script_pod']['name']
     cmd_curl_server = (

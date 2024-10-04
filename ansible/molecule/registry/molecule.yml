@@ -9,6 +9,8 @@ platforms:
     pre_build_image: true
     privileged: true
     command: registry
+    env:
+      TAKELSHIP_SOCKET: "false"
     groups:
       - ${TAKELAGE_PROJECT_IMG:-noimage}
       - molecule
@@ -32,6 +34,7 @@ verifier:
   name: testinfra
   options:
     v: true
+    m: cli
   env:
     TESTVARS_ROLES_PLAYBOOKS: >-
       ${TAKELAGE_MOLECULE_VERIFIER_PLAYS:-../../playbook-site.yml}

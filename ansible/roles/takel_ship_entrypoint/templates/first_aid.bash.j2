@@ -5,7 +5,6 @@ echo
 echo '== Project: {{ project['name'] }}'
 echo '= {{ project['description'] }}'
 echo "\
-mkdir -p data && \
 docker run \
 --rm \
 --interactive \
@@ -25,7 +24,6 @@ echo
 echo '== Project: update'
 echo '= Update service files and run scripts in data directory.'
 echo "\
-mkdir -p data && \
 docker run \
 --rm \
 --interactive \
