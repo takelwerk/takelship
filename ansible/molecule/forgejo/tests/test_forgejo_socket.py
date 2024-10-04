@@ -4,7 +4,7 @@ import pytest
 testinfra_hosts = [takeltest.hosts()[0]]
 
 
-@pytest.mark.cli
+@pytest.mark.forgejo
 def test_forgejo_podan_socket(host, testvars):
     user = testvars['takel_ship_podman_user']['owner']
     group = testvars['takel_ship_podman_user']['group']
