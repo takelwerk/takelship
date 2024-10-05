@@ -1,0 +1,25 @@
+---
+takel_ship_dind_services:
+  - "{{ takel_ship_dind_docker_service }}"
+
+### end of group_vars
+
+takel_ship_dind_docker_service:
+  name: docker-dind
+  role: takel_ship_dind
+  template: docker-compose.docker-dind.yml.j2
+  env: env.docker-dind.j2
+  images:
+    - "{{ takel_ship_dind_docker_image }}"
+  ports:
+    - "{{ takel_ship_dind_docker_port }}"
+
+takel_ship_dind_docker_image:
+  name: docker
+  tag: dind
+  alias: docker
+
+takel_ship_dind_docker_port:
+  port: 32375
+  protocol: docker
+  list: false

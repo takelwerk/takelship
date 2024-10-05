@@ -1,6 +1,6 @@
 ---
 services:
-  registry-server:
+  {{ takel_ship_registry_server_service['name'] }}:
     container_name: ${TAKELSHIP_REGISTRY_SERVER_CONTAINER_NAME:-registry-server}
     hostname: ${TAKELSHIP_REGISTRY_SERVER_HOSTNAME:-registry-server}
     image: ${TAKELSHIP_REGISTRY_SERVER_IMAGE:-{{ takel_ship_registry_server_image['name'] }}:{{ takel_ship_registry_server_image['tag'] }}}

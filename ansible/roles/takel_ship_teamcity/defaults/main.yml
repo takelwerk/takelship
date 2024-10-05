@@ -25,8 +25,9 @@ takel_ship_teamcity_runner_service:
   role: takel_ship_teamcity
   template: docker-compose.teamcity-runner.yml.j2
   env: env.teamcity-runner.j2
+  instances: 3
   images:
-    - "{{ takel_ship_teamcity_agent_image }}"
+    - "{{ takel_ship_teamcity_runner_image }}"
 
 takel_ship_teamcity_version: 2024.07.3
 
@@ -35,7 +36,7 @@ takel_ship_teamcity_server_image:
   tag: "{{ takel_ship_teamcity_version }}"
   alias: teamcity-server
 
-takel_ship_teamcity_agent_image:
+takel_ship_teamcity_runner_image:
   name: jetbrains/teamcity-agent
   # default is the amd64 version of the runner
   # if you want arm64 runners then use
@@ -48,5 +49,3 @@ takel_ship_teamcity_http_port:
   protocol: http
 
 takel_ship_teamcity_restart: always
-
-takel_ship_teamcity_agents: 3

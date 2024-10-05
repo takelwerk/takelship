@@ -1,9 +1,7 @@
 {{ takel_ship_scripts_shebang }}
 
-{% if 'nonroot' in takel_ship_compose_service %}
-{% if takel_ship_compose_service['nonroot'] == 'true' %}
+{% if 'nonroot' in takel_ship_compose_service and takel_ship_compose_service['nonroot'] %}
 {{ takel_ship_scripts_script_compose_nonroot['name'] }} \
-{% endif %}
 {% else %}
 podman-compose \
 {% endif %}

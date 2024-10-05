@@ -1,8 +1,6 @@
 {{ takel_ship_scripts_shebang }}
 
-{% for project in takel_ship_compose_projects %}
-{% if project['name'] == takel_ship_compose_project['name'] %}
-{% for service in project['services'] %}
+{% for service in takel_ship_compose_project['services'] %}
 {% if 'images' in service %}
 {% for image in service['images'] %}
 {% if image in takel_ship_registry_takelship_images %}
@@ -15,8 +13,6 @@ echo {{ takel_ship_entrypoint_log_prefix }} Copying {{ image['name'] }}:{{ image
 skopeo copy \
   docker://{{ image['name'] }}:{{ image['tag'] }} \
   docker://${TAKELSHIP_LOCAL_REGISTRY_HOST:-localhost}:${TAKELSHIP_LOCAL_REGISTRY_PORT:-{{ takel_ship_registry_takelship_registry_port['port'] }}}/{{ image['name'] }}:{{ image['tag'] }}
-{% endif %}
-{% endfor %}
 {% endif %}
 {% endfor %}
 {% endif %}

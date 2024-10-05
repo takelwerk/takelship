@@ -1,7 +1,4 @@
 ---
 - name: (main) include images
   ansible.builtin.include_tasks: images.yml
-  tags:
-    - takel
-    - takel_ship_registry
-    - takel_ship_registry_images
+  tags: always

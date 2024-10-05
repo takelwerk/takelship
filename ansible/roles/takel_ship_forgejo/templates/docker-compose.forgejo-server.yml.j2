@@ -1,8 +1,8 @@
 ---
 services:
-  forgejo:
-    container_name: ${TAKELSHIP_FORGEJO_SERVER_CONTAINER_NAME:-forgejo-server}
-    hostname: ${TAKELSHIP_FORGEJO_SERVER_HOSTNAME:-forgejo-server}
+  {{ takel_ship_forgejo_server_service['name'] }}:
+    container_name: ${TAKELSHIP_FORGEJO_SERVER_CONTAINER_NAME:-{{ takel_ship_forgejo_server_service['name'] }}}
+    hostname: ${TAKELSHIP_FORGEJO_SERVER_HOSTNAME:-{{ takel_ship_forgejo_server_service['name'] }}}
     image: ${TAKELSHIP_FORGEJO_SERVER_IMAGE:-{{ takel_ship_forgejo_server_image['alias'] }}:{{ takel_ship_forgejo_server_image['tag'] }}}
     restart: ${TAKELSHIP_FORGEJO_SERVER_RESTART:-always}
     environment:

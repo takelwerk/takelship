@@ -2,5 +2,6 @@
 takel_ship_compose_services: >-
   {{ takel_ship_compose_services_services +
   takel_ship_registry_services +
+  takel_ship_dind_services +
   takel_ship_forgejo_services +
   takel_ship_teamcity_services }}

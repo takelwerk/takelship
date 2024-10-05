@@ -1,8 +1,8 @@
 ---
 services:
-  registry-ui:
-    container_name: ${TAKELSHIP_REGISTRY_UI_CONTAINER_NAME:-registry-ui}
-    hostname: ${TAKELSHIP_REGISTRY_UI_HOSTNAME:-registry-ui}
+  {{ takel_ship_registry_ui_service['name'] }}:
+    container_name: ${TAKELSHIP_REGISTRY_UI_CONTAINER_NAME:-{{ takel_ship_registry_ui_service['name'] }}}
+    hostname: ${TAKELSHIP_REGISTRY_UI_HOSTNAME:-{{ takel_ship_registry_ui_service['name'] }}}
     image: ${TAKELSHIP_REGISTRY_UI_IMAGE:-{{ takel_ship_registry_ui_image['name'] }}:{{ takel_ship_registry_ui_image['tag'] }}}
     restart: ${TAKELSHIP_REGISTRY_UI_RESTART:-{{ takel_ship_registry_restart }}}
     environment:

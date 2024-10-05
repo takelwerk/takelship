@@ -48,7 +48,9 @@ services:
 {% if not service['name'] == 'takelship-registry' %}
 {% if 'ports' in service %}
 {% for port in service['ports'] %}
+{% if not 'list' in service or service['list'] %}
       - "127.0.0.1:{{ port['port'] }}:{{ port['port'] }}"  #  {{ service['name'] }} {{ port['protocol'] }}
+{% endif %}
 {% endfor %}
 {% endif %}
 {% endif %}

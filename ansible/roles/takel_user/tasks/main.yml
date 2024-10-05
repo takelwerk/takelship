@@ -1,22 +1,13 @@
 ---
 - name: (main) include create
-  ansible.builtin.import_tasks: create.yml
+  ansible.builtin.include_tasks: create.yml
   when: takel_user_create
-  tags:
-    - takel
-    - takel_user
-    - takel_user_create
+  tags: always
 
 - name: (main) include bashrc
-  ansible.builtin.import_tasks: bashrc.yml
-  tags:
-    - takel
-    - takel_user
-    - takel_user_bashrc
+  ansible.builtin.include_tasks: bashrc.yml
+  tags: always
 
 - name: (main) include configure
-  ansible.builtin.import_tasks: configure.yml
-  tags:
-    - takel
-    - takel_user
-    - takel_user_configure
+  ansible.builtin.include_tasks: configure.yml
+  tags: always

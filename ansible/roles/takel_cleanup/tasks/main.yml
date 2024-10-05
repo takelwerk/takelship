@@ -1,8 +1,5 @@
 ---
 - name: (main) include cleanup
-  ansible.builtin.import_tasks: cleanup.yml
+  ansible.builtin.include_tasks: cleanup.yml
   when: takel_cleanup_enable
-  tags:
-    - takel
-    - takel_cleanup
-    - takel_cleanup_cleanup
+  tags: always

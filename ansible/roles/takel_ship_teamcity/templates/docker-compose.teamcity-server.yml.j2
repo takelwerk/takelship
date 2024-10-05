@@ -1,8 +1,8 @@
 ---
 services:
-  teamcity-server:
-    container_name: ${TAKELSHIP_TEAMCITY_SERVER_CONTAINER_NAME:-teamcity-server}
-    hostname: ${TAKELSHIP_TEAMCITY_SERVER_HOSTNAME:-teamcity-server}
+  {{ takel_ship_teamcity_server_service['name'] }}:
+    container_name: ${TAKELSHIP_TEAMCITY_SERVER_CONTAINER_NAME:-{{ takel_ship_teamcity_server_service['name'] }}}
+    hostname: ${TAKELSHIP_TEAMCITY_SERVER_HOSTNAME:-{{ takel_ship_teamcity_server_service['name'] }}}
     image: ${TAKELSHIP_TEAMCITY_SERVER_IMAGE:-{{ takel_ship_teamcity_server_image['alias'] }}:{{ takel_ship_teamcity_server_image['tag'] }}}
     restart: ${TAKELSHIP_TEAMCITY_SERVER_RESTART:-{{ takel_ship_teamcity_restart }}}
     ports:

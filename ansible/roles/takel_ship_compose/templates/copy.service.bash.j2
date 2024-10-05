@@ -1,9 +1,7 @@
 {{ takel_ship_scripts_shebang }}
 
-{% for service in takel_ship_compose_services %}
-{% if service['name'] == takel_ship_compose_service['name'] %}
-{% if 'images' in service %}
-{% for image in service['images'] %}
+{% if 'images' in takel_ship_compose_service %}
+{% for image in takel_ship_compose_service['images'] %}
 {% if image in takel_ship_registry_takelship_images %}
 {{ '#' }} echo Copying {{ image['name'] }}:{{ image['tag'] }}
 {{ '#' }} skopeo copy \
@@ -17,5 +15,3 @@ skopeo copy \
 {% endif %}
 {% endfor %}
 {% endif %}
-{% endif %}
-{% endfor %}

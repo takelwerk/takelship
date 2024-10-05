@@ -1,0 +1,8 @@
+services:
+  {{ takel_ship_dind_docker_service['name'] }}:
+    container_name: ${TAKELSHIP_DOCKER_DIND_CONTAINER_NAME:-{{ takel_ship_dind_docker_service['name'] }}}
+    hostname: ${TAKELSHIP_DOCKER_DIND_HOSTNAME:-{{ takel_ship_dind_docker_service['name'] }}}
+    image: ${TAKELSHIP_DOCKER_DIND_IMAGE:-{{ takel_ship_dind_docker_image['alias'] }}:{{ takel_ship_dind_docker_image['tag'] }}}
+    privileged: 'true'
+    restart: 'unless-stopped'
+    command: ['dockerd', '-H', 'tcp://0.0.0.0:{{ takel_ship_dind_docker_port['port'] }}', '--tls=false']

@@ -2,8 +2,10 @@
 
 echo takelship command line interface:
 echo
-{% for takel_ship_scripts_script in takel_ship_scripts_scripts
-   if 'list' in takel_ship_scripts_script and takel_ship_scripts_script.list
-   if 'description' in takel_ship_scripts_script and takel_ship_scripts_script.description %}
+{% for takel_ship_scripts_script in takel_ship_scripts_scripts %}
+{% if 'list' in takel_ship_scripts_script and takel_ship_scripts_script.list %}
+{% if 'description' in takel_ship_scripts_script and takel_ship_scripts_script.description %}
 printf "    %-10s %s\n" "{{ takel_ship_scripts_script.name }}" "{{ takel_ship_scripts_script.description }}"
+{% endif %}
+{% endif %}
 {% endfor %}

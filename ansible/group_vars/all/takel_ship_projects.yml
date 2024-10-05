@@ -4,9 +4,11 @@ takel_ship_compose_projects:
     description: >-
       All services of all projects.
     services:
+      - "{{ takel_ship_dind_docker_service }}"
       - "{{ takel_ship_registry_server_service }}"
       - "{{ takel_ship_registry_ui_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
+      - "{{ takel_ship_forgejo_runner_service }}"
       - "{{ takel_ship_teamcity_server_service }}"
       - "{{ takel_ship_teamcity_runner_service }}"
   - name: registry
@@ -24,14 +26,21 @@ takel_ship_compose_projects:
       Provides git hosting.
       Provides CI/CD pipelines (GitHub style).
       Provides image hosting.
+      Runs with Forgejo Runners.
+      Runs with Docker in Docker.
     services:
+      - "{{ takel_ship_dind_docker_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
+      - "{{ takel_ship_forgejo_runner_service }}"
   - name: teamcity
     description: >-
       TeamCity build server (jetbrains.com/teamcity).
       Provides CI/CD pipelines (JetBrains style).
-      Runs with Forgejo for git hosting.
+      Runs with TeamCity Runners.
+      Runs with Docker in Docker.
+      Runs with Forgejo for git and image hosting.
     services:
+      - "{{ takel_ship_dind_docker_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
       - "{{ takel_ship_teamcity_server_service }}"
       - "{{ takel_ship_teamcity_runner_service }}"

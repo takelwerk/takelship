@@ -1,14 +1,8 @@
 ---
 - name: (main) include install tasks
-  ansible.builtin.import_tasks: install.yml
-  tags:
-    - takel
-    - takel_anarchism
-    - takel_anarchism_install
+  ansible.builtin.include_tasks: install.yml
+  tags: always
 
 - name: (main) include configure tasks
-  ansible.builtin.import_tasks: configure.yml
-  tags:
-    - takel
-    - takel_anarchism
-    - takel_anarchism_configure
+  ansible.builtin.include_tasks: configure.yml
+  tags: always
