@@ -1,9 +1,12 @@
 ---
-- name: (main) include localhost
-  ansible.builtin.include_tasks: localhost.yml
-  when: takel_ship_compose_create_local_compose_file is true
+- name: (compose) (main) include compose dirs
+  ansible.builtin.include_tasks: dirs.yml
   tags: always
 
-- name: (main) include compose dir
-  ansible.builtin.include_tasks: compose/main.yml
+- name: (compose) (main) include compose services
+  ansible.builtin.include_tasks: services.yml
+  tags: always
+
+- name: (compose) (main) include compose projects
+  ansible.builtin.include_tasks: projects.yml
   tags: always

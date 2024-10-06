@@ -1,0 +1,88 @@
+---
+- name: (compose) (services) deploy service file
+  ansible.builtin.template:
+    src: >-
+      ../../{{ takel_ship_compose_service.role }}/templates/{{
+      takel_ship_compose_service.template }}
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_service.name }}/{{
+      takel_ship_compose_service_filename }}.{{
+      takel_ship_compose_service_fileext }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.file }}"
+  loop: "{{ takel_ship_compose_services }}"
+  loop_control:
+    loop_var: takel_ship_compose_service
+
+- name: (compose) (services) deploy docker env file
+  ansible.builtin.template:
+    src: >-
+      ../../{{ takel_ship_compose_service.role }}/templates/{{
+      takel_ship_compose_service.env }}
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_service.name }}/{{
+      takel_ship_compose_env_docker }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.file }}"
+  loop: "{{ takel_ship_compose_services }}"
+  loop_control:
+    loop_var: takel_ship_compose_service
+
+- name: (compose) (services) deploy bash copy image script
+  ansible.builtin.template:
+    src: copy.service.bash.j2
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_service.name
+      }}/{{ takel_ship_compose_copy_image }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    # we use dir mode as the file should be executable
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
+  loop: "{{ takel_ship_compose_services }}"
+  loop_control:
+    loop_var: takel_ship_compose_service
+
+- name: (compose) (services) deploy bash run docker script
+  ansible.builtin.template:
+    src: run-docker.service.bash.j2
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_service.name
+      }}/{{ takel_ship_compose_run_docker }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    # we use dir mode as the file should be executable
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
+  loop: "{{ takel_ship_compose_services }}"
+  loop_control:
+    loop_var: takel_ship_compose_service
+
+- name: (compose) (services) deploy bash run podman script
+  ansible.builtin.template:
+    src: run-podman.service.bash.j2
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_service.name
+      }}/{{ takel_ship_compose_run_podman }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    # we use dir mode as the file should be executable
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
+  loop: "{{ takel_ship_compose_services }}"
+  loop_control:
+    loop_var: takel_ship_compose_service

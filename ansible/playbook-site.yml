@@ -4,6 +4,7 @@
   gather_facts: false
   roles:
     - takel_anarchism
+    - takel_mutagen
     - takel_ship_podman
     - takel_ship_compose
     - takel_ship_scripts

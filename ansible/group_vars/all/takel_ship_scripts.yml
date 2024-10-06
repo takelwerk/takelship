@@ -1,6 +1,7 @@
 ---
 takel_ship_scripts_scripts: >-
   {{ takel_ship_scripts_scripts_scripts +
+  takel_ship_podman_scripts +
   takel_ship_compose_scripts +
   takel_ship_registry_scripts +
   takel_ship_entrypoint_scripts +

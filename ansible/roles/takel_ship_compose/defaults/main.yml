@@ -51,6 +51,20 @@ takel_ship_compose_script_containers:
     {{ takel_ship_compose_home_dir
     }}/.config/containers
 
+takel_ship_compose_script_takelship_docker_compose:
+  name: docker-compose.yml
+  role: takel_ship_scripts
+  template: docker-compose.takelship.yml.j2
+  mode: "{{ takel_ship_scripts_root.mode.file }}"
+  path: /
+
+takel_ship_compose_script_takelship_compose_docker:
+  name: compose-docker
+  description: Print takelship docker compose file.
+  list: true
+  role: takel_ship_scripts
+  template: compose-docker.bash.j2
+
 takel_ship_compose_home_dir: >-
   /home/{{ takel_ship_podman_user.owner }}
 takel_ship_compose_data_dir: data

@@ -4,7 +4,6 @@ takel_ship_compose_projects:
     description: >-
       All services of all projects.
     services:
-      - "{{ takel_ship_dind_docker_service }}"
       - "{{ takel_ship_registry_server_service }}"
       - "{{ takel_ship_registry_ui_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
@@ -29,7 +28,6 @@ takel_ship_compose_projects:
       Runs with Forgejo Runners.
       Runs with Docker in Docker.
     services:
-      - "{{ takel_ship_dind_docker_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
       - "{{ takel_ship_forgejo_runner_service }}"
   - name: teamcity

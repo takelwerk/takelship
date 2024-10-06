@@ -1,0 +1,8 @@
+---
+- name: (main) include install
+  ansible.builtin.import_tasks: install.yml
+  tags: always
+
+- name: (main) include completion
+  ansible.builtin.import_tasks: completion.yml
+  tags: always

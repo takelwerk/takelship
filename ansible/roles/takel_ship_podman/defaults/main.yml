@@ -1,4 +1,18 @@
 ---
+takel_ship_podman_scripts:
+  - "{{ takel_ship_podman_script_bash_history }}"
+
+### end of group_vars
+
+takel_ship_podman_script_bash_history:
+  name: .bash_history
+  role: takel_ship_podman
+  template: bash_history.podman.j2
+  owner: "{{ takel_ship_podman_user.owner }}"
+  group: "{{ takel_ship_podman_user.group }}"
+  mode: "{{ takel_ship_podman_user.mode.file }}"
+  path: "{{ takel_ship_compose_home_dir }}"
+
 takel_ship_podman_deb_install_packages:
   - bash-completion
   - bat

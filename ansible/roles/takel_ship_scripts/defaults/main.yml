@@ -3,6 +3,7 @@ takel_ship_scripts_scripts_scripts:
   - "{{ takel_ship_scripts_script_cli }}"
   - "{{ takel_ship_scripts_script_pod }}"
   - "{{ takel_ship_scripts_script_compose_nonroot }}"
+  - "{{ takel_ship_scripts_script_bash_history_root }}"
 
 ### end of group_vars
 
@@ -11,6 +12,7 @@ takel_ship_scripts:
   - "{{ takel_ship_scripts_script_cli }}"
   - "{{ takel_ship_scripts_script_pod }}"
   - "{{ takel_ship_scripts_script_compose_nonroot }}"
+  - "{{ takel_ship_scripts_script_bash_history_root }}"
 
 takel_ship_scripts_script_cli:
   name: cli
@@ -32,6 +34,15 @@ takel_ship_scripts_script_compose_nonroot:
   role: takel_ship_scripts
   list: true
   template: compose-nonroot.bash.j2
+
+takel_ship_scripts_script_bash_history_root:
+  name: .bash_history
+  role: takel_ship_scripts
+  template: bash_history.root.j2
+  owner: "{{ takel_ship_scripts_root.owner }}"
+  group: "{{ takel_ship_scripts_root.group }}"
+  mode: "{{ takel_ship_scripts_root.mode.file }}"
+  path: /root
 
 takel_ship_scripts_root:
   owner: root

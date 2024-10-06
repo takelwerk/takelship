@@ -1,6 +1,0 @@
----
-- name: (localhost) create takelship docker compose file
-  ansible.builtin.template:
-    src: docker-compose.takelship.yml.j2
-    dest: /project/docker-compose.yml
-  delegate_to: localhost

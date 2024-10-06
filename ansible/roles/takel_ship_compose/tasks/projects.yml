@@ -1,0 +1,69 @@
+---
+- name: (compose) (projects) deploy compose file
+  ansible.builtin.template:
+    src: docker-compose.projects.yml.j2
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_projects_dir }}/{{
+      takel_ship_compose_service_filename }}.{{
+      takel_ship_compose_project.name }}.{{
+      takel_ship_compose_service_fileext }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.file }}"
+  loop: "{{ takel_ship_compose_projects }}"
+  loop_control:
+    loop_var: takel_ship_compose_project
+
+- name: (compose) (projects) deploy bash copy images script
+  ansible.builtin.template:
+    src: copy.project.bash.j2
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_projects_dir
+      }}/{{ takel_ship_compose_copy_images }}.{{
+      takel_ship_compose_project.name }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
+  loop: "{{ takel_ship_compose_projects }}"
+  loop_control:
+    loop_var: takel_ship_compose_project
+
+- name: (compose) (projects) deploy bash run docker script
+  ansible.builtin.template:
+    src: run-docker.project.bash.j2
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_projects_dir
+      }}/{{ takel_ship_compose_run_docker }}.{{
+      takel_ship_compose_project.name }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
+  loop: "{{ takel_ship_compose_projects }}"
+  loop_control:
+    loop_var: takel_ship_compose_project
+
+- name: (compose) (projects) deploy bash run podman script
+  ansible.builtin.template:
+    src: run-podman.project.bash.j2
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_projects_dir
+      }}/{{ takel_ship_compose_run_podman }}.{{
+      takel_ship_compose_project.name }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
+  loop: "{{ takel_ship_compose_projects }}"
+  loop_control:
+    loop_var: takel_ship_compose_project
