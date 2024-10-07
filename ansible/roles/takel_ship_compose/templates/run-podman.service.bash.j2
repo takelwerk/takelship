@@ -1,10 +1,12 @@
 {{ takel_ship_scripts_shebang }}
 
 {% if 'nonroot' in takel_ship_compose_service and takel_ship_compose_service['nonroot'] %}
-{{ takel_ship_scripts_script_compose_nonroot['name'] }} \
+PODMAN_USERNS=keep-id podman-compose --in-pod=false \
 {% else %}
 podman-compose \
 {% endif %}
   --file {{
   takel_ship_compose_service_filename }}.{{
   takel_ship_compose_service_fileext }} up -d
+[ -f {{ takel_ship_compose_run_postinstall }}.{{ takel_ship_compose_service['name'] }} ] &&
+  ./{{ takel_ship_compose_run_postinstall }}

@@ -1,0 +1,24 @@
+{{ takel_ship_scripts_shebang }}
+
+RETRY=1
+# get users
+until [ $RETRY -ge 20 ] || (forgejo admin user list); do
+  echo Forgejo server not ready. Retrying in a second...
+  sleep 1
+  RETRY=$RETRY+1
+done
+
+USERLIST=$(forgejo admin user list)
+
+# if the forgejo command failed or
+# if there is no @-sign in the user list
+if [ $? -ne 0 ] || [[ "$USERLIST" = *@* ]]; then
+  exit
+fi
+
+echo Creating Forgejo admin account
+forgejo admin user create \
+  --admin \
+  --username ${TAKELSHIP_FORGEJO_SERVER_ADMIN_NAME:-{{ takel_ship_forgejo_admin['name'] }}} \
+  --password ${TAKELSHIP_FORGEJO_SERVER_ADMIN_PASSWORD:-{{ takel_ship_forgejo_admin['password'] }}} \
+  --email ${TAKELSHIP_FORGEJO_SERVER_ADMIN_EMAIL:-{{ takel_ship_forgejo_admin['email'] }}}

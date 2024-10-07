@@ -35,5 +35,5 @@ takel_ship_podman_user:
     file: "0644"
 
 takel_ship_podman_socket:
-  path: /home/podman/.run/podman.sock
+  file: /home/podman/.run/podman.sock
   socket: unix:///home/podman/.run/podman.sock

@@ -86,3 +86,24 @@
   loop: "{{ takel_ship_compose_services }}"
   loop_control:
     loop_var: takel_ship_compose_service
+
+- name: (compose) (services) deploy bash run postinstall script
+  ansible.builtin.template:
+    src: >-
+      ../{{ takel_ship_compose_service.role
+      }}/templates/run-postinstall.{{
+      takel_ship_compose_service.name }}.bash.j2
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_service.name
+      }}/{{ takel_ship_compose_run_postinstall }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    # we use dir mode as the file should be executable
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
+  loop: "{{ takel_ship_compose_services }}"
+  loop_control:
+    loop_var: takel_ship_compose_service
+  when: takel_ship_compose_service.postinstall is defined

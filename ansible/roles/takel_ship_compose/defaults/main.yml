@@ -3,6 +3,8 @@ takel_ship_compose_services_services: []
 
 takel_ship_compose_scripts:
   - "{{ takel_ship_compose_script_containers }}"
+  - "{{ takel_ship_compose_script_takelship_compose_docker }}"
+  - "{{ takel_ship_compose_script_takelship_docker_compose }}"
 
 ### end of group_vars
 
@@ -36,6 +38,7 @@ takel_ship_compose_example_image:
 takel_ship_compose_env_docker: env-docker
 takel_ship_compose_run_docker: run-docker
 takel_ship_compose_run_podman: run-podman
+takel_ship_compose_run_postinstall: run-postinstall
 takel_ship_compose_copy_image: copy-image
 takel_ship_compose_copy_images: copy-images
 
@@ -53,7 +56,7 @@ takel_ship_compose_script_containers:
 
 takel_ship_compose_script_takelship_docker_compose:
   name: docker-compose.yml
-  role: takel_ship_scripts
+  role: takel_ship_compose
   template: docker-compose.takelship.yml.j2
   mode: "{{ takel_ship_scripts_root.mode.file }}"
   path: /
@@ -62,7 +65,7 @@ takel_ship_compose_script_takelship_compose_docker:
   name: compose-docker
   description: Print takelship docker compose file.
   list: true
-  role: takel_ship_scripts
+  role: takel_ship_compose
   template: compose-docker.bash.j2
 
 takel_ship_compose_home_dir: >-

@@ -5,8 +5,9 @@ testinfra_hosts = [takeltest.hosts()[0]]
 
 
 def test_registry_takelship_registry(host, testvars):
-    image = testvars['takel_ship_registry_ui_image']['name']
-    expected_images = [image]
+    image_socat = testvars['takel_ship_dind_docker_image']['name']
+    image_ui = testvars['takel_ship_registry_ui_image']['name']
+    expected_images = [image_socat, image_ui]
     port = testvars['takel_ship_registry_takelship_registry_port']['port']
     cmd = testvars['takel_ship_scripts_script_pod']['name']
     cmd_curl = (

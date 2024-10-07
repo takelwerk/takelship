@@ -10,7 +10,7 @@ platforms:
     privileged: true
     command: registry
     env:
-      TAKELSHIP_SOCKET: "false"
+      TAKELSHIP_SERVICE_DOCKER: "false"
     groups:
       - ${TAKELAGE_PROJECT_IMG:-noimage}
       - molecule

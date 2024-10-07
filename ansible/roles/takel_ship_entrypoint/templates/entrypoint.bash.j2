@@ -2,7 +2,7 @@
 
 # Read more about bash string interpolation here:
 # https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/
-DEBUG="${TAKELSHIP_DEBUG:-"false"}"
+DEBUG="${TAKELSHIP_DEBUG:-'false'}"
 DEBUG="${DEBUG,,}"
 debug() {
   # if the debug environment variable is set
@@ -40,9 +40,6 @@ fi
 
 echo $LOG Preparing podman container environment
 
-debug export takelship environment variables
-{{ takel_ship_entrypoint_script_export_envvars['name'] }} "$(env)"
-
 UPDATE="false"
 
 debug check if we have to prepopulate the data dir
@@ -71,8 +68,10 @@ debug suppress warning message about shared mount
 mount / --make-rshare
 
 debug create podman socket
-[[ "$TAKELSHIP_SOCKET" == "false" ]] ||
-  $POD podman system service --time=0 {{ takel_ship_podman_socket['socket'] }} &
+$POD podman system service --time=0 {{ takel_ship_podman_socket['socket'] }} &
+
+debug export takelship environment variables
+{{ takel_ship_entrypoint_script_export_envvars['name'] }} "$(env)"
 
 # start takelship registry
 echo $LOG Starting registry on localhost:{{ takel_ship_registry_takelship_registry_port['port'] }}

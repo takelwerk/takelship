@@ -13,6 +13,8 @@ takel_ship_forgejo_server_service:
   role: takel_ship_forgejo
   template: docker-compose.forgejo-server.yml.j2
   env: env.forgejo-server.j2
+  envvar: TAKELSHIP_SERVICE_FORGEJO_SERVER
+  postinstall: run-postinstall.forgejo-server.bash.j2
   images:
     - "{{ takel_ship_forgejo_server_image }}"
   ports:
@@ -27,6 +29,7 @@ takel_ship_forgejo_runner_service:
   role: takel_ship_forgejo
   template: docker-compose.forgejo-runner.yml.j2
   env: env.forgejo-runner.j2
+  envvar: TAKELSHIP_SERVICE_FORGEJO_RUNNER
   nonroot: true
   images:
     - "{{ takel_ship_forgejo_runner_image }}"
@@ -63,3 +66,8 @@ takel_ship_forgejo_uid: 1000
 takel_ship_forgejo_gid: 1000
 
 takel_ship_forgejo_bin_cli: forgejo
+
+takel_ship_forgejo_admin:
+  name: administrator
+  password: administrator
+  email: administrator@example.com

@@ -25,6 +25,8 @@ def test_forgejo_server_setup_page(host, testvars):
         "--insecure "
         f"http://localhost:{port}")
     curl_result = host.check_output(cmd_curl_server)
-    expected = 'Installation - Forgejo: Beyond coding. We forge.'
+    expected = 'Forgejo: Beyond coding. We forge.'
+    unexpected = 'Installation'
 
     assert expected in curl_result
+    assert unexpected not in curl_result

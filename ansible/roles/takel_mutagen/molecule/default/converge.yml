@@ -1,6 +1,0 @@
----
-- name: (molecule) converge
-  hosts: all
-  gather_facts: true
-  roles:
-    - takel_mutagen
