@@ -5,7 +5,6 @@ takel_ship_forgejo_services:
 
 takel_ship_forgejo_scripts:
   - "{{ takel_ship_forgejo_script_forgejo }}"
-  - "{{ takel_ship_forgejo_script_fortea }}"
 
 ### end of group_vars
 

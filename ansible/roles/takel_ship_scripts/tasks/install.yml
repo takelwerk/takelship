@@ -2,23 +2,23 @@
 - name: (install) deploy executable file
   ansible.builtin.template:
     src: >-
-      ../../{{ takel_ship_scripts_file.role }}/templates/{{
-      takel_ship_scripts_file.template }}
+      ../../{{ takel_ship_scripts_script.role }}/templates/{{
+      takel_ship_scripts_script.template }}
     dest: >-
-      {{ takel_ship_scripts_file.path | default(takel_ship_scripts_dir) }}/{{
-      takel_ship_scripts_file.name }}
+      {{ takel_ship_scripts_script.path | default(takel_ship_scripts_dir) }}/{{
+      takel_ship_scripts_script.name }}
     owner: >-
-      {{ takel_ship_scripts_file.owner |
+      {{ takel_ship_scripts_script.owner |
       default(takel_ship_scripts_root.owner) }}
     group: >-
-      {{ takel_ship_scripts_file.group |
+      {{ takel_ship_scripts_script.group |
       default(takel_ship_scripts_root.group) }}
     # we use default(takel_ship_scripts_root.mode.dir)
     # as the file should be executable
     mode: >-
-      {{ takel_ship_scripts_file.mode |
+      {{ takel_ship_scripts_script.mode |
       default(takel_ship_scripts_root.mode.dir) }}
   loop: "{{ takel_ship_scripts_scripts }}"
   loop_control:
-    loop_var: takel_ship_scripts_file
-  when: takel_ship_scripts_file.template is defined
+    loop_var: takel_ship_scripts_script
+  when: takel_ship_scripts_script.template is defined

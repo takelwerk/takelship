@@ -34,7 +34,7 @@ def test_forgejo_server_setup_page(host, testvars):
 
 
 @pytest.mark.forgejo
-def test_forgejo_server_setup_page(host, testvars):
+def test_forgejo_server_api_query(host, testvars):
     port = testvars['takel_ship_forgejo_server_http_port']['port']
     cmd = testvars['takel_ship_scripts_script_pod']['name']
 
