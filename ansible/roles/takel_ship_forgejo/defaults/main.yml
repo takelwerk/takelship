@@ -61,13 +61,6 @@ takel_ship_forgejo_script_forgejo:
   role: takel_ship_forgejo
   template: forgejo.bash.j2
 
-takel_ship_forgejo_script_fortea:
-  name: fortea
-  description: Forgejo user command line interface.
-  list: true
-  role: takel_ship_forgejo
-  template: fortea.bash.j2
-
 takel_ship_forgejo_server_ssh_port:
   port: 30022
   protocol: ssh
@@ -96,5 +89,9 @@ takelship_forgejo_runner_command_register: >-
   "while : ; do sleep 1 ; done ;"
 takelship_forgejo_runner_command_daemon: >-
   "sleep 5; forgejo-runner daemon"
-takel_ship_forgejo_fortea_token_file: >-
-  {{ takel_ship_compose_home_dir }}/.fortea_token
+takel_ship_forgejo_fortea_login: >-
+  {{ takel_ship_compose_home_dir }}/{{
+  takel_ship_compose_data_dir }}/{{
+  takel_ship_compose_compose_dir }}/{{
+  takel_ship_forgejo_server_service.name
+  }}/fortea-login

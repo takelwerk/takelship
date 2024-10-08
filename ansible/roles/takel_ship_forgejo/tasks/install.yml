@@ -4,3 +4,12 @@
     name: "{{ takel_ship_forgejo_deb_install_packages }}"
     state: present
     update_cache: true
+
+- name: (install) create tea symlink
+  ansible.builtin.file:
+    src: /usr/bin/tea-cli
+    dest: /usr/local/bin/tea
+    owner: root
+    group: root
+    mode: '0755'
+    state: link

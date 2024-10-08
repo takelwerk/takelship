@@ -24,8 +24,18 @@ forgejo admin user create \
   --email ${TAKELSHIP_FORGEJO_SERVER_ADMIN_EMAIL:-{{ takel_ship_forgejo_admin['email'] }}}
 
 echo Creating forgejo access token
-forgejo admin user generate-access-token \
+FORGEJO_TOKEN=$(forgejo admin user generate-access-token \
   --token-name fortea \
   --username administrator \
   --scopes all \
-  --raw > {{ takel_ship_forgejo_fortea_token_file }}
+  --raw)
+
+FORGEJO_URL=http://localhost:{{ takel_ship_forgejo_server_http_port['port'] }}
+
+cat << EOF > {{ takel_ship_forgejo_fortea_login }}
+{{ takel_ship_scripts_shebang }}
+
+tea login add --insecure --name fortea --url $FORGEJO_URL --token $FORGEJO_TOKEN
+EOF
+
+chmod 775 {{ takel_ship_forgejo_fortea_login }}
