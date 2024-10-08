@@ -2,5 +2,7 @@
 takelship:
   name: takelship
   image: >-
-    {{ project['images']['project']['target_user'] }}/{{ project['images']['project']['target_repo'] }}:{{ project['version'] }}
+    {{ project['images']['project']['target_user'] }}/{{
+    project['images']['project']['target_repo'] }}:{{
+    project['version'] }}
   projects: "{{ takel_ship_compose_projects }}"
