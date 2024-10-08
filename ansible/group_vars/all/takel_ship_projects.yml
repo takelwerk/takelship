@@ -42,3 +42,5 @@ takel_ship_compose_projects:
       - "{{ takel_ship_forgejo_runner_service }}"
       - "{{ takel_ship_teamcity_server_service }}"
       - "{{ takel_ship_teamcity_runner_service }}"
+
+takel_ship_compose_default_project: forgejo

@@ -16,8 +16,9 @@ COMPOSE_DIR={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/
 PROJECTS_DIR={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_projects_dir }}
 
 echo $LOG This is a takelwerk takelship container
-echo $LOG Image: {{ project['images']['project']['target_user'] }}/{{ project['images']['project']['target_repo'] }}:{{ project['version'] }}
-echo $LOG More info: https://github.com/takelwerk/takelship
+echo $LOG Image: {{ takelship['image'] }}
+echo $LOG Info: https://github.com/takelwerk/takelship
+echo $LOG CLI: https://github.com/takelwerk/takelage-cli
 
 if [ -z "$1" ] || [[ "$1" == "/bin/bash" ]]; then
   echo $LOG No project selected. Available projects:
@@ -28,13 +29,23 @@ fi
 PROJECT="$1"
 debug project is set to "$PROJECT"
 
-if [[ "$PROJECT" != "update" ]] &&
+[[ "$PROJECT" == "default" ]] &&
+  PROJECT={{ takel_ship_compose_default_project }}
+
+if [[ "$PROJECT" != "info" ]] &&
+  [[ "$PROJECT" != "update" ]] &&
 {% for project in takel_ship_compose_projects %}
   [[ "$PROJECT" != {{ project['name'] }} ]] &&
 {% endfor %}
   true; then
   echo $LOG There is no project: "$PROJECT"
   {{ takel_ship_scripts_script_first_aid['name'] }}
+  exit
+fi
+
+if [[ "$PROJECT" == "info" ]]; then
+  cat {{ takel_ship_compose_script_takelship_yml['path'] }}/{{
+         takel_ship_compose_script_takelship_yml['name'] }}
   exit
 fi
 

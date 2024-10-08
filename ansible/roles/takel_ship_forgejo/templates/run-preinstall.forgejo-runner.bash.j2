@@ -66,10 +66,9 @@ podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} for
 
 # compose runner down
 {% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
-echo Stop runner {{ runner }} in register mode
+echo Kill runner {{ runner }} in register mode
 compose-nonroot \
   --file ../{{ takel_ship_compose_projects_dir }}/{{ takel_ship_compose_service_filename }}.$PROJECT.{{ takel_ship_compose_service_fileext }} \
-  --timeout 0 \
-  down {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}
+  kill {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}
 
 {% endfor %}

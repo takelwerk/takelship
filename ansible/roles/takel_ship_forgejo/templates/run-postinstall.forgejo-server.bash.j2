@@ -2,10 +2,10 @@
 
 RETRY=1
 # wait until the server is up
-until [ $RETRY -ge 20 ] || forgejo admin user list; do
+until [ "$RETRY" -ge 20 ] || forgejo admin user list; do
   echo Forgejo server not ready. Retrying in a second...
   sleep 1
-  let RETRY++
+  ((RETRY++))
 done
 
 USERLIST=$(forgejo admin user list)

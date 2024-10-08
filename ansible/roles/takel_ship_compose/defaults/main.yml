@@ -1,7 +1,7 @@
 ---
 takel_ship_compose_scripts:
   - "{{ takel_ship_compose_script_containers }}"
-  - "{{ takel_ship_compose_script_takelship_takelship_json }}"
+  - "{{ takel_ship_compose_script_takelship_yml }}"
   - "{{ takel_ship_compose_script_takelship_docker_compose }}"
 
 ### end of group_vars
@@ -53,19 +53,27 @@ takel_ship_compose_script_containers:
     {{ takel_ship_compose_home_dir
     }}/.config/containers
 
-takel_ship_compose_script_takelship_takelship_json:
-  name: takelship.json
+takel_ship_compose_script_takelship_yml:
+  name: takelship.yml
   role: takel_ship_compose
-  template: takelship.json.j2
+  template: takelship.yml.j2
   mode: "{{ takel_ship_scripts_root.mode.file }}"
-  path: /
+  path: >-
+    {{ takel_ship_compose_home_dir }}/{{
+    takel_ship_compose_dist_dir }}/{{
+    takel_ship_compose_compose_dir }}/{{
+    takel_ship_compose_projects_dir }}
 
 takel_ship_compose_script_takelship_docker_compose:
   name: docker-compose.yml
   role: takel_ship_compose
   template: docker-compose.takelship.yml.j2
   mode: "{{ takel_ship_scripts_root.mode.file }}"
-  path: /
+  path: >-
+    {{ takel_ship_compose_home_dir }}/{{
+    takel_ship_compose_dist_dir }}/{{
+    takel_ship_compose_compose_dir }}/{{
+    takel_ship_compose_projects_dir }}
 
 takel_ship_compose_home_dir: >-
   /home/{{ takel_ship_podman_user.owner }}
