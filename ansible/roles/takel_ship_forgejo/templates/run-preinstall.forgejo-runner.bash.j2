@@ -10,10 +10,10 @@ PROJECT="$1"
 echo Configure runner
 RUNNERDIR="../{{ takel_ship_forgejo_runner_service['name'] }}/data"
 
-rmdir $RUNNERDIR
+rm --force --recursive $RUNNERDIR
 
 {% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
-mkdir $RUNNERDIR-{{ runner }}
+mkdir -p $RUNNERDIR-{{ runner }}
 touch $RUNNERDIR-{{ runner }}/.runner
 mkdir -p $RUNNERDIR-{{ runner }}/.cache
 chmod 775 $RUNNERDIR-{{ runner }}/.runner
