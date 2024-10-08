@@ -1,6 +1,4 @@
 ---
-takel_ship_compose_services_services: []
-
 takel_ship_compose_scripts:
   - "{{ takel_ship_compose_script_containers }}"
   - "{{ takel_ship_compose_script_takelship_compose_docker }}"

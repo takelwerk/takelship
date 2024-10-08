@@ -1,38 +1,24 @@
 ---
-takel_ship_dind_services:
-  - "{{ takel_ship_dind_docker_service }}"
-
 takel_ship_dind_scripts:
   - "{{ takel_ship_dind_script_add_user }}"
   - "{{ takel_ship_dind_script_add_users }}"
 
 ### end of group_vars
 
+takel_ship_dind_podman_socket:
+  file: /home/podman/.run/podman.sock
+  socket: unix:///home/podman/.run/podman.sock
+
 takel_ship_dind_deb_install_packages:
   - socat
-
-takel_ship_dind_docker_service:
-  name: docker-dind
-  role: takel_ship_dind
-  template: docker-compose.docker-dind.yml.j2
-  env: env.docker-dind.j2
-  envvar: TAKELSHIP_SERVICE_DOCKER
-  images:
-    - "{{ takel_ship_dind_docker_image }}"
-  ports:
-    - "{{ takel_ship_dind_docker_port }}"
-
-takel_ship_dind_docker_image:
-  name: alpine/socat
-  tag: latest
-  alias: socat
 
 takel_ship_dind_docker_port:
   port: 32375
   protocol: docker
 
-takel_ship_dind_command:
-  tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+takel_ship_dind_docker_socat_command: >-
+  socat tcp-listen:{{ takel_ship_dind_docker_port['port'] }},fork,reuseaddr
+  unix-connect:/{{ takel_ship_compose_home_dir }}/.run/podman.sock
 
 takel_ship_dind_script_add_user:
   name: takelship_dind_add_user

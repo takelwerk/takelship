@@ -67,9 +67,6 @@ debug change podman uid and git and chown data dir
 debug suppress warning message about shared mount
 mount / --make-rshare
 
-debug create podman socket
-$POD podman system service --time=0 {{ takel_ship_podman_socket['socket'] }} &
-
 debug create dind users, sockets and socat forwards
 {{ takel_ship_dind_script_add_users['name'] }}
 

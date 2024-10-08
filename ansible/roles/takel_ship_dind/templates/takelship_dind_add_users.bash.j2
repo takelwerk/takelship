@@ -1,5 +1,12 @@
 {{ takel_ship_scripts_shebang }}
 
+# debug create podman socket
+{{ takel_ship_scripts_script_pod['name'] }} "podman system service --time=0 {{ takel_ship_dind_podman_socket['socket'] }} &"
+
+# debug forward podman socket
+{{ takel_ship_scripts_script_pod['name'] }} "{{ takel_ship_dind_docker_socat_command }} &"
+
+# create users and forwards
 {% for service in takel_ship_compose_services %}
 {% if 'dind' in service %}
 {% if 'instances' in service %}

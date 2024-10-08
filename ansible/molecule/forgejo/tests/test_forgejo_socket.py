@@ -8,7 +8,7 @@ testinfra_hosts = [takeltest.hosts()[0]]
 def test_forgejo_podman_socket_file(host, testvars):
     user = testvars['takel_ship_podman_user']['owner']
     group = testvars['takel_ship_podman_user']['group']
-    podman_socket = testvars['takel_ship_podman_socket']
+    podman_socket = testvars['takel_ship_dind_podman_socket']
     file = host.file(podman_socket['file'])
     socket = host.socket(podman_socket['socket'])
 
@@ -23,7 +23,7 @@ def test_forgejo_podman_socket_file(host, testvars):
 
 @pytest.mark.forgejo
 def test_forgejo_podman_socket_query(host, testvars):
-    podman_socket = testvars['takel_ship_podman_socket']
+    podman_socket = testvars['takel_ship_dind_podman_socket']
     socket_file = podman_socket['file']
     curl_cmd = (f"curl "
                 f"--unix-socket {socket_file} "
