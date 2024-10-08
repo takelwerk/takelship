@@ -2,7 +2,14 @@
 takel_ship_dind_services:
   - "{{ takel_ship_dind_docker_service }}"
 
+takel_ship_dind_scripts:
+  - "{{ takel_ship_dind_script_add_user }}"
+  - "{{ takel_ship_dind_script_add_users }}"
+
 ### end of group_vars
+
+takel_ship_dind_deb_install_packages:
+  - socat
 
 takel_ship_dind_docker_service:
   name: docker-dind
@@ -26,3 +33,17 @@ takel_ship_dind_docker_port:
 
 takel_ship_dind_command:
   tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+
+takel_ship_dind_script_add_user:
+  name: takelship_dind_add_user
+  description: Add system user and redirect podman socket to tcp port.
+  role: takel_ship_dind
+  template: takelship_dind_add_user.bash.j2
+
+takel_ship_dind_script_add_users:
+  name: takelship_dind_add_users
+  description: >-
+    Add dind users for projects using
+    {{ takel_ship_dind_script_add_user.name }}.
+  role: takel_ship_dind
+  template: takelship_dind_add_users.bash.j2

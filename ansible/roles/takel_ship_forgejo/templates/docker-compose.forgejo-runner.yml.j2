@@ -1,14 +1,15 @@
 ---
 services:
-  {{ takel_ship_forgejo_runner_service['name'] }}:
-    container_name: ${TAKELSHIP_FORGEJO_RUNNER_CONTAINER_NAME:-{{ takel_ship_forgejo_runner_service['name'] }}}
-    hostname: ${TAKELSHIP_FORGEJO_RUNNER_HOSTNAME:-{{ takel_ship_forgejo_runner_service['name'] }}}
+{% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
+  {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}:
+    container_name: ${TAKELSHIP_FORGEJO_RUNNER_CONTAINER_NAME:-{{ takel_ship_forgejo_runner_service['name'] }}}-{{ runner }}
+    hostname: ${TAKELSHIP_FORGEJO_RUNNER_HOSTNAME:-{{ takel_ship_forgejo_runner_service['name'] }}}-{{ runner }}
     image: ${TAKELSHIP_FORGEJO_RUNNER_IMAGE:-{{ takel_ship_forgejo_runner_image['alias'] }}:{{ takel_ship_forgejo_runner_image['tag'] }}}
     environment:
-      DOCKER_HOST: tcp://{{ takel_ship_dind_docker_service['name'] }}:2375
-    # user without root privileges, but with access to ./data
+      DOCKER_HOST: tcp://localhost:{{ (takel_ship_forgejo_runner_service['dind'] + runner - 1) }} }}
     user: 1000:1000
     volumes:
-      - ../{{ takel_ship_forgejo_runner_service['name'] }}/data:/data
+      - ../{{ takel_ship_forgejo_runner_service['name'] }}/data-{{ runner }}:/data
     restart: 'always'
-    command: '/bin/sh -c "while : ; do sleep 1 ; done ;"'
+    command: /bin/sh -c ${TAKELSHIP_FORGEJO_RUNNER_COMMAND:-{{ takelship_forgejo_runner_command_daemon }}}
+{% endfor %}

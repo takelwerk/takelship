@@ -8,6 +8,7 @@ services:
     environment:
       - USER_UID=${TAKELSHIP_FORGEJO_SERVER_UID:-{{ takel_ship_forgejo_uid }}}
       - USER_GID=${TAKELSHIP_FORGEJO_SERVER_GID:-{{ takel_ship_forgejo_gid }}}
+      - FORGEJO__server__ROOT_URL=${TAKELSHIP_FORGEJO_SERVER_ROOT_URL:-{{ takel_ship_forgejo_server_root_url }}}
       - FORGEJO__security__INSTALL_LOCK=true
       - FORGEJO__actions__ENABLED=true
     ports:

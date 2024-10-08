@@ -1,0 +1,75 @@
+{{ takel_ship_scripts_shebang }}
+
+RUNNER=$(ls data-1/.runner)
+
+# if the runner is already configured then exit
+[[ $? -eq 0 ]] && exit
+
+PROJECT="$1"
+
+echo Configure runner
+RUNNERDIR="../{{ takel_ship_forgejo_runner_service['name'] }}/data"
+
+rmdir $RUNNERDIR
+
+{% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
+mkdir $RUNNERDIR-{{ runner }}
+touch $RUNNERDIR-{{ runner }}/.runner
+mkdir -p $RUNNERDIR-{{ runner }}/.cache
+chmod 775 $RUNNERDIR-{{ runner }}/.runner
+chmod 775 $RUNNERDIR-{{ runner }}/.cache
+chmod g+s $RUNNERDIR-{{ runner }}/.runner
+chmod g+s $RUNNERDIR-{{ runner }}/.cache
+{% endfor %}
+
+# compose runner up
+{% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
+echo Start runner {{ runner }} in register mode
+TAKELSHIP_FORGEJO_RUNNER_COMMAND={{ takelship_forgejo_runner_command_register }} \
+  compose-nonroot \
+  --file ../{{ takel_ship_compose_projects_dir }}/{{ takel_ship_compose_service_filename }}.$PROJECT.{{ takel_ship_compose_service_fileext }} \
+  up {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} -d
+
+{% endfor %}
+
+RETRY=1
+# wait until the runner is up
+until [ $RETRY -ge 20 ] || podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-1 whoami; do
+  echo Forgejo runner not ready. Retrying in a second...
+  sleep 1
+  let RETRY++
+done
+
+USER=$(podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-1 whoami)
+
+# if the last command failed then exit
+[ $? -ne 0 ] && exit
+
+{% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
+echo Registering runner {{ runner }}
+
+SECRET=$(xxd -u -l 20 -p /dev/urandom)
+
+forgejo forgejo-cli actions register \
+  --name {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} \
+  --labels {{ takelship_forgejo_runner_labels }} \
+  --scope {{ takel_ship_forgejo_admin['name'] }} \
+  --secret $SECRET
+
+echo Creating runner file for runner {{ runner }}
+podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} forgejo-runner create-runner-file \
+  --name {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} \
+  --instance http://{{ takel_ship_forgejo_server_service['name'] }}:3000 \
+  --secret $SECRET
+
+{% endfor %}
+
+# compose runner down
+{% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
+echo Stop runner {{ runner }} in register mode
+compose-nonroot \
+  --file ../{{ takel_ship_compose_projects_dir }}/{{ takel_ship_compose_service_filename }}.$PROJECT.{{ takel_ship_compose_service_fileext }} \
+  --timeout 0 \
+  down {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}
+
+{% endfor %}

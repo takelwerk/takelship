@@ -8,5 +8,6 @@ podman-compose \
   --file {{
   takel_ship_compose_service_filename }}.{{
   takel_ship_compose_service_fileext }} up -d
-[ -f {{ takel_ship_compose_run_postinstall }}.{{ takel_ship_compose_service['name'] }} ] &&
-  ./{{ takel_ship_compose_run_postinstall }}
+{% if 'postinstall' in takel_ship_compose_service %}
+./{{ takel_ship_compose_run_postinstall }}
+{% endif %}

@@ -1,0 +1,20 @@
+---
+- name: (upgrade) try apt-get update && apt-get dist-upgrade
+  block:
+    - name: (upgrade) apt-get update && apt-get dist-upgrade
+      ansible.builtin.apt:
+        upgrade: dist
+        update_cache: true
+        cache_valid_time: 3600
+
+  rescue:
+    - name: (upgrade) workaround - apt-get update
+      ansible.builtin.command: apt-get update \
+      # noqa command-instead-of-module
+      changed_when: false
+
+    - name: (upgrade) apt-get update && apt-get dist-upgrade
+      ansible.builtin.apt:
+        upgrade: dist
+        update_cache: true
+        cache_valid_time: 3600

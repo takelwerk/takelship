@@ -3,7 +3,7 @@ driver:
   name: docker
 platforms:
   # yamllint disable-line rule:line-length
-  - name: molecule_image_${HOSTNAME:-name}
+  - name: molecule_registry_${HOSTNAME:-name}
     # yamllint disable-line rule:line-length
     image: packer_local/${TAKELAGE_PROJECT_NAME:-name}-${TAKELAGE_PROJECT_IMG:-noimage}
     pre_build_image: true
@@ -17,6 +17,8 @@ platforms:
     published_ports:
       - 127.0.0.1:55080:35080/tcp
       - 127.0.0.1:55000:35000/tcp
+    volumes:
+      - $TAKELAGE_PROJECT_BASE_DIR/data/cache:/home/podman/data/cache
 provisioner:
   name: ansible
   playbooks:

@@ -38,10 +38,11 @@ takel_ship_compose_projects:
       TeamCity build server (jetbrains.com/teamcity).
       Provides CI/CD pipelines (JetBrains style).
       Runs with TeamCity Runners.
-      Runs with Forgejo.
+      Runs with Forgejo and its runners.
       Runs with Docker in Docker.
     services:
       - "{{ takel_ship_dind_docker_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
+      - "{{ takel_ship_forgejo_runner_service }}"
       - "{{ takel_ship_teamcity_server_service }}"
       - "{{ takel_ship_teamcity_runner_service }}"

@@ -7,6 +7,9 @@ def test_takel_ship_scripts_install_files(
         host, testvars):
     scripts = testvars['takel_ship_scripts_scripts']
     for script in scripts:
+        if 'template' not in script:
+            continue
+
         dir = testvars['takel_ship_scripts_dir']
         user = testvars['takel_ship_scripts_root']['owner']
         group = testvars['takel_ship_scripts_root']['group']

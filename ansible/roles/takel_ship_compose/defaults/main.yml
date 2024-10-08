@@ -38,6 +38,7 @@ takel_ship_compose_example_image:
 takel_ship_compose_env_docker: env-docker
 takel_ship_compose_run_docker: run-docker
 takel_ship_compose_run_podman: run-podman
+takel_ship_compose_run_preinstall: run-preinstall
 takel_ship_compose_run_postinstall: run-postinstall
 takel_ship_compose_copy_image: copy-image
 takel_ship_compose_copy_images: copy-images

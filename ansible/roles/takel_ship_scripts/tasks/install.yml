@@ -21,3 +21,4 @@
   loop: "{{ takel_ship_scripts_scripts }}"
   loop_control:
     loop_var: takel_ship_scripts_file
+  when: takel_ship_scripts_file.template is defined

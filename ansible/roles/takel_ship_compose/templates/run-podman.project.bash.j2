@@ -5,24 +5,33 @@ SERVICE_ENABLED="${{ service['envvar'] }}"
 SERVICE_ENABLED="${SERVICE_ENABLED:-'false'}"
 SERVICE_ENABLED="${SERVICE_ENABLED,,}"
 if [[ "$SERVICE_ENABLED" != "false" ]]; then
+{% if 'preinstall' in service %}
+  ../{{ service['name'] }}/{{ takel_ship_compose_run_preinstall }} {{ takel_ship_compose_project['name'] }}
+{% endif %}
+
+{% if 'instances' in service %}
+{% for runner in range(1, service['instances'] + 1) %}
 {% if 'nonroot' in service and service['nonroot'] %}
   PODMAN_USERNS=keep-id podman-compose --in-pod=false \
 {% else %}
   podman-compose \
 {% endif %}
-{% if 'instances' in service %}
     --file {{ takel_ship_compose_service_filename }}.{{ takel_ship_compose_project['name'] }}.{{
     takel_ship_compose_service_fileext }} up \
-{% for instance in range(service['instances']) %}
-      {{ service['name'] }}-{{ instance }} \
+    {{ service['name'] }}-{{ runner }} -d
 {% endfor %}
-    -d
 {% else %}
+{% if 'nonroot' in service and service['nonroot'] %}
+  PODMAN_USERNS=keep-id podman-compose --in-pod=false \
+{% else %}
+  podman-compose \
+{% endif %}
     --file {{ takel_ship_compose_service_filename }}.{{ takel_ship_compose_project['name'] }}.{{
   takel_ship_compose_service_fileext }} up {{ service['name'] }} -d
 {% endif %}
+
 {% if 'postinstall' in service %}
-  ../{{ service['name'] }}/{{ takel_ship_compose_run_postinstall }}
+  ../{{ service['name'] }}/{{ takel_ship_compose_run_postinstall }} {{ takel_ship_compose_project['name'] }}
 {% endif %}
 fi
 

@@ -1,0 +1,17 @@
+{{ takel_ship_scripts_shebang }}
+
+if [ ! -f {{ takel_ship_forgejo_fortea_token_file }} ]; then
+  echo No forgejo token configured in {{ takel_ship_forgejo_fortea_token_file }}
+  exit 1
+fi
+
+FORGEJO_URL=http://localhost:{{ takel_ship_forgejo_server_http_port['port'] }}
+FORGEJO_TOKEN=$(<"/home/podman/.fortea_token")
+
+tea-cli login add \
+  --insecure \
+  --name fortea \
+  --url "$FORGEJO_URL" \
+  --token "$FORGEJO_TOKEN"
+
+tea-cli "$@"

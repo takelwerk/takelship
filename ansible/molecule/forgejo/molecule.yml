@@ -16,6 +16,8 @@ platforms:
       - 127.0.0.1:50022:30022/tcp
       - 127.0.0.1:52375:32375/tcp
       - 127.0.0.1:53000:33000/tcp
+    volumes:
+      - $TAKELAGE_PROJECT_BASE_DIR/data/cache:/home/podman/data/cache
 provisioner:
   name: ansible
   playbooks:

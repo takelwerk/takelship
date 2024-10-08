@@ -1,0 +1,5 @@
+---
+- name: (molecule) converge
+  hosts: all
+  roles:
+    - takel_ship_dind

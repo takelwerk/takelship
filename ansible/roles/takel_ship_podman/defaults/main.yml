@@ -21,6 +21,7 @@ takel_ship_podman_deb_install_packages:
   - iproute2
   - jq
   - nano
+  - procps
   - skopeo
   - tree
   - vim

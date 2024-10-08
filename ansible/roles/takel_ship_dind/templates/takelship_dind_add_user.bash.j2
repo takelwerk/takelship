@@ -1,0 +1,20 @@
+{{ takel_ship_scripts_shebang }}
+
+NAME="$1"
+PORT="$2"
+
+# add system user
+useradd \
+--add-subids-for-system \
+--create-home \
+--user-group \
+$NAME
+
+# create socket dir
+su $NAME -c "mkdir ~/.run"
+
+# create podman socket
+su $NAME -c "podman system service --time=0 unix:///home/$NAME/.run/podman.sock &"
+
+# redirect podman socket to tcp port
+su $NAME -c "socat tcp-listen:$PORT,fork,reuseaddr unix-connect:/home/$NAME/.run/podman.sock &"

@@ -1,0 +1,4 @@
+---
+- name: (main) include install
+  ansible.builtin.include_tasks: install.yml
+  tags: always

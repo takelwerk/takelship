@@ -1,4 +1,8 @@
 ---
+- name: (main) include upgrade
+  ansible.builtin.include_tasks: upgrade.yml
+  tags: always
+
 - name: (main) include install
   ansible.builtin.include_tasks: install.yml
   tags: always

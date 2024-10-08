@@ -5,4 +5,5 @@ takel_ship_scripts_scripts: >-
   takel_ship_compose_scripts +
   takel_ship_registry_scripts +
   takel_ship_entrypoint_scripts +
+  takel_ship_dind_scripts +
   takel_ship_forgejo_scripts }}

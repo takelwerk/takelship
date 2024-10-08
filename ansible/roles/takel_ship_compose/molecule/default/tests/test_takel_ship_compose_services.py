@@ -149,3 +149,28 @@ def test_takel_ship_compose_compose_services_run_postinstall_files(
         assert file.user == user
         assert file.group == group
         assert file.mode == mode
+
+
+def test_takel_ship_compose_compose_services_run_preinstall_files(
+        host, testvars):
+    user = testvars['takel_ship_podman_user']['owner']
+    group = testvars['takel_ship_podman_user']['group']
+    mode = int(testvars['takel_ship_podman_user']['mode']['dir'], 8)
+    home_dir = testvars['takel_ship_compose_home_dir']
+    dist_dir = testvars['takel_ship_compose_dist_dir']
+    compose_dir = testvars['takel_ship_compose_compose_dir']
+    run_preinstall = testvars['takel_ship_compose_run_preinstall']
+    services = testvars['takel_ship_compose_services']
+    for service in services:
+        if 'preinstall' not in service:
+            continue
+
+        file = host.file(
+            f"{home_dir}/{dist_dir}/{compose_dir}/"
+            f"{service['name']}/{run_preinstall}")
+
+        assert file.exists
+        assert file.is_file
+        assert file.user == user
+        assert file.group == group
+        assert file.mode == mode
