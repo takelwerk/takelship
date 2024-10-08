@@ -33,9 +33,11 @@ takel_ship_teamcity_runner_service:
   template: docker-compose.teamcity-runner.yml.j2
   env: env.teamcity-runner.j2
   envvar: TAKELSHIP_SERVICE_TEAMCITY_RUNNER
+  preinstall: run-preinstall.teamcity-runner.bash.j2
   instances: 3
   images:
-    - "{{ takel_ship_teamcity_runner_image }}"
+    - "{{ takel_ship_teamcity_runner_amd64_image }}"
+    - "{{ takel_ship_teamcity_runner_arm64_image }}"
 
 takel_ship_teamcity_version: 2024.07.3
 
@@ -44,13 +46,17 @@ takel_ship_teamcity_server_image:
   tag: "{{ takel_ship_teamcity_version }}"
   alias: teamcity-server
 
-takel_ship_teamcity_runner_image:
+takel_ship_teamcity_runner_amd64_image:
   name: jetbrains/teamcity-agent
-  # default is the amd64 version of the runner
-  # if you want arm64 runners then use
-  # "{{ takel_ship_teamcity_version }}-linux-arm64-sudo"
   tag: "{{ takel_ship_teamcity_version }}-linux-sudo"
   alias: teamcity-agent-linux-sudo
+  arch: x86_64
+
+takel_ship_teamcity_runner_arm64_image:
+  name: jetbrains/teamcity-agent
+  tag: "{{ takel_ship_teamcity_version }}-linux-arm64-sudo"
+  alias: teamcity-agent-linux-arm64-sudo
+  arch: aarch64
 
 takel_ship_teamcity_http_port:
   port: 38111

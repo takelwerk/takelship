@@ -1,0 +1,6 @@
+{{ takel_ship_scripts_shebang }}
+
+[[ "$(arch)" == "aarch64" ]] &&
+   sed -i \
+     s/linux-sudo/linux-arm64-sudo/g \
+     ../{{ takel_ship_teamcity_runner_service['name'] }}/docker-compose.yml
