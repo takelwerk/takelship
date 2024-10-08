@@ -29,6 +29,9 @@ takel_ship_registry_takelship_images:
 
 takel_ship_registry_server_service:
   name: registry-server
+  description: >-
+    Docker registry (distribution.github.io/distribution).
+    Provides image hosting.
   role: takel_ship_registry
   template: docker-compose.registry-server.yml.j2
   env: env.registry-server.j2
@@ -43,6 +46,9 @@ takel_ship_registry_server_service:
 
 takel_ship_registry_ui_service:
   name: registry-ui
+  description: >-
+    Registry UI (github.com/quiq/registry-ui).
+    Provides Socker registry web interface.
   role: takel_ship_registry
   template: docker-compose.registry-ui.yml.j2
   env: env.registry-ui.j2
@@ -54,6 +60,9 @@ takel_ship_registry_ui_service:
 
 takel_ship_registry_takelship_service:
   name: takelship-registry
+  description: >-
+    Docker registry (distribution.github.io/distribution).
+    Provides internal takelship image hosting.
   role: takel_ship_registry
   template: docker-compose.takelship-registry.yml.j2
   env: env.takelship-registry.j2

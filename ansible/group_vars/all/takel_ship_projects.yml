@@ -15,7 +15,7 @@ takel_ship_compose_projects:
       Docker registry (distribution.github.io/distribution).
       Registry UI (github.com/quiq/registry-ui).
       Provides image hosting.
-      Provides registry web interface.
+      Provides Docker registry web interface.
     services:
       - "{{ takel_ship_registry_server_service }}"
       - "{{ takel_ship_registry_ui_service }}"

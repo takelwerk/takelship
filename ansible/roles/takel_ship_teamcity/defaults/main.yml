@@ -7,6 +7,9 @@ takel_ship_teamcity_services:
 
 takel_ship_teamcity_server_service:
   name: teamcity-server
+  description: >-
+    TeamCity build server (jetbrains.com/teamcity).
+    Provides CI/CD pipelines (JetBrains style).
   role: takel_ship_teamcity
   template: docker-compose.teamcity-server.yml.j2
   env: env.teamcity-server.j2
@@ -23,6 +26,9 @@ takel_ship_teamcity_server_service:
 
 takel_ship_teamcity_runner_service:
   name: teamcity-runner
+  description: >-
+    TeamCity build server runner (jetbrains.com/teamcity).
+    Provides runner for TeamCity CI/CD pipelines.
   role: takel_ship_teamcity
   template: docker-compose.teamcity-runner.yml.j2
   env: env.teamcity-runner.j2

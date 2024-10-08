@@ -6,16 +6,16 @@
 - Added registry role.
 - Added scripts role.
 - Added compose role.
+- Added dind role.
 - Added registry server service.
 - Added registry ui service.
-- Added dind service.
 - Added forgejo server service. 
 - Added forgejo runner service.
 - Added teamcity server service.
 - Added teamcity runner service.
-
-### Version 0.2.x
 - Add tau ship subcommand. (TODO)
 - Add documentation. (TODO)
+
+### Version 0.2.x
 - Add etherpad role. (TODO)
 - Add systemd role. (TODO)

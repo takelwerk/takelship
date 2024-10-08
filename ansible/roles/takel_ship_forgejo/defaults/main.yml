@@ -13,6 +13,11 @@ takel_ship_forgejo_deb_install_packages:
 
 takel_ship_forgejo_server_service:
   name: forgejo-server
+  description: >-
+    Forgejo Gitea fork (forgejo.org).
+    Provides git hosting.
+    Provides CI/CD pipelines (GitHub style).
+    Provides image hosting.
   role: takel_ship_forgejo
   template: docker-compose.forgejo-server.yml.j2
   env: env.forgejo-server.j2
@@ -29,6 +34,10 @@ takel_ship_forgejo_server_service:
 
 takel_ship_forgejo_runner_service:
   name: forgejo-runner
+  description: >-
+    Forgejo Gitea fork runner (forgejo.org).
+    Provides runner for Forgejo CI/CD pipelines.
+    Provides image hosting.
   role: takel_ship_forgejo
   template: docker-compose.forgejo-runner.yml.j2
   env: env.forgejo-runner.j2
