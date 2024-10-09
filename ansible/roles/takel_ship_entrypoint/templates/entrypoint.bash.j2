@@ -10,17 +10,20 @@ debug() {
   [[ "$DEBUG" == "true" ]] && echo "$@"
 }
 
+function print_header {
+  echo $LOG This is a takelwerk takelship container
+  echo $LOG Image: {{ takelship['image'] }}
+  echo $LOG Info: https://github.com/takelwerk/takelship
+  echo $LOG CLI: https://github.com/takelwerk/takelage-cli
+}
+
 POD={{ takel_ship_scripts_script_pod['name'] }}
 LOG="{{ takel_ship_entrypoint_log_prefix }}"
 COMPOSE_DIR={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}
 PROJECTS_DIR={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_projects_dir }}
 
-echo $LOG This is a takelwerk takelship container
-echo $LOG Image: {{ takelship['image'] }}
-echo $LOG Info: https://github.com/takelwerk/takelship
-echo $LOG CLI: https://github.com/takelwerk/takelage-cli
-
 if [ -z "$1" ] || [[ "$1" == "/bin/bash" ]]; then
+  print_header
   echo $LOG No project selected. Available projects:
   {{ takel_ship_scripts_script_first_aid['name'] }}
   exit
@@ -49,6 +52,7 @@ if [[ "$PROJECT" == "info" ]]; then
   exit
 fi
 
+print_header
 echo $LOG Preparing podman container environment
 
 UPDATE="false"
