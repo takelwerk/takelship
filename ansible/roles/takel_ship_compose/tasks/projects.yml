@@ -73,7 +73,7 @@
     src: copy-project.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
-      takel_ship_compose_dist_dir }}/{{ 
+      takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_copy_project }}.{{
       takel_ship_compose_project.name }}
     owner: "{{ takel_ship_podman_user.owner }}"

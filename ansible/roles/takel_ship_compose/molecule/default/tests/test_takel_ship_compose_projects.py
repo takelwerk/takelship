@@ -101,7 +101,8 @@ def test_takel_ship_compose_compose_projects_run_podman_files(host, testvars):
         assert file.mode == mode
 
 
-def test_takel_ship_compose_compose_projects_copy_project_files(host, testvars):
+def test_takel_ship_compose_compose_projects_copy_project_files(
+        host, testvars):
     user = testvars['takel_ship_podman_user']['owner']
     group = testvars['takel_ship_podman_user']['group']
     # we assume that file is executable
