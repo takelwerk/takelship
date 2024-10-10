@@ -12,21 +12,22 @@ docker run \
 --name takelship \
 --hostname takelship \
 --privileged \
+--publish \"127.0.0.1:{{ takel_ship_dind_docker_port['port'] }}:{{ takel_ship_dind_docker_port['port'] }}\" \
 {% for service in project['services'] %}
 {% for port in service['ports'] | default([]) %}
 --publish \"127.0.0.1:{{ port['port'] }}:{{ port['port'] }}\" \
 {% endfor %}
 {% endfor %}
---volume ./data:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }} \
+--volume ./{{ takel_ship_compose_data_dir }}:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }} \
 ${TAKELSHIP_IMAGE:-takelwerk/takelship} {{ project['name'] }}"
 echo
 {% endfor %}
-echo '== Project: update'
-echo '= Update service files and run scripts in data directory.'
+echo '== Project: dump'
+echo '= Dump service files and run scripts in takelship directory.'
 echo "\
 docker run \
 --rm \
 --interactive \
 --tty \
---volume ./data:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }} \
-${TAKELSHIP_IMAGE:-takelwerk/takelship} update"
+--volume ./{{ takel_ship_compose_data_dir }}:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }} \
+${TAKELSHIP_IMAGE:-takelwerk/takelship} dump"

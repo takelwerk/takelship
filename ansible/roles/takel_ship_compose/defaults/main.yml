@@ -40,7 +40,7 @@ takel_ship_compose_run_preinstall: run-preinstall
 takel_ship_compose_run_postinstall: run-postinstall
 takel_ship_compose_copy_image: copy-image
 takel_ship_compose_copy_images: copy-images
-
+takel_ship_compose_copy_project: copy-project
 
 takel_ship_compose_script_containers:
   name: containers.conf
@@ -77,7 +77,7 @@ takel_ship_compose_script_takelship_docker_compose:
 
 takel_ship_compose_home_dir: >-
   /home/{{ takel_ship_podman_user.owner }}
-takel_ship_compose_data_dir: data
+takel_ship_compose_data_dir: takelship
 takel_ship_compose_dist_dir: dist
 takel_ship_compose_compose_dir: compose
 takel_ship_compose_projects_dir: projects

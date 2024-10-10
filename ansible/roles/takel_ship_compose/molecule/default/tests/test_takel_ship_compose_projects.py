@@ -99,3 +99,24 @@ def test_takel_ship_compose_compose_projects_run_podman_files(host, testvars):
         assert file.user == user
         assert file.group == group
         assert file.mode == mode
+
+
+def test_takel_ship_compose_compose_projects_copy_project_files(host, testvars):
+    user = testvars['takel_ship_podman_user']['owner']
+    group = testvars['takel_ship_podman_user']['group']
+    # we assume that file is executable
+    mode = int(testvars['takel_ship_podman_user']['mode']['dir'], 8)
+    home_dir = testvars['takel_ship_compose_home_dir']
+    dist_dir = testvars['takel_ship_compose_dist_dir']
+    copy_project = testvars['takel_ship_compose_copy_project']
+    projects = testvars['takel_ship_compose_projects']
+    for project in projects:
+        file = host.file(
+            f"{home_dir}/{dist_dir}/"
+            f"{copy_project}.{project['name']}")
+
+        assert file.exists
+        assert file.is_file
+        assert file.user == user
+        assert file.group == group
+        assert file.mode == mode

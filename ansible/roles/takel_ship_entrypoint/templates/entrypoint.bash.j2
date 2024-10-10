@@ -36,7 +36,7 @@ debug project is set to "$PROJECT"
   PROJECT={{ takel_ship_compose_default_project }}
 
 if [[ "$PROJECT" != "info" ]] &&
-  [[ "$PROJECT" != "update" ]] &&
+  [[ "$PROJECT" != "dump" ]] &&
 {% for project in takel_ship_compose_projects %}
   [[ "$PROJECT" != {{ project['name'] }} ]] &&
 {% endfor %}
@@ -66,15 +66,15 @@ UPDATE="${UPDATE,,}"
 debug ensure that the data cache dir exists
 mkdir --parents {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_registry_cache_dir }}
 
-if [[ "$UPDATE" == "true" ]] || [[ "$PROJECT" == "update" ]]; then
+if [[ "$UPDATE" == "true" ]] || [[ "$PROJECT" == "dump" ]]; then
   echo $LOG Updating data directory
-  cp --recursive /home/podman/dist/* /home/podman/data
+  {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_dist_dir }}/{{ takel_ship_compose_copy_project }}.$PROJECT
 fi
 
 debug change podman uid and git and chown data dir
 {{ takel_ship_entrypoint_script_change_ids['name'] }}
 
-[[ "$PROJECT" == "update" ]] &&
+[[ "$PROJECT" == "dump" ]] &&
   exit
 
 # From here on non-privileged containers will fail

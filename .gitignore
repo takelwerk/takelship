@@ -1,5 +1,4 @@
 cache
-data
 .DS_Store
 .idea
 *.iml
@@ -14,6 +13,7 @@ pytestdebug.log
 *.retry
 takelage.log
 takelage.yml
+takelship
 .vagrant
 vault-password-file
 *.vdi

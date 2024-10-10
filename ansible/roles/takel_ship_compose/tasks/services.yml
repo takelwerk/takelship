@@ -38,7 +38,7 @@
 
 - name: (compose) (services) deploy bash copy image script
   ansible.builtin.template:
-    src: copy.service.bash.j2
+    src: copy-image.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{

@@ -21,7 +21,7 @@ def test_registry_cli_update(testvars, docker_client):
     image_repo = f"{testvars['project']['name']}-project"
     image = f"{image_user}/{image_repo}:latest"
     result = docker_client.containers.run(
-        image, "update").decode("utf-8")
+        image, "dump").decode("utf-8")
 
     assert "[takelship] This is a takelwerk takelship container" in result
     assert "[takelship] Preparing podman container environment" in result
