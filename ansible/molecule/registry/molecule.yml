@@ -15,8 +15,8 @@ platforms:
     published_ports:
       - 127.0.0.1:55080:35080/tcp
       - 127.0.0.1:55000:35000/tcp
-    # volumes:
-    #   - $TAKELAGE_PROJECT_BASE_DIR/takelship/cache:/home/podman/takelship/cache
+    volumes:
+      - $TAKELAGE_PROJECT_BASE_DIR/takelship/cache:/home/podman/takelship/cache
 provisioner:
   name: ansible
   playbooks:
