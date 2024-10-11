@@ -1,5 +1,6 @@
 import takeltest
 import json
+from time import sleep
 
 testinfra_hosts = [takeltest.hosts()[0]]
 
@@ -44,6 +45,17 @@ def test_registry_takelship_registry(host, testvars):
     image_ui = testvars['takel_ship_registry_ui_image']['name']
     port = testvars['takel_ship_registry_takelship_registry_port']['port']
     cmd = testvars['takel_ship_scripts_script_pod']['name']
+    cmd_curl_server = (
+        f"{cmd} curl "
+        "--insecure "
+        f"http://localhost:{port}/v2/_catalog")
+
+    for _ in range(30):
+        curl_run = host.run(cmd_curl_server)
+        if curl_run.exit_status == 0:
+            break
+        sleep(1)
+
     cmd_curl = (
         f"{cmd} curl "
         "--insecure "
