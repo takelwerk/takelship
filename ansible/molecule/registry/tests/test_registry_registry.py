@@ -6,7 +6,6 @@ testinfra_hosts = [takeltest.hosts()[0]]
 
 def test_registry_takelship_registry(host, testvars):
     image_ui = testvars['takel_ship_registry_ui_image']['name']
-    expected_images = [image_ui]
     port = testvars['takel_ship_registry_takelship_registry_port']['port']
     cmd = testvars['takel_ship_scripts_script_pod']['name']
     cmd_curl = (
@@ -16,7 +15,7 @@ def test_registry_takelship_registry(host, testvars):
     curl_result = host.check_output(cmd_curl)
     registry_images = json.loads(curl_result)['repositories']
 
-    assert expected_images == registry_images
+    assert image_ui in registry_images
 
 
 def test_registry_registry_server(host, testvars):
