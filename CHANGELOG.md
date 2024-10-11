@@ -13,9 +13,10 @@
 - Added forgejo runner service.
 - Added teamcity server service.
 - Added teamcity runner service.
-- Add tau ship subcommand. (TODO)
+- Add tau ship subcommand.
 - Add documentation. (TODO)
+- Add debcacher role. (TODO)
+- Add etherpad role. (TODO)
 
 ### Version 0.2.x
-- Add etherpad role. (TODO)
 - Add systemd role. (TODO)
