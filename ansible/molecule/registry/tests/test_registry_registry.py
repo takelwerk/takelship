@@ -4,20 +4,6 @@ import json
 testinfra_hosts = [takeltest.hosts()[0]]
 
 
-def test_registry_takelship_registry(host, testvars):
-    image_ui = testvars['takel_ship_registry_ui_image']['name']
-    port = testvars['takel_ship_registry_takelship_registry_port']['port']
-    cmd = testvars['takel_ship_scripts_script_pod']['name']
-    cmd_curl = (
-        f"{cmd} curl "
-        "--insecure "
-        f"http://localhost:{port}/v2/_catalog")
-    curl_result = host.check_output(cmd_curl)
-    registry_images = json.loads(curl_result)['repositories']
-
-    assert image_ui in registry_images
-
-
 def test_registry_registry_server(host, testvars):
     expected_images = ['myregistry']
     image = testvars['takel_ship_registry_server_image']['name']
@@ -52,3 +38,17 @@ def test_registry_registry_ui(host, testvars):
     curl_result = host.check_output(cmd_curl_server)
 
     assert 'Quiq Inc.' in curl_result
+
+
+def test_registry_takelship_registry(host, testvars):
+    image_ui = testvars['takel_ship_registry_ui_image']['name']
+    port = testvars['takel_ship_registry_takelship_registry_port']['port']
+    cmd = testvars['takel_ship_scripts_script_pod']['name']
+    cmd_curl = (
+        f"{cmd} curl "
+        "--insecure "
+        f"http://localhost:{port}/v2/_catalog")
+    curl_result = host.check_output(cmd_curl)
+    registry_images = json.loads(curl_result)['repositories']
+
+    assert image_ui in registry_images
