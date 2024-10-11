@@ -1,7 +1,7 @@
 {{ takel_ship_scripts_shebang }}
 
 {% for service in takel_ship_compose_project['services'] %}
-SERVICE_ENABLED="${{ service['envvar'] }}"
+SERVICE_ENABLED="$TAKELSHIP_SERVICE_{{ service['name'] | upper | replace("-", "_") }}"
 SERVICE_ENABLED="${SERVICE_ENABLED:-'false'}"
 SERVICE_ENABLED="${SERVICE_ENABLED,,}"
 if [[ "$SERVICE_ENABLED" != "false" ]]; then

@@ -5,6 +5,7 @@ takel_ship_forgejo_services:
 
 takel_ship_forgejo_scripts:
   - "{{ takel_ship_forgejo_script_forgejo }}"
+  - "{{ takel_ship_forgejo_script_tea_config }}"
 
 ### end of group_vars
 
@@ -21,7 +22,6 @@ takel_ship_forgejo_server_service:
   role: takel_ship_forgejo
   template: docker-compose.forgejo-server.yml.j2
   env: env.forgejo-server.j2
-  envvar: TAKELSHIP_SERVICE_FORGEJO_SERVER
   postinstall: run-postinstall.forgejo-server.bash.j2
   images:
     - "{{ takel_ship_forgejo_server_image }}"
@@ -41,7 +41,6 @@ takel_ship_forgejo_runner_service:
   role: takel_ship_forgejo
   template: docker-compose.forgejo-runner.yml.j2
   env: env.forgejo-runner.j2
-  envvar: TAKELSHIP_SERVICE_FORGEJO_RUNNER
   preinstall: run-postinstall.forgejo-runner.bash.j2
   nonroot: true
   instances: 3
@@ -68,6 +67,18 @@ takel_ship_forgejo_script_forgejo:
   list: true
   role: takel_ship_forgejo
   template: forgejo.bash.j2
+
+takel_ship_forgejo_script_tea_config:
+  name: config.yml
+  role: takel_ship_forgejo
+  template: tea.config.yml.j2
+  owner: "{{ takel_ship_podman_user.owner }}"
+  group: "{{ takel_ship_podman_user.group }}"
+  mode: "{{ takel_ship_podman_user.mode.file }}"
+  createdir: "{{ takel_ship_podman_user.mode.dir }}"
+  path: >-
+    {{ takel_ship_compose_home_dir
+    }}/.config/tea
 
 takel_ship_forgejo_server_ssh_port:
   port: 30022
@@ -97,9 +108,3 @@ takelship_forgejo_runner_command_register: >-
   "while : ; do sleep 1 ; done ;"
 takelship_forgejo_runner_command_daemon: >-
   "sleep 5; forgejo-runner daemon"
-takel_ship_forgejo_fortea_login: >-
-  {{ takel_ship_compose_home_dir }}/{{
-  takel_ship_compose_data_dir }}/{{
-  takel_ship_compose_compose_dir }}/{{
-  takel_ship_forgejo_server_service.name
-  }}/fortea-login

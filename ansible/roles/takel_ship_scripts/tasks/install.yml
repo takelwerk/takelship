@@ -1,4 +1,25 @@
 ---
+- name: (install) ensure directory exists
+  ansible.builtin.file:
+    path: >-
+      {{ takel_ship_scripts_script.path | default(takel_ship_scripts_dir) }}
+    owner: >-
+      {{ takel_ship_scripts_script.owner |
+      default(takel_ship_scripts_root.owner) }}
+    group: >-
+      {{ takel_ship_scripts_script.group |
+      default(takel_ship_scripts_root.group) }}
+    mode: >-
+      {{ takel_ship_scripts_script.createdir |
+      default(takel_ship_scripts_root.mode.dir) }}
+    state: directory
+  loop: "{{ takel_ship_scripts_scripts }}"
+  loop_control:
+    loop_var: takel_ship_scripts_script
+  when:
+    - takel_ship_scripts_script.template is defined
+    - takel_ship_scripts_script.createdir is defined
+
 - name: (install) deploy executable file
   ansible.builtin.template:
     src: >-

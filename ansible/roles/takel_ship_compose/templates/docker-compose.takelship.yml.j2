@@ -32,15 +32,18 @@ services:
     ##################################
     privileged: true
     environment:
-      TAKELSHIP_PROJECT: registry
-    ###
-    #  TAKELSHIP_DEBUG: false
-    ### enables debug logging to stdout
-    #  TAKELSHIP_UPDATE:
-    ### controls updates of compose filese in the compose dir
-    ### see {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/<service>/env
-    ### for service specific environment variables
-    ###
+      TAKELSHIP_UPDATE: true
+      # TAKELSHIP_DEBUG: false
+      ### if you want to add services to projects
+      ### then use "command: all" and deselect services:
+{% for service in takel_ship_compose_services %}
+      # TAKELSHIP_SERVICE_{{ service['name'] | upper | replace("-", "_") }}: false
+{% endfor %}
+      ### see {{ takel_ship_compose_data_dir }}/{{
+    takel_ship_compose_compose_dir
+    }}/<service>/{{
+    takel_ship_compose_env_docker }}
+      ### for service specific environment variables
     volumes:
       - ${TAKELSHIP_DATADIR:-./data}:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}
     ports:

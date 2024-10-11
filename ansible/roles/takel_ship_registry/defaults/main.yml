@@ -35,7 +35,6 @@ takel_ship_registry_server_service:
   role: takel_ship_registry
   template: docker-compose.registry-server.yml.j2
   env: env.registry-server.j2
-  envvar: TAKELSHIP_SERVICE_REGISTRY_SERVER
   images:
     - "{{ takel_ship_registry_server_image }}"
   ports:
@@ -52,7 +51,6 @@ takel_ship_registry_ui_service:
   role: takel_ship_registry
   template: docker-compose.registry-ui.yml.j2
   env: env.registry-ui.j2
-  envvar: TAKELSHIP_SERVICE_REGISTRY_UI
   images:
     - "{{ takel_ship_registry_ui_image }}"
   ports:
