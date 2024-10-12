@@ -15,6 +15,7 @@ takel_ship_registry_server_image:
   name: docker.io/library/registry
   tag: 2
   alias: registry
+  skip_copy: true
 
 takel_ship_registry_ui_image:
   name: quiq/registry-ui

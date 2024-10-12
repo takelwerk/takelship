@@ -38,7 +38,8 @@
 
 - name: (compose) (services) deploy bash copy image script
   ansible.builtin.template:
-    src: copy-image.bash.j2
+    src: >- 
+     {{ takel_ship_compose_copy_image }}.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
@@ -55,7 +56,8 @@
 
 - name: (compose) (services) deploy bash run docker script
   ansible.builtin.template:
-    src: run-docker.service.bash.j2
+    src: >-
+      {{ takel_ship_compose_run_docker }}.service.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
@@ -72,7 +74,8 @@
 
 - name: (compose) (services) deploy bash run podman script
   ansible.builtin.template:
-    src: run-podman.service.bash.j2
+    src: >-
+      {{ takel_ship_compose_run_podman }}.service.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
@@ -91,7 +94,7 @@
   ansible.builtin.template:
     src: >-
       ../{{ takel_ship_compose_service.role
-      }}/templates/run-postinstall.{{
+      }}/templates/{{ takel_ship_compose_run_postinstall }}.{{
       takel_ship_compose_service.name }}.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
@@ -112,7 +115,7 @@
   ansible.builtin.template:
     src: >-
       ../{{ takel_ship_compose_service.role
-      }}/templates/run-preinstall.{{
+      }}/templates/{{ takel_ship_compose_run_preinstall }}.{{
       takel_ship_compose_service.name }}.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
@@ -128,3 +131,22 @@
   loop_control:
     loop_var: takel_ship_compose_service
   when: takel_ship_compose_service.preinstall is defined
+
+- name: (compose) (services) deploy Dockerfile
+  ansible.builtin.template:
+    src: >-
+      ../{{ takel_ship_compose_service.role
+      }}/templates/{{ takel_ship_compose_dockerfile }}.j2
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_service.name
+      }}/{{ takel_ship_compose_dockerfile }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.file }}"
+  loop: "{{ takel_ship_compose_services }}"
+  loop_control:
+    loop_var: takel_ship_compose_service
+  when: takel_ship_compose_service.dockerfile is defined

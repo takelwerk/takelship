@@ -38,6 +38,7 @@ takel_ship_compose_run_docker: run-docker
 takel_ship_compose_run_podman: run-podman
 takel_ship_compose_run_preinstall: run-preinstall
 takel_ship_compose_run_postinstall: run-postinstall
+takel_ship_compose_dockerfile: Dockerfile
 takel_ship_compose_copy_image: copy-image
 takel_ship_compose_copy_images: copy-images
 takel_ship_compose_copy_project: copy-project
