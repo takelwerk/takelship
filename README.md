@@ -1,13 +1,6 @@
 # takelage-dev
 
-*takelship* is a podman container runtime environment for docker with minimal footprint.
-
-At the moment, these setups have been tested:
- - [Docker Engine for Linux (Debian)](https://docs.docker.com/engine/install/debian/) (amd64 and arm64)
- - [Docker Desktop for Linux (Debian)](https://docs.docker.com/desktop/install/linux/debian/) (amd64)
- - [Docker Desktop for macOS](https://docs.docker.com/desktop/install/mac-install/) (arm64)
-
-You have to run docker as user, not as root. It is not possible to run the *takelship* container with podman although (or because?) it uses itself podman to run containers.
+*takelship* is a podman container runtime environment for docker with batteries included.
 
 ## Framework Versions
 
@@ -42,7 +35,45 @@ You have to run docker as user, not as root. It is not possible to run the *take
 | | [![test takelpad](https://img.shields.io/github/actions/workflow/status/takelwerk/takelage-pad/test_takelpad.yml?label=test%20takelpad)](https://github.com/takelwerk/takelage-pad/actions/workflows/test_takelpad.yml) [![test roles](https://img.shields.io/github/actions/workflow/status/takelwerk/takelage-pad/test_roles.yml?label=test%20roles)](https://github.com/takelwerk/takelage-pad/actions/workflows/test_roles.yml) |
 | [![takelship](https://img.shields.io/badge/github-takelship-purple)](https://github.com/takelwerk/takelship) | [![takelship docker](https://img.shields.io/github/actions/workflow/status/takelwerk/takelship/takelship-amd64.yml?label=takelship%20docker)](https://github.com/takelwerk/takelship/actions/workflows/takelship-amd64.yml) |
 
-## First steps
+## Prerequisites
+
+You need Docker (Desktop or Engine) on the host running the takelship. You have to run docker as user, not as root. It is not possible to run the takelship container with podman although (or because?) it uses itself podman to run containers.
+
+At the moment, these setups have been tested:
+- [Docker Engine for Linux (Debian)](https://docs.docker.com/engine/install/debian/) (amd64 and arm64)
+- [Docker Desktop for Linux (Debian)](https://docs.docker.com/desktop/install/linux/debian/) (amd64)
+- [Docker Desktop for macOS](https://docs.docker.com/desktop/install/mac-install/) (arm64)
+
+If you want to use the *ship* command line tool then you need Ruby and the 
+[*takeltau*](https://github.com/takelwerk/takelage-cli) gem which can be installed like this:
+
+```bash
+gem install takeltau
+```
+
+## Usage
+
+List projects:
+
+```bash
+ship list
+```
+
+Start a project:
+
+```bash
+ship start [<project>]
+```
+
+Stop a project:
+
+```bash
+ship stop
+```
+
+Start a takelship
+
+## First steps without the ship command line tool
 
 Get info how to run a takelship project:
 
@@ -54,31 +85,31 @@ Choose a project and run the respective command
 to run a takelship server:
 
 ```
-$ docker run -it --rm takelwerk/takelship
 [takelship] This is a takelwerk takelship container
-[takelship] Image: takelwerk/takelship:0.1.42
-[takelship] More info: https://github.com/takelwerk/takelship
+[takelship] Image: takelwerk/takelship:0.1.86
+[takelship] Info: https://github.com/takelwerk/takelship
+[takelship] CLI: https://github.com/takelwerk/takelage-cli
 [takelship] No project selected. Available projects:
 
 == Project: all
 = All services of all projects.
-mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "35000:35000" --publish "30022:30022" --publish "33000:33000" --publish "38111:38111" --volume ./data:/home/podman/data takelwerk/takelship all
+docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:35000:35000" --publish "127.0.0.1:35080:35080" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:33000:33000" --publish "127.0.0.1:38111:38111" --volume ./takelship:/home/podman/takelship takelwerk/takelship all
 
 == Project: registry
-= Docker registry (docs.docker.com/registry). Provides image hosting.
-mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "35000:35000" --volume ./data:/home/podman/data takelwerk/takelship registry
+= Docker registry (distribution.github.io/distribution). Registry UI (github.com/quiq/registry-ui). Provides image hosting. Provides Docker registry web interface.
+docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:35000:35000" --publish "127.0.0.1:35080:35080" --volume ./takelship:/home/podman/takelship takelwerk/takelship registry
 
 == Project: forgejo
-= Forgejo Gitea fork (forgejo.org). Provides git hosting. Provides CI/CD pipelines (GitHub style). Provides image hosting.
-mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "30022:30022" --publish "33000:33000" --volume ./data:/home/podman/data takelwerk/takelship forgejo
+= Forgejo Gitea fork (forgejo.org). Provides git hosting. Provides CI/CD pipelines (GitHub style). Provides image hosting. Runs with Forgejo Runners. Runs with Docker in Docker.
+docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:33000:33000" --volume ./takelship:/home/podman/takelship takelwerk/takelship forgejo
 
 == Project: teamcity
-= TeamCity build server (jetbrains.com/teamcity). Provides CI/CD pipelines (JetBrains style). Runs with Forgejo for git hosting.
-mkdir -p data && docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "30022:30022" --publish "33000:33000" --publish "38111:38111" --volume ./data:/home/podman/data takelwerk/takelship teamcity
+= TeamCity build server (jetbrains.com/teamcity). Provides CI/CD pipelines (JetBrains style). Runs with TeamCity Runners. Runs with Forgejo and its runners. Runs with Docker in Docker.
+docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:33000:33000" --publish "127.0.0.1:38111:38111" --volume ./takelship:/home/podman/takelship takelwerk/takelship teamcity
 
-== Project: update
-= Update service files and run scripts in data directory.
-mkdir -p data && docker run --rm --interactive --tty --volume ./data:/home/podman/data takelwerk/takelship update
+== Project: dump
+= Dump service files and run scripts in takelship directory.
+docker run --rm --interactive --tty --volume ./takelship:/home/podman/takelship takelwerk/takelship dump
 ```
 
 List available container commands:
