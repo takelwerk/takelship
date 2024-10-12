@@ -142,3 +142,27 @@ Become root:
 ```bash
 docker exec -it takelship bash
 ```
+
+## Bash Completion
+
+Add this to your [bash startup files](https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html):
+
+```bash
+source <(ship completion bash)
+```
+
+## Languages, libraries and tools
+
+The *takelship* project is written in five different languages:
+
+- [Ansible](https://ansible.readthedocs.io/) (provisioning, compile time)
+- [Jinja2](https://jinja.palletsprojects.com)] (templating, compile time)
+- [Python](https://www.python.org/) (testing, compile time)
+- [Bash](https://www.gnu.org/software/bash/) (scripting, runtime)
+- [Ruby](https://www.ruby-lang.org/) (cli, runtime)
+
+Ansible is very well suited for building complex machines like a takelship. We use [molecule](https://ansible.readthedocs.io/projects/molecule/) to create and test the ansible code. Then [packer](https://www.packer.io/) builds the docker image which is then tested in Python by using [testinfra](https://testinfra.readthedocs.io/) and [takeltest](https://github.com/takelwerk/takelage-var).
+
+We use Jinja2 to create configuration files and bash scripts in the takelship. They will be run each time the takelship starts. We prefer many simple bash scripts over fewer complex ones.
+
+The *ship* command line tool which controls takelships is written in Ruby. It is in fact just a wrapper for [*tau ship*](https://github.com/takelwerk/takelage-cli/blob/main/bin/ship), the [takelage](https://github.com/takelwerk/takelage-doc) command line tool. The main difference between *ship* and *tau ship* is that *ship start* will *create* a `takelship` directory in your current working directory while *tau ship start* will only *use* it.
