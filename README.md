@@ -173,7 +173,7 @@ source <(ship completion bash)
 The *takelship* project is written in five different languages:
 
 - [Ansible](https://ansible.readthedocs.io/) (provisioning, compile time)
-- [Jinja2](https://jinja.palletsprojects.com)] (templating, compile time)
+- [Jinja2](https://jinja.palletsprojects.com) (templating, compile time)
 - [Python](https://www.python.org/) (testing, compile time)
 - [Bash](https://www.gnu.org/software/bash/) (scripting, runtime)
 - [Ruby](https://www.ruby-lang.org/) (cli, runtime)
