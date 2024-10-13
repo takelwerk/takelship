@@ -35,9 +35,26 @@
 | | [![test takelpad](https://img.shields.io/github/actions/workflow/status/takelwerk/takelage-pad/test_takelpad.yml?label=test%20takelpad)](https://github.com/takelwerk/takelage-pad/actions/workflows/test_takelpad.yml) [![test roles](https://img.shields.io/github/actions/workflow/status/takelwerk/takelage-pad/test_roles.yml?label=test%20roles)](https://github.com/takelwerk/takelage-pad/actions/workflows/test_roles.yml) |
 | [![takelship](https://img.shields.io/badge/github-takelship-purple)](https://github.com/takelwerk/takelship) | [![takelship docker](https://img.shields.io/github/actions/workflow/status/takelwerk/takelship/takelship-amd64.yml?label=takelship%20docker)](https://github.com/takelwerk/takelship/actions/workflows/takelship-amd64.yml) |
 
+## Introduction
+
+The takelship project is a general purpose framework to ship complex software setups. It does not ship the software itself but the configuration and runtime environment.
+
+The configuration and data is stored in the `takelship` directory. It is created when running `ship start [<project>]`. If *<project>* is omitted, the default project of the takelship is started which is a forgejo server with three runners.
+
+The `ship` command line tool is „directory-aware“ in the sense that it starts one takelship per directory. Every directory can host a different project. `ship` can be configured via environment variables or a `takelage.yml` next to the `takelship` directory. See `ship config` for available configuration keys.
+
+These basic conditions yield some amazing advantages:
+- Moderate prerequisites to run a takelship: basically docker and ruby.
+- Very moderate changes to the system: one directory per project and one takelship container on the docker host.
+- User friendly command line interface with sane defaults.
+- Still *takelage* is highly customisable open source free software. Build your own takelship and ship any software recipe.
+- Well-known tools for easy backup (`cp`), versioning (`git`), update (`docker pull`), migration (`rsync`) and complete uninstallation (`rm`) of the configuration and project data are available.
+- Fallback mode if the takelship sinks: run `takelship/data/compose/project/run-docker.<project>` to start the project on your host computer. Continue to use your takelship project data with no takelship involved.
+
+
 ## Prerequisites
 
-You need Docker (Desktop or Engine) on the host running the takelship. You have to run docker as user, not as root. It is not possible to run the takelship container with podman although (or because?) it uses itself podman to run containers.
+You need Docker (Desktop or Engine) on the host to run a takelship. You have to run docker as user, not as root. It is not possible to run the takelship container with podman although (or because?) it uses itself podman to run containers.
 
 At the moment, these setups have been tested:
 - [Docker Engine for Linux (Debian)](https://docs.docker.com/engine/install/debian/) (amd64 and arm64)
