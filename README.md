@@ -61,7 +61,7 @@ At the moment, these setups have been tested:
 - [Docker Desktop for Linux (Debian)](https://docs.docker.com/desktop/install/linux/debian/) (amd64)
 - [Docker Desktop for macOS](https://docs.docker.com/desktop/install/mac-install/) (arm64)
 
-If you want to use the *ship* command line tool then you need Ruby and the 
+If you want to use the `ship` command line tool (which is a wrapper for `tau ship`) then you need Ruby and the 
 [*takeltau*](https://github.com/takelwerk/takelage-cli) gem which can be installed like this:
 
 ```bash
@@ -179,5 +179,3 @@ The *takelship* project is written in five different languages:
 Ansible is well suited for building complex machines like a takelship. We use [molecule](https://ansible.readthedocs.io/projects/molecule/) to create and test the ansible code. Then [packer](https://www.packer.io/) builds the docker image which is then tested in Python by using [testinfra](https://testinfra.readthedocs.io/) and [takeltest](https://github.com/takelwerk/takelage-var).
 
 We use Jinja2 to create configuration files and bash scripts in the takelship. They will be run each time the takelship starts. We prefer many simple bash scripts over fewer complex ones.
-
-The *ship* command line tool which controls takelships is written in Ruby. It is in fact just a wrapper for [*tau ship*](https://github.com/takelwerk/takelage-cli/blob/main/bin/ship), the [takelage](https://github.com/takelwerk/takelage-doc) command line tool.
