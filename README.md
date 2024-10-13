@@ -178,7 +178,7 @@ The *takelship* project is written in five different languages:
 - [Bash](https://www.gnu.org/software/bash/) (scripting, runtime)
 - [Ruby](https://www.ruby-lang.org/) (cli, runtime)
 
-Ansible is very well suited for building complex machines like a takelship. We use [molecule](https://ansible.readthedocs.io/projects/molecule/) to create and test the ansible code. Then [packer](https://www.packer.io/) builds the docker image which is then tested in Python by using [testinfra](https://testinfra.readthedocs.io/) and [takeltest](https://github.com/takelwerk/takelage-var).
+Ansible is well suited for building complex machines like a takelship. We use [molecule](https://ansible.readthedocs.io/projects/molecule/) to create and test the ansible code. Then [packer](https://www.packer.io/) builds the docker image which is then tested in Python by using [testinfra](https://testinfra.readthedocs.io/) and [takeltest](https://github.com/takelwerk/takelage-var).
 
 We use Jinja2 to create configuration files and bash scripts in the takelship. They will be run each time the takelship starts. We prefer many simple bash scripts over fewer complex ones.
 
