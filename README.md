@@ -88,8 +88,6 @@ Stop a project:
 ship stop
 ```
 
-Start a takelship
-
 ## First steps without the ship command line tool
 
 Get info how to run a takelship project:
