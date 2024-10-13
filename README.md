@@ -37,7 +37,7 @@
 
 ## Introduction
 
-The takelship project is a general purpose framework to ship complex software setups. It does not ship the software itself but the configuration and runtime environment.
+The takelship project is a general purpose framework to ship complex software setups. It does not ship the software itself but the configuration and the runtime environment.
 
 The configuration and data is stored in the `takelship` directory. It is created when running `ship start [<project>]`. If *<project>* is omitted, the default project of the takelship is started which is a forgejo server with three runners.
 
