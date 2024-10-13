@@ -180,4 +180,4 @@ Ansible is well suited for building complex machines like a takelship. We use [m
 
 We use Jinja2 to create configuration files and bash scripts in the takelship. They will be run each time the takelship starts. We prefer many simple bash scripts over fewer complex ones.
 
-The *ship* command line tool which controls takelships is written in Ruby. It is in fact just a wrapper for [*tau ship*](https://github.com/takelwerk/takelage-cli/blob/main/bin/ship), the [takelage](https://github.com/takelwerk/takelage-doc) command line tool. The main difference between *ship* and *tau ship* is that *ship start* will *create* a `takelship` directory in your current working directory while *tau ship start* will only *use* it.
+The *ship* command line tool which controls takelships is written in Ruby. It is in fact just a wrapper for [*tau ship*](https://github.com/takelwerk/takelage-cli/blob/main/bin/ship), the [takelage](https://github.com/takelwerk/takelage-doc) command line tool.
