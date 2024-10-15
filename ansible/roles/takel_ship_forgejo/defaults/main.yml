@@ -23,6 +23,7 @@ takel_ship_forgejo_server_service:
   template: docker-compose.forgejo-server.yml.j2
   env: env.forgejo-server.j2
   postinstall: run-postinstall.forgejo-server.bash.j2
+  nonroot: true
   images:
     - "{{ takel_ship_forgejo_server_image }}"
   ports:
@@ -30,7 +31,9 @@ takel_ship_forgejo_server_service:
     - "{{ takel_ship_forgejo_server_http_port }}"
   volumes:
     - name: data
-      mount: /data
+      mount: /var/lib/gitea
+    - name: conf
+      mount: /etc/gitea
 
 takel_ship_forgejo_runner_service:
   name: forgejo-runner
@@ -47,13 +50,10 @@ takel_ship_forgejo_runner_service:
   dind: 2330
   images:
     - "{{ takel_ship_forgejo_runner_image }}"
-  volumes:
-    - name: data
-      mount: /data
 
 takel_ship_forgejo_server_image:
   name: codeberg.org/forgejo/forgejo
-  tag: 8
+  tag: 8-rootless
   alias: forgejo
 
 takel_ship_forgejo_runner_image:

@@ -62,8 +62,7 @@ takel_ship_compose_script_takelship_yml:
   path: >-
     {{ takel_ship_compose_home_dir }}/{{
     takel_ship_compose_dist_dir }}/{{
-    takel_ship_compose_compose_dir }}/{{
-    takel_ship_compose_projects_dir }}
+    takel_ship_compose_compose_dir }}
 
 takel_ship_compose_script_takelship_docker_compose:
   name: docker-compose.yml
