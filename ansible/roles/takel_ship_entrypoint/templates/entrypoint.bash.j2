@@ -12,7 +12,7 @@ debug() {
 
 POD={{ takel_ship_scripts_script_pod['name'] }}
 LOG="{{ takel_ship_entrypoint_log_prefix }}"
-COMPOSE_DIR={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}
+SERVICES_DIR={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_services_dir }}
 PROJECTS_DIR={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_projects_dir }}
 
 function print_header {
@@ -63,8 +63,10 @@ debug check if we have to prepopulate the data dir
 UPDATE="${TAKELSHIP_UPDATE:-$UPDATE}"
 UPDATE="${UPDATE,,}"
 
-debug ensure that the data cache dir exists
+debug ensure that the dirs exist
 mkdir --parents {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_registry_cache_dir }}
+mkdir --parents $SERVICES_DIR
+mkdir --parents $PROJECTS_DIR
 
 if [[ "$UPDATE" == "true" ]] || [[ "$PROJECT" == "dump" ]]; then
   echo $LOG Updating data directory
@@ -88,20 +90,18 @@ debug create dind users, sockets and socat forwards
 debug export takelship environment variables
 {{ takel_ship_entrypoint_script_export_envvars['name'] }} "$(env)"
 
-# start takelship registry
+# start internal takelship registry
 echo $LOG Starting registry on localhost:{{ takel_ship_registry_takelship_registry_port['port'] }}
 $POD mkdir --parents {{ takel_ship_compose_data_dir }}/{{ takel_ship_registry_cache_dir }}
-$POD --workdir $COMPOSE_DIR/{{ takel_ship_registry_takelship_service['name'] }} ./{{ takel_ship_compose_run_podman }}
+$POD --workdir $SERVICES_DIR/{{ takel_ship_registry_takelship_service['name'] }} ./{{ takel_ship_compose_run_podman }}
 
-# copy images
 echo $LOG Copying images for project: $PROJECT
-$POD $PROJECTS_DIR/{{ takel_ship_compose_copy_images }}.$PROJECT
+$POD $PROJECTS_DIR/$PROJECT/{{ takel_ship_compose_copy_image }}
 
-# start project
-$POD --workdir $PROJECTS_DIR ./{{ takel_ship_compose_run_podman }}.$PROJECT
+echo $LOG Starting project: $PROJECT
+$POD --workdir $PROJECTS_DIR/$PROJECT ./{{ takel_ship_compose_run_podman }}
 
-# show logs
-echo $LOG Boarding podman compose logs
+echo $LOG Following podman compose logs
 while true; do
-  $POD --workdir $PROJECTS_DIR podman-compose --file {{ takel_ship_compose_service_filename}}.$PROJECT.yml logs --follow 2>/dev/null;
+  $POD --workdir $PROJECTS_DIR/$PROJECT podman-compose logs --follow 2>/dev/null;
 done

@@ -6,7 +6,7 @@ services:
     image: {{ takel_ship_registry_server_image['name'] }}:{{ takel_ship_registry_server_image['tag'] }}
     restart: always
     volumes:
-      - ../../{{ takel_ship_registry_cache_dir }}:/var/lib/registry
+      - {{ takel_ship_registry_to_cache_dir }}/{{ takel_ship_registry_cache_dir }}:/var/lib/registry
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:

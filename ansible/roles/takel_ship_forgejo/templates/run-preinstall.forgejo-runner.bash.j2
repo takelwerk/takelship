@@ -8,7 +8,7 @@ RUNNER=$(ls data-1/.runner)
 PROJECT="$1"
 
 echo Configure runner
-RUNNERDIR="../{{ takel_ship_forgejo_runner_service['name'] }}/data"
+RUNNERDIR="{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_forgejo_runner_service['name'] }}/data"
 
 rm --force --recursive $RUNNERDIR
 
@@ -27,7 +27,7 @@ chmod g+s $RUNNERDIR-{{ runner }}/.cache
 echo Start runner {{ runner }} in register mode
 TAKELSHIP_FORGEJO_RUNNER_COMMAND={{ takelship_forgejo_runner_command_register }} \
   compose-nonroot \
-  --file ../{{ takel_ship_compose_projects_dir }}/{{ takel_ship_compose_service_filename }}.$PROJECT.{{ takel_ship_compose_service_fileext }} \
+  --file {{ takel_ship_compose_to_projects_dir }}/$PROJECT/{{ takel_ship_compose_docker_compose_yml }} \
   up {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} -d
 
 {% endfor %}
@@ -68,7 +68,7 @@ podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} for
 {% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
 echo Kill runner {{ runner }} in register mode
 compose-nonroot \
-  --file ../{{ takel_ship_compose_projects_dir }}/{{ takel_ship_compose_service_filename }}.$PROJECT.{{ takel_ship_compose_service_fileext }} \
+  --file {{ takel_ship_compose_to_projects_dir }}/$PROJECT/{{ takel_ship_compose_docker_compose_yml }} \
   kill {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}
 
 {% endfor %}

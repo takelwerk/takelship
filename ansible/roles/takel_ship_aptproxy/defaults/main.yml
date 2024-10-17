@@ -16,9 +16,6 @@ takel_ship_aptproxy_service:
     - "{{ takel_ship_aptproxy_image }}"
   ports:
     - "{{ takel_ship_aptproxy_http_port }}"
-  volumes:
-    - name: data
-      mount: /var/cache/apt-cacher-ng
 
 takel_ship_aptproxy_image:
   name: soulteary/apt-proxy

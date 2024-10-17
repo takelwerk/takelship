@@ -9,7 +9,7 @@ services:
       DOCKER_HOST: tcp://localhost:{{ (takel_ship_forgejo_runner_service['dind'] + runner - 1) }} }}
     user: 1000:1000
     volumes:
-      - ../{{ takel_ship_forgejo_runner_service['name'] }}/data-{{ runner }}:/data
+      - {{ takel_ship_compose_to_services_dir }}/{{ takel_ship_forgejo_runner_service['name'] }}/data-{{ runner }}:/data
     restart: 'always'
     command: /bin/sh -c ${TAKELSHIP_FORGEJO_RUNNER_COMMAND:-{{ takelship_forgejo_runner_command_daemon }}}
 {% endfor %}

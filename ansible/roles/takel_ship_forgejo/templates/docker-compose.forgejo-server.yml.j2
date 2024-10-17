@@ -14,7 +14,7 @@ services:
       - "${TAKELSHIP_FORGEJO_SERVER_HTTP_PORT:-{{ takel_ship_forgejo_server_http_port['port'] }}}:3000"
       - "${TAKELSHIP_FORGEJO_SERVER_SSH_PORT:-{{ takel_ship_forgejo_server_ssh_port['port'] }}}:22"
     volumes:
-      - ${TAKELSHIP_FORGEJO_SERVER_DATA_DIR:-../{{ takel_ship_forgejo_server_service['name'] }}/data}:/var/lib/gitea
+      - ${TAKELSHIP_FORGEJO_SERVER_DATA_DIR:-{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_forgejo_server_service['name'] }}/data}:/var/lib/gitea
       - ${TAKELSHIP_FORGEJO_SERVER_DATA_DIR:-../{{ takel_ship_forgejo_server_service['name'] }}/conf}:/etc/gitea
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro

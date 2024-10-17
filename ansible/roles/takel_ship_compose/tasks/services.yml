@@ -8,9 +8,9 @@
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_services_dir }}/{{
       takel_ship_compose_service.name }}/{{
-      takel_ship_compose_service_filename }}.{{
-      takel_ship_compose_service_fileext }}
+      takel_ship_compose_docker_compose_yml }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     mode: "{{ takel_ship_podman_user.mode.file }}"
@@ -27,6 +27,7 @@
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_services_dir }}/{{
       takel_ship_compose_service.name }}/{{
       takel_ship_compose_env_docker }}
     owner: "{{ takel_ship_podman_user.owner }}"
@@ -39,13 +40,14 @@
 - name: (compose) (services) deploy bash copy image script
   ansible.builtin.template:
     src: >-
-     {{ takel_ship_compose_copy_image }}.bash.j2
+     {{ takel_ship_compose_copy_image }}.service.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
-      takel_ship_compose_service.name
-      }}/{{ takel_ship_compose_copy_image }}
+      takel_ship_compose_services_dir }}/{{
+      takel_ship_compose_service.name }}/{{
+      takel_ship_compose_copy_image }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     # we use dir mode as the file should be executable
@@ -62,8 +64,9 @@
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
-      takel_ship_compose_service.name
-      }}/{{ takel_ship_compose_run_docker }}
+      takel_ship_compose_services_dir }}/{{
+      takel_ship_compose_service.name }}/{{
+      takel_ship_compose_run_docker }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     # we use dir mode as the file should be executable
@@ -80,8 +83,9 @@
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
-      takel_ship_compose_service.name
-      }}/{{ takel_ship_compose_run_podman }}
+      takel_ship_compose_services_dir }}/{{
+      takel_ship_compose_service.name }}/{{
+      takel_ship_compose_run_podman }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     # we use dir mode as the file should be executable
@@ -100,8 +104,9 @@
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
-      takel_ship_compose_service.name
-      }}/{{ takel_ship_compose_run_postinstall }}
+      takel_ship_compose_services_dir }}/{{
+      takel_ship_compose_service.name }}/{{
+      takel_ship_compose_run_postinstall }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     # we use dir mode as the file should be executable
@@ -121,8 +126,9 @@
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
-      takel_ship_compose_service.name
-      }}/{{ takel_ship_compose_run_preinstall }}
+      takel_ship_compose_services_dir }}/{{
+      takel_ship_compose_service.name }}/{{
+      takel_ship_compose_run_preinstall }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     # we use dir mode as the file should be executable
@@ -141,8 +147,9 @@
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
-      takel_ship_compose_service.name
-      }}/{{ takel_ship_compose_dockerfile }}
+      takel_ship_compose_services_dir }}/{{
+      takel_ship_compose_service.name }}/{{
+      takel_ship_compose_dockerfile }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     mode: "{{ takel_ship_podman_user.mode.file }}"

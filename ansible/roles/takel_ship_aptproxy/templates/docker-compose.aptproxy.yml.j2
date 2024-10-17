@@ -11,4 +11,4 @@ services:
     ports:
       - "${TAKELSHIP_APTPROXY_HTTP_PORT:-{{ takel_ship_aptproxy_http_port['port'] }}}:3142"
     volumes:
-      - ${TAKELSHIP_APTPROXY_DATA_DIR:-../{{ takel_ship_aptproxy_service['name'] }}/data}:/data
+      - ${TAKELSHIP_APTPROXY_DATA_DIR:-{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_aptproxy_service['name'] }}/data}:/data

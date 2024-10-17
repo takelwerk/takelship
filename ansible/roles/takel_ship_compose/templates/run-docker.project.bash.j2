@@ -2,9 +2,6 @@
 
 docker compose \
 {% for service in takel_ship_compose_project['services'] %}
-  --env-file ../{{ service['name'] }}/{{ takel_ship_compose_env_docker }} \
+  --env-file {{ takel_ship_compose_to_services_dir }}/{{ service['name'] }}/{{ takel_ship_compose_env_docker }} \
 {% endfor %}
-  --file {{
-      takel_ship_compose_service_filename }}.{{ takel_ship_compose_project['name'] }}.{{
-      takel_ship_compose_service_fileext }} \
   up -d

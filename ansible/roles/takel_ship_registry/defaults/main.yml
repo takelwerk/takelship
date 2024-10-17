@@ -40,9 +40,6 @@ takel_ship_registry_server_service:
     - "{{ takel_ship_registry_server_image }}"
   ports:
     - "{{ takel_ship_registry_server_http_port }}"
-  volumes:
-    - name: data
-      mount: /data
 
 takel_ship_registry_ui_service:
   name: registry-ui
@@ -67,9 +64,6 @@ takel_ship_registry_takelship_service:
   env: env.takelship-registry.j2
   ports:
     - "{{ takel_ship_registry_takelship_registry_port }}"
-  volumes:
-    - name: data
-      mount: ../../cache
 
 takel_ship_registry_ui_script_config:
   name: config.yml
@@ -82,6 +76,7 @@ takel_ship_registry_ui_script_config:
     {{ takel_ship_compose_home_dir }}/{{
     takel_ship_compose_dist_dir }}/{{
     takel_ship_compose_compose_dir }}/{{
+    takel_ship_compose_services_dir }}/{{
     takel_ship_registry_ui_service.name
     }}
 
@@ -96,6 +91,7 @@ takel_ship_registry_server_script_config:
     {{ takel_ship_compose_home_dir }}/{{
     takel_ship_compose_dist_dir }}/{{
     takel_ship_compose_compose_dir }}/{{
+    takel_ship_compose_services_dir }}/{{
     takel_ship_registry_server_service.name
     }}
 
@@ -112,6 +108,7 @@ takel_ship_registry_script_registries:
 
 takel_ship_registry_restart: always
 
+takel_ship_registry_to_cache_dir: ../../..
 takel_ship_registry_cache_dir: cache
 
 takel_ship_registry_takelship_registry_port:

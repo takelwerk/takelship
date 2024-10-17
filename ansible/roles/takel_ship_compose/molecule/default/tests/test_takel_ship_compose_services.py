@@ -3,7 +3,7 @@ import takeltest
 testinfra_hosts = [takeltest.hosts()[0]]
 
 
-def test_takel_ship_compose_compose_services_compose_files(
+def test_takel_ship_compose_services_compose_files(
         host, testvars):
     user = testvars['takel_ship_podman_user']['owner']
     group = testvars['takel_ship_podman_user']['group']
@@ -11,13 +11,13 @@ def test_takel_ship_compose_compose_services_compose_files(
     home_dir = testvars['takel_ship_compose_home_dir']
     dist_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
-    service_filename = testvars['takel_ship_compose_service_filename']
-    service_fileext = testvars['takel_ship_compose_service_fileext']
+    services_dir = testvars['takel_ship_compose_services_dir']
+    docker_compose_yml = testvars['takel_ship_compose_docker_compose_yml']
     services = testvars['takel_ship_compose_services']
     for service in services:
         file = host.file(
-            f"{home_dir}/{dist_dir}/{compose_dir}/"
-            f"{service['name']}/{service_filename}.{service_fileext}")
+            f"{home_dir}/{dist_dir}/{compose_dir}/{services_dir}/"
+            f"{service['name']}/{docker_compose_yml}")
 
         assert file.exists
         assert file.is_file
@@ -26,7 +26,7 @@ def test_takel_ship_compose_compose_services_compose_files(
         assert file.mode == mode
 
 
-def test_takel_ship_compose_compose_services_env_files(
+def test_takel_ship_compose_services_env_files(
         host, testvars):
     user = testvars['takel_ship_podman_user']['owner']
     group = testvars['takel_ship_podman_user']['group']
@@ -34,6 +34,7 @@ def test_takel_ship_compose_compose_services_env_files(
     home_dir = testvars['takel_ship_compose_home_dir']
     dist_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
+    services_dir = testvars['takel_ship_compose_services_dir']
     env = testvars['takel_ship_compose_env_docker']
     services = testvars['takel_ship_compose_services']
     for service in services:
@@ -41,7 +42,7 @@ def test_takel_ship_compose_compose_services_env_files(
             continue
 
         file = host.file(
-            f"{home_dir}/{dist_dir}/{compose_dir}/"
+            f"{home_dir}/{dist_dir}/{compose_dir}/{services_dir}/"
             f"{service['name']}/{env}")
 
         assert file.exists
@@ -51,7 +52,7 @@ def test_takel_ship_compose_compose_services_env_files(
         assert file.mode == mode
 
 
-def test_takel_ship_compose_compose_services_copy_image_files(
+def test_takel_ship_compose_services_copy_image_files(
         host, testvars):
     user = testvars['takel_ship_podman_user']['owner']
     group = testvars['takel_ship_podman_user']['group']
@@ -59,6 +60,7 @@ def test_takel_ship_compose_compose_services_copy_image_files(
     home_dir = testvars['takel_ship_compose_home_dir']
     dist_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
+    services_dir = testvars['takel_ship_compose_services_dir']
     copy_image = testvars['takel_ship_compose_copy_image']
     services = testvars['takel_ship_compose_services']
     for service in services:
@@ -66,7 +68,7 @@ def test_takel_ship_compose_compose_services_copy_image_files(
             continue
 
         file = host.file(
-            f"{home_dir}/{dist_dir}/{compose_dir}/"
+            f"{home_dir}/{dist_dir}/{compose_dir}/{services_dir}/"
             f"{service['name']}/{copy_image}")
 
         assert file.exists
@@ -76,7 +78,7 @@ def test_takel_ship_compose_compose_services_copy_image_files(
         assert file.mode == mode
 
 
-def test_takel_ship_compose_compose_services_run_docker_files(
+def test_takel_ship_compose_services_run_docker_files(
         host, testvars):
     user = testvars['takel_ship_podman_user']['owner']
     group = testvars['takel_ship_podman_user']['group']
@@ -84,6 +86,7 @@ def test_takel_ship_compose_compose_services_run_docker_files(
     home_dir = testvars['takel_ship_compose_home_dir']
     dist_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
+    services_dir = testvars['takel_ship_compose_services_dir']
     run_docker = testvars['takel_ship_compose_run_docker']
     services = testvars['takel_ship_compose_services']
     for service in services:
@@ -91,7 +94,7 @@ def test_takel_ship_compose_compose_services_run_docker_files(
             continue
 
         file = host.file(
-            f"{home_dir}/{dist_dir}/{compose_dir}/"
+            f"{home_dir}/{dist_dir}/{compose_dir}/{services_dir}/"
             f"{service['name']}/{run_docker}")
 
         assert file.exists
@@ -101,7 +104,7 @@ def test_takel_ship_compose_compose_services_run_docker_files(
         assert file.mode == mode
 
 
-def test_takel_ship_compose_compose_services_run_podman_files(
+def test_takel_ship_compose_services_run_podman_files(
         host, testvars):
     user = testvars['takel_ship_podman_user']['owner']
     group = testvars['takel_ship_podman_user']['group']
@@ -109,6 +112,7 @@ def test_takel_ship_compose_compose_services_run_podman_files(
     home_dir = testvars['takel_ship_compose_home_dir']
     dist_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
+    services_dir = testvars['takel_ship_compose_services_dir']
     run_podman = testvars['takel_ship_compose_run_podman']
     services = testvars['takel_ship_compose_services']
     for service in services:
@@ -116,7 +120,7 @@ def test_takel_ship_compose_compose_services_run_podman_files(
             continue
 
         file = host.file(
-            f"{home_dir}/{dist_dir}/{compose_dir}/"
+            f"{home_dir}/{dist_dir}/{compose_dir}/{services_dir}/"
             f"{service['name']}/{run_podman}")
 
         assert file.exists
@@ -126,7 +130,7 @@ def test_takel_ship_compose_compose_services_run_podman_files(
         assert file.mode == mode
 
 
-def test_takel_ship_compose_compose_services_run_postinstall_files(
+def test_takel_ship_compose_services_run_postinstall_files(
         host, testvars):
     user = testvars['takel_ship_podman_user']['owner']
     group = testvars['takel_ship_podman_user']['group']
@@ -134,6 +138,7 @@ def test_takel_ship_compose_compose_services_run_postinstall_files(
     home_dir = testvars['takel_ship_compose_home_dir']
     dist_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
+    services_dir = testvars['takel_ship_compose_services_dir']
     run_postinstall = testvars['takel_ship_compose_run_postinstall']
     services = testvars['takel_ship_compose_services']
     for service in services:
@@ -141,7 +146,7 @@ def test_takel_ship_compose_compose_services_run_postinstall_files(
             continue
 
         file = host.file(
-            f"{home_dir}/{dist_dir}/{compose_dir}/"
+            f"{home_dir}/{dist_dir}/{compose_dir}/{services_dir}/"
             f"{service['name']}/{run_postinstall}")
 
         assert file.exists
@@ -151,7 +156,7 @@ def test_takel_ship_compose_compose_services_run_postinstall_files(
         assert file.mode == mode
 
 
-def test_takel_ship_compose_compose_services_run_preinstall_files(
+def test_takel_ship_compose_services_run_preinstall_files(
         host, testvars):
     user = testvars['takel_ship_podman_user']['owner']
     group = testvars['takel_ship_podman_user']['group']
@@ -159,6 +164,7 @@ def test_takel_ship_compose_compose_services_run_preinstall_files(
     home_dir = testvars['takel_ship_compose_home_dir']
     dist_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
+    services_dir = testvars['takel_ship_compose_services_dir']
     run_preinstall = testvars['takel_ship_compose_run_preinstall']
     services = testvars['takel_ship_compose_services']
     for service in services:
@@ -166,7 +172,7 @@ def test_takel_ship_compose_compose_services_run_preinstall_files(
             continue
 
         file = host.file(
-            f"{home_dir}/{dist_dir}/{compose_dir}/"
+            f"{home_dir}/{dist_dir}/{compose_dir}/{services_dir}/"
             f"{service['name']}/{run_preinstall}")
 
         assert file.exists
@@ -176,7 +182,7 @@ def test_takel_ship_compose_compose_services_run_preinstall_files(
         assert file.mode == mode
 
 
-def test_takel_ship_compose_compose_services_dockerfile_files(
+def test_takel_ship_compose_services_dockerfile_files(
         host, testvars):
     user = testvars['takel_ship_podman_user']['owner']
     group = testvars['takel_ship_podman_user']['group']
@@ -184,6 +190,7 @@ def test_takel_ship_compose_compose_services_dockerfile_files(
     home_dir = testvars['takel_ship_compose_home_dir']
     dist_dir = testvars['takel_ship_compose_dist_dir']
     compose_dir = testvars['takel_ship_compose_compose_dir']
+    services_dir = testvars['takel_ship_compose_services_dir']
     dockerfile = testvars['takel_ship_compose_dockerfile']
     services = testvars['takel_ship_compose_services']
     for service in services:
@@ -191,7 +198,7 @@ def test_takel_ship_compose_compose_services_dockerfile_files(
             continue
 
         file = host.file(
-            f"{home_dir}/{dist_dir}/{compose_dir}/"
+            f"{home_dir}/{dist_dir}/{compose_dir}/{services_dir}/"
             f"{service['name']}/{dockerfile}")
 
         assert file.exists

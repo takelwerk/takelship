@@ -29,11 +29,6 @@ takel_ship_forgejo_server_service:
   ports:
     - "{{ takel_ship_forgejo_server_ssh_port }}"
     - "{{ takel_ship_forgejo_server_http_port }}"
-  volumes:
-    - name: data
-      mount: /var/lib/gitea
-    - name: conf
-      mount: /etc/gitea
 
 takel_ship_forgejo_runner_service:
   name: forgejo-runner

@@ -4,9 +4,13 @@ DIST={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_dist_dir }}/{{ take
 DATA={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}
 
 mkdir --parents $DATA/{{ takel_ship_compose_projects_dir }}
-cp $DIST/{{ takel_ship_compose_projects_dir }}/{{ takel_ship_compose_script_takelship_yml['name'] }} $DATA/{{ takel_ship_compose_projects_dir }}
-cp --recursive $DIST/{{ takel_ship_registry_takelship_service['name'] }} $DATA
+# copy takelship.yml
+cp $DIST/{{ takel_ship_compose_script_takelship_yml['name'] }} $DATA
+# copy project
+cp --recursive $DIST/{{ takel_ship_compose_projects_dir }}/{{ takel_ship_compose_project['name'] }} $DATA/{{ takel_ship_compose_projects_dir }}
+# copy takelship-registry service
+cp --recursive $DIST/{{ takel_ship_compose_services_dir }}/takelship-registry/ $DATA/{{ takel_ship_compose_services_dir }}
+# copy services
 {% for service in takel_ship_compose_project['services'] %}
-cp --recursive $DIST/{{ service['name'] }} $DATA
-cp $DIST/{{ takel_ship_compose_projects_dir }}/*{{ takel_ship_compose_project['name'] }}* $DATA/{{ takel_ship_compose_projects_dir }}
+cp --recursive $DIST/{{ takel_ship_compose_services_dir }}/{{ service['name'] }} $DATA/{{ takel_ship_compose_services_dir }}
 {% endfor %}

@@ -5,9 +5,7 @@ PODMAN_USERNS=keep-id podman-compose --in-pod=false \
 {% else %}
 podman-compose \
 {% endif %}
-  --file {{
-  takel_ship_compose_service_filename }}.{{
-  takel_ship_compose_service_fileext }} up -d
+  up -d
 {% if 'postinstall' in takel_ship_compose_service %}
 ./{{ takel_ship_compose_run_postinstall }}
 {% endif %}

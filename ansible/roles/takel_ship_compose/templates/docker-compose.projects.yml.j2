@@ -1,5 +1,5 @@
 ---
 include:
 {% for service in takel_ship_compose_project['services'] %}
-  - ../{{ service['name'] }}/{{ takel_ship_compose_service_filename }}.{{ takel_ship_compose_service_fileext }}
+  - {{ takel_ship_compose_to_services_dir }}/{{ service['name'] }}/{{ takel_ship_compose_docker_compose_yml }}
 {% endfor %}

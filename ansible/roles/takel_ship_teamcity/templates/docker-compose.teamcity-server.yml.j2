@@ -8,7 +8,7 @@ services:
     ports:
         - "${TAKELSHIP_TEAMCITY_SERVER_HTTP_PORT:-{{ takel_ship_teamcity_http_port['port'] }}}:8111"
     volumes:
-      - ${TAKELSHIP_TEAMCITY_SERVER_DATA_DIR:-../{{ takel_ship_teamcity_server_service['name'] }}/teamcity-data}:/data/teamcity_server/datadir
-      - ${TAKELSHIP_TEAMCITY_SERVER_LOGS_DIR:-../{{ takel_ship_teamcity_server_service['name'] }}/teamcity-logs}:/opt/teamcity/logs
+      - ${TAKELSHIP_TEAMCITY_SERVER_DATA_DIR:-{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_teamcity_server_service['name'] }}/teamcity-data}:/data/teamcity_server/datadir
+      - ${TAKELSHIP_TEAMCITY_SERVER_LOGS_DIR:-{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_teamcity_server_service['name'] }}/teamcity-logs}:/opt/teamcity/logs
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro

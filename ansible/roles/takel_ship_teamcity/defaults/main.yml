@@ -17,11 +17,6 @@ takel_ship_teamcity_server_service:
     - "{{ takel_ship_teamcity_server_image }}"
   ports:
     - "{{ takel_ship_teamcity_http_port }}"
-  volumes:
-    - name: teamcity-data
-      mount: /data/teamcity_server/datadir
-    - name: teamcity-logs
-      mount: /opt/teamcity/logs
 
 takel_ship_teamcity_runner_service:
   name: teamcity-runner
