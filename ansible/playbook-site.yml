@@ -10,6 +10,7 @@
     - takel_ship_entrypoint
     - takel_ship_registry
     - takel_ship_dind
+    - takel_ship_portainer
     - takel_ship_aptproxy
     - takel_ship_forgejo
     - takel_ship_teamcity

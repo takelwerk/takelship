@@ -1,0 +1,33 @@
+---
+takel_ship_portainer_services:
+  - "{{ takel_ship_portainer_service }}"
+
+### end of group_vars
+
+takel_ship_portainer_service:
+  name: portainer
+  description: >-
+    Portainer Container Manager (portainer.io)
+    Provides container monitoring.
+  role: takel_ship_portainer
+  template: docker-compose.portainer.yml.j2
+  env: env.portainer.j2
+  images:
+    - "{{ takel_ship_portainer_image }}"
+  ports:
+    - "{{ takel_ship_portainer_http_port }}"
+
+takel_ship_portainer_image:
+  name: portainer/portainer-ce
+  tag: latest
+  alias: portainer-ce
+
+takel_ship_portainer_http_port:
+  port: 39000
+  protocol: http
+
+# password: administrator
+# docker run --rm httpd:2.4-alpine htpasswd -nbB admin "administrator" | cut -d ":" -f 2
+# You need to escape each $ character inside the hashed password with another $
+takel_ship_portainer_admin_password: >-
+  $$2y$$05$$p.Fe4u7Akf15WTGroQ0FrOyQeV40qUhg5wdoVY3dMuvumekIPCi4e

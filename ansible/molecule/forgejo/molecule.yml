@@ -16,6 +16,7 @@ platforms:
       - 127.0.0.1:50022:30022/tcp
       - 127.0.0.1:52375:32375/tcp
       - 127.0.0.1:53000:33000/tcp
+      - 127.0.0.1:59000:39000/tcp
     volumes:
       - $TAKELAGE_PROJECT_BASE_DIR/takelship/cache:/home/podman/takelship/cache
 provisioner:

@@ -4,6 +4,7 @@ takel_ship_compose_projects:
     description: >-
       All services of all projects.
     services:
+      - "{{ takel_ship_portainer_service }}"
       - "{{ takel_ship_aptproxy_service }}"
       - "{{ takel_ship_registry_server_service }}"
       - "{{ takel_ship_registry_ui_service }}"
@@ -33,8 +34,10 @@ takel_ship_compose_projects:
       Provides CI/CD pipelines (GitHub style).
       Provides image hosting.
       Runs with Forgejo Runners.
+      Runs with Portainer.
       Runs with Docker in Docker.
     services:
+      - "{{ takel_ship_portainer_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
       - "{{ takel_ship_forgejo_runner_service }}"
   - name: teamcity
@@ -43,8 +46,10 @@ takel_ship_compose_projects:
       Provides CI/CD pipelines (JetBrains style).
       Runs with TeamCity Runners.
       Runs with Forgejo and its runners.
+      Runs with Portainer.
       Runs with Docker in Docker.
     services:
+      - "{{ takel_ship_portainer_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
       - "{{ takel_ship_forgejo_runner_service }}"
       - "{{ takel_ship_teamcity_server_service }}"
