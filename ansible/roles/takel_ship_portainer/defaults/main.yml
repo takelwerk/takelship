@@ -27,7 +27,8 @@ takel_ship_portainer_http_port:
   protocol: http
 
 # password: administrator
-# docker run --rm httpd:2.4-alpine htpasswd -nbB admin "administrator" | cut -d ":" -f 2
+# docker run --rm httpd:2.4-alpine \
+#   htpasswd -nbB admin "administrator" | cut -d ":" -f 2
 # You need to escape each $ character inside the hashed password with another $
 takel_ship_portainer_admin_password: >-
   $$2y$$05$$p.Fe4u7Akf15WTGroQ0FrOyQeV40qUhg5wdoVY3dMuvumekIPCi4e
