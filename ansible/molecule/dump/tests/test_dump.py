@@ -1,7 +1,5 @@
 import takeltest
 import pytest
-import json
-from time import sleep
 
 testinfra_hosts = [takeltest.hosts()[0]]
 
