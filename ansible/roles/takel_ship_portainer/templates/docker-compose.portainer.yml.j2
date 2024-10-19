@@ -5,7 +5,7 @@ services:
     hostname: ${TAKELSHIP_portainer_HOSTNAME:-{{ takel_ship_portainer_service['name'] }}}
     image: ${TAKELSHIP_portainer_IMAGE:-{{ takel_ship_portainer_image['alias'] }}:{{ takel_ship_portainer_image['tag'] }}}
     restart: ${TAKELSHIP_portainer_RESTART:-always}
-    command: ${TAKELSHIP_portainer_COMMAND:---admin-password '{{ takel_ship_portainer_admin_password }}'}
+    command: --admin-password '{{ takel_ship_portainer_admin_password }}'
     ports:
       - "${TAKELSHIP_FORGEJO_SERVER_SSH_30022:-{{ takel_ship_portainer_http_39000['port'] }}}:9000"
     volumes:

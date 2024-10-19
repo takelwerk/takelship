@@ -28,6 +28,6 @@ takel_ship_entrypoint_script_export_envvars:
   role: takel_ship_entrypoint
   template: export_envvars.bash.j2
 
-takel_ship_entrypoint_profile_file: /etc/profile.d/takelship
+takel_ship_entrypoint_etc_environment: /etc/environment
 
 takel_ship_entrypoint_log_prefix: "[takelship]"

@@ -25,6 +25,7 @@ takel_ship_portainer_image:
 takel_ship_portainer_http_39000:
   port: 39000
   protocol: http
+  description: admin/administrator
 
 # password: administrator
 # docker run --rm httpd:2.4-alpine \

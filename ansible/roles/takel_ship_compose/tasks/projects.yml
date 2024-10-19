@@ -85,7 +85,7 @@
 
 - name: (compose) (projects) deploy bash set ports script
   ansible.builtin.template:
-    src: copy-project.bash.j2
+    src: set-ports.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{

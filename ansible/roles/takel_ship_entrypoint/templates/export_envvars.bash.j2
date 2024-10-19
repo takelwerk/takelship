@@ -1,8 +1,8 @@
 {{ takel_ship_scripts_shebang }}
 
-PROFILE_FILE={{ takel_ship_entrypoint_profile_file }}
+ETC_ENVIRONMENT={{ takel_ship_entrypoint_etc_environment }}
 
 for ENVVAR in ${1}; do
-  # if ENVVAR starts with TAKELSHIP_ append it to PROFILE_FILE
-  [[ "$ENVVAR" == TAKELSHIP_* ]] && echo export $ENVVAR >> $PROFILE_FILE
+  # if ENVVAR starts with TAKELSHIP_ append it to ETC_ENVIRONMENT
+  [[ "$ENVVAR" == TAKELSHIP_* ]] && echo $ENVVAR >> $ETC_ENVIRONMENT
 done

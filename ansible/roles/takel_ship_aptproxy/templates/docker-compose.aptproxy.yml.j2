@@ -5,7 +5,7 @@ services:
     hostname: ${TAKELSHIP_APTPROXY_HOSTNAME:-{{ takel_ship_aptproxy_service['name'] }}}
     image: ${TAKELSHIP_APTPROXY_IMAGE:-{{ takel_ship_aptproxy_image['alias'] }}:{{ takel_ship_aptproxy_image['tag'] }}}
     restart: ${TAKELSHIP_APTPROXY_RESTART:-always}
-    command: ${TAKELSHIP_APTPROXY_COMMAND:--cachedir /data}
+    command: -cachedir /data
     environment:
       - TZ=${TAKELSHIP_APTPROXY_TIMEZONE:-Europe/Amsterdam}
     ports:

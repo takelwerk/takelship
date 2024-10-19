@@ -1,16 +1,18 @@
 {{ takel_ship_scripts_shebang }}
 
+# This file copies the {{ takel_ship_compose_project['name'] }} project and its services
+
 DIST={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_dist_dir }}/{{ takel_ship_compose_compose_dir }}
 DATA={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}
 
 mkdir --parents $DATA/{{ takel_ship_compose_projects_dir }}
+mkdir --parents $DATA/{{ takel_ship_compose_services_dir }}
 # copy takelship.yml
 cp $DIST/{{ takel_ship_compose_script_takelship_yml['name'] }} $DATA
 # copy project
 cp --recursive $DIST/{{ takel_ship_compose_projects_dir }}/{{ takel_ship_compose_project['name'] }} $DATA/{{ takel_ship_compose_projects_dir }}
-# copy takelship-registry service
-cp --recursive $DIST/{{ takel_ship_compose_services_dir }}/takelship-registry/ $DATA/{{ takel_ship_compose_services_dir }}
 # copy services
+cp --recursive $DIST/{{ takel_ship_compose_services_dir }}/takelship-registry $DATA/{{ takel_ship_compose_services_dir }}
 {% for service in takel_ship_compose_project['services'] %}
 cp --recursive $DIST/{{ takel_ship_compose_services_dir }}/{{ service['name'] }} $DATA/{{ takel_ship_compose_services_dir }}
 {% endfor %}

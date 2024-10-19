@@ -75,9 +75,9 @@ mkdir --parents $PROJECTS_DIR
 
 if [[ "$UPDATE" == "true" ]]; then
   echo $LOG Setting localhost ports
-  {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_dist_dir }}/$PROJECT/{{ takel_ship_compose_copy_project }}
+  {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_dist_dir }}/{{ takel_ship_compose_projects_dir }}/$PROJECT/{{ takel_ship_compose_set_ports }}
   echo $LOG Updating data directory
-  {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_dist_dir }}/$PROJECT/{{ takel_ship_compose_copy_project }}
+  {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_dist_dir }}/{{ takel_ship_compose_projects_dir }}/$PROJECT/{{ takel_ship_compose_copy_project }}
 fi
 
 debug change podman uid and git and chown data dir

@@ -108,12 +108,12 @@ def test_takel_ship_compose_projects_copy_project_files(
     mode = int(testvars['takel_ship_podman_user']['mode']['dir'], 8)
     home_dir = testvars['takel_ship_compose_home_dir']
     dist_dir = testvars['takel_ship_compose_dist_dir']
-    project_dir = testvars['takel_ship_compose_project_dir']
+    projects_dir = testvars['takel_ship_compose_projects_dir']
     copy_project = testvars['takel_ship_compose_copy_project']
     projects = testvars['takel_ship_compose_projects']
     for project in projects:
         file = host.file(
-            f"{home_dir}/{dist_dir}/{project_dir}/"
+            f"{home_dir}/{dist_dir}/{projects_dir}/"
             f"{project['name']}/{copy_project}")
 
         assert file.exists
@@ -131,12 +131,12 @@ def test_takel_ship_compose_projects_set_ports_files(
     mode = int(testvars['takel_ship_podman_user']['mode']['dir'], 8)
     home_dir = testvars['takel_ship_compose_home_dir']
     dist_dir = testvars['takel_ship_compose_dist_dir']
-    project_dir = testvars['takel_ship_compose_project_dir']
+    projects_dir = testvars['takel_ship_compose_projects_dir']
     set_ports = testvars['takel_ship_compose_set_ports']
     projects = testvars['takel_ship_compose_projects']
     for project in projects:
         file = host.file(
-            f"{home_dir}/{dist_dir}/{project_dir}/"
+            f"{home_dir}/{dist_dir}/{projects_dir}/"
             f"{project['name']}/{set_ports}")
 
         assert file.exists
