@@ -22,12 +22,3 @@ docker run \
 ${TAKELSHIP_IMAGE:-takelwerk/takelship} {{ project['name'] }}"
 echo
 {% endfor %}
-echo '== Project: dump'
-echo '= Dump service files and run scripts in takelship directory.'
-echo "\
-docker run \
---rm \
---interactive \
---tty \
---volume ./{{ takel_ship_compose_data_dir }}:{{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }} \
-${TAKELSHIP_IMAGE:-takelwerk/takelship} dump"
