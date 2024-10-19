@@ -73,8 +73,25 @@
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
-      takel_ship_compose_copy_project }}.{{
-      takel_ship_compose_project.name }}
+      takel_ship_compose_projects_dir }}/{{
+      takel_ship_compose_project.name }}/{{
+      takel_ship_compose_copy_project }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
+  loop: "{{ takel_ship_compose_projects }}"
+  loop_control:
+    loop_var: takel_ship_compose_project
+
+- name: (compose) (projects) deploy bash set ports script
+  ansible.builtin.template:
+    src: copy-project.bash.j2
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_projects_dir }}/{{
+      takel_ship_compose_project.name }}/{{
+      takel_ship_compose_set_ports }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     mode: "{{ takel_ship_podman_user.mode.dir }}"

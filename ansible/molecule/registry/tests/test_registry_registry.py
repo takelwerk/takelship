@@ -8,7 +8,7 @@ def test_registry_registry_server(host, testvars):
     expected_images = ['myregistry']
     image = testvars['takel_ship_registry_server_image']['name']
     tag = testvars['takel_ship_registry_server_image']['tag']
-    port = testvars['takel_ship_registry_server_http_port']['port']
+    port = testvars['takel_ship_registry_server_http_35000']['port']
     cmd = testvars['takel_ship_scripts_script_pod']['name']
     cmd_tag = (f"{cmd} podman tag "
                f"{image}:{tag} localhost:{port}/myregistry:{tag}")
@@ -29,7 +29,7 @@ def test_registry_registry_server(host, testvars):
 
 
 def test_registry_registry_ui(host, testvars):
-    port = testvars['takel_ship_registry_ui_http_port']['port']
+    port = testvars['takel_ship_registry_ui_http_35080']['port']
     cmd = testvars['takel_ship_scripts_script_pod']['name']
     cmd_curl_server = (
         f"{cmd} curl "
@@ -41,7 +41,7 @@ def test_registry_registry_ui(host, testvars):
 
 
 def test_registry_takelship_registry(host, testvars):
-    port = testvars['takel_ship_registry_takelship_registry_port']['port']
+    port = testvars['takel_ship_registry_takelship_registry_http_5555']['port']
     cmd = testvars['takel_ship_scripts_script_pod']['name']
     cmd_curl = (
         f"{cmd} curl "

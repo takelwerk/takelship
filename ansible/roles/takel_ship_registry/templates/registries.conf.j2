@@ -5,16 +5,16 @@ unqualified-search-registries = ["docker.io"]
 {% if 'images' in service %}
 {% for image in service['images'] %}
 {% if not image in takel_ship_registry_takelship_images %}
-"{{ image['alias'] }}" = "localhost:{{ takel_ship_registry_takelship_registry_port['port'] }}/{{ image['name'] }}"
+"{{ image['alias'] }}" = "localhost:{{ takel_ship_registry_takelship_registry_http_5555['port'] }}/{{ image['name'] }}"
 {% endif %}
 {% endfor %}
 {% endif %}
 {% endfor %}
 
 [[registry]]
-location = "localhost:{{ takel_ship_registry_takelship_registry_port['port'] }}"
+location = "localhost:{{ takel_ship_registry_takelship_registry_http_5555['port'] }}"
 insecure = true
 
 [[registry]]
-location = "localhost:{{ takel_ship_registry_server_http_port['port'] }}"
+location = "localhost:{{ takel_ship_registry_server_http_35000['port'] }}"
 insecure = true

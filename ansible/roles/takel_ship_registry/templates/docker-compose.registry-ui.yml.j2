@@ -8,6 +8,6 @@ services:
     environment:
       TZ: Europe/Amsterdam
     ports:
-      - "${TAKELSHIP_REGISTRY_UI_HTTP_PORT:-{{ takel_ship_registry_ui_http_port['port'] }}}:8000"
+      - "${TAKELSHIP_REGISTRY_UI_HTTP_35080:-{{ takel_ship_registry_ui_http_35080['port'] }}}:8000"
     volumes:
       - ${TAKELSHIP_REGISTRY_UI_CONFIG_YML:-{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_registry_ui_service['name'] }}/{{ takel_ship_registry_ui_script_config['name'] }}}:/opt/config.yml:ro

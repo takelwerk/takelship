@@ -1,0 +1,55 @@
+---
+driver:
+  name: docker
+platforms:
+  # yamllint disable-line rule:line-length
+  - name: molecule_dump_${HOSTNAME:-name}
+    # yamllint disable-line rule:line-length
+    image: packer_local/${TAKELAGE_PROJECT_NAME:-name}-${TAKELAGE_PROJECT_IMG:-noimage}
+    pre_build_image: true
+    privileged: true
+    command: all
+    groups:
+      - ${TAKELAGE_PROJECT_IMG:-noimage}
+      - molecule
+    env:
+      TAKELSHIP_DUMP: true
+    volumes:
+      - $TAKELAGE_PROJECT_BASE_DIR/takelship/cache:/home/podman/takelship/cache
+      - $TAKELAGE_PROJECT_BASE_DIR/takelship/dump:/home/podman/takelship
+provisioner:
+  name: ansible
+  playbooks:
+    converge: >-
+      ../../${TAKELAGE_MOLECULE_CONVERGE_PLAYBOOK:-playbook-site.yml}
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      stdout_callback: yaml
+      bin_ansible_callbacks: true
+  inventory:
+    links:
+      group_vars: ../../group_vars/
+verifier:
+  name: testinfra
+  options:
+    v: true
+    m: dump
+  env:
+    TESTVARS_ROLES_PLAYBOOKS: >-
+      ${TAKELAGE_MOLECULE_VERIFIER_PLAYS:-../../playbook-site.yml}
+    PYTEST_ADDOPTS: '--color=yes'
+  additional_files_or_dirs: ${TAKELAGE_MOLECULE_VERIFIER_FILES:-[]}
+scenario:
+  create_sequence:
+    - create
+  converge_sequence:
+    - create
+  destroy_sequence:
+    - destroy
+  test_sequence:
+    - destroy
+    - create
+    - verify
+    - syntax
+    - destroy

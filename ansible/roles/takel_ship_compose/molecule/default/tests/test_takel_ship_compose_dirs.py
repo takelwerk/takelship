@@ -36,7 +36,23 @@ def test_takel_ship_compose_services_dir(host, testvars):
     assert dir.mode == mode
 
 
-def test_takel_ship_compose_projects_dir(host, testvars):
+def test_takel_ship_compose_base_projects_dir(host, testvars):
+    user = testvars['takel_ship_podman_user']['owner']
+    group = testvars['takel_ship_podman_user']['group']
+    mode = int(testvars['takel_ship_podman_user']['mode']['dir'], 8)
+    home_dir = testvars['takel_ship_compose_home_dir']
+    data_dir = testvars['takel_ship_compose_dist_dir']
+    projects_dir = testvars['takel_ship_compose_projects_dir']
+    dir = host.file(f"{home_dir}/{data_dir}/{projects_dir}")
+
+    assert dir.exists
+    assert dir.is_directory
+    assert dir.user == user
+    assert dir.group == group
+    assert dir.mode == mode
+
+
+def test_takel_ship_compose_compose_projects_dir(host, testvars):
     user = testvars['takel_ship_podman_user']['owner']
     group = testvars['takel_ship_podman_user']['group']
     mode = int(testvars['takel_ship_podman_user']['mode']['dir'], 8)

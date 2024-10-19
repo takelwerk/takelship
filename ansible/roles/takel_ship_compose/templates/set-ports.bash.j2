@@ -1,0 +1,15 @@
+{{ takel_ship_scripts_shebang }}
+
+SERVICES_DIR={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_dist_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_services_dir }}/
+
+{% for service in takel_ship_compose_project['services'] %}
+{% for port in service['ports'] | default([]) %}
+ENV_PART_PORT = {{ service['name'] }}_{{ port['protocol']_port['port'] }}
+ENV_VAR_CONFIG_PORT = TAKELSHIP_CONFIG_$ENV_PART_PORT
+ENV_VAR_PORT = TAKELSHIP_$ENV_PART_PORT
+if [ -n "${ENV_VAR_CONFIG_PORT}" ]; then
+  ENV_FILE=$SERVICES_DIR/{{ service['name'] }}/{{ takel_ship_compose_env_docker }}
+  sed -i s'/^.*ENV_VAR_PORT.*$/ENV_VAR_PORT=$ENV_VAR_CONFIG_PORT/' $ENV_FILE
+fi
+{% endfor %}
+{% endfor %}

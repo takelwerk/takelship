@@ -50,7 +50,7 @@ services:
 {% for service in takel_ship_compose_services %}
 {% if not service['name'] == 'takelship-registry' %}
 {% if 'ports' in service %}
-{% for port in service['ports'] %}
+{% for port in service['ports'] | default([]) %}
 {% if not 'list' in service or service['list'] %}
       - "127.0.0.1:{{ port['port'] }}:{{ port['port'] }}"  #  {{ service['name'] }} {{ port['protocol'] }}
 {% endif %}

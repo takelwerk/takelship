@@ -16,7 +16,7 @@ takel_ship_teamcity_server_service:
   images:
     - "{{ takel_ship_teamcity_server_image }}"
   ports:
-    - "{{ takel_ship_teamcity_http_port }}"
+    - "{{ takel_ship_teamcity_server_http_38111 }}"
 
 takel_ship_teamcity_runner_service:
   name: teamcity-runner
@@ -51,7 +51,7 @@ takel_ship_teamcity_runner_arm64_image:
   alias: teamcity-agent-linux-arm64-sudo
   arch: aarch64
 
-takel_ship_teamcity_http_port:
+takel_ship_teamcity_server_http_38111:
   port: 38111
   protocol: http
 

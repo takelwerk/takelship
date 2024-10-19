@@ -12,12 +12,13 @@ takel_ship_dind_podman_socket:
 takel_ship_dind_deb_install_packages:
   - socat
 
-takel_ship_dind_docker_port:
+takel_ship_dind_docker_32375:
   port: 32375
   protocol: docker
 
 takel_ship_dind_docker_socat_command: >-
-  socat tcp-listen:{{ takel_ship_dind_docker_port['port'] }},fork,reuseaddr
+  socat tcp-listen:${TAKELSHIP_DIND_DOCKER_32375:-{{
+  takel_ship_dind_docker_32375['port'] }}},fork,reuseaddr
   unix-connect:/{{ takel_ship_compose_home_dir }}/.run/podman.sock
 
 takel_ship_dind_script_add_user:

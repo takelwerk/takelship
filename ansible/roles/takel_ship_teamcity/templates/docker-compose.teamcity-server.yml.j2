@@ -6,7 +6,7 @@ services:
     image: ${TAKELSHIP_TEAMCITY_SERVER_IMAGE:-{{ takel_ship_teamcity_server_image['alias'] }}:{{ takel_ship_teamcity_server_image['tag'] }}}
     restart: ${TAKELSHIP_TEAMCITY_SERVER_RESTART:-{{ takel_ship_teamcity_restart }}}
     ports:
-        - "${TAKELSHIP_TEAMCITY_SERVER_HTTP_PORT:-{{ takel_ship_teamcity_http_port['port'] }}}:8111"
+        - "${TAKELSHIP_TEAMCITY_SERVER_HTTP_PORT:-{{ takel_ship_teamcity_server_http_38111['port'] }}}:8111"
     volumes:
       - ${TAKELSHIP_TEAMCITY_SERVER_DATA_DIR:-{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_teamcity_server_service['name'] }}/teamcity-data}:/data/teamcity_server/datadir
       - ${TAKELSHIP_TEAMCITY_SERVER_LOGS_DIR:-{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_teamcity_server_service['name'] }}/teamcity-logs}:/opt/teamcity/logs

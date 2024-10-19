@@ -15,13 +15,13 @@ takel_ship_aptproxy_service:
   images:
     - "{{ takel_ship_aptproxy_image }}"
   ports:
-    - "{{ takel_ship_aptproxy_http_port }}"
+    - "{{ takel_ship_aptproxy_http_33142 }}"
 
 takel_ship_aptproxy_image:
   name: soulteary/apt-proxy
   tag: latest
   alias: apt-proxy
 
-takel_ship_aptproxy_http_port:
+takel_ship_aptproxy_http_33142:
   port: 33142
   protocol: http

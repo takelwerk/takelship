@@ -37,9 +37,9 @@ takel_ship_compose_projects:
       Runs with Portainer.
       Runs with Docker in Docker.
     services:
-      - "{{ takel_ship_portainer_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
       - "{{ takel_ship_forgejo_runner_service }}"
+      - "{{ takel_ship_portainer_service }}"
   - name: teamcity
     description: >-
       TeamCity build server (jetbrains.com/teamcity).
@@ -49,10 +49,10 @@ takel_ship_compose_projects:
       Runs with Portainer.
       Runs with Docker in Docker.
     services:
-      - "{{ takel_ship_portainer_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
       - "{{ takel_ship_forgejo_runner_service }}"
       - "{{ takel_ship_teamcity_server_service }}"
       - "{{ takel_ship_teamcity_runner_service }}"
+      - "{{ takel_ship_portainer_service }}"
 
 takel_ship_compose_default_project: forgejo

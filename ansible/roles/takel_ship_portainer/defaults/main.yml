@@ -15,14 +15,14 @@ takel_ship_portainer_service:
   images:
     - "{{ takel_ship_portainer_image }}"
   ports:
-    - "{{ takel_ship_portainer_http_port }}"
+    - "{{ takel_ship_portainer_http_39000 }}"
 
 takel_ship_portainer_image:
   name: portainer/portainer-ce
   tag: latest
   alias: portainer-ce
 
-takel_ship_portainer_http_port:
+takel_ship_portainer_http_39000:
   port: 39000
   protocol: http
 

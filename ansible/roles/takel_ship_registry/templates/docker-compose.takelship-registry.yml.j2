@@ -10,4 +10,4 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - "{{ takel_ship_registry_takelship_registry_port['port'] }}:5000"
+      - "${TAKELSHIP_REGISTRY_HTTP_5555:-{{ takel_ship_registry_takelship_registry_http_5555['port'] }}}:5000"

@@ -8,7 +8,7 @@ testinfra_hosts = [takeltest.hosts()[0]]
 
 @pytest.mark.forgejo
 def test_forgejo_server_setup_page(host, testvars):
-    port = testvars['takel_ship_forgejo_server_http_port']['port']
+    port = testvars['takel_ship_forgejo_server_http_33000']['port']
     cmd = testvars['takel_ship_scripts_script_pod']['name']
     cmd_curl_server = (
         f"{cmd} curl "
@@ -31,7 +31,7 @@ def test_forgejo_server_setup_page(host, testvars):
 
 @pytest.mark.forgejo
 def test_forgejo_server_api_query(host, testvars):
-    port = testvars['takel_ship_forgejo_server_http_port']['port']
+    port = testvars['takel_ship_forgejo_server_http_33000']['port']
     cmd = testvars['takel_ship_scripts_script_pod']['name']
 
     for _ in range(30):

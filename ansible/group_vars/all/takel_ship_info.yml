@@ -1,7 +1,7 @@
 ---
 takelship:
   name: takelship
-  docker_host: "{{ takel_ship_dind_docker_port['port'] }}"
+  docker_host: "{{ takel_ship_dind_docker_32375['port'] }}"
   default_project: "{{ takel_ship_compose_default_project }}"
   image: >-
     {{ project['images']['project']['target_user'] }}/{{

@@ -12,7 +12,7 @@ docker run \
 --name takelship \
 --hostname takelship \
 --privileged \
---publish \"127.0.0.1:{{ takel_ship_dind_docker_port['port'] }}:{{ takel_ship_dind_docker_port['port'] }}\" \
+--publish \"127.0.0.1:{{ takel_ship_dind_docker_32375['port'] }}:{{ takel_ship_dind_docker_32375['port'] }}\" \
 {% for service in project['services'] %}
 {% for port in service['ports'] | default([]) %}
 --publish \"127.0.0.1:{{ port['port'] }}:{{ port['port'] }}\" \

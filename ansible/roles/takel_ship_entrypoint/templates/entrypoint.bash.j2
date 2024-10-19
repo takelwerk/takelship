@@ -52,13 +52,21 @@ if [[ "$PROJECT" == "info" ]]; then
   exit
 fi
 
+UPDATE="${TAKELSHIP_UPDATE:-"false"}"
+UPDATE="${UPDATE,,}"
+
+DUMP="${TAKELSHIP_DUMP:-"false"}"
+DUMP="${DUMP,,}"
+
+[[ "$DUMP" == "true" ]] &&
+  PROJECT='all'
+
 print_header
 echo $LOG Preparing podman container environment
 
-UPDATE="false"
-
 debug check if we have to prepopulate the data dir
-[ ! -e "$PROJECTS_DIR" ] && UPDATE="true"
+[ ! -e "$PROJECTS_DIR" ] &&
+  UPDATE="true"
 
 UPDATE="${TAKELSHIP_UPDATE:-$UPDATE}"
 UPDATE="${UPDATE,,}"
@@ -68,15 +76,17 @@ mkdir --parents {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir
 mkdir --parents $SERVICES_DIR
 mkdir --parents $PROJECTS_DIR
 
-if [[ "$UPDATE" == "true" ]] || [[ "$PROJECT" == "dump" ]]; then
+if [[ "$UPDATE" == "true" ]] || [[ "$DUMP" == "true" ]]; then
+  echo $LOG Setting localhost ports
+  {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_dist_dir }}/$PROJECT/{{ takel_ship_compose_copy_project }}
   echo $LOG Updating data directory
-  {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_dist_dir }}/{{ takel_ship_compose_copy_project }}.$PROJECT
+  {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_dist_dir }}/$PROJECT/{{ takel_ship_compose_copy_project }}
 fi
 
 debug change podman uid and git and chown data dir
 {{ takel_ship_entrypoint_script_change_ids['name'] }}
 
-[[ "$PROJECT" == "dump" ]] &&
+[[ "$DUMP" == "true" ]] &&
   exit
 
 # From here on non-privileged containers will fail
@@ -91,7 +101,7 @@ debug export takelship environment variables
 {{ takel_ship_entrypoint_script_export_envvars['name'] }} "$(env)"
 
 # start internal takelship registry
-echo $LOG Starting registry on localhost:{{ takel_ship_registry_takelship_registry_port['port'] }}
+echo $LOG Starting registry on localhost:{{ takel_ship_registry_takelship_registry_http_5555['port'] }}
 $POD mkdir --parents {{ takel_ship_compose_data_dir }}/{{ takel_ship_registry_cache_dir }}
 $POD --workdir $SERVICES_DIR/{{ takel_ship_registry_takelship_service['name'] }} ./{{ takel_ship_compose_run_podman }}
 

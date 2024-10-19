@@ -39,7 +39,7 @@ takel_ship_registry_server_service:
   images:
     - "{{ takel_ship_registry_server_image }}"
   ports:
-    - "{{ takel_ship_registry_server_http_port }}"
+    - "{{ takel_ship_registry_server_http_35000 }}"
 
 takel_ship_registry_ui_service:
   name: registry-ui
@@ -52,7 +52,7 @@ takel_ship_registry_ui_service:
   images:
     - "{{ takel_ship_registry_ui_image }}"
   ports:
-    - "{{ takel_ship_registry_ui_http_port }}"
+    - "{{ takel_ship_registry_ui_http_35080 }}"
 
 takel_ship_registry_takelship_service:
   name: takelship-registry
@@ -63,7 +63,7 @@ takel_ship_registry_takelship_service:
   template: docker-compose.takelship-registry.yml.j2
   env: env.takelship-registry.j2
   ports:
-    - "{{ takel_ship_registry_takelship_registry_port }}"
+    - "{{ takel_ship_registry_takelship_registry_http_5555 }}"
 
 takel_ship_registry_ui_script_config:
   name: config.yml
@@ -111,14 +111,14 @@ takel_ship_registry_restart: always
 takel_ship_registry_to_cache_dir: ../../..
 takel_ship_registry_cache_dir: cache
 
-takel_ship_registry_takelship_registry_port:
+takel_ship_registry_takelship_registry_http_5555:
   port: 5555
   protocol: http
 
-takel_ship_registry_server_http_port:
+takel_ship_registry_server_http_35000:
   port: 35000
   protocol: http
 
-takel_ship_registry_ui_http_port:
+takel_ship_registry_ui_http_35080:
   port: 35080
   protocol: http

@@ -22,12 +22,23 @@
     group: "{{ takel_ship_podman_user.group }}"
     mode: "{{ takel_ship_podman_user.mode.dir }}"
 
-- name: (compose) (dirs) create projects dir
+- name: (compose) (dirs) create compose projects dir
   ansible.builtin.file:
     path: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_projects_dir }}
+    state: directory
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
+
+- name: (compose) (dirs) create base projects dir
+  ansible.builtin.file:
+    path: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_projects_dir }}
     state: directory
     owner: "{{ takel_ship_podman_user.owner }}"
@@ -50,12 +61,27 @@
   loop_control:
     loop_var: takel_ship_compose_service
 
-- name: (compose) (dirs) create projects dirs
+- name: (compose) (dirs) create compose projects dirs
   ansible.builtin.file:
     path: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_projects_dir }}/{{
+      takel_ship_compose_project.name }}
+    state: directory
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
+  loop: "{{ takel_ship_compose_projects }}"
+  loop_control:
+    loop_var: takel_ship_compose_project
+
+- name: (compose) (dirs) create base projects dirs
+  ansible.builtin.file:
+    path: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_projects_dir }}/{{
       takel_ship_compose_project.name }}
     state: directory
