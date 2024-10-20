@@ -4,8 +4,8 @@ takel_ship_compose_projects:
     description: >-
       All services of all projects.
     services:
-      - "{{ takel_ship_portainer_service }}"
-      - "{{ takel_ship_aptproxy_service }}"
+      - "{{ takel_ship_aptproxy_server_service }}"
+      - "{{ takel_ship_portainer_server_service }}"
       - "{{ takel_ship_registry_server_service }}"
       - "{{ takel_ship_registry_ui_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
@@ -17,7 +17,7 @@ takel_ship_compose_projects:
       APT Proxy (github.com/soulteary/apt-proxy)
       Provides package caching.
     services:
-      - "{{ takel_ship_aptproxy_service }}"
+      - "{{ takel_ship_aptproxy_server_service }}"
   - name: registry
     description: >-
       Docker registry (distribution.github.io/distribution).
@@ -39,7 +39,7 @@ takel_ship_compose_projects:
     services:
       - "{{ takel_ship_forgejo_server_service }}"
       - "{{ takel_ship_forgejo_runner_service }}"
-      - "{{ takel_ship_portainer_service }}"
+      - "{{ takel_ship_portainer_server_service }}"
   - name: teamcity
     description: >-
       TeamCity build server (jetbrains.com/teamcity).
@@ -53,6 +53,6 @@ takel_ship_compose_projects:
       - "{{ takel_ship_forgejo_runner_service }}"
       - "{{ takel_ship_teamcity_server_service }}"
       - "{{ takel_ship_teamcity_runner_service }}"
-      - "{{ takel_ship_portainer_service }}"
+      - "{{ takel_ship_portainer_server_service }}"
 
 takel_ship_compose_default_project: forgejo

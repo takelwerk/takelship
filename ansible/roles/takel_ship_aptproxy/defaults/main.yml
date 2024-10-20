@@ -1,27 +1,27 @@
 ---
 takel_ship_aptproxy_services:
-  - "{{ takel_ship_aptproxy_service }}"
+  - "{{ takel_ship_aptproxy_server_service }}"
 
 ### end of group_vars
 
-takel_ship_aptproxy_service:
-  name: aptproxy
+takel_ship_aptproxy_server_service:
+  name: aptproxy-server
   description: >-
     APT Proxy (github.com/soulteary/apt-proxy)
     Provides apt caching.
   role: takel_ship_aptproxy
-  template: docker-compose.aptproxy.yml.j2
-  env: env.aptproxy.j2
+  template: docker-compose.aptproxy-server.yml.j2
+  env: env.aptproxy-server.j2
   images:
-    - "{{ takel_ship_aptproxy_image }}"
+    - "{{ takel_ship_aptproxy_server_image }}"
   ports:
-    - "{{ takel_ship_aptproxy_http_33142 }}"
+    - "{{ takel_ship_aptproxy_server_http_33142 }}"
 
-takel_ship_aptproxy_image:
+takel_ship_aptproxy_server_image:
   name: soulteary/apt-proxy
   tag: latest
   alias: apt-proxy
 
-takel_ship_aptproxy_http_33142:
+takel_ship_aptproxy_server_http_33142:
   port: 33142
   protocol: http

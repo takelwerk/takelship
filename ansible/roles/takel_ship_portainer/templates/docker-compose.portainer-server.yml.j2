@@ -1,0 +1,13 @@
+---
+services:
+  {{ takel_ship_portainer_server_service['name'] }}:
+    container_name: ${TAKELSHIP_PORTAINER_SERVER_CONTAINER_NAME:-{{ takel_ship_portainer_server_service['name'] }}}
+    hostname: ${TAKELSHIP_PORTAINER_SERVER_HOSTNAME:-{{ takel_ship_portainer_server_service['name'] }}}
+    image: ${TAKELSHIP_PORTAINER_SERVER_IMAGE:-{{ takel_ship_portainer_server_image['alias'] }}:{{ takel_ship_portainer_server_image['tag'] }}}
+    restart: ${TAKELSHIP_PORTAINER_SERVER_RESTART:-always}
+    command: --admin-password '{{ takel_ship_portainer_server_admin_password }}'
+    ports:
+      - "${TAKELSHIP_PORTAINER_SERVER_HTTP_39000:-{{ takel_ship_portainer_server_http_39000['port'] }}}:9000"
+    volumes:
+      - ${TAKELSHIP_PORTAINER_SERVER_DATA_DIR:-{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_portainer_server_service['name'] }}/data}:/data
+      - {{ takel_ship_dind_podman_socket['file'] }}:/var/run/docker.sock

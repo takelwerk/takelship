@@ -2,6 +2,14 @@
 
 docker compose \
 {% for service in takel_ship_compose_project['services'] %}
+{% if not 'nodocker' in service or not service['nodocker'] %}
   --env-file {{ takel_ship_compose_to_services_dir }}/{{ service['name'] }}/{{ takel_ship_compose_env_docker }} \
+{% endif %}
 {% endfor %}
-  up -d
+  up \
+{% for service in takel_ship_compose_project['services'] %}
+{% if not 'nodocker' in service or not service['nodocker'] %}
+  {{ service['name'] }} \
+{% endif %}
+{% endfor %}
+  -d
