@@ -3,16 +3,11 @@
 {% for service in takel_ship_compose_project['services'] %}
 {% if 'images' in service %}
 {% for image in service['images'] %}
+{% if image not in takel_ship_registry_takelship_images %}
 SERVICE_ENABLED="$TAKELSHIP_SERVICE_{{ service['name'] | upper | replace("-", "_") }}"
 SERVICE_ENABLED="${SERVICE_ENABLED:-'false'}"
 SERVICE_ENABLED="${SERVICE_ENABLED,,}"
 if [[ "$SERVICE_ENABLED" != "false" ]]; then
-{% if image in takel_ship_registry_takelship_images %}
-{{ '#' }}  echo Copying {{ image['name'] }}:{{ image['tag'] }}
-{{ '#' }}  skopeo copy \
-{{ '#' }}    docker://{{ image['name'] }}:{{ image['tag'] }} \
-{{ '#' }}    docker://${TAKELSHIP_LOCAL_REGISTRY_HOST:-localhost}:${TAKELSHIP_LOCAL_REGISTRY_PORT:-{{ takel_ship_registry_takelship_registry_http_5555['port'] }}}/{{ image['name'] }}:{{ image['tag'] }}
-{% else %}
 {% if 'arch' in image %}
   if [[ "$(arch)" == "{{ image['arch'] }}" ]]; then
     echo Copying {{ image['name'] }}:{{ image['tag'] }}
@@ -26,8 +21,8 @@ if [[ "$SERVICE_ENABLED" != "false" ]]; then
     docker://{{ image['name'] }}:{{ image['tag'] }} \
     docker://${TAKELSHIP_LOCAL_REGISTRY_HOST:-localhost}:${TAKELSHIP_LOCAL_REGISTRY_PORT:-{{ takel_ship_registry_takelship_registry_http_5555['port'] }}}/{{ image['name'] }}:{{ image['tag'] }}
 {% endif %}
-{% endif %}
 fi
+{% endif %}
 {% endfor %}
 {% endif %}
 {% endfor %}
