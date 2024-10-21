@@ -46,6 +46,7 @@ The `ship` command line tool is „directory-aware“ in the sense that it start
 These basic conditions yield some amazing advantages:
 - Moderate prerequisites to run a takelship: basically docker and ruby.
 - Very moderate changes to the system: one directory per project and one takelship container on the docker host.
+- Complete isolation between takelship projects in different directories which do do not pollute your docker host environment.
 - User friendly command line interface with sane defaults.
 - Still *takelage* is highly customisable free and open source software. Build your own takelship and ship any software recipe.
 - Well-known tools for easy backup (`cp`), versioning (`git`), update (`docker pull`), migration (`rsync`) and complete uninstallation (`rm`) of the configuration and project data are available.
