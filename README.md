@@ -49,7 +49,7 @@ These basic conditions yield some amazing advantages:
 - User friendly command line interface with sane defaults.
 - Still *takelage* is highly customisable free and open source software. Build your own takelship and ship any software recipe.
 - Well-known tools for easy backup (`cp`), versioning (`git`), update (`docker pull`), migration (`rsync`) and complete uninstallation (`rm`) of the configuration and project data are available.
-- Fallback mode if the takelship sinks: run `takelship/data/compose/project/run-docker.<project>` to start the project on your host computer. Continue to use your takelship project data with no takelship involved.
+- Fallback mode if the takelship sinks: run `takelship/data/compose/projects/<project-name>/run-docker` to start the project on your host computer. Continue to use your takelship project data with no takelship involved.
 
 ## Prerequisites
 
@@ -121,11 +121,11 @@ Afterwards, you can omit the project name:
 ship start
 ```
 
-A takelship project consists of a `takelage.yml` configuration file and the `takelship` data directory next to it.
+A takelship project consists of a directory containing a `takelage.yml` configuration file a `takelship` data directory next to it. So it's one directory including everything: configuration, data and the images in the `cache` directory.
 
-In the takelship directory you will find a `cache` directory. This is where the internal registry stores the downloaded docker images. It can be become huge, e.g. if you run `ship start all`.
+In the `takelship` directory you will find a `cache` directory. This is where the internal registry stores the downloaded docker images. It can be become huge, e.g. if you run `ship start all`.
 
-The `ship start` command notes down the `ship_default_project` as well as the current port configuration to the `takelage.yml`.
+The `ship start` command stores the `ship_default_project` as well as the current port configuration in the `takelage.yml`.
 
 ## Example: project forgejo
 
