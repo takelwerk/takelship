@@ -127,6 +127,8 @@ In the `takelship` directory you will find a `cache` directory. This is where th
 
 The `ship start` command stores the `ship_default_project` as well as the current port configuration in the `takelage.yml`.
 
+If you like nautical language you can also you `ship sail` (for `ship start`), `ship board` (for `ship login`) and `ship wreck` (for `ship stop`).
+
 ## Example: project forgejo
 
 We can start the project forgejo to start a [Forgejo](https://forgejo.org/) build server and three runners and a [Portainer CE](https://docs.portainer.io/) container management web interface like this:
