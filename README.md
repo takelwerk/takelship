@@ -133,7 +133,7 @@ If you like nautical language you can also use `ship sail` (for `ship start`), `
 
 We can start the project forgejo to start a [Forgejo](https://forgejo.org/) build server and three runners and a [Portainer CE](https://docs.portainer.io/) container management web interface like this:
 
-```bash
+```
 $ ship start forgejo
 Started project "forgejo" on takelship "takelship_xuvad-tuhyn".
 
@@ -147,7 +147,7 @@ When you run `ship start forgejo` in a directory for the first time, the `ship` 
 
 Now that `ship` knows about the internal port configuration of the project it can dynamically choose free local ports on your host system. It notes the configuration down in the `takelship.yml` and will use it the next time you start the project: 
 
-```bash
+```
 $ cat takelage.yml
 ---
 ship_default_project: forgejo
@@ -165,7 +165,7 @@ ship restart
 
 Maybe you'll end up with something like this:
 
-```bash
+```
 $ cat takelage.yml
 ---
 ship_default_project: forgejo
@@ -211,14 +211,8 @@ You have used the takelship as a one-time command to create and preconfigure a `
 
 Get info how to run a takelship project:
 
-```bash
-docker run -it --rm takelwerk/takelship
 ```
-
-Choose a project and run the respective command 
-to run a takelship server:
-
-```
+$ docker run -it --rm takelwerk/takelship
 [takelship] This is a takelwerk takelship container
 [takelship] Image: takelwerk/takelship:0.1.101
 [takelship] Info: https://github.com/takelwerk/takelship
@@ -254,7 +248,7 @@ docker exec -it takelship cli
 
 Which gives
 
-```bash
+```
 takelship command line interface:
 
 == cli
