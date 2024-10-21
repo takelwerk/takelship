@@ -49,7 +49,7 @@ These basic conditions yield some amazing advantages:
 - User friendly command line interface with sane defaults.
 - Still *takelage* is highly customisable free and open source software. Build your own takelship and ship any software recipe.
 - Well-known tools for easy backup (`cp`), versioning (`git`), update (`docker pull`), migration (`rsync`) and complete uninstallation (`rm`) of the configuration and project data are available.
-- Fallback mode if the takelship sinks: run `takelship/data/compose/projects/<project-name>/run-docker` to start the project on your host computer. Continue to use your takelship project data with no takelship involved.
+- Fallback mode if the takelship sinks: run the `run-docker` bash script to start the project *on your host computer*. Continue to use your takelship project data with no takelship involved.
 
 ## Prerequisites
 
