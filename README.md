@@ -51,7 +51,6 @@ These basic conditions yield some amazing advantages:
 - Well-known tools for easy backup (`cp`), versioning (`git`), update (`docker pull`), migration (`rsync`) and complete uninstallation (`rm`) of the configuration and project data are available.
 - Fallback mode if the takelship sinks: run `takelship/data/compose/project/run-docker.<project>` to start the project on your host computer. Continue to use your takelship project data with no takelship involved.
 
-
 ## Prerequisites
 
 You need Docker (Desktop or Engine) on the host to run a takelship. You have to run docker as user, not as root. It is not possible to run the takelship container with podman although (or because?) it uses itself podman to run containers.
@@ -68,9 +67,37 @@ If you want to use the `ship` command line tool (which is a wrapper for `tau shi
 gem install takeltau
 ```
 
+## Update
+
+To update the `ship` command line tool run
+
+```bash
+gem update
+```
+
+To update the `takelwerk/takelship` docker container run
+
+```bash
+ship update
+```
+
+To update the docker compose configuration of a takelship project just `ship start` it normally or run
+
+```bash
+ship project update
+```
+
+## Bash Completion
+
+Add this to your [bash startup files](https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html):
+
+```bash
+source <(ship completion bash)
+```
+
 ## Usage
 
-List projects:
+List available projects:
 
 ```bash
 ship list
@@ -88,6 +115,96 @@ Stop a project:
 ship stop
 ```
 
+Afterwards, you can omit the project name:
+
+```bash
+ship start
+```
+
+A takelship project consists of a `takelage.yml` configuration file and the `takelship` data directory next to it.
+
+In the takelship directory you will find a `cache` directory. This is where the internal registry stores the downloaded docker images. It can be become huge, e.g. if you run `ship start all`.
+
+The `ship start` command notes down the `ship_default_project` as well as the current port configuration to the `takelage.yml`.
+
+## Example: project forgejo
+
+We can start the project forgejo to start a [Forgejo](https://forgejo.org/) build server and three runners and a [Portainer CE](https://docs.portainer.io/) container management web interface like this:
+
+```bash
+$ ship start forgejo
+Started project "forgejo" on takelship "takelship_xuvad-tuhyn".
+
+localhost:50467 [docker-host docker]    (DOCKER_HOST=tcp://localhost:50467)
+localhost:57644 [forgejo-server http]   (administrator/administrator)
+localhost:53863 [forgejo-server ssh]
+localhost:63554 [portainer-server http] (admin/administrator)
+```
+
+When you run `ship start forgejo` in a directory for the first time, the `ship` cli queries the `takelwerk/takelship` container about the project. (It exposes the result via `ship info takelship` and notes it down in the file `takelship/takelship.yml`.)
+
+Now that `ship` knows about the internal port configuration of the project it can dynamically choose free local ports on your host system. It notes the configuration down in the `takelship.yml` and will use it the next time you start the project: 
+
+```bash
+$ cat takelage.yml
+---
+ship_default_project: forgejo
+ship_ports_docker_host_docker_32375: 50467
+ship_ports_forgejo_server_http_33000: 57644
+ship_ports_forgejo_server_ssh_30022: 53863
+ship_ports_portainer_server_http_39000: 63554
+```
+
+If you don't like the port configuration then change it by editing the `takelage.yml` configuration file. Afterwards restart the takelship to activate the new configuration:
+
+```bash
+ship restart
+```
+
+Maybe you'll end up with something like this:
+
+```bash
+$ cat takelage.yml
+---
+ship_default_project: forgejo
+ship_ports_docker_host_docker_32375: 3375
+ship_ports_forgejo_server_http_33000: 3000
+ship_ports_forgejo_server_ssh_30022: 3022
+ship_ports_portainer_server_http_39000: 3900
+```
+
+You can disable a port by setting it to `0` or nothing:
+
+```bash
+ship_ports_docker_host_docker_32375: 0
+ship_ports_portainer_server_http_39000:
+```
+If you want `ship` to choose a new port configuration just delete one ore more config lines. Just be sure to leave the `ship_default_project` in the `takelage.yml` or you'll end up with forgejo and its runners which is the takelship default project and a *preconfigured* `docker compose` project. But maybe, that's exactly what you want.
+
+## forgejo docker compose project
+
+When you start a takelship forgejo project some complex things happen in the takelship. The 
+[server postinstallation](https://github.com/takelwerk/takelship/blob/main/ansible/roles/takel_ship_forgejo/templates/run-postinstall.forgejo-server.bash.j2) and the
+[runner preinstallation](https://github.com/takelwerk/takelship/blob/main/ansible/roles/takel_ship_forgejo/templates/run-preinstall.forgejo-runner.bash.j2) is done in the takelship but the configuration and the data ends up in the `takelship` directory on your host. From here, you can run it *on your host*.
+
+The configuration for `podman-compose` which is used in the takelship differs slightly from the `docker-compose` one on your host. For example, the port configuration is probably different than the default configuration in the takelship.
+
+The solution to this problem are `docker-env` files for each service:
+
+```bash
+`takelship/compose/services/<service-name>/docker-env`.
+```
+
+There is a `docker compose` run script `run-docker` for each project which includes these env-files:
+
+```bash
+takelship/compose/projects/<projectname>/run-docker
+```
+
+If you intend to run the compose project *only on your host* (and not in a takelship) you can remove the `takelship/cache` directory to free disk space.
+
+You have used the takelship as a one-time command to create and preconfigure a `docker compose` project. Used this way, `ship` becomes a `docker compose` project generator.
+
 ## First steps without the ship command line tool
 
 Get info how to run a takelship project:
@@ -101,30 +218,30 @@ to run a takelship server:
 
 ```
 [takelship] This is a takelwerk takelship container
-[takelship] Image: takelwerk/takelship:0.1.86
+[takelship] Image: takelwerk/takelship:0.1.101
 [takelship] Info: https://github.com/takelwerk/takelship
 [takelship] CLI: https://github.com/takelwerk/takelage-cli
 [takelship] No project selected. Available projects:
 
 == Project: all
 = All services of all projects.
-docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:35000:35000" --publish "127.0.0.1:35080:35080" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:33000:33000" --publish "127.0.0.1:38111:38111" --volume ./takelship:/home/podman/takelship takelwerk/takelship all
+docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:33142:33142" --publish "127.0.0.1:39000:39000" --publish "127.0.0.1:35000:35000" --publish "127.0.0.1:35080:35080" --publish "127.0.0.1:33000:33000" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:38111:38111" --volume ./takelship:/home/podman/takelship takelwerk/takelship all
+
+== Project: aptproxy
+= APT Proxy (github.com/soulteary/apt-proxy) Provides package caching.
+docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:33142:33142" --volume ./takelship:/home/podman/takelship takelwerk/takelship aptproxy
 
 == Project: registry
 = Docker registry (distribution.github.io/distribution). Registry UI (github.com/quiq/registry-ui). Provides image hosting. Provides Docker registry web interface.
 docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:35000:35000" --publish "127.0.0.1:35080:35080" --volume ./takelship:/home/podman/takelship takelwerk/takelship registry
 
 == Project: forgejo
-= Forgejo Gitea fork (forgejo.org). Provides git hosting. Provides CI/CD pipelines (GitHub style). Provides image hosting. Runs with Forgejo Runners. Runs with Docker in Docker.
-docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:33000:33000" --volume ./takelship:/home/podman/takelship takelwerk/takelship forgejo
+= Forgejo Gitea fork (forgejo.org). Provides git hosting. Provides CI/CD pipelines (GitHub style). Provides image hosting. Runs with Forgejo Runners. Runs with Portainer. Runs with Docker in Docker.
+docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:33000:33000" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:39000:39000" --volume ./takelship:/home/podman/takelship takelwerk/takelship forgejo
 
 == Project: teamcity
-= TeamCity build server (jetbrains.com/teamcity). Provides CI/CD pipelines (JetBrains style). Runs with TeamCity Runners. Runs with Forgejo and its runners. Runs with Docker in Docker.
-docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:33000:33000" --publish "127.0.0.1:38111:38111" --volume ./takelship:/home/podman/takelship takelwerk/takelship teamcity
-
-== Project: dump
-= Dump service files and run scripts in takelship directory.
-docker run --rm --interactive --tty --volume ./takelship:/home/podman/takelship takelwerk/takelship dump
+= TeamCity build server (jetbrains.com/teamcity). Provides CI/CD pipelines (JetBrains style). Runs with TeamCity Runners. Runs with Forgejo and its runners. Runs with Portainer. Runs with Docker in Docker.
+docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:33000:33000" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:38111:38111" --publish "127.0.0.1:39000:39000" --volume ./takelship:/home/podman/takelship takelwerk/takelship teamcity
 ```
 
 List available container commands:
@@ -133,10 +250,34 @@ List available container commands:
 docker exec -it takelship cli
 ```
 
+Which gives
+
+```bash
+takelship command line interface:
+
+== cli
+= List available commands.
+
+== pod
+= Run as podman user.
+
+== compose-nonroot
+= Run nonroot podman-compose.
+
+== forgejo
+= Forgejo admin command line interface.
+```
+
 Run a command as podman user:
 
 ```bash
 docker exec -it takelship pod podman ps -a
+```
+
+Alternatively, get the same result using docker on your host:
+
+```bash
+DOCKER_HOST=tcp://localhost:32375 docker ps
 ```
 
 Run a command as podman user in a different directory (`-w` or `--workdir`) than the default directory (`/home/podman`):
@@ -158,14 +299,6 @@ Become root:
 docker exec -it takelship bash
 ```
 
-## Bash Completion
-
-Add this to your [bash startup files](https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html):
-
-```bash
-source <(ship completion bash)
-```
-
 ## Languages, libraries and tools
 
 The *takelship* project is written in five different languages:
@@ -178,4 +311,4 @@ The *takelship* project is written in five different languages:
 
 Ansible is well suited for building complex machines like a takelship. We use [molecule](https://ansible.readthedocs.io/projects/molecule/) to create and test the ansible code. Then [packer](https://www.packer.io/) builds the docker image which is then tested in Python by using [testinfra](https://testinfra.readthedocs.io/) and [takeltest](https://github.com/takelwerk/takelage-var).
 
-We use Jinja2 to create configuration files and bash scripts in the takelship. They will be run each time the takelship starts. We prefer many simple bash scripts over fewer complex ones.
+We use Jinja2 to create configuration files and bash scripts in the takelship. They will be run each time the takelship starts. We favour many simple bash scripts over a few complex ones.
