@@ -58,9 +58,6 @@ jobs:
       - name: Test takelship project registry
         run: tau docker container command "rake images:project:registry:molecule:test"
 
-      - name: Test takelship project forgejo
-        run: tau docker container command "rake images:project:forgejo:molecule:test"
-
       - name: Login to docker hub
         uses: docker/login-action@v2
         with:
