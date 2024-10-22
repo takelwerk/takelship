@@ -183,11 +183,11 @@ You can disable a port by setting it to `0` or nothing:
 ship_ports_docker_host_docker_32375: 0
 ship_ports_portainer_server_http_39000:
 ```
-If you want `ship` to choose a new port configuration just delete one ore more config lines. Just be sure to leave the `ship_default_project` in the `takelage.yml` or you'll end up with forgejo and its runners (which is the takelship default project) and a *preconfigured* `docker compose` project ready to run on your host. But then maybe that's exactly what you want.
+If you want `ship` to choose a new port configuration just delete one ore more config lines. Just be sure to leave the `ship_default_project` in the `takelage.yml` or you'll end up with forgejo and its runners (which is the takelship default project) and a *preconfigured* `docker compose` project ready to run on your host. But maybe that's exactly what you want.
 
 ## forgejo docker compose project
 
-When you start a takelship forgejo project some complex things happen in the takelship. The 
+When you start a takelship forgejo project some pretty complex things happen. The 
 [server postinstallation](https://github.com/takelwerk/takelship/blob/main/ansible/roles/takel_ship_forgejo/templates/run-postinstall.forgejo-server.bash.j2) and the
 [runner preinstallation](https://github.com/takelwerk/takelship/blob/main/ansible/roles/takel_ship_forgejo/templates/run-preinstall.forgejo-runner.bash.j2) is done in the takelship but the configuration and the data ends up in the `takelship` directory on your host. From here, you can run it *on your host*.
 
