@@ -196,7 +196,7 @@ The configuration for `podman-compose` which is used in the takelship differs sl
 The solution to this problem are `docker-env` files for each service:
 
 ```bash
-`takelship/compose/services/<service-name>/docker-env`.
+takelship/compose/services/<service-name>/docker-env
 ```
 
 There is a `docker compose` run script `run-docker` for each project which includes these env-files:
