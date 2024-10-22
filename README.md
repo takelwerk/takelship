@@ -1,4 +1,4 @@
-# takelage-dev
+# takelship
 
 *takelship* is a podman container runtime environment for docker with batteries included.
 
