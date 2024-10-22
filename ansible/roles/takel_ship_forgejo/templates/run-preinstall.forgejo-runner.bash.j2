@@ -1,13 +1,13 @@
 {{ takel_ship_scripts_shebang }}
 
-RUNNER=$(ls data-1/.runner)
+RUNNER=$(ls data-1/.runner > /dev/null 2>&1)
 
 # if the runner is already configured then exit
 [[ $? -eq 0 ]] && exit
 
 PROJECT="$1"
 
-echo Configure runner
+echo Configure forgejo runners
 RUNNERDIR="{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_forgejo_runner_service['name'] }}/data"
 
 rm --force --recursive $RUNNERDIR

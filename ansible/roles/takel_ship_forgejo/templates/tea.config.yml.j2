@@ -1,12 +1,12 @@
 logins:
   - name: takelship
-    url: http://localhost:33000
+    url: http://localhost:{{ takel_ship_forgejo_server_http_33000['port'] }}
     token: TOKEN
     default: false
     ssh_host: localhost
     ssh_key: ""
     insecure: true
-    user: administrator
+    user: {{ takel_ship_forgejo_admin['name'] }}
     created: DATETIME
 preferences:
   editor: false

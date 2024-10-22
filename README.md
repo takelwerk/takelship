@@ -208,6 +208,18 @@ If you intend to run the compose project *only on your host* (and not in a takel
 
 You have used the takelship as a one-time command to create and preconfigure a `docker compose` project. Used this way, `ship` becomes a `docker compose` project generator.
 
+## tea command line tool
+
+You can find a preconfigured [tea](https://gitea.com/gitea/tea) configuration file in the forgejo server project:
+
+```bash
+takelship/compose/projects/forgejo-server/config.yml
+```
+
+This file can be copied to your host tea config:
+- Linux: `~/.config/tea/config.yml`
+- macOS: `~/Library/Application\ Support/tea/config.yml`
+
 ## First steps without the ship command line tool
 
 Get info how to run a takelship project:
