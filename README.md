@@ -216,7 +216,7 @@ You can find a preconfigured [tea](https://gitea.com/gitea/tea) configuration fi
 takelship/compose/projects/forgejo-server/config.yml
 ```
 
-This file can be copied to your host tea config:
+This file can be used as your host tea configuration file:
 - Linux: `~/.config/tea/config.yml`
 - macOS: `~/Library/Application\ Support/tea/config.yml`
 
