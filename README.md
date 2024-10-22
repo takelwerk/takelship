@@ -183,7 +183,7 @@ You can disable a port by setting it to `0` or nothing:
 ship_ports_docker_host_docker_32375: 0
 ship_ports_portainer_server_http_39000:
 ```
-If you want `ship` to choose a new port configuration just delete one ore more config lines. Just be sure to leave the `ship_default_project` in the `takelage.yml` or you'll end up with forgejo and its runners which is the takelship default project and a *preconfigured* `docker compose` project. But maybe, that's exactly what you want.
+If you want `ship` to choose a new port configuration just delete one ore more config lines. Just be sure to leave the `ship_default_project` in the `takelage.yml` or you'll end up with forgejo and its runners (which is the takelship default project) and a *preconfigured* `docker compose` project ready to run on your host. But then maybe that's exactly what you want.
 
 ## forgejo docker compose project
 
