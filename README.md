@@ -39,7 +39,7 @@
 
 The takelship project is a general purpose framework to ship complex software setups. It does not ship the software itself but the configuration and the runtime environment.
 
-The configuration and data is stored in the `takelship` directory. It is created when running `ship start [<project>]`. If a project is omitted, the default project of the takelship is started which is a forgejo server with three runners.
+The configuration and data is stored in the `takelship` directory. It is created when running `ship start [<project>]`. If a project name is omitted, the default project of the takelship is started which is a forgejo server with three runners and a portainer container.
 
 The `ship` command line tool is „directory-aware“ in the sense that it starts one takelship per directory. Every directory can host a different project. `ship` can be configured via environment variables or a `takelage.yml` next to the `takelship` directory. See `tau config` for available configuration keys.
 
