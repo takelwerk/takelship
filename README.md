@@ -133,7 +133,7 @@ If you like nautical language you can also use `ship sail` (for `ship start`), `
 
 ## Example: project forgejo
 
-We can start the project forgejo to start a [Forgejo](https://forgejo.org/) build server and three runners and a [Portainer CE](https://docs.portainer.io/) container management web interface like this:
+We can start the project forgejo to start a [Forgejo](https://forgejo.org/) build server and three runners, an [Apt Proxy](https://github.com/soulteary/apt-proxy) and a [Portainer CE](https://docs.portainer.io/) container management web interface like this:
 
 ```
 $ ship start forgejo
@@ -157,6 +157,7 @@ ship_ports_docker_host_docker_32375: 50467
 ship_ports_forgejo_server_http_33000: 57644
 ship_ports_forgejo_server_ssh_30022: 53863
 ship_ports_portainer_server_http_39000: 63554
+ship_ports_takelship_registry_http_5555: 59621
 ```
 
 If you don't like the port configuration then change it by editing the `takelage.yml` configuration file. Afterwards restart the takelship to activate the new configuration:
@@ -175,6 +176,7 @@ ship_ports_docker_host_docker_32375: 3375
 ship_ports_forgejo_server_http_33000: 3000
 ship_ports_forgejo_server_ssh_30022: 3022
 ship_ports_portainer_server_http_39000: 3900
+ship_ports_takelship_registry_http_5555: 3555
 ```
 
 You can disable a port by setting it to `0` or nothing:

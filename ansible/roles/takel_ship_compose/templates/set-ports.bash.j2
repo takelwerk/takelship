@@ -7,6 +7,12 @@
 
 SERVICES_DIR={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_dist_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_services_dir }}
 
+SHIP_PORT=$TAKELSHIP_SHIP_PORTS_{{ takel_ship_registry_takelship_registry_service['name'] | upper | replace('-', '_') }}_{{ takel_ship_registry_takelship_registry_http_5555['protocol'] | upper }}_{{ takel_ship_registry_takelship_registry_http_5555['port'] | upper }}
+ENV_VAR_PORT=TAKELSHIP_{{ takel_ship_registry_takelship_registry_service['name'] | upper | replace('-', '_') }}_{{ takel_ship_registry_takelship_registry_http_5555['protocol'] | upper }}_{{ takel_ship_registry_takelship_registry_http_5555['port'] | upper }}
+if [ -n "${SHIP_PORT}" ]; then
+  ENV_FILE=$SERVICES_DIR/{{ takel_ship_registry_takelship_registry_service['name'] }}/{{ takel_ship_compose_env_docker }}
+  sed -i s"/^.*$ENV_VAR_PORT.*$/$ENV_VAR_PORT=$SHIP_PORT/" $ENV_FILE
+fi
 {% for service in takel_ship_compose_project['services'] %}
 {% for port in service['ports'] | default([]) %}
 SHIP_PORT=$TAKELSHIP_SHIP_PORTS_{{ service['name'] | upper | replace('-', '_') }}_{{ port['protocol'] | upper }}_{{ port['port'] | upper }}

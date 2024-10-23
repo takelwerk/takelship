@@ -100,7 +100,7 @@ debug export takelship environment variables
 # start internal takelship registry
 echo $LOG Starting registry on localhost:{{ takel_ship_registry_takelship_registry_http_5555['port'] }}
 $POD mkdir --parents {{ takel_ship_compose_data_dir }}/{{ takel_ship_registry_cache_dir }}
-$POD --workdir $SERVICES_DIR/{{ takel_ship_registry_takelship_service['name'] }} ./{{ takel_ship_compose_run_podman }}
+$POD --workdir $SERVICES_DIR/{{ takel_ship_registry_takelship_registry_service['name'] }} ./{{ takel_ship_compose_run_podman }}
 
 echo $LOG Copying images for project: $PROJECT
 $POD $PROJECTS_DIR/$PROJECT/{{ takel_ship_compose_copy_image }}

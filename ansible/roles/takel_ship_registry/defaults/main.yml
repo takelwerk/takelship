@@ -2,7 +2,7 @@
 takel_ship_registry_services:
   - "{{ takel_ship_registry_server_service }}"
   - "{{ takel_ship_registry_ui_service }}"
-  - "{{ takel_ship_registry_takelship_service }}"
+  - "{{ takel_ship_registry_takelship_registry_service }}"
 
 takel_ship_registry_scripts:
   - "{{ takel_ship_registry_script_registries }}"
@@ -54,7 +54,7 @@ takel_ship_registry_ui_service:
   ports:
     - "{{ takel_ship_registry_ui_http_35080 }}"
 
-takel_ship_registry_takelship_service:
+takel_ship_registry_takelship_registry_service:
   name: takelship-registry
   description: >-
     Docker registry (distribution.github.io/distribution).

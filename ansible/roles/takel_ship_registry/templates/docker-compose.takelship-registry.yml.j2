@@ -1,13 +1,13 @@
 ---
 services:
-  {{ takel_ship_registry_takelship_service['name'] }}:
-    container_name: {{ takel_ship_registry_takelship_service['name'] }}
-    hostname: {{ takel_ship_registry_takelship_service['name'] }}
-    image: {{ takel_ship_registry_server_image['name'] }}:{{ takel_ship_registry_server_image['tag'] }}
-    restart: always
+  {{ takel_ship_registry_takelship_registry_service['name'] }}:
+    container_name: ${TAKELSHIP_REGISTRY_SERVER_CONTAINER_NAME:-registry-server}
+    hostname: ${TAKELSHIP_REGISTRY_SERVER_HOSTNAME:-registry-server}
+    image: ${TAKELSHIP_REGISTRY_SERVER_IMAGE:-{{ takel_ship_registry_server_image['name'] }}:{{ takel_ship_registry_server_image['tag'] }}}
+    restart: ${TAKELSHIP_REGISTRY_SERVER_RESTART:-{{ takel_ship_registry_restart }}}
     volumes:
-      - {{ takel_ship_registry_to_cache_dir }}/{{ takel_ship_registry_cache_dir }}:/var/lib/registry
+      - ${TAKELSHIP_TAKELSHIP_REGISTRY_CACHE_DIR:-{{ takel_ship_registry_to_cache_dir }}/{{ takel_ship_registry_cache_dir }}}:/var/lib/registry
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - "${TAKELSHIP_REGISTRY_HTTP_5555:-{{ takel_ship_registry_takelship_registry_http_5555['port'] }}}:5000"
+      - "${TAKELSHIP_TAKELSHIP_REGISTRY_HTTP_5555:-{{ takel_ship_registry_takelship_registry_http_5555['port'] }}}:5000"
