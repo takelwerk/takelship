@@ -12,12 +12,6 @@ platforms:
     groups:
       - ${TAKELAGE_PROJECT_IMG:-noimage}
       - molecule
-#    published_ports:
-#      - 127.0.0.1:50022:30022/tcp
-#      - 127.0.0.1:53142:33142/tcp
-#      - 127.0.0.1:52375:32375/tcp
-#      - 127.0.0.1:53000:33000/tcp
-#      - 127.0.0.1:59000:39000/tcp
     env:
       TAKELSHIP_UPDATE: 'true'
       TAKELSHIP_SHIP_PORTS_FORGEJO_SERVER_SSH_30022: '50022'
