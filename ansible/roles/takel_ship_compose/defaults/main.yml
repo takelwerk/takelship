@@ -67,6 +67,7 @@ takel_ship_compose_create_local_compose_file: true
 
 # files
 takel_ship_compose_env_docker: env-docker
+takel_ship_compose_halt_docker: halt-docker
 takel_ship_compose_run_docker: run-docker
 takel_ship_compose_run_podman: run-podman
 takel_ship_compose_run_preinstall: run-preinstall

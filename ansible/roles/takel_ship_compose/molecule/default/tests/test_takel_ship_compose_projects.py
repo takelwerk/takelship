@@ -27,6 +27,30 @@ def test_takel_ship_compose_projects_compose_files(host, testvars):
         assert file.mode == mode
 
 
+def test_takel_ship_compose_projects_halt_docker_files(host, testvars):
+    user = testvars['takel_ship_podman_user']['owner']
+    group = testvars['takel_ship_podman_user']['group']
+    # we assume that file is executable
+    mode = int(testvars['takel_ship_podman_user']['mode']['dir'], 8)
+    home_dir = testvars['takel_ship_compose_home_dir']
+    dist_dir = testvars['takel_ship_compose_dist_dir']
+    compose_dir = testvars['takel_ship_compose_compose_dir']
+    projects_dir = testvars['takel_ship_compose_projects_dir']
+    halt_docker = testvars['takel_ship_compose_halt_docker']
+    projects = testvars['takel_ship_compose_projects']
+    for project in projects:
+        file = host.file(
+            f"{home_dir}/{dist_dir}/"
+            f"{compose_dir}/{projects_dir}/"
+            f"{project['name']}/{halt_docker}")
+
+        assert file.exists
+        assert file.is_file
+        assert file.user == user
+        assert file.group == group
+        assert file.mode == mode
+
+
 def test_takel_ship_compose_projects_run_docker_files(host, testvars):
     user = testvars['takel_ship_podman_user']['owner']
     group = testvars['takel_ship_podman_user']['group']

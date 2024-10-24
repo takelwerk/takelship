@@ -18,6 +18,23 @@
   loop_control:
     loop_var: takel_ship_compose_project
 
+- name: (compose) (projects) deploy bash halt docker script
+  ansible.builtin.template:
+    src: halt-docker.project.bash.j2
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_projects_dir }}/{{
+      takel_ship_compose_project.name }}/{{
+      takel_ship_compose_halt_docker }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
+  loop: "{{ takel_ship_compose_projects }}"
+  loop_control:
+    loop_var: takel_ship_compose_project
+
 - name: (compose) (projects) deploy bash run docker script
   ansible.builtin.template:
     src: run-docker.project.bash.j2
