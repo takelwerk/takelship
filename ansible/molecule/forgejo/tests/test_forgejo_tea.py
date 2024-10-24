@@ -16,8 +16,10 @@ def test_forgejo_tea_config(host):
     tea_config_host_file = \
         '/home/podman/takelship/compose/services/forgejo-server/config.yml'
 
-    tea_config_takelship = host.file(tea_config_takelship_file).content.decode()
-    tea_config_host = host.file(tea_config_host_file).content.decode()
+    tea_config_takelship = (
+        host.file(tea_config_takelship_file).content.decode())
+    tea_config_host = (
+        host.file(tea_config_host_file).content.decode())
 
     print(tea_config_takelship)
     print(tea_config_host)
