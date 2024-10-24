@@ -136,13 +136,16 @@ If you like nautical language you can also use `ship sail` (for `ship start`), `
 We can start the project forgejo to start a [Forgejo](https://forgejo.org/) build server and three runners, an [Apt Proxy](https://github.com/soulteary/apt-proxy) and a [Portainer CE](https://docs.portainer.io/) container management web interface like this:
 
 ```
-$ ship start forgejo
-Started project "forgejo" on takelship "takelship_xuvad-tuhyn".
+~/takelshiptest$ ship start forgejo
+The takelship takelship_xitet-folal
+departed from ~/takelshiptest
+ships project forgejo
 
-localhost:50467 [docker-host docker]    (DOCKER_HOST=tcp://localhost:50467)
-localhost:57644 [forgejo-server http]   (administrator/administrator)
-localhost:53863 [forgejo-server ssh]
-localhost:63554 [portainer-server http] (admin/administrator)
+localhost:56367 [docker-host docker]      (DOCKER_HOST=tcp://localhost:56367)
+localhost:52285 [takelship-registry http]
+localhost:53617 [forgejo-server http]     (administrator/administrator)
+localhost:51055 [forgejo-server ssh]
+localhost:61793 [portainer-server http]   (admin/administrator)
 ```
 
 When you run `ship start forgejo` in a directory for the first time, the `ship` cli queries the `takelwerk/takelship` container about the project. (It exposes the result via `ship info takelship` and notes it down in the file `takelship/takelship.yml`.)
@@ -150,14 +153,13 @@ When you run `ship start forgejo` in a directory for the first time, the `ship` 
 Now that `ship` knows about the internal port configuration of the project it can dynamically choose free local ports on your host system. It notes the configuration down in the `takelship.yml` and will use it the next time you start the project: 
 
 ```
-$ cat takelage.yml
 ---
 ship_default_project: forgejo
-ship_ports_docker_host_docker_32375: 50467
-ship_ports_forgejo_server_http_33000: 57644
-ship_ports_forgejo_server_ssh_30022: 53863
-ship_ports_portainer_server_http_39000: 63554
-ship_ports_takelship_registry_http_5555: 59621
+ship_ports_docker_host_docker_32375: 56367
+ship_ports_forgejo_server_http_33000: 53617
+ship_ports_forgejo_server_ssh_30022: 51055
+ship_ports_portainer_server_http_39000: 61793
+ship_ports_takelship_registry_http_5555: 52285
 ```
 
 If you don't like the port configuration then change it by editing the `takelage.yml` configuration file. Afterwards restart the takelship to activate the new configuration:
@@ -169,7 +171,6 @@ ship restart
 Maybe you'll end up with something like this:
 
 ```
-$ cat takelage.yml
 ---
 ship_default_project: forgejo
 ship_ports_docker_host_docker_32375: 3375
@@ -185,7 +186,10 @@ You can disable a port by setting it to `0` or nothing:
 ship_ports_docker_host_docker_32375: 0
 ship_ports_portainer_server_http_39000:
 ```
-If you want `ship` to choose a new port configuration just delete one ore more config lines. Just be sure to leave the `ship_default_project` in the `takelage.yml` or you'll end up with forgejo and its runners (which is the takelship default project) and a *preconfigured* `docker compose` project ready to run on your host. But maybe that's exactly what you want.
+
+If you want `ship` to choose a new port configuration then delete one ore more config lines. When you change a port, all configuration scripts are updated the next time a takelship is started.
+
+Just be sure to leave the `ship_default_project` in the `takelage.yml` or you'll end up with forgejo and its runners (which is the takelship default project) and a *preconfigured* `docker compose` project ready to run on your host. But maybe that's exactly what you want.
 
 ## forgejo docker compose project
 
