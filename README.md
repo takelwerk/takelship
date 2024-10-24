@@ -141,11 +141,12 @@ The takelship takelship_xitet-folal
 departed from ~/takelshiptest
 ships project forgejo
 
-localhost:56367 [docker-host docker]      (DOCKER_HOST=tcp://localhost:56367)
-localhost:52285 [takelship-registry http]
-localhost:53617 [forgejo-server http]     (administrator/administrator)
-localhost:51055 [forgejo-server ssh]
-localhost:61793 [portainer-server http]   (admin/administrator)
+localhost:50600 [docker-host docker]      (DOCKER_HOST=tcp://localhost:50600)
+localhost:60261 [takelship-registry http]
+localhost:56628 [forgejo-server http]     (administrator/administrator)
+localhost:47015 [forgejo-server ssh]
+localhost:57509 [aptproxy-server http]
+localhost:61992 [portainer-server http]   (admin/administrator)
 ```
 
 When you run `ship start forgejo` in a directory for the first time, the `ship` cli queries the `takelwerk/takelship` container about the project. (It exposes the result via `ship info takelship` and notes it down in the file `takelship/takelship.yml`.)
@@ -155,11 +156,12 @@ Now that `ship` knows about the internal port configuration of the project it ca
 ```
 ---
 ship_default_project: forgejo
-ship_ports_docker_host_docker_32375: 56367
-ship_ports_forgejo_server_http_33000: 53617
-ship_ports_forgejo_server_ssh_30022: 51055
-ship_ports_portainer_server_http_39000: 61793
-ship_ports_takelship_registry_http_5555: 52285
+ship_ports_aptproxy_server_http_33142: 57509
+ship_ports_docker_host_docker_32375: 50600
+ship_ports_forgejo_server_http_33000: 56628
+ship_ports_forgejo_server_ssh_30022: 47015
+ship_ports_portainer_server_http_39000: 61992
+ship_ports_takelship_registry_http_5555: 60261
 ```
 
 If you don't like the port configuration then change it by editing the `takelage.yml` configuration file. Afterwards restart the takelship to activate the new configuration:
@@ -173,6 +175,7 @@ Maybe you'll end up with something like this:
 ```
 ---
 ship_default_project: forgejo
+ship_ports_aptproxy_server_http_33142: 3142
 ship_ports_docker_host_docker_32375: 3375
 ship_ports_forgejo_server_http_33000: 3000
 ship_ports_forgejo_server_ssh_30022: 3022
