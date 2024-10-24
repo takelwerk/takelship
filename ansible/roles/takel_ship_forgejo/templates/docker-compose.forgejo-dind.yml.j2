@@ -1,0 +1,20 @@
+---
+services:
+{% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
+  {{ takel_ship_forgejo_dind_service['name'] }}-{{ runner }}-service:
+    container_name: {{
+    takel_ship_forgejo_dind_service['name'] }}-{{ runner }}
+    hostname: {{
+    takel_ship_forgejo_dind_service['name'] }}-{{ runner }}
+    image: {{
+    takel_ship_forgejo_dind_image['name'] }}:{{
+    takel_ship_forgejo_dind_image['tag'] }}
+    privileged: true
+    environment:
+      DOCKER_HOST: {{
+      takel_ship_forgejo_dind_service['name'] }}-{{
+      runner }}-service
+    ports:
+      - "127.0.0.1:{{
+      (takel_ship_forgejo_runner_service['dind'] + runner - 1) }}:2376"
+{% endfor %}

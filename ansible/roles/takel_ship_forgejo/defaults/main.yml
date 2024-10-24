@@ -2,6 +2,7 @@
 takel_ship_forgejo_services:
   - "{{ takel_ship_forgejo_server_service }}"
   - "{{ takel_ship_forgejo_runner_service }}"
+  - "{{ takel_ship_forgejo_dind_service }}"
 
 takel_ship_forgejo_scripts:
   - "{{ takel_ship_forgejo_script_forgejo }}"
@@ -29,13 +30,15 @@ takel_ship_forgejo_server_service:
   ports:
     - "{{ takel_ship_forgejo_server_http_33000 }}"
     - "{{ takel_ship_forgejo_server_ssh_30022 }}"
+  profiles:
+    - podman
+    - docker
 
 takel_ship_forgejo_runner_service:
   name: forgejo-runner
   description: >-
     Forgejo Gitea fork runner (forgejo.org).
     Provides runner for Forgejo CI/CD pipelines.
-    Provides image hosting.
   role: takel_ship_forgejo
   template: docker-compose.forgejo-runner.yml.j2
   env: env.forgejo-runner.j2
@@ -45,6 +48,21 @@ takel_ship_forgejo_runner_service:
   dind: 2330
   images:
     - "{{ takel_ship_forgejo_runner_image }}"
+  profiles:
+    - podman
+    - docker
+
+takel_ship_forgejo_dind_service:
+  name: forgejo-dind
+  description: >-
+    Forgejo Gitea fork docker in docker (forgejo.org).
+    Provides Docker in Docker for Forgejo runner
+  role: takel_ship_forgejo
+  template: docker-compose.forgejo-dind.yml.j2
+  instances: 3
+  dind: 2330
+  profiles:
+    - docker
 
 takel_ship_forgejo_server_image:
   name: codeberg.org/forgejo/forgejo
@@ -55,6 +73,10 @@ takel_ship_forgejo_runner_image:
   name: code.forgejo.org/forgejo/runner
   tag: 3.5.1
   alias: runner
+
+takel_ship_forgejo_dind_image:
+  name: code.forgejo.org/oci/docker
+  tag: dind
 
 takel_ship_forgejo_script_forgejo:
   name: "{{ takel_ship_forgejo_bin_cli }}"

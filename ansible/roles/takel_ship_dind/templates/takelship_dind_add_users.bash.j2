@@ -8,6 +8,7 @@
 
 # create users and forwards
 {% for service in takel_ship_compose_services %}
+{% if 'podman' in service['profiles'] %}
 {% if 'dind' in service %}
 {% if 'instances' in service %}
 {% for instance in range(service['instances']) %}
@@ -15,6 +16,7 @@
 {% endfor %}
 {% else %}
 {{ takel_ship_dind_script_add_user['name'] }} dind-{{ service['dind'] }} {{ service['dind'] }}
+{% endif %}
 {% endif %}
 {% endif %}
 {% endfor %}

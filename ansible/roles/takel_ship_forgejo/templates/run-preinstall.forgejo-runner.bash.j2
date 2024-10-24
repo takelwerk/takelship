@@ -7,7 +7,7 @@ RUNNER=$(ls data-1/.runner > /dev/null 2>&1)
 
 PROJECT="$1"
 
-echo Configure forgejo runners
+echo Configuring forgejo runners
 RUNNERDIR="{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_forgejo_runner_service['name'] }}/data"
 
 rm --force --recursive $RUNNERDIR
@@ -24,18 +24,19 @@ chmod g+s $RUNNERDIR-{{ runner }}/.cache
 
 # compose runner up
 {% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
-echo Start runner {{ runner }} in register mode
+echo Starting forgejo runner {{ runner }} in register mode
 TAKELSHIP_FORGEJO_RUNNER_COMMAND={{ takelship_forgejo_runner_command_register }} \
-  compose-nonroot \
+  compose-nonroot --profile podman \
   --file {{ takel_ship_compose_to_projects_dir }}/$PROJECT/{{ takel_ship_compose_docker_compose_yml }} \
-  up {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} -d
+  up {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}-service -d
 
 {% endfor %}
 
 RETRY=1
 # wait until the runner is up
-until [ $RETRY -ge 20 ] || podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-1 whoami; do
-  echo Forgejo runner not ready. Retrying in a second...
+until [ $RETRY -ge 20 ]; do
+  podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-1 whoami && break
+  echo Waiting for forgejo runners
   sleep 1
   let RETRY++
 done
@@ -46,7 +47,7 @@ USER=$(podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-1 whoami)
 [ $? -ne 0 ] && exit
 
 {% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
-echo Registering runner {{ runner }}
+echo Registering forgejo runner {{ runner }}
 
 SECRET=$(xxd -u -l 20 -p /dev/urandom)
 
@@ -56,7 +57,6 @@ forgejo forgejo-cli actions register \
   --scope {{ takel_ship_forgejo_admin['name'] }} \
   --secret $SECRET
 
-echo Creating runner file for runner {{ runner }}
 podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} forgejo-runner create-runner-file \
   --name {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} \
   --instance http://{{ takel_ship_forgejo_server_service['name'] }}:3000 \
@@ -66,9 +66,10 @@ podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} for
 
 # compose runner down
 {% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
-echo Kill runner {{ runner }} in register mode
-compose-nonroot \
+echo Killing forgejo runner {{ runner }} in register mode
+compose-nonroot --profile podman \
   --file {{ takel_ship_compose_to_projects_dir }}/$PROJECT/{{ takel_ship_compose_docker_compose_yml }} \
-  kill {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}
+  kill {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}-service
 
 {% endfor %}
+echo Starting forgejo runners in daemon mode

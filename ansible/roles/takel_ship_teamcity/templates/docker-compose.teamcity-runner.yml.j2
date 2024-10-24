@@ -1,16 +1,24 @@
 ---
 services:
 {% for runner in range(1, takel_ship_teamcity_runner_service['instances'] + 1) %}
-  {{ takel_ship_teamcity_runner_service['name'] }}-{{ runner }}:
-    container_name: ${TAKELSHIP_TEAMCITY_RUNNER_CONTAINER_NAME:-{{ takel_ship_teamcity_runner_service['name'] }}}-{{ runner }}
-    hostname: ${TAKELSHIP_TEAMCITY_RUNNER_HOSTNAME:-{{ takel_ship_teamcity_runner_service['name'] }}}-{{ runner }}
-    image: ${TAKELSHIP_TEAMCITY_RUNNER_IMAGE:-{{ takel_ship_teamcity_runner_amd64_image['alias'] }}:{{ takel_ship_teamcity_runner_amd64_image['tag'] }}}
+  {{ takel_ship_teamcity_runner_service['name'] }}-{{ runner }}-service:
+    container_name: ${TAKELSHIP_TEAMCITY_RUNNER_CONTAINER_NAME:-{{
+    takel_ship_teamcity_runner_service['name'] }}}-{{ runner }}
+    hostname: ${TAKELSHIP_TEAMCITY_RUNNER_HOSTNAME:-{{
+    takel_ship_teamcity_runner_service['name'] }}}-{{ runner }}
+    image: ${TAKELSHIP_TEAMCITY_RUNNER_IMAGE:-{{
+    takel_ship_teamcity_runner_amd64_image['alias'] }}:{{
+    takel_ship_teamcity_runner_amd64_image['tag'] }}}
+    profiles: {{ takel_ship_teamcity_runner_service['profiles'] }}
     privileged: true
-    restart: ${TAKELSHIP_TEAMCITY_RESTART:-{{ takel_ship_teamcity_restart }}}
+    restart: ${TAKELSHIP_TEAMCITY_RESTART:-{{
+    takel_ship_teamcity_restart }}}
     environment:
-      SERVER_URL: http://{{ takel_ship_teamcity_server_service['name'] }}:8111
+      SERVER_URL: http://{{
+      takel_ship_teamcity_server_service['name'] }}:8111
       DOCKER_IN_DOCKER: start
       AGENT_NAME: >-
-        ${TAKELSHIP_TEAMCITY_RUNNER_CONTAINER_NAME:-{{ takel_ship_teamcity_runner_service['name'] }}}-{{ runner }}
+        ${TAKELSHIP_TEAMCITY_RUNNER_CONTAINER_NAME:-{{
+        takel_ship_teamcity_runner_service['name'] }}}-{{ runner }}
       AGENT_OPTS: ${TAKELSHIP_TEAMCITY_RUNNER_AGENT_OPTS:-"docker.server.osType=Linux docker.server.version=N/A teamcity.agent.os.family=Linux"}
 {% endfor %}

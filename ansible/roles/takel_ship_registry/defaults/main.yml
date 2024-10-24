@@ -40,6 +40,9 @@ takel_ship_registry_server_service:
     - "{{ takel_ship_registry_server_image }}"
   ports:
     - "{{ takel_ship_registry_server_http_35000 }}"
+  profiles:
+    - podman
+    - docker
 
 takel_ship_registry_ui_service:
   name: registry-ui
@@ -53,6 +56,9 @@ takel_ship_registry_ui_service:
     - "{{ takel_ship_registry_ui_image }}"
   ports:
     - "{{ takel_ship_registry_ui_http_35080 }}"
+  profiles:
+    - podman
+    - docker
 
 takel_ship_registry_takelship_registry_service:
   name: takelship-registry
@@ -64,6 +70,9 @@ takel_ship_registry_takelship_registry_service:
   env: env.takelship-registry.j2
   ports:
     - "{{ takel_ship_registry_takelship_registry_http_5555 }}"
+  profiles:
+    - podman
+    - docker
 
 takel_ship_registry_ui_script_config:
   name: config.yml

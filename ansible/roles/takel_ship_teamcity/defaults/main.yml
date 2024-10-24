@@ -17,6 +17,9 @@ takel_ship_teamcity_server_service:
     - "{{ takel_ship_teamcity_server_image }}"
   ports:
     - "{{ takel_ship_teamcity_server_http_38111 }}"
+  profiles:
+    - podman
+    - docker
 
 takel_ship_teamcity_runner_service:
   name: teamcity-runner
@@ -31,6 +34,9 @@ takel_ship_teamcity_runner_service:
   images:
     - "{{ takel_ship_teamcity_runner_amd64_image }}"
     - "{{ takel_ship_teamcity_runner_arm64_image }}"
+  profiles:
+    - podman
+    - docker
 
 takel_ship_teamcity_version: 2024.07.3
 

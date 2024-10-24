@@ -1,14 +1,28 @@
 ---
 services:
-  {{ takel_ship_registry_server_service['name'] }}:
-    container_name: ${TAKELSHIP_REGISTRY_SERVER_CONTAINER_NAME:-registry-server}
-    hostname: ${TAKELSHIP_REGISTRY_SERVER_HOSTNAME:-registry-server}
-    image: ${TAKELSHIP_REGISTRY_SERVER_IMAGE:-{{ takel_ship_registry_server_image['name'] }}:{{ takel_ship_registry_server_image['tag'] }}}
-    restart: ${TAKELSHIP_REGISTRY_SERVER_RESTART:-{{ takel_ship_registry_restart }}}
+  {{ takel_ship_registry_server_service['name'] }}-service:
+    container_name: ${TAKELSHIP_REGISTRY_SERVER_CONTAINER_NAME:-{{
+    takel_ship_registry_server_service['name'] }}}
+    hostname: ${TAKELSHIP_REGISTRY_SERVER_HOSTNAME:-{{
+    takel_ship_registry_server_service['name'] }}}
+    image: ${TAKELSHIP_REGISTRY_SERVER_IMAGE:-{{
+    takel_ship_registry_server_image['name'] }}:{{
+    takel_ship_registry_server_image['tag'] }}}
+    profiles: {{ takel_ship_registry_server_service['profiles'] }}
+    restart: ${TAKELSHIP_REGISTRY_SERVER_RESTART:-{{
+    takel_ship_registry_restart }}}
     volumes:
-      - ${TAKELSHIP_REGISTRY_SERVER_DATA_DIR:-{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_registry_server_service['name'] }}/data}:/var/lib/registry
-      - ${TAKELSHIP_REGISTRY_SERVER_CONFIG_YML:-{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_registry_server_service['name'] }}/{{ takel_ship_registry_server_script_config['name'] }}}:/etc/docker/registry/config.yml:ro
+      - ${TAKELSHIP_REGISTRY_SERVER_DATA_DIR:-{{
+      takel_ship_compose_to_services_dir }}/{{
+      takel_ship_registry_server_service['name']
+      }}/data}:/var/lib/registry
+      - ${TAKELSHIP_REGISTRY_SERVER_CONFIG_YML:-{{
+      takel_ship_compose_to_services_dir }}/{{
+      takel_ship_registry_server_service['name'] }}/{{
+      takel_ship_registry_server_script_config['name']
+      }}}:/etc/docker/registry/config.yml:ro
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - "${TAKELSHIP_REGISTRY_SERVER_HTTP_35000:-{{ takel_ship_registry_server_http_35000['port'] }}}:5000"
+      - "${TAKELSHIP_REGISTRY_SERVER_HTTP_35000:-{{
+      takel_ship_registry_server_http_35000['port'] }}}:5000"

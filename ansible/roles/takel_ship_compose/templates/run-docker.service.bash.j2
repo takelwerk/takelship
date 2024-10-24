@@ -1,3 +1,18 @@
 {{ takel_ship_scripts_shebang }}
 
-docker compose --env-file {{ takel_ship_compose_env_docker }} up -d
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+echo Started from $SCRIPT_DIR
+echo
+{% if not takel_ship_compose_service['name'] ==
+takel_ship_registry_takelship_registry_service['name'] %}
+echo Starting internal registry
+$SCRIPT_DIR/{{ takel_ship_compose_to_services_dir }}/{{
+takel_ship_registry_takelship_registry_service['name'] }}/{{
+takel_ship_compose_run_docker }}
+
+{% endif %}
+echo Starting service {{ takel_ship_compose_service['name'] }}
+docker compose --profile docker \
+  --env-file $SCRIPT_DIR/{{ takel_ship_compose_env_docker }} \
+  --file $SCRIPT_DIR/{{ takel_ship_compose_docker_compose_yml }} \
+  up -d

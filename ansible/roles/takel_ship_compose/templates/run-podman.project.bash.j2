@@ -1,10 +1,9 @@
 {{ takel_ship_scripts_shebang }}
 
 {% for service in takel_ship_compose_project['services'] %}
-SERVICE_ENABLED="$TAKELSHIP_SERVICE_{{ service['name'] | upper | replace("-", "_") }}"
-SERVICE_ENABLED="${SERVICE_ENABLED:-'false'}"
-SERVICE_ENABLED="${SERVICE_ENABLED,,}"
-if [[ "$SERVICE_ENABLED" != "false" ]]; then
+{% if 'podman' in service['profiles'] %}
+SERVICE_ENABLED="${TAKELSHIP_SERVICE_{{ service['name'] | upper | replace("-", "_") }}:-true}"
+if [[ "$SERVICE_ENABLED" == "true" ]]; then
 {% if 'preinstall' in service %}
   {{ takel_ship_compose_to_services_dir }}/{{ service['name'] }}/{{ takel_ship_compose_run_preinstall }} {{ takel_ship_compose_project['name'] }}
 {% endif %}
@@ -12,24 +11,24 @@ if [[ "$SERVICE_ENABLED" != "false" ]]; then
 {% if 'instances' in service %}
 {% for runner in range(1, service['instances'] + 1) %}
 {% if 'nonroot' in service and service['nonroot'] %}
-  PODMAN_USERNS=keep-id podman-compose --in-pod=false \
+  PODMAN_USERNS=keep-id podman-compose --in-pod=false --profile podman \
 {% else %}
-  podman-compose \
+  podman-compose "--project" podman \
 {% endif %}
-    up {{ service['name'] }}-{{ runner }} -d
+    up {{ service['name'] }}-{{ runner }}-service -d
 {% endfor %}
 {% else %}
 {% if 'nonroot' in service and service['nonroot'] %}
-  PODMAN_USERNS=keep-id podman-compose --in-pod=false \
+  PODMAN_USERNS=keep-id podman-compose --in-pod=false --profile podman \
 {% else %}
-  podman-compose \
+  podman-compose --profile podman \
 {% endif %}
-    up {{ service['name'] }} -d
+    up {{ service['name'] }}-service -d
 {% endif %}
-
 {% if 'postinstall' in service %}
   {{ takel_ship_compose_to_services_dir }}/{{ service['name'] }}/{{ takel_ship_compose_run_postinstall }} {{ takel_ship_compose_project['name'] }}
 {% endif %}
 fi
 
+{% endif %}
 {% endfor %}

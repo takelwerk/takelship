@@ -36,25 +36,9 @@
   loop: "{{ takel_ship_compose_services }}"
   loop_control:
     loop_var: takel_ship_compose_service
-
-- name: (compose) (services) deploy bash copy image script
-  ansible.builtin.template:
-    src: >-
-     {{ takel_ship_compose_copy_image }}.service.bash.j2
-    dest: >-
-      {{ takel_ship_compose_home_dir }}/{{
-      takel_ship_compose_dist_dir }}/{{
-      takel_ship_compose_compose_dir }}/{{
-      takel_ship_compose_services_dir }}/{{
-      takel_ship_compose_service.name }}/{{
-      takel_ship_compose_copy_image }}
-    owner: "{{ takel_ship_podman_user.owner }}"
-    group: "{{ takel_ship_podman_user.group }}"
-    # we use dir mode as the file should be executable
-    mode: "{{ takel_ship_podman_user.mode.dir }}"
-  loop: "{{ takel_ship_compose_services }}"
-  loop_control:
-    loop_var: takel_ship_compose_service
+  when:
+    - takel_ship_compose_service.env is defined
+    - "'docker' in takel_ship_compose_service.profiles"
 
 - name: (compose) (services) deploy bash run docker script
   ansible.builtin.template:
@@ -74,6 +58,8 @@
   loop: "{{ takel_ship_compose_services }}"
   loop_control:
     loop_var: takel_ship_compose_service
+  when:
+    - "'docker' in takel_ship_compose_service.profiles"
 
 - name: (compose) (services) deploy bash run podman script
   ansible.builtin.template:
@@ -93,6 +79,8 @@
   loop: "{{ takel_ship_compose_services }}"
   loop_control:
     loop_var: takel_ship_compose_service
+  when:
+    - "'podman' in takel_ship_compose_service.profiles"
 
 - name: (compose) (services) deploy bash run postinstall script
   ansible.builtin.template:
@@ -114,7 +102,9 @@
   loop: "{{ takel_ship_compose_services }}"
   loop_control:
     loop_var: takel_ship_compose_service
-  when: takel_ship_compose_service.postinstall is defined
+  when:
+    - takel_ship_compose_service.postinstall is defined
+    - "'podman' in takel_ship_compose_service.profiles"
 
 - name: (compose) (services) deploy bash run preinstall script
   ansible.builtin.template:
@@ -136,7 +126,9 @@
   loop: "{{ takel_ship_compose_services }}"
   loop_control:
     loop_var: takel_ship_compose_service
-  when: takel_ship_compose_service.preinstall is defined
+  when:
+    - takel_ship_compose_service.preinstall is defined
+    - "'podman' in takel_ship_compose_service.profiles"
 
 - name: (compose) (services) deploy Dockerfile
   ansible.builtin.template:

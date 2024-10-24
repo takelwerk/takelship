@@ -1,15 +1,22 @@
 {{ takel_ship_scripts_shebang }}
 
-docker compose \
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+echo Started from $SCRIPT_DIR
+echo
+echo Starting project {{ takel_ship_compose_project['name'] }}
+echo
+$SCRIPT_DIR/{{ takel_ship_compose_to_services_dir }}/{{
+takel_ship_registry_takelship_registry_service['name'] }}/{{
+takel_ship_compose_run_docker }}
+
+echo Starting project services
+docker compose --profile docker \
 {% for service in takel_ship_compose_project['services'] %}
-{% if not 'nodocker' in service or not service['nodocker'] %}
-  --env-file {{ takel_ship_compose_to_services_dir }}/{{ service['name'] }}/{{ takel_ship_compose_env_docker }} \
+{% if 'docker' in service['profiles'] %}
+{% if 'env' in service and service['env'] %}
+  --env-file $SCRIPT_DIR/{{ takel_ship_compose_to_services_dir }}/{{ service['name'] }}/{{ takel_ship_compose_env_docker }} \
+{% endif %}
 {% endif %}
 {% endfor %}
-  up \
-{% for service in takel_ship_compose_project['services'] %}
-{% if not 'nodocker' in service or not service['nodocker'] %}
-  {{ service['name'] }} \
-{% endif %}
-{% endfor %}
-  -d
+  --file $SCRIPT_DIR/{{ takel_ship_compose_docker_compose_yml }} \
+  up -d

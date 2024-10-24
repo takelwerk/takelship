@@ -1,14 +1,22 @@
 ---
 services:
-  {{ takel_ship_aptproxy_server_service['name'] }}:
-    container_name: ${TAKELSHIP_APTPROXY_SERVER_CONTAINER_NAME:-{{ takel_ship_aptproxy_server_service['name'] }}}
-    hostname: ${TAKELSHIP_APTPROXY_SERVER_HOSTNAME:-{{ takel_ship_aptproxy_server_service['name'] }}}
-    image: ${TAKELSHIP_APTPROXY_SERVER_IMAGE:-{{ takel_ship_aptproxy_server_image['alias'] }}:{{ takel_ship_aptproxy_server_image['tag'] }}}
+  {{ takel_ship_aptproxy_server_service['name'] }}-service:
+    container_name: ${TAKELSHIP_APTPROXY_SERVER_CONTAINER_NAME:-{{
+    takel_ship_aptproxy_server_service['name'] }}}
+    hostname: ${TAKELSHIP_APTPROXY_SERVER_HOSTNAME:-{{
+    takel_ship_aptproxy_server_service['name'] }}}
+    image: ${TAKELSHIP_APTPROXY_SERVER_IMAGE:-{{
+    takel_ship_aptproxy_server_image['alias'] }}:{{
+    takel_ship_aptproxy_server_image['tag'] }}}
+    profiles: {{ takel_ship_aptproxy_server_service['profiles'] }}
     restart: ${TAKELSHIP_APTPROXY_SERVER_RESTART:-always}
     command: -cachedir /data
     environment:
       - TZ=${TAKELSHIP_APTPROXY_SERVER_TIMEZONE:-Europe/Amsterdam}
     ports:
-      - "${TAKELSHIP_APTPROXY_SERVER_HTTP_33142:-{{ takel_ship_aptproxy_server_http_33142['port'] }}}:3142"
+      - "${TAKELSHIP_APTPROXY_SERVER_HTTP_33142:-{{
+      takel_ship_aptproxy_server_http_33142['port'] }}}:3142"
     volumes:
-      - ${TAKELSHIP_APTPROXY_SERVER_DATA_DIR:-{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_aptproxy_server_service['name'] }}/data}:/data
+      - ${TAKELSHIP_APTPROXY_SERVER_DATA_DIR:-{{
+      takel_ship_compose_to_services_dir }}/{{
+      takel_ship_aptproxy_server_service['name'] }}/data}:/data

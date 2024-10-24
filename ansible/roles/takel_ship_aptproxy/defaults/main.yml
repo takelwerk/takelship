@@ -16,7 +16,9 @@ takel_ship_aptproxy_server_service:
     - "{{ takel_ship_aptproxy_server_image }}"
   ports:
     - "{{ takel_ship_aptproxy_server_http_33142 }}"
-
+  profiles:
+    - podman
+    - docker
 takel_ship_aptproxy_server_image:
   name: soulteary/apt-proxy
   tag: latest

@@ -16,6 +16,8 @@ takel_ship_portainer_server_service:
     - "{{ takel_ship_portainer_server_image }}"
   ports:
     - "{{ takel_ship_portainer_server_http_39000 }}"
+  profiles:
+    - podman
 
 takel_ship_portainer_server_image:
   name: portainer/portainer-ce

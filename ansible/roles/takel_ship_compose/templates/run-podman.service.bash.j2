@@ -3,7 +3,7 @@
 {% if 'nonroot' in takel_ship_compose_service and takel_ship_compose_service['nonroot'] %}
 PODMAN_USERNS=keep-id podman-compose --in-pod=false \
 {% else %}
-podman-compose \
+podman-compose --profile podman \
 {% endif %}
   up -d
 {% if 'postinstall' in takel_ship_compose_service %}
