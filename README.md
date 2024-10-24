@@ -207,8 +207,6 @@ There is a `docker compose` run script `run-docker` for each project which inclu
 takelship/compose/projects/<projectname>/run-docker
 ```
 
-If you intend to run the compose project *only on your host* (and not in a takelship) you can remove the `takelship/cache` directory to free disk space.
-
 You have used the takelship as a one-time command to create and preconfigure a `docker compose` project. Used this way, `ship` becomes a `docker compose` project generator.
 
 ## tea command line tool
