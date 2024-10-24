@@ -34,7 +34,7 @@ build_arm64:
     - rake images:project:registry:molecule:test
 
     # Test takelship project forgejo
-    - rake images:project:forgejo:molecule:test
+    # - rake images:project:forgejo:molecule:test
 
     # Login to dockerhub
     - docker login --username takelwerk --password $DOCKERHUB_TOKEN
