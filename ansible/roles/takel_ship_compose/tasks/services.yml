@@ -43,7 +43,7 @@
 - name: (compose) (services) deploy bash halt docker script
   ansible.builtin.template:
     src: >-
-      {{ takel_ship_compose_halt_docker }}.service.bash.j2
+      halt-docker.service.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
@@ -64,7 +64,7 @@
 - name: (compose) (services) deploy bash run docker script
   ansible.builtin.template:
     src: >-
-      {{ takel_ship_compose_run_docker }}.service.bash.j2
+      run-docker.service.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
@@ -85,7 +85,7 @@
 - name: (compose) (services) deploy bash run podman script
   ansible.builtin.template:
     src: >-
-      {{ takel_ship_compose_run_podman }}.service.bash.j2
+      run-podman.service.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{

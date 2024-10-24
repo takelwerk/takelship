@@ -201,10 +201,18 @@ The solution to this problem are `docker-env` files for each service:
 takelship/compose/services/<service-name>/docker-env
 ```
 
-There is a `docker compose` run script `run-docker` for each project which includes these env-files:
+There is a `docker compose` run script `docker-compose-up` for each project which includes those env-files:
 
 ```bash
-takelship/compose/projects/<projectname>/run-docker
+takelship/compose/projects/forgejo/docker-compose-up
+```
+
+It will also start the takelship registry service so that you have access to your already downloaded docker images of the project.
+
+Run the `docker-compose-down` script to stop the forgejo project and the takelship registry:
+
+```bash
+takelship/compose/projects/forgejo/docker-compose-down
 ```
 
 You have used the takelship as a one-time command to create and preconfigure a `docker compose` project. Used this way, `ship` becomes a `docker compose` project generator.
@@ -221,7 +229,7 @@ This file can be symlinked as your host tea configuration file:
 - Linux: `~/.config/tea/config.yml`
 - macOS: `~/Library/Application\ Support/tea/config.yml`
 
-## First steps without the ship command line tool
+## takelship without ship
 
 Get info how to run a takelship project:
 
