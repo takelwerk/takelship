@@ -39,18 +39,20 @@
 
 The takelship project is a general purpose framework to ship complex software setups. It does not ship the software itself but the configuration and the runtime environment.
 
-The configuration and data is stored in the `takelship` directory. It is created when running `ship start [<project>]`. If a project name is omitted, the default project of the takelship is started which is a forgejo server with three runners and a portainer container.
+The configuration and data is stored in the `takelship` directory. It is created when running `ship start [<project>]`. If a project name is omitted, the default project of the takelship is started which is a forgejo server with three runners, an apt proxy and a portainer.
 
-The `ship` command line tool is „directory-aware“ in the sense that it starts one takelship per directory. Every directory can host a different project. `ship` can be configured via environment variables or a `takelage.yml` next to the `takelship` directory. See `tau config` for available configuration keys.
+The `ship` command line tool is „directory-aware“ in the sense that it starts one takelship per directory. It depends on the directory which takelship `ship` is talking to, use `--workdir` or `-w` to specify a different directory. Run `ship ls` to see all takelships and their directories.
+
+Every directory can host a different project. You can start the same project multiple times by starting them from different directories. `ship` can be configured via environment variables or a `takelage.yml` next to the `takelship` directory. See `tau config` for available configuration keys.
 
 These basic conditions yield some amazing advantages:
 - Moderate prerequisites to run a takelship: basically docker and ruby.
 - Very moderate changes to the system: one directory per project and one takelship container on the docker host.
 - Complete isolation between takelship projects in different directories which do do not pollute your docker host environment.
 - User friendly command line interface (`ship`) with sane defaults (following the [convention over configuration](https://en.wikipedia.org/wiki/Convention_over_configuration) pradigm).
-- Still *takelage* is highly customisable free and open source software. Build your own takelship and ship arbitrary complex software setups!
-- Well-known tools for easy backup (`cp`), versioning (`git`), update (`docker pull`), migration (`rsync`) and uninstallation (`rm`) of the configuration and project data are available.
-- Fallback mode if the takelship sinks: run the `run-docker` bash script to start the project *on your host computer*. Continue to use your configured takelship project data with no takelship involved.
+- Still *takelage* is highly customisable, transparent, free and open source software. Build your own takelship and ship arbitrarily complex software setups!
+- Well-known tools for easy backup (`cp`), versioning (`git`), update (`docker pull`), migration (`rsync`) and uninstallation (`rm`) of the configuration and project data are widely available.
+- Fallback mode if the takelship sinks: run the `docker-compose-up` bash script to start the project *on your host computer*. Continue to use your configured takelship project data with no takelship involved.
 - If we forget about the takelship and make the fallback mode the new default then `ship` becomes a `docker-compose` generator with preconfigured data.
 
 ## Prerequisites
