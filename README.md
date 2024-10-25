@@ -101,10 +101,16 @@ source <(ship completion bash)
 
 ## Usage
 
-List available projects:
+List takelships:
 
 ```bash
 ship list
+```
+
+List available projects:
+
+```bash
+ship project list
 ```
 
 Start a project:
