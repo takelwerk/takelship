@@ -50,7 +50,6 @@ takel_ship_compose_projects:
       Provides CI/CD pipelines (JetBrains style).
       Runs with TeamCity Runners.
       Runs with Forgejo and its runners.
-      Runs with Docker in Docker.
       Runs with Apt Proxy.
       Runs with Portainer.
     services:
