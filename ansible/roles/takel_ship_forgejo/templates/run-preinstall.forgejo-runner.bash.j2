@@ -4,22 +4,21 @@ PROJECT="$1"
 RUNNERDIR="{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_forgejo_runner_service['name'] }}/data"
 RUNNER=$(ls $RUNNERDIR-1/.runner > /dev/null 2>&1)
 
-# if the runner is already configured then exit
+# if the first runner is already configured then exit
 if [[ $? -eq 0 ]]; then
   echo Runner already configured
   echo Remove {{
-      takel_ship_compose_home_dir }}/{{
       takel_ship_compose_data_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_services_dir }}/{{
       takel_ship_forgejo_runner_service['name']
-      }}/data* to force reconfiguration
+      }}/data\* to force reconfiguration
   exit
 fi
 
 echo Configuring forgejo runners
 
-rm --force --recursive $RUNNERDIR
+rm --force --recursive $RUNNERDIR*
 
 {% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
 mkdir -p $RUNNERDIR-{{ runner }}
