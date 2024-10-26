@@ -5,6 +5,11 @@ COMPOSE_FILE=$FORGEJO_SERVER_DIR/{{ takel_ship_compose_docker_compose_yml }}
 
 echo Changing {{ takel_ship_forgejo_server_service['name'] }} ssh clone url port
 
+SHIP_PORT=$TAKELSHIP_SHIP_PORTS_{{ takel_ship_forgejo_server_service['name'] | upper | replace('-', '_') }}_{{ takel_ship_forgejo_server_http_33000['protocol'] | upper }}_{{ takel_ship_forgejo_server_http_33000['port'] | upper }}
+if [ -n "${SHIP_PORT}" ]; then
+  sed -Ei s"/FORGEJO__SERVER__ROOT_URL: 'http://localhost:[0-9]+'/FORGEJO__SERVER__ROOT_URL: 'http://localhost:$SHIP_PORT'/" $COMPOSE_FILE
+fi
+
 SHIP_PORT=$TAKELSHIP_SHIP_PORTS_{{ takel_ship_forgejo_server_service['name'] | upper | replace('-', '_') }}_{{ takel_ship_forgejo_server_ssh_30022['protocol'] | upper }}_{{ takel_ship_forgejo_server_ssh_30022['port'] | upper }}
 if [ -n "${SHIP_PORT}" ]; then
   sed -Ei s"/FORGEJO__SERVER__SSH_PORT: '[0-9]+'/FORGEJO__SERVER__SSH_PORT: '$SHIP_PORT'/" $COMPOSE_FILE

@@ -22,6 +22,8 @@ services:
       FORGEJO__REPOSITORY__DEFAULT_PUSH_CREATE_PRIVATE: 'false'
       FORGEJO__REPOSITORY__DEFAULT_REPO_UNITS: 'repo.code,repo.actions'
       FORGEJO__SECURITY__INSTALL_LOCK: 'true'
+      FORGEJO__SERVER__ROOT_URL: 'http://localhost:{{
+      takel_ship_forgejo_server_http_33000['port'] }}'
       FORGEJO__SERVER__SSH_PORT: '{{
       takel_ship_forgejo_server_ssh_30022['port'] }}'
       FORGEJO__UI__SHOW_USER_EMAIL: 'false'
