@@ -15,13 +15,18 @@ services:
     takel_ship_forgejo_uid }}}:${TAKELSHIP_FORGEJO_SERVER_GID:-{{
     takel_ship_forgejo_gid }}}"
     environment:
-      FORGEJO__server__ROOT_URL: ${TAKELSHIP_FORGEJO_SERVER_ROOT_URL:-{{
-      takel_ship_forgejo_server_root_url }}}
-      FORGEJO__security__INSTALL_LOCK: true
-      FORGEJO__actions__ENABLED: true
-      FORGEJO__repository__ENABLE_PUSH_CREATE_USER: true
-      FORGEJO__repository__DEFAULT_PUSH_CREATE_PRIVATE: false
-      FORGEJO__repository__DEFAULT_REPO_UNITS: 'repo.code,repo.actions'
+      FORGEJO__ACTIONS__ENABLED: 'true'
+      FORGEJO__ADMIN__DEFAULT_EMAIL_NOTIFICATIONS: 'disabled'
+      FORGEJO__REPOSITORY__ENABLE_PUSH_CREATE_USER: 'true'
+      FORGEJO__REPOSITORY__ENABLE_PUSH_CREATE_ORG: 'true'
+      FORGEJO__REPOSITORY__DEFAULT_PUSH_CREATE_PRIVATE: 'false'
+      FORGEJO__REPOSITORY__DEFAULT_REPO_UNITS: 'repo.code,repo.actions'
+      FORGEJO__SECURITY__INSTALL_LOCK: 'true'
+      FORGEJO__SERVER__ROOT_URL: 'http://localhost:{{
+      takel_ship_forgejo_server_http_33000['port'] }}/'
+      FORGEJO__SERVER__SSH_PORT: '{{
+      takel_ship_forgejo_server_ssh_30022['port'] }}'
+      FORGEJO__UI__SHOW_USER_EMAIL: 'false'
     ports:
       - "${TAKELSHIP_FORGEJO_SERVER_HTTP_33000:-{{
       takel_ship_forgejo_server_http_33000['port'] }}}:3000"

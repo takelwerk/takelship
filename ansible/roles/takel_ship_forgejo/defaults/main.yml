@@ -23,6 +23,7 @@ takel_ship_forgejo_server_service:
   role: takel_ship_forgejo
   template: docker-compose.forgejo-server.yml.j2
   env: env.forgejo-server.j2
+  preinstall: run-preinstall.forgejo-server.bash.j2
   postinstall: run-postinstall.forgejo-server.bash.j2
   nonroot: true
   images:
@@ -106,9 +107,6 @@ takel_ship_forgejo_server_http_33000:
   port: 33000
   protocol: http
   description: administrator/administrator
-
-takel_ship_forgejo_server_root_url: >-
-  http://localhost:{{ takel_ship_forgejo_server_http_33000.port }}
 
 takel_ship_forgejo_uid: 1000
 takel_ship_forgejo_gid: 1000
