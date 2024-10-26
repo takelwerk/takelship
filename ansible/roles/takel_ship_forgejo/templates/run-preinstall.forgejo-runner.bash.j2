@@ -61,7 +61,7 @@ SECRET=$(xxd -u -l 20 -p /dev/urandom)
 
 forgejo forgejo-cli actions register \
   --name {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} \
-  --labels ${TAKELSHIP_FORGEJO_RUNNER_LABELS:-{{ takelship_forgejo_runner_labels.join(",") }}} \
+  --labels ${TAKELSHIP_FORGEJO_RUNNER_LABELS:-{{ takelship_forgejo_runner_labels | join(',') }}} \
   --secret $SECRET
 
 podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} forgejo-runner create-runner-file \
