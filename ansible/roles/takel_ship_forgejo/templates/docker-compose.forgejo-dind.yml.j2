@@ -2,14 +2,15 @@
 services:
 {% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
   {{ takel_ship_forgejo_dind_service['name'] }}-{{ runner }}-service:
-    container_name: {{
-    takel_ship_forgejo_dind_service['name'] }}-{{ runner }}
-    hostname: {{
-    takel_ship_forgejo_dind_service['name'] }}-{{ runner }}
-    image: {{
+    container_name: ${TAKELSHIP_FORGEJO_DIND_CONTAINER_NAME:-{{
+    takel_ship_forgejo_dind_service['name'] }}}-{{ runner }}
+    hostname: ${TAKELSHIP_FORGEJO_DIND_HOSTNAME:-{{
+    takel_ship_forgejo_dind_service['name'] }}}-{{ runner }}
+    image: ${TAKELSHIP_FORGEJO_DIND_IMAGE:-{{
     takel_ship_forgejo_dind_image['name'] }}:{{
-    takel_ship_forgejo_dind_image['tag'] }}
+    takel_ship_forgejo_dind_image['tag'] }}}
     privileged: true
+    restart: ${TAKELSHIP_FORGEJO_DIND_RESTART:-always}
     environment:
       DOCKER_HOST: {{
       takel_ship_forgejo_dind_service['name'] }}-{{

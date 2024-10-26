@@ -154,7 +154,6 @@ localhost:60261 [takelship-registry http]
 localhost:56628 [forgejo-server http]     (administrator/administrator)
 localhost:47015 [forgejo-server ssh]
 localhost:57509 [aptproxy-server http]
-localhost:61992 [portainer-server http]   (admin/administrator)
 ```
 
 When you run `ship start forgejo` in a directory for the first time, the `ship` cli queries the `takelwerk/takelship` container about the project. (It exposes the result via `ship info takelship` and notes it down in the file `takelship/takelship.yml`.)
@@ -168,7 +167,6 @@ ship_ports_aptproxy_server_http_33142: 57509
 ship_ports_docker_host_docker_32375: 50600
 ship_ports_forgejo_server_http_33000: 56628
 ship_ports_forgejo_server_ssh_30022: 47015
-ship_ports_portainer_server_http_39000: 61992
 ship_ports_takelship_registry_http_5555: 60261
 ```
 
@@ -187,15 +185,14 @@ ship_ports_aptproxy_server_http_33142: 3142
 ship_ports_docker_host_docker_32375: 3375
 ship_ports_forgejo_server_http_33000: 3000
 ship_ports_forgejo_server_ssh_30022: 3022
-ship_ports_portainer_server_http_39000: 3900
 ship_ports_takelship_registry_http_5555: 3555
 ```
 
 You can disable a port by setting it to `0` or nothing:
 
 ```bash
-ship_ports_docker_host_docker_32375: 0
-ship_ports_portainer_server_http_39000:
+ship_ports_aptproxy_server_http_33142: 0
+ship_ports_docker_host_docker_32375:
 ```
 
 If you want `ship` to choose a new port configuration then delete one ore more config lines. When you change a port, all configuration scripts are updated the next time a takelship is started.
