@@ -59,6 +59,7 @@ takel_ship_forgejo_dind_service:
     Provides Docker in Docker for Forgejo runner
   role: takel_ship_forgejo
   template: docker-compose.forgejo-dind.yml.j2
+  env: env.forgejo-dind.j2
   instances: 3
   dind: 2330
   profiles:
