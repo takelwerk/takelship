@@ -202,6 +202,7 @@ Just be sure to leave the `ship_default_project` in the `takelage.yml` or you'll
 ## forgejo docker compose project
 
 When you start a takelship forgejo project some pretty complex things happen. The 
+[server preinstallation](https://github.com/takelwerk/takelship/blob/main/ansible/roles/takel_ship_forgejo/templates/run-preinstall.forgejo-server.bash.j2), the
 [server postinstallation](https://github.com/takelwerk/takelship/blob/main/ansible/roles/takel_ship_forgejo/templates/run-postinstall.forgejo-server.bash.j2) and the
 [runner preinstallation](https://github.com/takelwerk/takelship/blob/main/ansible/roles/takel_ship_forgejo/templates/run-preinstall.forgejo-runner.bash.j2) is done in the takelship but the configuration and the data end up in the `takelship` directory on your host. From here, you can run it *on your host* with `docker compose`.
 
