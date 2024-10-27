@@ -69,13 +69,15 @@ podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} for
   --secret $SECRET
 
 {% endfor %}
-
 # compose runner down
 {% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
 echo Killing forgejo runner {{ runner }} in register mode
 compose-nonroot --profile podman \
   --file {{ takel_ship_compose_to_projects_dir }}/$PROJECT/{{ takel_ship_compose_docker_compose_yml }} \
   kill {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}-service
+
+# add labels to runner config
+sed -i s"/^  \"labels\"/  \"labels\": [{{ '\"' + takelship_forgejo_runner_labels | join('\",\"') + '\"'  }}]/" $RUNNERDIR-{{ runner }}/.runner
 
 {% endfor %}
 echo Starting forgejo runners in daemon mode
