@@ -12,7 +12,7 @@ services:
     profiles: {{ takel_ship_forgejo_runner_service['profiles'] }}
     environment:
       DOCKER_HOST: tcp://localhost:{{
-      (takel_ship_forgejo_runner_service['dind'] + runner - 1) }}:2376
+      (takel_ship_forgejo_runner_service['dind'] + runner - 1) }}
       DOCKER_CERT_PATH: ''
       DOCKER_TLS_VERIFY: '0'
     user: 1000:1000
