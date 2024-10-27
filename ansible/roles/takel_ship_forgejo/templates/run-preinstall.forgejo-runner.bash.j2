@@ -77,7 +77,7 @@ compose-nonroot --profile podman \
   kill {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}-service
 
 # add labels to runner config
-sed -i s"|^  \"labels\"|  \"labels\": [{{ '\\\"' + takelship_forgejo_runner_labels | join('\\\",\\\"') + '\\\"'  }}]|" $RUNNERDIR-{{ runner }}/.runner
+sed -i -E s"|^  \"labels\".*$|  \"labels\": [{{ '\\\"' + takelship_forgejo_runner_labels | join('\\\", \\\"') + '\\\"'  }}]|" $RUNNERDIR-{{ runner }}/.runner
 
 {% endfor %}
 echo Starting forgejo runners in daemon mode
