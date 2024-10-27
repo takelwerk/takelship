@@ -92,8 +92,8 @@ debug change podman uid and git and chown data dir
 debug suppress warning message about shared mount
 mount / --make-rshare
 
-debug create dind users, sockets and socat forwards
-{{ takel_ship_dind_script_add_users['name'] }}
+debug create podman unix socket and socat tcp forward
+{{ takel_ship_dind_script_add_podman_socket['name'] }}
 
 debug export takelship environment variables
 {{ takel_ship_entrypoint_script_export_envvars['name'] }} "$(env)"

@@ -4,15 +4,16 @@ takel_ship_compose_projects:
     description: >-
       All services of all projects.
     services:
+      - "{{ takel_ship_teamcity_server_service }}"
+      - "{{ takel_ship_forgejo_server_service }}"
+      - "{{ takel_ship_dind_podman_service }}"
+      - "{{ takel_ship_dind_docker_service }}"
+      - "{{ takel_ship_teamcity_runner_service }}"
       - "{{ takel_ship_aptproxy_server_service }}"
       - "{{ takel_ship_portainer_server_service }}"
       - "{{ takel_ship_registry_server_service }}"
       - "{{ takel_ship_registry_ui_service }}"
-      - "{{ takel_ship_forgejo_server_service }}"
       - "{{ takel_ship_forgejo_runner_service }}"
-      - "{{ takel_ship_forgejo_dind_service }}"
-      - "{{ takel_ship_teamcity_server_service }}"
-      - "{{ takel_ship_teamcity_runner_service }}"
   - name: aptproxy
     description: >-
       APT Proxy (github.com/soulteary/apt-proxy)
@@ -37,28 +38,33 @@ takel_ship_compose_projects:
       Runs with Forgejo Runners.
       Runs with Docker in Docker.
       Runs with Apt Proxy.
+      Runs with Docker in Docker.
     services:
       - "{{ takel_ship_forgejo_server_service }}"
-      - "{{ takel_ship_forgejo_runner_service }}"
-      - "{{ takel_ship_forgejo_dind_service }}"
+      - "{{ takel_ship_dind_podman_service }}"
+      - "{{ takel_ship_dind_docker_service }}"
       - "{{ takel_ship_aptproxy_server_service }}"
+      - "{{ takel_ship_forgejo_runner_service }}"
   - name: teamcity
     description: >-
       TeamCity build server (jetbrains.com/teamcity).
       Provides CI/CD pipelines (JetBrains style).
       Runs with TeamCity Runners.
-      Runs with Forgejo and its runners. (Simulates GitHub)
-      Runs with Registry and its UI. (Simulates DockerHub)
+      Runs with Forgejo and its runners. (Mimics GitHub)
+      Runs with Registry and its UI. (Mimics DockerHub)
       Runs with Apt Proxy.
       Runs with Portainer.
+      Runs with Docker in Docker.
     services:
       - "{{ takel_ship_teamcity_server_service }}"
-      - "{{ takel_ship_teamcity_runner_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
-      - "{{ takel_ship_forgejo_runner_service }}"
+      - "{{ takel_ship_teamcity_runner_service }}"
+      - "{{ takel_ship_dind_podman_service }}"
+      - "{{ takel_ship_dind_docker_service }}"
       - "{{ takel_ship_registry_server_service }}"
       - "{{ takel_ship_registry_ui_service }}"
       - "{{ takel_ship_aptproxy_server_service }}"
       - "{{ takel_ship_portainer_server_service }}"
+      - "{{ takel_ship_forgejo_runner_service }}"
 
 takel_ship_compose_default_project: forgejo

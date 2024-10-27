@@ -1,9 +1,43 @@
 ---
+takel_ship_dind_services:
+  - "{{ takel_ship_dind_docker_service }}"
+  - "{{ takel_ship_dind_podman_service }}"
+
 takel_ship_dind_scripts:
-  - "{{ takel_ship_dind_script_add_user }}"
-  - "{{ takel_ship_dind_script_add_users }}"
+  - "{{ takel_ship_dind_script_add_podman_socket }}"
 
 ### end of group_vars
+
+takel_ship_dind_docker_service:
+  name: dind-docker
+  description: >-
+    Docker in Docker (hub.docker.com/_/docker).
+    Provides Docker in Docker.
+  role: takel_ship_dind
+  template: docker-compose.dind-docker.yml.j2
+  profiles:
+    - docker
+
+takel_ship_dind_podman_service:
+  name: dind-podman
+  description: >-
+    Podman in Docker.
+    Provides Docker in Docker.
+  role: takel_ship_dind
+  template: docker-compose.dind-podman.yml.j2
+  images:
+    - "{{ takel_ship_dind_podman_image }}"
+  profiles:
+    - podman
+
+takel_ship_dind_docker_image:
+  name: docker
+  tag: dind
+
+takel_ship_dind_podman_image:
+  name: alpine/socat
+  tag: latest
+  alias: socat
 
 takel_ship_dind_podman_socket:
   file: /home/podman/.run/podman.sock
@@ -16,21 +50,24 @@ takel_ship_dind_docker_32375:
   port: 32375
   protocol: docker
 
+takel_ship_dind_docker_command:
+  - "dockerd"
+  - "-H"
+  - "tcp://0.0.0.0:2375"
+  - "--tls=false"
+
+takel_ship_dind_podman_socat_command: >-
+  tcp-listen:2375,fork,reuseaddr
+  unix-connect:/var/run/docker.sock
+
 takel_ship_dind_docker_socat_command: >-
-  socat tcp-listen:${TAKELSHIP_DIND_DOCKER_32375:-{{
-  takel_ship_dind_docker_32375['port'] }}},fork,reuseaddr
-  unix-connect:/{{ takel_ship_compose_home_dir }}/.run/podman.sock
+  socat tcp-listen:{{
+  takel_ship_dind_docker_32375['port'] }},fork,reuseaddr
+  unix-connect:/{{
+  takel_ship_compose_home_dir }}/.run/podman.sock
 
-takel_ship_dind_script_add_user:
-  name: takelship_dind_add_user
-  description: Add system user and redirect podman socket to tcp port.
+takel_ship_dind_script_add_podman_socket:
+  name: takelship_dind_add_podman_socket
+  description: Add podman socket and redirect it to a localhost tcp port.
   role: takel_ship_dind
-  template: takelship_dind_add_user.bash.j2
-
-takel_ship_dind_script_add_users:
-  name: takelship_dind_add_users
-  description: >-
-    Add dind users for projects using
-    {{ takel_ship_dind_script_add_user.name }}.
-  role: takel_ship_dind
-  template: takelship_dind_add_users.bash.j2
+  template: takelship_dind_add_podman_socket.bash.j2

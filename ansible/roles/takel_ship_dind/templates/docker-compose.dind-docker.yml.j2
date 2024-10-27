@@ -1,0 +1,12 @@
+---
+services:
+  {{ takel_ship_dind_docker_service['name'] }}-service:
+    container_name: docker
+    hostname: docker
+    image: {{
+    takel_ship_dind_docker_image['name'] }}:{{
+    takel_ship_dind_docker_image['tag'] }}
+    privileged: true
+    restart: always
+    command: {{ takel_ship_dind_docker_command }}
+    profiles: {{ takel_ship_dind_docker_service['profiles'] }}

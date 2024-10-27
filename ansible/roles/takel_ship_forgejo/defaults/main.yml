@@ -2,7 +2,6 @@
 takel_ship_forgejo_services:
   - "{{ takel_ship_forgejo_server_service }}"
   - "{{ takel_ship_forgejo_runner_service }}"
-  - "{{ takel_ship_forgejo_dind_service }}"
 
 takel_ship_forgejo_scripts:
   - "{{ takel_ship_forgejo_script_forgejo }}"
@@ -46,25 +45,17 @@ takel_ship_forgejo_runner_service:
   preinstall: run-postinstall.forgejo-runner.bash.j2
   nonroot: true
   instances: 3
-  dind: 2330
   images:
     - "{{ takel_ship_forgejo_runner_image }}"
+    - "{{ takel_ship_forgejo_action_ubuntu_image }}"
   profiles:
     - podman
     - docker
 
-takel_ship_forgejo_dind_service:
-  name: forgejo-dind
-  description: >-
-    Forgejo Gitea fork docker in docker (forgejo.org).
-    Provides Docker in Docker for Forgejo runner
-  role: takel_ship_forgejo
-  template: docker-compose.forgejo-dind.yml.j2
-  env: env.forgejo-dind.j2
-  instances: 3
-  dind: 2330
-  profiles:
-    - docker
+takelship_forgejo_runner_labels:
+  - "{{ takel_ship_forgejo_action_debian_image.label }}"
+  - "{{ takel_ship_forgejo_action_ubuntu_image.label }}"
+  - "{{ takel_ship_forgejo_action_takelbuild_image.label }}"
 
 takel_ship_forgejo_server_image:
   name: codeberg.org/forgejo/forgejo
@@ -76,9 +67,23 @@ takel_ship_forgejo_runner_image:
   tag: 3.5.1
   alias: runner
 
-takel_ship_forgejo_dind_image:
-  name: code.forgejo.org/oci/docker
-  tag: dind
+takel_ship_forgejo_action_debian_image:
+  name: node
+  tag: 20-bookworm
+  alias: node
+  label: debian:docker://node:20-bookworm
+
+takel_ship_forgejo_action_ubuntu_image:
+  name: ghcr.io/catthehacker/ubuntu
+  tag: act-latest
+  alias: ubuntu
+  label: ubuntu:docker://ghcr.io/catthehacker/ubuntu:act-latest
+
+takel_ship_forgejo_action_takelbuild_image:
+  name: takelwerk/takelbuild
+  tag: latest
+  alias: takelbuild
+  label: takelbuild:docker://takelwerk/takelbuild:latest
 
 takel_ship_forgejo_script_forgejo:
   name: "{{ takel_ship_forgejo_bin_cli }}"
@@ -120,10 +125,6 @@ takel_ship_forgejo_admin:
 
 takelship_forgejo_runner_secret: >-
   7c31591e8b67225a116d4a4519ea8e507e08f71f
-takelship_forgejo_runner_labels:
-  - "debian:docker://node:20-bookworm"
-  - "ubuntu:docker://ghcr.io/catthehacker/ubuntu:act-latest"
-  - "takelbuild:docker://takelwerk/takelbuild"
 takelship_forgejo_runner_command_register: >-
   "while : ; do sleep 1 ; done ;"
 takelship_forgejo_runner_command_daemon: >-

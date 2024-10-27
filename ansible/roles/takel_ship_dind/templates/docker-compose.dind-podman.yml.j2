@@ -1,0 +1,14 @@
+---
+services:
+  {{ takel_ship_dind_podman_service['name'] }}-service:
+    container_name: docker
+    hostname: docker
+    image: {{
+    takel_ship_dind_podman_image['alias'] }}:{{
+    takel_ship_dind_podman_image['tag'] }}
+    restart: always
+    command: {{ takel_ship_dind_podman_socat_command }}
+    volumes:
+      - {{ takel_ship_dind_podman_socket['file']
+      }}:/var/run/docker.sock:Z
+    profiles: {{ takel_ship_dind_podman_service['profiles'] }}
