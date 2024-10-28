@@ -17,6 +17,8 @@ services:
     user: 1000:1000
     volumes:
       - {{ takel_ship_compose_to_services_dir }}/{{
+      takel_ship_forgejo_runner_service['name'] }}/config.yml:/config.yml
+      - {{ takel_ship_compose_to_services_dir }}/{{
       takel_ship_forgejo_runner_service['name'] }}/data-{{
       runner }}:/data
     restart: ${TAKELSHIP_FORGEJO_RUNNER_RESTART:-always}

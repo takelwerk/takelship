@@ -6,6 +6,7 @@ takel_ship_forgejo_services:
 takel_ship_forgejo_scripts:
   - "{{ takel_ship_forgejo_script_forgejo }}"
   - "{{ takel_ship_forgejo_script_tea_config }}"
+  - "{{ takel_ship_forgejo_script_runner_config }}"
 
 ### end of group_vars
 
@@ -86,6 +87,21 @@ takel_ship_forgejo_script_tea_config:
     {{ takel_ship_compose_home_dir
     }}/.config/tea
 
+takel_ship_forgejo_script_runner_config:
+  name: config.yml
+  role: takel_ship_forgejo
+  template: runner.config.yml.j2
+  owner: "{{ takel_ship_podman_user.owner }}"
+  group: "{{ takel_ship_podman_user.group }}"
+  mode: "{{ takel_ship_podman_user.mode.file }}"
+  path: >-
+    {{ takel_ship_compose_home_dir }}/{{
+    takel_ship_compose_dist_dir }}/{{
+    takel_ship_compose_compose_dir }}/{{
+    takel_ship_compose_services_dir }}/{{
+    takel_ship_forgejo_runner_service.name
+    }}/config.yml
+
 takel_ship_forgejo_server_ssh_30022:
   port: 30022
   protocol: ssh
@@ -110,4 +126,4 @@ takelship_forgejo_runner_secret: >-
 takelship_forgejo_runner_command_register: >-
   "while : ; do sleep 1 ; done ;"
 takelship_forgejo_runner_command_daemon: >-
-  "sleep 5; forgejo-runner daemon"
+  "sleep 5; forgejo-runner daemon --config /config.yml"
