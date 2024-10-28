@@ -70,19 +70,19 @@ takel_ship_forgejo_runner_image:
 takel_ship_forgejo_action_debian_image:
   name: node
   tag: 20-bookworm
-  alias: node
+  registry: docker.io
   label: debian:docker://node:20-bookworm
 
 takel_ship_forgejo_action_ubuntu_image:
   name: ghcr.io/catthehacker/ubuntu
   tag: act-latest
-  alias: ubuntu
-  label: ubuntu:docker://ghcr.io/catthehacker/ubuntu:act-latest
+  registry: ghcr.io
+  label: ubuntu:docker://catthehacker/ubuntu:runner-latest
 
 takel_ship_forgejo_action_takelbuild_image:
   name: takelwerk/takelbuild
   tag: latest
-  alias: takelbuild
+  registry: docker.io
   label: takelbuild:docker://takelwerk/takelbuild:latest
 
 takel_ship_forgejo_script_forgejo:
