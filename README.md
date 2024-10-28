@@ -49,7 +49,7 @@ These basic conditions yield some amazing advantages:
 - Moderate prerequisites to run a takelship: basically docker and ruby.
 - Very moderate changes to the system: one directory per project and one takelship container on the docker host.
 - Complete isolation between takelship projects in different directories which do do not pollute your docker host environment.
-- User friendly command line interface (`ship`) with sane defaults (following the [convention over configuration](https://en.wikipedia.org/wiki/Convention_over_configuration) pradigm).
+- User friendly command line interface (`ship`) with sane defaults (following the [convention over configuration](https://en.wikipedia.org/wiki/Convention_over_configuration) paradigm).
 - Still *takelage* is highly customisable, transparent, free and open source software. Build your own takelship and ship arbitrarily complex software setups!
 - Well-known tools for easy backup (`cp`), versioning (`git`), update (`docker pull`), migration (`rsync`) and uninstallation (`rm`) of the configuration and project data are readily available.
 - Fallback mode if the takelship sinks: run the `docker-compose-up` bash script to start the project *on your host computer*. Continue to use your configured takelship project data with no takelship involved.
