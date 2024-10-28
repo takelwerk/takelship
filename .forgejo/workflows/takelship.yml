@@ -13,7 +13,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
-          github-server-url: http://forgejo-server:33000
+          github-server-url: http://forgejo-server:3000
 
       - name: Install ruby
         run: |
