@@ -7,7 +7,7 @@ on:
 
 jobs:
   takelship:
-    runs-on: takelship
+    runs-on: takelbuild
     # if: startsWith(github.ref, 'refs/tags/')
     steps:
       - name: Check out repository
