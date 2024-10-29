@@ -13,7 +13,12 @@ jobs:
       - name: Check out repository
         run: |
           git clone http://forgejo-server:3000/takelwerk/takelship.git /tmp/checkout
-          rsync -a /tmp/checkout
+          rsync -a /tmp/checkout .
+
+      - name: Interrupt workflow
+        run: |
+          touch /tmp/delete_me_to_continue_workflow
+          while [ -f /tmp/delete_me_to_continue_workflow ]; do sleep 1; done
 
       - name: Lint ruby
         run: rake rubylint
