@@ -13,7 +13,7 @@ services:
     environment:
       DOCKER_HOST: tcp://docker:2375
       DOCKER_CERT_PATH: ""
-      DOCKER_TLS_VERIFY: "0"
+      DOCKER_TLS_VERIFY:
     user: 1000:1000
     volumes:
       - {{ takel_ship_compose_to_services_dir }}/{{

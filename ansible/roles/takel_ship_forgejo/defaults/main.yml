@@ -56,7 +56,7 @@ takelship_forgejo_runner_labels:
   - ubuntu:docker://ghcr.io/catthehacker/ubuntu:runner-latest
   - ubuntu-root:docker://ghcr.io/catthehacker/ubuntu:act-latest
   - debian:docker://docker.io/node:20-bookworm
-  - takelbuild:docker://docker.io/takelwerk/takelbuild:latest
+  - takelbuild:docker://docker.io/takelage/takelbuild
 
 takel_ship_forgejo_server_image:
   name: codeberg.org/forgejo/forgejo
@@ -94,13 +94,13 @@ takel_ship_forgejo_script_runner_config:
   owner: "{{ takel_ship_podman_user.owner }}"
   group: "{{ takel_ship_podman_user.group }}"
   mode: "{{ takel_ship_podman_user.mode.file }}"
+  createdir: "{{ takel_ship_podman_user.mode.dir }}"
   path: >-
     {{ takel_ship_compose_home_dir }}/{{
     takel_ship_compose_dist_dir }}/{{
     takel_ship_compose_compose_dir }}/{{
     takel_ship_compose_services_dir }}/{{
-    takel_ship_forgejo_runner_service.name
-    }}/config.yml
+    takel_ship_forgejo_runner_service.name }}
 
 takel_ship_forgejo_server_ssh_30022:
   port: 30022
