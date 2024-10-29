@@ -41,20 +41,17 @@ takel_ship_teamcity_runner_service:
 takel_ship_teamcity_version: 2024.07.3
 
 takel_ship_teamcity_server_image:
-  name: jetbrains/teamcity-server
+  name: docker.io/jetbrains/teamcity-server
   tag: "{{ takel_ship_teamcity_version }}"
-  alias: teamcity-server
 
 takel_ship_teamcity_runner_amd64_image:
-  name: jetbrains/teamcity-agent
+  name: docker.io/jetbrains/teamcity-agent
   tag: "{{ takel_ship_teamcity_version }}-linux-sudo"
-  alias: teamcity-agent-linux-sudo
   arch: x86_64
 
 takel_ship_teamcity_runner_arm64_image:
-  name: jetbrains/teamcity-agent
+  name: docker.io/jetbrains/teamcity-agent
   tag: "{{ takel_ship_teamcity_version }}-linux-arm64-sudo"
-  alias: teamcity-agent-linux-arm64-sudo
   arch: aarch64
 
 takel_ship_teamcity_server_http_38111:

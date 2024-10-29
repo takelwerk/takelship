@@ -1,0 +1,21 @@
+{{ takel_ship_scripts_shebang }}
+
+podman logs \
+  --color \
+  --follow \
+  --names \
+  --timestamps \
+{% for service in takel_ship_compose_project['services'] %}
+{% if 'podman' in service['profiles'] %}
+{% if 'nologs' not in service or not service['nologs'] %}
+{% if 'instances' in service %}
+{% for runner in range(1, service['instances'] + 1) %}
+  {{ service['name'] }}-{{ runner }} \
+{% endfor %}
+{% else %}
+  {{ service['name'] }} \
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}
+  {{ takel_ship_registry_takelship_registry_service['name'] }}

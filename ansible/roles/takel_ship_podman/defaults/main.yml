@@ -16,6 +16,7 @@ takel_ship_podman_script_bash_history:
 takel_ship_podman_deb_install_packages:
   - bash-completion
   - bat
+  - cron
   - curl
   - git
   - iproute2

@@ -4,7 +4,7 @@ services:
     container_name: docker
     hostname: docker
     image: {{
-    takel_ship_dind_podman_image['alias'] }}:{{
+    takel_ship_dind_podman_image['name'] }}:{{
     takel_ship_dind_podman_image['tag'] }}
     restart: always
     command: {{ takel_ship_dind_podman_socat_command }}

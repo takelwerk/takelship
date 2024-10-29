@@ -6,7 +6,7 @@ services:
     hostname: ${TAKELSHIP_TEAMCITY_SERVER_HOSTNAME:-{{
     takel_ship_teamcity_server_service['name'] }}}
     image: ${TAKELSHIP_TEAMCITY_SERVER_IMAGE:-{{
-    takel_ship_teamcity_server_image['alias'] }}:{{
+    takel_ship_teamcity_server_image['name'] }}:{{
     takel_ship_teamcity_server_image['tag'] }}}
     profiles: {{ takel_ship_teamcity_server_service['profiles'] }}
     restart: ${TAKELSHIP_TEAMCITY_SERVER_RESTART:-{{

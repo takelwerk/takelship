@@ -6,7 +6,7 @@ services:
     hostname: ${TAKELSHIP_FORGEJO_SERVER_HOSTNAME:-{{
     takel_ship_forgejo_server_service['name'] }}}
     image: ${TAKELSHIP_FORGEJO_SERVER_IMAGE:-{{
-    takel_ship_forgejo_server_image['alias'] }}:{{
+    takel_ship_forgejo_server_image['name'] }}:{{
     takel_ship_forgejo_server_image['tag'] }}}
     profiles: {{
     takel_ship_forgejo_server_service['profiles'] }}

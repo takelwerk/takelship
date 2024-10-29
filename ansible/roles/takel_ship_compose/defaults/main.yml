@@ -31,7 +31,6 @@ takel_ship_compose_example_service:
 takel_ship_compose_example_image:
   name: alpine
   tag: latest
-  alias: alpine
 
 takel_ship_compose_script_containers:
   name: containers.conf
@@ -75,6 +74,7 @@ takel_ship_compose_run_postinstall: run-postinstall
 takel_ship_compose_dockerfile: Dockerfile
 takel_ship_compose_copy_images: copy-images
 takel_ship_compose_copy_project: copy-project
+takel_ship_compose_podman_logs: podman-logs
 takel_ship_compose_set_ports: set-ports
 takel_ship_compose_docker_compose_yml: docker-compose.yml
 

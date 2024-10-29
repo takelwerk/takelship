@@ -5,7 +5,7 @@ services:
     hostname: ${TAKELSHIP_PORTAINER_SERVER_HOSTNAME:-{{
     takel_ship_portainer_server_service['name'] }}}
     image: ${TAKELSHIP_PORTAINER_SERVER_IMAGE:-{{
-    takel_ship_portainer_server_image['alias'] }}:{{
+    takel_ship_portainer_server_image['name'] }}:{{
     takel_ship_portainer_server_image['tag'] }}}
     profiles: {{ takel_ship_portainer_server_service['profiles'] }}
     restart: ${TAKELSHIP_PORTAINER_SERVER_RESTART:-always}

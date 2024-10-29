@@ -103,6 +103,22 @@
   loop_control:
     loop_var: takel_ship_compose_project
 
+- name: (compose) (projects) deploy bash podman logs script
+  ansible.builtin.template:
+    src: project.podman-logs.bash.j2
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_projects_dir }}/{{
+      takel_ship_compose_project.name }}/{{
+      takel_ship_compose_podman_logs }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
+  loop: "{{ takel_ship_compose_projects }}"
+  loop_control:
+    loop_var: takel_ship_compose_project
+
 - name: (compose) (projects) deploy bash set ports script
   ansible.builtin.template:
     src: project.set-ports.bash.j2

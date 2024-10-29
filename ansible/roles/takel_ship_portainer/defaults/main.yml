@@ -20,9 +20,8 @@ takel_ship_portainer_server_service:
     - podman
 
 takel_ship_portainer_server_image:
-  name: portainer/portainer-ce
+  name: docker.io/portainer/portainer-ce
   tag: latest
-  alias: portainer-ce
 
 takel_ship_portainer_server_http_39000:
   port: 39000

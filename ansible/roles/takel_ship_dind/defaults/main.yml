@@ -15,6 +15,7 @@ takel_ship_dind_docker_service:
     Provides Docker in Docker.
   role: takel_ship_dind
   template: docker-compose.dind-docker.yml.j2
+  nologs: true
   profiles:
     - docker
 
@@ -25,19 +26,19 @@ takel_ship_dind_podman_service:
     Provides Docker in Docker.
   role: takel_ship_dind
   template: docker-compose.dind-podman.yml.j2
+  nologs: true
   images:
     - "{{ takel_ship_dind_podman_image }}"
   profiles:
     - podman
 
 takel_ship_dind_docker_image:
-  name: docker
+  name: docker.io/docker
   tag: dind
 
 takel_ship_dind_podman_image:
-  name: alpine/socat
+  name: docker.io/alpine/socat
   tag: latest
-  alias: socat
 
 takel_ship_dind_podman_socket:
   file: /home/podman/.run/podman.sock

@@ -11,3 +11,13 @@
   vars:
     user: "{{ takel_ship_podman_user.owner }}"
   changed_when: false
+
+- name: (images) sync images with registry
+  ansible.builtin.cron:
+    name: sync images
+    minute: "/5"
+    user: podman
+    job: >-
+      {{ takel_ship_scripts_dir }}/{{ 
+      takel_ship_registry_images_sync.name 
+      }} >/dev/null 2>&1

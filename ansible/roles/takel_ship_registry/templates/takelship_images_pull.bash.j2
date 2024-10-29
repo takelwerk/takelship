@@ -1,0 +1,35 @@
+{{ takel_ship_scripts_shebang }}
+
+# All images in the takelship registry
+IMAGES=$(curl \
+         --silent \
+         --request GET \
+         http://localhost:{{
+         takel_ship_registry_takelship_registry_http_5555['port']
+         }}/v2/_catalog \
+         | jq -r '.["repositories"][]')
+
+# Pull images from takelship registry
+while IFS= read -r IMAGE; do
+  TAGS=$(curl \
+         --silent \
+         --request GET \
+         http://localhost:{{
+         takel_ship_registry_takelship_registry_http_5555['port']
+         }}/v2/$IMAGE/tags/list \
+         | jq -r '.["tags"][]')
+  while IFS= read -r TAG; do
+    echo podman pull localhost:{{
+    takel_ship_registry_takelship_registry_http_5555['port']
+    }}/$IMAGE:$TAG
+    podman pull localhost:{{
+    takel_ship_registry_takelship_registry_http_5555['port']
+    }}/$IMAGE:$TAG
+    echo podman tag localhost:{{
+    takel_ship_registry_takelship_registry_http_5555['port']
+    }}/$IMAGE:$TAG $IMAGE:$TAG
+    podman tag localhost:{{
+    takel_ship_registry_takelship_registry_http_5555['port']
+    }}/$IMAGE:$TAG $IMAGE:$TAG
+  done <<< "$TAGS"
+done <<< "$IMAGES"

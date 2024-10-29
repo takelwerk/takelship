@@ -3,7 +3,6 @@
 {% for service in takel_ship_compose_project['services'] %}
 {% if 'images' in service %}
 {% for image in service['images'] %}
-{% if image not in takel_ship_registry_takelship_images %}
 SERVICE_ENABLED="$TAKELSHIP_SERVICE_{{ service['name'] | upper | replace("-", "_") }}"
 SERVICE_ENABLED="${SERVICE_ENABLED:-'false'}"
 SERVICE_ENABLED="${SERVICE_ENABLED,,}"
@@ -22,7 +21,6 @@ if [[ "$SERVICE_ENABLED" != "false" ]]; then
     docker://localhost:{{ takel_ship_registry_takelship_registry_http_5555['port'] }}/{{ image['name'] }}:{{ image['tag'] }}
 {% endif %}
 fi
-{% endif %}
 {% endfor %}
 {% endif %}
 {% endfor %}

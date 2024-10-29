@@ -61,12 +61,10 @@ takelship_forgejo_runner_labels:
 takel_ship_forgejo_server_image:
   name: codeberg.org/forgejo/forgejo
   tag: 8-rootless
-  alias: forgejo
 
 takel_ship_forgejo_runner_image:
   name: code.forgejo.org/forgejo/runner
   tag: 3.5.1
-  alias: runner
 
 takel_ship_forgejo_script_forgejo:
   name: "{{ takel_ship_forgejo_bin_cli }}"

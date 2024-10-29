@@ -8,19 +8,21 @@ takel_ship_registry_scripts:
   - "{{ takel_ship_registry_script_registries }}"
   - "{{ takel_ship_registry_ui_script_config }}"
   - "{{ takel_ship_registry_server_script_config }}"
+  - "{{ takel_ship_registry_images_list }}"
+  - "{{ takel_ship_registry_images_push }}"
+  - "{{ takel_ship_registry_images_pull }}"
+  - "{{ takel_ship_registry_images_sync }}"
+  - "{{ takel_ship_registry_remove_image }}"
 
 ### end of group_vars
 
 takel_ship_registry_server_image:
   name: docker.io/library/registry
   tag: 2
-  alias: registry
-  skip_copy: true
 
 takel_ship_registry_ui_image:
-  name: quiq/registry-ui
+  name: docker.io/quiq/registry-ui
   tag: latest
-  alias: registry-ui
 
 # these images will pulled in the container
 # the registry image is necessary
@@ -114,6 +116,31 @@ takel_ship_registry_script_registries:
   path: >-
     {{ takel_ship_compose_home_dir
     }}/.config/containers
+
+takel_ship_registry_images_list:
+  name: takelship_images_list
+  role: takel_ship_registry
+  template: takelship_images_list.bash.j2
+
+takel_ship_registry_images_push:
+  name: takelship_images_push
+  role: takel_ship_registry
+  template: takelship_images_push.bash.j2
+
+takel_ship_registry_images_pull:
+  name: takelship_images_pull
+  role: takel_ship_registry
+  template: takelship_images_pull.bash.j2
+
+takel_ship_registry_images_sync:
+  name: takelship_images_sync
+  role: takel_ship_registry
+  template: takelship_images_sync.bash.j2
+
+takel_ship_registry_remove_image:
+  name: takelship_remove_image
+  role: takel_ship_registry
+  template: takelship_remove_image.bash.j2
 
 takel_ship_registry_restart: always
 

@@ -20,9 +20,8 @@ takel_ship_aptproxy_server_service:
     - podman
     - docker
 takel_ship_aptproxy_server_image:
-  name: soulteary/apt-proxy
+  name: docker.io/soulteary/apt-proxy
   tag: latest
-  alias: apt-proxy
 
 takel_ship_aptproxy_server_http_33142:
   port: 33142

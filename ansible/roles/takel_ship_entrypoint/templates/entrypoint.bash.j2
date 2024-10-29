@@ -106,10 +106,13 @@ $POD --workdir $SERVICES_DIR/{{ takel_ship_registry_takelship_registry_service['
 echo $LOG Copying images for project: $PROJECT
 $POD $PROJECTS_SETUP_DIR/$PROJECT/{{ takel_ship_compose_copy_images }}
 
+echo $LOG Syncing images for project: $PROJECT
+$POD {{ takel_ship_registry_images_sync['name'] }}
+
 echo $LOG Starting project: $PROJECT
 $POD --workdir $PROJECTS_DIR/$PROJECT ./{{ takel_ship_compose_run_podman }}
 
-echo $LOG Following podman compose logs
+echo $LOG Following podman logs
 while true; do
-  $POD --workdir $PROJECTS_DIR/$PROJECT podman-compose logs --follow 2>/dev/null;
+  $POD $PROJECTS_SETUP_DIR/$PROJECT/{{ takel_ship_compose_podman_logs }}
 done

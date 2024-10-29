@@ -17,6 +17,7 @@ fi
 
 {% for service in takel_ship_compose_project['services'] %}
 {% if 'docker' in service['profiles'] %}
+{% if 'env' in service %}
 # echo Service: {{ service['name'] }}
 ENV_FILE=$SERVICES_DIR/{{ service['name'] }}/{{ takel_ship_compose_env_docker }}
 SHIP_PORT=$TAKELSHIP_SHIP_PORTS_{{ takel_ship_registry_takelship_registry_service['name'] | upper | replace('-', '_') }}_{{ takel_ship_registry_takelship_registry_http_5555['protocol'] | upper }}_{{ takel_ship_registry_takelship_registry_http_5555['port'] | upper }}
@@ -32,5 +33,6 @@ if [ -n "${SHIP_PORT}" ]; then
 fi
 {% endfor %}
 
+{% endif %}
 {% endif %}
 {% endfor %}

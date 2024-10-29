@@ -7,7 +7,7 @@ services:
     hostname: ${TAKELSHIP_TEAMCITY_RUNNER_HOSTNAME:-{{
     takel_ship_teamcity_runner_service['name'] }}}-{{ runner }}
     image: ${TAKELSHIP_TEAMCITY_RUNNER_IMAGE:-{{
-    takel_ship_teamcity_runner_amd64_image['alias'] }}:{{
+    takel_ship_teamcity_runner_amd64_image['name'] }}:{{
     takel_ship_teamcity_runner_amd64_image['tag'] }}}
     profiles: {{ takel_ship_teamcity_runner_service['profiles'] }}
     privileged: true

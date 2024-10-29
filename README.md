@@ -133,7 +133,7 @@ ship start
 
 A takelship project consists of a directory containing a `takelage.yml` configuration file a `takelship` data directory next to it. So it's one directory including everything: configuration, data and the images in the `cache` directory.
 
-In the `takelship` directory you will find a `cache` directory. This is where the internal registry stores the downloaded docker images. It can be become huge, e.g. if you run `ship start all`.
+In the `takelship` directory you will find a `cache` directory. This is where the internal takelship registry stores the downloaded docker images. The internal podman registry and the internal takelship registry are synced regularly by cron.
 
 The `ship start` command stores the `ship_default_project` as well as the current port configuration in the `takelage.yml`.
 

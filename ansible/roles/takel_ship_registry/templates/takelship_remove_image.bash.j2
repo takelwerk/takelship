@@ -1,0 +1,12 @@
+{{ takel_ship_scripts_shebang }}
+
+IMAGE=$1
+
+# Removing $IMAGE
+docker image rm $IMAGE
+docker image rm localhost:{{
+  takel_ship_registry_takelship_registry_http_5555['port']
+  }}/$IMAGE
+skopeo delete localhost:{{
+  takel_ship_registry_takelship_registry_http_5555['port']
+  }}/$IMAGE
