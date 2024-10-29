@@ -16,13 +16,16 @@ takel_ship_podman_script_bash_history:
 takel_ship_podman_deb_install_packages:
   - bash-completion
   - bat
+  - ca-certificates
   - cron
   - curl
   - git
   - iproute2
   - jq
   - nano
+  - parallel
   - procps
+  - rsync
   - skopeo
   - tree
   - vim
