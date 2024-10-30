@@ -2,10 +2,10 @@
 services:
 {% for runner in range(1, takel_ship_teamcity_runner_service['instances'] + 1) %}
   {{ takel_ship_teamcity_runner_service['name'] }}-{{ runner }}-service:
-    container_name: ${TAKELSHIP_TEAMCITY_RUNNER_CONTAINER_NAME:-{{
-    takel_ship_teamcity_runner_service['name'] }}}-{{ runner }}
-    hostname: ${TAKELSHIP_TEAMCITY_RUNNER_HOSTNAME:-{{
-    takel_ship_teamcity_runner_service['name'] }}}-{{ runner }}
+    container_name: {{
+    takel_ship_teamcity_runner_service['name'] }}-{{ runner }}
+    hostname: {{
+    takel_ship_teamcity_runner_service['name'] }}-{{ runner }}
     image: ${TAKELSHIP_TEAMCITY_RUNNER_IMAGE:-{{
     takel_ship_teamcity_runner_amd64_image['name'] }}:{{
     takel_ship_teamcity_runner_amd64_image['tag'] }}}
@@ -18,7 +18,7 @@ services:
       takel_ship_teamcity_server_service['name'] }}:8111
       DOCKER_IN_DOCKER: start
       AGENT_NAME: >-
-        ${TAKELSHIP_TEAMCITY_RUNNER_CONTAINER_NAME:-{{
-        takel_ship_teamcity_runner_service['name'] }}}-{{ runner }}
+        {{
+        takel_ship_teamcity_runner_service['name'] }}-{{ runner }}
       AGENT_OPTS: ${TAKELSHIP_TEAMCITY_RUNNER_AGENT_OPTS:-"docker.server.osType=Linux docker.server.version=N/A teamcity.agent.os.family=Linux"}
 {% endfor %}
