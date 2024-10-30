@@ -5,7 +5,7 @@ PODMAN_USERNS=keep-id podman-compose --in-pod=false --profile podman \
 {% else %}
 podman-compose --profile podman \
 {% endif %}
-  up -d
+  up -d 2> /dev/null
 {% if 'postinstall' in takel_ship_compose_service %}
 ./{{ takel_ship_compose_run_postinstall }}
 {% endif %}

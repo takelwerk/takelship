@@ -15,7 +15,7 @@ if [[ "$SERVICE_ENABLED" == "true" ]]; then
 {% else %}
   podman-compose --profile podman \
 {% endif %}
-    up {{ service['name'] }}-{{ runner }}-service -d
+    up {{ service['name'] }}-{{ runner }}-service -d 2> /dev/null
 {% endfor %}
 {% else %}
 {% if 'nonroot' in service and service['nonroot'] %}
@@ -23,7 +23,7 @@ if [[ "$SERVICE_ENABLED" == "true" ]]; then
 {% else %}
   podman-compose --profile podman \
 {% endif %}
-    up {{ service['name'] }}-service -d
+    up {{ service['name'] }}-service -d 2> /dev/null
 {% endif %}
 {% if 'postinstall' in service %}
   {{ takel_ship_compose_to_services_dir }}/{{ service['name'] }}/{{ takel_ship_compose_run_postinstall }} {{ takel_ship_compose_project['name'] }}
