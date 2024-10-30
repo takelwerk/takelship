@@ -5,8 +5,7 @@ DEBUG="${DEBUG,,}"
 
 # silence podman compose errors by default which are misleading
 MUTE='2> /dev/null'
-[[ "$DEBUG" == "true" ]]
-  && MUTE=''
+[[ "$DEBUG" == "true" ]] && MUTE=''
 
 {% for service in takel_ship_compose_project['services'] %}
 {% if 'podman' in service['profiles'] %}

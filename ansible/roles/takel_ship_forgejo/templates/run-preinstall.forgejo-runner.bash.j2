@@ -5,8 +5,7 @@ DEBUG="${DEBUG,,}"
 
 # silence podman compose errors by default which are misleading
 MUTE='2> /dev/null'
-[[ "$DEBUG" == "true" ]]
-  && MUTE=''
+[[ "$DEBUG" == "true" ]] && MUTE=''
 
 PROJECT="$1"
 RUNNERDIR="{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_forgejo_runner_service['name'] }}/data"

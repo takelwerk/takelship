@@ -5,8 +5,7 @@ DEBUG="${DEBUG,,}"
 
 # silence podman compose errors by default which are misleading
 MUTE='2> /dev/null'
-[[ "$DEBUG" == "true" ]]
-  && MUTE=''
+[[ "$DEBUG" == "true" ]] && MUTE=''
 
 # if a tea config file with a token exists
 # then update the tea host config file
