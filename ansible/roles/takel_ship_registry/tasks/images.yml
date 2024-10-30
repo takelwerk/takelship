@@ -17,6 +17,7 @@
     name: sync images
     minute: "/5"
     user: podman
+    cron_file: takelship_images_sync
     job: >-
       {{ takel_ship_scripts_dir }}/{{
       takel_ship_registry_images_sync.name
