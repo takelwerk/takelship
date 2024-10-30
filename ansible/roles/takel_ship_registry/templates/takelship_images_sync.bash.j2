@@ -1,4 +1,14 @@
 {{ takel_ship_scripts_shebang }}
 
+echo "Syncing images"
+
+# ensure log dir exists
+LOGDIR=/tmp/images_sync
+mkdir --parents $LOGDIR
+
+# touch a file to leave a trace
+NOW=$(date +%Y-%m-%d_%H-%M-%S)
+touch $LOGDIR/$NOW_images_sync
+
 {{ takel_ship_registry_images_push['name'] }}
 {{ takel_ship_registry_images_pull['name'] }}
