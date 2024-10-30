@@ -18,7 +18,6 @@ services:
       takel_ship_teamcity_server_service['name'] }}:8111
       DOCKER_IN_DOCKER: start
       AGENT_NAME: >-
-        {{
-        takel_ship_teamcity_runner_service['name'] }}-{{ runner }}
+        {{ takel_ship_teamcity_runner_service['name'] }}-{{ runner }}
       AGENT_OPTS: ${TAKELSHIP_TEAMCITY_RUNNER_AGENT_OPTS:-"docker.server.osType=Linux docker.server.version=N/A teamcity.agent.os.family=Linux"}
 {% endfor %}
