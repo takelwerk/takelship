@@ -13,7 +13,7 @@ if [[ "$SERVICE_ENABLED" == "true" ]]; then
 {% if 'nonroot' in service and service['nonroot'] %}
   PODMAN_USERNS=keep-id podman-compose --in-pod=false --profile podman \
 {% else %}
-  podman-compose "--project" podman \
+  podman-compose --profile podman \
 {% endif %}
     up {{ service['name'] }}-{{ runner }}-service -d
 {% endfor %}
