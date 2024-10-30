@@ -117,5 +117,5 @@ $POD --workdir $PROJECTS_DIR/$PROJECT ./{{ takel_ship_compose_run_podman }}
 
 echo $LOG Following podman logs
 while true; do
-  $POD $PROJECTS_SETUP_DIR/$PROJECT/{{ takel_ship_compose_podman_logs }}
+  cron && $POD $PROJECTS_SETUP_DIR/$PROJECT/{{ takel_ship_compose_podman_logs }}
 done
