@@ -1,5 +1,13 @@
 {{ takel_ship_scripts_shebang }}
 
+DEBUG="${TAKELSHIP_DEBUG:-'false'}"
+DEBUG="${DEBUG,,}"
+
+# silence podman compose errors by default which are misleading
+MUTE='2> /dev/null'
+[[ "$DEBUG" == "true" ]]
+  && MUTE=''
+
 {% for service in takel_ship_compose_project['services'] %}
 {% if 'podman' in service['profiles'] %}
 SERVICE_ENABLED="${TAKELSHIP_SERVICE_{{ service['name'] | upper | replace("-", "_") }}:-true}"
@@ -15,7 +23,7 @@ if [[ "$SERVICE_ENABLED" == "true" ]]; then
 {% else %}
   podman-compose --profile podman \
 {% endif %}
-    up {{ service['name'] }}-{{ runner }}-service -d
+    up {{ service['name'] }}-{{ runner }}-service -d $MUTE
 {% endfor %}
 {% else %}
 {% if 'nonroot' in service and service['nonroot'] %}
@@ -23,8 +31,9 @@ if [[ "$SERVICE_ENABLED" == "true" ]]; then
 {% else %}
   podman-compose --profile podman \
 {% endif %}
-    up {{ service['name'] }}-service -d
+    up {{ service['name'] }}-service -d $MUTE
 {% endif %}
+
 {% if 'postinstall' in service %}
   {{ takel_ship_compose_to_services_dir }}/{{ service['name'] }}/{{ takel_ship_compose_run_postinstall }} {{ takel_ship_compose_project['name'] }}
 {% endif %}

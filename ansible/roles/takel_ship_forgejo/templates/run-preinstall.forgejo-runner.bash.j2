@@ -1,5 +1,13 @@
 {{ takel_ship_scripts_shebang }}
 
+DEBUG="${TAKELSHIP_DEBUG:-'false'}"
+DEBUG="${DEBUG,,}"
+
+# silence podman compose errors by default which are misleading
+MUTE='2> /dev/null'
+[[ "$DEBUG" == "true" ]]
+  && MUTE=''
+
 PROJECT="$1"
 RUNNERDIR="{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_forgejo_runner_service['name'] }}/data"
 
@@ -35,20 +43,21 @@ echo Starting forgejo runner {{ runner }} in register mode
 TAKELSHIP_FORGEJO_RUNNER_COMMAND={{ takelship_forgejo_runner_command_register }} \
   compose-nonroot --profile podman \
   --file {{ takel_ship_compose_to_projects_dir }}/$PROJECT/{{ takel_ship_compose_docker_compose_yml }} \
-  up {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}-service -d
+  up {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}-service -d $MUTE
 
 {% endfor %}
 
 RETRY=1
 # wait until the runner is up
 until [ $RETRY -ge 20 ]; do
-  podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-1 whoami && break
+  USER=$(podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-1 whoami $MUTE)
+  [ $? -eq 0 ] && break
   echo Waiting for forgejo runners
   sleep 1
   let RETRY++
 done
 
-USER=$(podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-1 whoami)
+USER=$(podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-1 whoami $MUTE)
 
 # if the last command failed then exit
 [ $? -ne 0 ] && exit
@@ -74,7 +83,7 @@ podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} for
 echo Killing forgejo runner {{ runner }} in register mode
 compose-nonroot --profile podman \
   --file {{ takel_ship_compose_to_projects_dir }}/$PROJECT/{{ takel_ship_compose_docker_compose_yml }} \
-  kill {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}-service
+  kill {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}-service $MUTE
 
 # add labels to runner config
 sed -i -E s"|^  \"labels\".*$|  \"labels\": [{{ '\\\"' + takelship_forgejo_runner_labels | join('\\\", \\\"') + '\\\"'  }}]|" $RUNNERDIR-{{ runner }}/.runner

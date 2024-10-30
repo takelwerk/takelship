@@ -1,11 +1,24 @@
 {{ takel_ship_scripts_shebang }}
 
+DEBUG="${TAKELSHIP_DEBUG:-'false'}"
+DEBUG="${DEBUG,,}"
+
+# silence podman compose errors by default which are misleading
+MUTE='2> /dev/null'
+[[ "$DEBUG" == "true" ]]
+  && MUTE=''
+
+{% if 'preinstall' in takel_ship_compose_service %}
+./{{ takel_ship_compose_run_preinstall }}
+{% endif %}
+
 {% if 'nonroot' in takel_ship_compose_service and takel_ship_compose_service['nonroot'] %}
 PODMAN_USERNS=keep-id podman-compose --in-pod=false --profile podman \
 {% else %}
 podman-compose --profile podman \
 {% endif %}
-  up -d
+  up -d $MUTE
+
 {% if 'postinstall' in takel_ship_compose_service %}
 ./{{ takel_ship_compose_run_postinstall }}
 {% endif %}
