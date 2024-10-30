@@ -1,5 +1,13 @@
 {{ takel_ship_scripts_shebang }}
 
+DEBUG="${TAKELSHIP_DEBUG:-'false'}"
+DEBUG="${DEBUG,,}"
+
+# silence podman compose errors by default which are misleading
+MUTE='2> /dev/null'
+[[ "$DEBUG" == "true" ]]
+  && MUTE=''
+
 # if a tea config file with a token exists
 # then update the tea host config file
 # with the current port configuration and exit
@@ -20,8 +28,8 @@ fi
 
 RETRY=1
 # wait until the server is up
-until [ "$RETRY" -ge 20 ] || forgejo admin user list; do
-  echo Forgejo server not ready. Retrying in a second...
+until [ "$RETRY" -ge 20 ] || (forgejo admin user list $MUTE); do
+  echo Forgejo server not yet ready. Retrying in a second...
   sleep 1
   ((RETRY++))
 done
