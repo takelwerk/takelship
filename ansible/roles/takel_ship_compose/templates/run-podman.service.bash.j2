@@ -1,7 +1,7 @@
 {{ takel_ship_scripts_shebang }}
 
 {% if 'nonroot' in takel_ship_compose_service and takel_ship_compose_service['nonroot'] %}
-PODMAN_USERNS=keep-id podman-compose --in-pod=false \
+PODMAN_USERNS=keep-id podman-compose --in-pod=false --profile podman \
 {% else %}
 podman-compose --profile podman \
 {% endif %}

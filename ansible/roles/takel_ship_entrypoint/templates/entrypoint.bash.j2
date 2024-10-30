@@ -115,7 +115,10 @@ $POD {{ takel_ship_registry_images_sync['name'] }}
 echo $LOG Starting project: $PROJECT
 $POD --workdir $PROJECTS_DIR/$PROJECT ./{{ takel_ship_compose_run_podman }}
 
+echo $LOG Starting cron
+cron &
+
 echo $LOG Following podman logs
 while true; do
-  cron && $POD $PROJECTS_SETUP_DIR/$PROJECT/{{ takel_ship_compose_podman_logs }}
+  $POD $PROJECTS_SETUP_DIR/$PROJECT/{{ takel_ship_compose_podman_logs }}
 done
