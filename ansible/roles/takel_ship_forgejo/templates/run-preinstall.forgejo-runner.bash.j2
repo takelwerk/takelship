@@ -5,7 +5,7 @@ RUNNERDIR="{{ takel_ship_compose_to_services_dir }}/{{ takel_ship_forgejo_runner
 
 # if the first runner is already configured then exit
 if [ -w "$RUNNERDIR-1/.runner" ]; then
-  echo Runner already configured
+  echo First forgejo runner already configured
   echo Remove {{
       takel_ship_compose_data_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
