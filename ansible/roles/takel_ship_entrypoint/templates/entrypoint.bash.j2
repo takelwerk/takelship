@@ -90,7 +90,7 @@ debug change podman uid and git and chown data dir
 # From here on non-privileged containers will fail
 
 debug set time zone
-ln -sf /usr/share/zoneinfo/{TAKELSHIP_TIMEZONE:-CET} /etc/localtime
+ln -sf /usr/share/zoneinfo/${TAKELSHIP_TIMEZONE:-CET} /etc/localtime
 
 debug suppress warning message about shared mount
 mount / --make-rshare
