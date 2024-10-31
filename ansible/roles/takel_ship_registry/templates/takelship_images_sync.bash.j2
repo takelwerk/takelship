@@ -1,5 +1,9 @@
 {{ takel_ship_scripts_shebang }}
 
+SYNC="${TAKELSHIP_IMAGES_SYNC:-'false'}"
+SYNC="${SYNC,,}"
+[[ "${SYNC}" == "false" ]] && exit
+
 echo "Syncing images"
 
 # touch a file to leave a trace

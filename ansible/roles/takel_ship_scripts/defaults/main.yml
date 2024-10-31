@@ -52,4 +52,8 @@ takel_ship_scripts_root:
     file: "0644"
 
 takel_ship_scripts_dir: /usr/local/bin
-takel_ship_scripts_shebang: '#!/usr/bin/env bash'
+takel_ship_scripts_shebang: |
+  #!/bin/bash
+  DEBUG="${TAKELSHIP_DEBUG:-'false'}"
+  DEBUG="${DEBUG,,}"
+  [[ "$DEBUG" == "true" ]] && set -xv

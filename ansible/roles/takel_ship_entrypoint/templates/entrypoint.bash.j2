@@ -1,15 +1,5 @@
 {{ takel_ship_scripts_shebang }}
 
-# Read more about bash string interpolation here:
-# https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/
-DEBUG="${TAKELSHIP_DEBUG:-'false'}"
-DEBUG="${DEBUG,,}"
-debug() {
-  # if the debug environment variable is set
-  # then print all arguments
-  [[ "$DEBUG" == "true" ]] && echo "$@"
-}
-
 POD={{ takel_ship_scripts_script_pod['name'] }}
 LOG="{{ takel_ship_entrypoint_log_prefix }}"
 SERVICES_DIR={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_services_dir }}
@@ -31,7 +21,6 @@ if [ -z "$1" ] || [[ "$1" == "/bin/bash" ]]; then
 fi
 
 PROJECT="$1"
-debug project is set to "$PROJECT"
 
 [[ "$PROJECT" == "default" ]] &&
   PROJECT={{ takel_ship_compose_default_project }}
@@ -55,6 +44,7 @@ fi
 
 print_header
 echo $LOG Preparing podman container environment
+echo $LOG Project: "$PROJECT"
 
 DUMP="${TAKELSHIP_DUMP:-"false"}"
 DUMP="${DUMP,,}"
@@ -65,11 +55,13 @@ UPDATE="${UPDATE,,}"
 [[ "$DUMP" == "true" ]] &&
   UPDATE='true'
 
-debug check if we have to prepopulate the data dir
+echo $LOG Check if we have to prepopulate the data dir
 [ ! -e "$PROJECTS_DIR" ] &&
   UPDATE="true"
 
-debug ensure that the dirs exist
+echo $LOG Update: "$UPDATE"
+
+echo $LOG Create compose directories
 mkdir --parents {{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_registry_cache_dir }}
 mkdir --parents $SERVICES_DIR
 mkdir --parents $PROJECTS_DIR
@@ -81,7 +73,7 @@ if [[ "$UPDATE" == "true" ]]; then
   $PROJECTS_SETUP_DIR/$PROJECT/{{ takel_ship_compose_copy_project }}
 fi
 
-debug change podman uid and git and chown data dir
+echo $LOG Change podman uid and git and chown data dir
 {{ takel_ship_entrypoint_script_change_ids['name'] }}
 
 [[ "$DUMP" == "true" ]] &&
@@ -89,16 +81,16 @@ debug change podman uid and git and chown data dir
 
 # From here on non-privileged containers will fail
 
-debug set time zone
+echo $LOG Set time zone
 ln -sf /usr/share/zoneinfo/${TAKELSHIP_TIMEZONE:-CET} /etc/localtime
 
-debug suppress warning message about shared mount
+echo $LOG Suppress warning message about shared mount
 mount / --make-rshare
 
-debug create podman unix socket and socat tcp forward
+echo $LOG Create podman unix socket and socat tcp forward
 {{ takel_ship_dind_script_add_podman_socket['name'] }}
 
-debug export takelship environment variables
+echo $LOG Export takelship environment variables
 {{ takel_ship_entrypoint_script_export_envvars['name'] }} "$(env)"
 
 # start internal takelship registry
