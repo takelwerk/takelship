@@ -195,14 +195,14 @@ ship_ports_aptproxy_server_http_33142: 0
 ship_ports_docker_host_docker_32375:
 ```
 
-If you want `ship` to choose a new port configuration then delete one ore more config lines. When you change a port, all configuration scripts are updated the next time a takelship is started.
-
 Be careful with comments:
 ```
 # I will be gone after the next ship restart
 ship_ports_takelship_registry_http_5555: 3555
 ship_ports_takelship_registry_http_5555_my_comment: I will survive restarts
 ```
+
+If you want `ship` to choose a new port configuration then delete one ore more config lines. When you change a port, all configuration scripts are updated the next time a takelship is started.
 
 Just be sure to leave the `ship_default_project` in the `takelage.yml` or you'll end up with forgejo and its runners (which is the takelship default project) and a *preconfigured* `docker compose` project ready to run on your host. But maybe that's exactly what you want...
 
