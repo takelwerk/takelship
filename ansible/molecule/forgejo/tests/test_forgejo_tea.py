@@ -19,7 +19,7 @@ def test_forgejo_tea_config(host):
 
     # wait for the host tea config to appear
     for _ in range(300):
-        cmd_ls_tea_config_takelship  = (
+        cmd_ls_tea_config_takelship = (
             f"ls {tea_config_host_file}")
         ls_run = host.run(cmd_ls_tea_config_takelship)
         if ls_run.exit_status == 0:
