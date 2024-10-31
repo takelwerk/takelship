@@ -3,7 +3,8 @@ services:
   {{ takel_ship_dind_podman_service['name'] }}-service:
     container_name: docker
     hostname: docker
-    image: {{
+    image: localhost:{{
+    takel_ship_registry_takelship_registry_http_5555['port'] }}/{{
     takel_ship_dind_podman_image['name'] }}:{{
     takel_ship_dind_podman_image['tag'] }}
     restart: always

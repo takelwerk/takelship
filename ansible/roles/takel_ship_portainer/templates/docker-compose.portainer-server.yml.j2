@@ -4,7 +4,8 @@ services:
     container_name: ${TAKELSHIP_PORTAINER_SERVER_CONTAINER_NAME:-{{ takel_ship_portainer_server_service['name'] }}}
     hostname: ${TAKELSHIP_PORTAINER_SERVER_HOSTNAME:-{{
     takel_ship_portainer_server_service['name'] }}}
-    image: ${TAKELSHIP_PORTAINER_SERVER_IMAGE:-{{
+    image: ${TAKELSHIP_PORTAINER_SERVER_IMAGE:-localhost:{{
+    takel_ship_registry_takelship_registry_http_5555['port'] }}/{{
     takel_ship_portainer_server_image['name'] }}:{{
     takel_ship_portainer_server_image['tag'] }}}
     profiles: {{ takel_ship_portainer_server_service['profiles'] }}

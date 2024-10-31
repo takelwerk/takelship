@@ -133,7 +133,7 @@ ship start
 
 A takelship project consists of a directory containing a `takelage.yml` configuration file a `takelship` data directory next to it. So it's one directory including everything: configuration, data and the images in the `cache` directory.
 
-In the `takelship` directory you will find a `cache` directory. This is where the internal takelship registry stores the downloaded docker images. The internal podman registry and the internal takelship registry are synced regularly by cron.
+In the `takelship` directory you will find a `cache` directory. This is where the internal takelship registry stores the downloaded docker images. The internal podman registry and the internal takelship registry are synced regularly by cron (unless you set `ship_images_sync: false`)
 
 The `ship start` command stores the `ship_default_project` as well as the current port configuration in the `takelage.yml`.
 
@@ -248,6 +248,24 @@ takelship/compose/projects/forgejo-server/config.yml
 This file can be symlinked as your host tea configuration file:
 - Linux: `~/.config/tea/config.yml`
 - macOS: `~/Library/Application\ Support/tea/config.yml`
+
+## takelship registry
+
+The takelship comes preshipped with a single internal docker image:
+[Distribution Registry](https://distribution.github.io/distribution/).
+This is the official docker registry which has a size of less than 26 Megabytes. 
+
+When you start a takelship, a registry container is started: the `takelship-registry`. Its date directory is `takelship/cache`.
+
+When you start a takelship project on your host with a `docker-compose-up` script then docker will pull a copy of the docker registry and start a `takelship-registry` on your host *using the same data* directory.
+
+The `docker-compose-up` will use the `env-docker` environment files so that the `docker-compose.yml` files will point to the correct `takelship-registry` host.
+
+When you manually update the `docker-compose.yml` files on your host then you have to set `ship_update: false` or your changes will be overwritten.
+
+If you want to debug `ship` or `takelship` then invoke the `ship` command with `--debug` or `-d`. If you run `ship start -d` then first you'll see a lot of debug output by the `ship` command. 
+
+But `ship` also sets the environment variable `TAKELSHIP_DEBUG=true` when starting the takelship container. Now `ship logs` will see `set -x` invoked in all bash scripts which run on the takelship.
 
 ## takelship without ship
 

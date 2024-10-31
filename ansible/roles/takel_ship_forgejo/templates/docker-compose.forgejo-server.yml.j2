@@ -5,7 +5,8 @@ services:
     takel_ship_forgejo_server_service['name'] }}}
     hostname: ${TAKELSHIP_FORGEJO_SERVER_HOSTNAME:-{{
     takel_ship_forgejo_server_service['name'] }}}
-    image: ${TAKELSHIP_FORGEJO_SERVER_IMAGE:-{{
+    image: ${TAKELSHIP_FORGEJO_SERVER_IMAGE:-localhost:{{
+    takel_ship_registry_takelship_registry_http_5555['port'] }}/{{
     takel_ship_forgejo_server_image['name'] }}:{{
     takel_ship_forgejo_server_image['tag'] }}}
     profiles: {{

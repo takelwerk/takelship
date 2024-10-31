@@ -6,7 +6,8 @@ services:
     takel_ship_teamcity_runner_service['name'] }}-{{ runner }}
     hostname: {{
     takel_ship_teamcity_runner_service['name'] }}-{{ runner }}
-    image: ${TAKELSHIP_TEAMCITY_RUNNER_IMAGE:-{{
+    image: ${TAKELSHIP_TEAMCITY_RUNNER_IMAGE:-localhost:{{
+    takel_ship_registry_takelship_registry_http_5555['port'] }}/{{
     takel_ship_teamcity_runner_amd64_image['name'] }}:{{
     takel_ship_teamcity_runner_amd64_image['tag'] }}}
     profiles: {{ takel_ship_teamcity_runner_service['profiles'] }}
