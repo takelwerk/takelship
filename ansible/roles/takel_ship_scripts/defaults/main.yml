@@ -56,4 +56,4 @@ takel_ship_scripts_shebang: |
   #!/bin/bash
   DEBUG="${TAKELSHIP_DEBUG:-'false'}"
   DEBUG="${DEBUG,,}"
-  [[ "$DEBUG" == "true" ]] && set -xv
+  [[ "$DEBUG" == "true" ]] && set -x

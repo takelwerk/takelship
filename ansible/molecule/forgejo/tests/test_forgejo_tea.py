@@ -1,5 +1,6 @@
 import takeltest
 import pytest
+from time import sleep
 
 testinfra_hosts = [takeltest.hosts()[0]]
 
@@ -15,6 +16,15 @@ def test_forgejo_tea_config(host):
         '/home/podman/.config/tea/config.yml'
     tea_config_host_file = \
         '/home/podman/takelship/compose/services/forgejo-server/config.yml'
+
+    # wait for the host tea config to appear
+    for _ in range(300):
+        cmd_ls_tea_config_takelship  = (
+            f"ls {tea_config_host_file}")
+        ls_run = host.run(cmd_ls_tea_config_takelship)
+        if ls_run.exit_status == 0:
+            break
+        sleep(1)
 
     tea_config_takelship = (
         host.file(tea_config_takelship_file).content.decode())
