@@ -6,14 +6,13 @@ takel_ship_compose_projects:
     services:
       - "{{ takel_ship_teamcity_server_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
-      - "{{ takel_ship_dind_podman_service }}"
       - "{{ takel_ship_dind_docker_service }}"
       - "{{ takel_ship_teamcity_runner_service }}"
+      - "{{ takel_ship_forgejo_runner_service }}"
       - "{{ takel_ship_aptproxy_server_service }}"
       - "{{ takel_ship_portainer_server_service }}"
       - "{{ takel_ship_registry_server_service }}"
       - "{{ takel_ship_registry_ui_service }}"
-      - "{{ takel_ship_forgejo_runner_service }}"
   - name: aptproxy
     description: >-
       APT Proxy (github.com/soulteary/apt-proxy)
@@ -41,7 +40,6 @@ takel_ship_compose_projects:
       Runs with Docker in Docker.
     services:
       - "{{ takel_ship_forgejo_server_service }}"
-      - "{{ takel_ship_dind_podman_service }}"
       - "{{ takel_ship_dind_docker_service }}"
       - "{{ takel_ship_aptproxy_server_service }}"
       - "{{ takel_ship_forgejo_runner_service }}"
@@ -59,7 +57,6 @@ takel_ship_compose_projects:
       - "{{ takel_ship_teamcity_server_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
       - "{{ takel_ship_teamcity_runner_service }}"
-      - "{{ takel_ship_dind_podman_service }}"
       - "{{ takel_ship_dind_docker_service }}"
       - "{{ takel_ship_registry_server_service }}"
       - "{{ takel_ship_registry_ui_service }}"

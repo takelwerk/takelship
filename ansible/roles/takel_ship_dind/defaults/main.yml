@@ -1,7 +1,6 @@
 ---
 takel_ship_dind_services:
   - "{{ takel_ship_dind_docker_service }}"
-  - "{{ takel_ship_dind_podman_service }}"
 
 takel_ship_dind_scripts:
   - "{{ takel_ship_dind_script_add_podman_socket }}"
@@ -11,32 +10,19 @@ takel_ship_dind_scripts:
 takel_ship_dind_docker_service:
   name: dind-docker
   description: >-
-    Docker in Docker (hub.docker.com/_/docker).
-    Provides Docker in Docker.
+    Docker in Docker.
+    Provides Docker in Docker by tunneling a docker socket.
   role: takel_ship_dind
   template: docker-compose.dind-docker.yml.j2
-  nologs: true
-  profiles:
-    - docker
-
-takel_ship_dind_podman_service:
-  name: dind-podman
-  description: >-
-    Podman in Docker.
-    Provides Docker in Docker.
-  role: takel_ship_dind
-  template: docker-compose.dind-podman.yml.j2
+  env: env.dind-docker.j2
   nologs: true
   images:
-    - "{{ takel_ship_dind_podman_image }}"
+    - "{{ takel_ship_dind_docker_image }}"
   profiles:
     - podman
+    - docker
 
 takel_ship_dind_docker_image:
-  name: docker.io/docker
-  tag: dind
-
-takel_ship_dind_podman_image:
   name: docker.io/alpine/socat
   tag: latest
 
@@ -51,17 +37,11 @@ takel_ship_dind_docker_32375:
   port: 32375
   protocol: docker
 
-takel_ship_dind_docker_command:
-  - "dockerd"
-  - "-H"
-  - "tcp://0.0.0.0:2375"
-  - "--tls=false"
-
-takel_ship_dind_podman_socat_command: >-
+takel_ship_dind_docker_socat_command: >-
   tcp-listen:2375,fork,reuseaddr
   unix-connect:/var/run/docker.sock
 
-takel_ship_dind_docker_socat_command: >-
+takel_ship_dind_podman_socat_command: >-
   socat tcp-listen:{{
   takel_ship_dind_docker_32375['port'] }},fork,reuseaddr
   unix-connect:/{{
