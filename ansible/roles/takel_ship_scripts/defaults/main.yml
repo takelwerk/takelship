@@ -53,7 +53,7 @@ takel_ship_scripts_root:
 
 takel_ship_scripts_dir: /usr/local/bin
 takel_ship_scripts_shebang: |
-  #!/bin/bash
+  #!/usr/bin/env bash
   DEBUG="${TAKELSHIP_DEBUG:-'false'}"
   DEBUG="${DEBUG,,}"
   [[ "$DEBUG" == "true" ]] && set -x

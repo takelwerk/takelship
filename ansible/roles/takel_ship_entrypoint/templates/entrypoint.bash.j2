@@ -105,13 +105,16 @@ $POD --workdir $SERVICES_DIR/{{ takel_ship_registry_takelship_registry_service['
 echo $LOG Copying images for project: $PROJECT
 $POD $PROJECTS_SETUP_DIR/$PROJECT/{{ takel_ship_compose_copy_images }}
 
+echo $LOG Setting project symlink
+$POD ln -s $PROJECTS_DIR/$PROJECT $PROJECTS_DIR/{{ takel_ship_compose_project_symlink }}
+
 echo $LOG Starting project: $PROJECT
-$POD --workdir $PROJECTS_DIR/$PROJECT ./{{ takel_ship_compose_run_podman }}
+$POD --workdir $$PROJECTS_DIR/{{ takel_ship_compose_project_symlink }} ./{{ takel_ship_compose_run_podman }}
 
 echo $LOG Starting cron
 cron &
 
 echo $LOG Following podman logs
 while true; do
-  $POD $PROJECTS_SETUP_DIR/$PROJECT/{{ takel_ship_compose_podman_logs }}
+  $POD $PROJECTS_DIR/{{ takel_ship_compose_project_symlink }}/{{ takel_ship_compose_podman_logs }}
 done

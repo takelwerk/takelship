@@ -90,3 +90,4 @@ takel_ship_compose_to_services_dir: >-
   ../../{{ takel_ship_compose_services_dir }}
 takel_ship_compose_to_projects_dir: >-
   ../../{{ takel_ship_compose_projects_dir }}
+takel_ship_compose_project_symlink: takelship
