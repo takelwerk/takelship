@@ -64,6 +64,8 @@ At the moment, these setups have been tested:
 - [Docker Desktop for Linux (Debian)](https://docs.docker.com/desktop/install/linux/debian/) (amd64)
 - [Docker Desktop for macOS](https://docs.docker.com/desktop/install/mac-install/) (arm64)
 
+(See [FAQs for Docker Desktop for Linux](https://docs.docker.com/desktop/faqs/linuxfaqs/#how-do-i-enable-file-sharing) for limitations regarding file sharing.)
+
 If you want to use the `ship` command line tool (which is a wrapper for `tau ship`) then you need Ruby and the 
 [*takeltau*](https://github.com/takelwerk/takelage-cli) gem which can be installed like this:
 

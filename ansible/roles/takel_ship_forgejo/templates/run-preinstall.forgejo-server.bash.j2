@@ -1,5 +1,7 @@
 {{ takel_ship_scripts_shebang }}
 
+echo Running {{ takel_ship_forgejo_server_service['name'] }} preinstallation
+
 FORGEJO_SERVER_DIR={{ takel_ship_compose_home_dir }}/{{ takel_ship_compose_data_dir }}/{{ takel_ship_compose_compose_dir }}/{{ takel_ship_compose_services_dir }}/{{ takel_ship_forgejo_server_service['name'] }}
 COMPOSE_FILE=$FORGEJO_SERVER_DIR/{{ takel_ship_compose_docker_compose_yml }}
 

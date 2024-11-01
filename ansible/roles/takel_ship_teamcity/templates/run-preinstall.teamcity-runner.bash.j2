@@ -1,6 +1,7 @@
 {{ takel_ship_scripts_shebang }}
 
-echo "Checking if archictecture is aarch64 (aka arm64)"
+echo Running {{ takel_ship_teamcity_runner_service['name'] }} preinstallation
+
 if [[ "$(arch)" == "aarch64" ]]; then
   echo "Changing TeamCity runner image to arm64"
   sed -i \
