@@ -66,7 +66,7 @@ container:
   # Only takes effect if "network" is set to "".
   enable_ipv6: false
   # Whether to use privileged mode or not when launching task containers (privileged mode is required for Docker-in-Docker).
-  privileged: false
+  privileged: true
   # And other options to be used when the container is started (eg, --add-host=my.forgejo.url:host-gateway).
   options: "--env DOCKER_HOST=tcp://docker:2375 --env DOCKER_CERT_PATH='' --env DOCKER_TLS_VERIFY="
   # The parent directory of a job's working directory.
@@ -81,7 +81,8 @@ container:
   # If you want to allow any volume, please use the following configuration:
   # valid_volumes:
   #   - '**'
-  valid_volumes: []
+  valid_volumes:
+    - '**'
   # overrides the docker client host with the specified one.
   # If it's empty, act_runner will find an available docker host automatically.
   # If it's "-", act_runner will find an available docker host automatically, but the docker host won't be mounted to the job containers and service containers.
