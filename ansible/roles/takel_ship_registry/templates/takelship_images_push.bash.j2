@@ -1,31 +1,33 @@
 {{ takel_ship_scripts_shebang }}
 
+POD={{ takel_ship_scripts_dir }}/{{ takel_ship_scripts_script_pod['name'] }}
+
 # New local images which have not yet been cached
-NEW_IMAGES=$(podman image list \
+NEW_IMAGES=$($POD podman image list \
              --noheading \
              --filter dangling=false \
              --format {% raw %}{{.Repository}}:{{.Tag}}{% endraw %} \
-             | grep -v ^localhost)
+             | /usr/bin/grep -v ^localhost)
 
 # Tag new images for the takelship registry
 while IFS= read -r IMAGE; do
-  echo podman tag $IMAGE localhost:{{
+  echo $POD podman tag $IMAGE localhost:{{
   takel_ship_registry_takelship_registry_http_5555['port']
   }}/$IMAGE
-  podman tag $IMAGE localhost:{{
+  $POD podman tag $IMAGE localhost:{{
   takel_ship_registry_takelship_registry_http_5555['port']
   }}/$IMAGE
 done <<< "$NEW_IMAGES"
 
 # All images which can be cached
-ALL_IMAGES=$(podman image list \
+ALL_IMAGES=$($POD podman image list \
              --noheading \
              --filter dangling=false \
              --format {% raw %}{{.Repository}}:{{.Tag}}{% endraw %} \
-             | grep ^localhost)
+             | /usr/bin/grep ^localhost)
 
 # Push images to local registry
 while IFS= read -r IMAGE; do
-  echo podman push $IMAGE
-  podman push $IMAGE
+  echo $POD podman push $IMAGE
+  $POD podman push $IMAGE
 done <<< "$ALL_IMAGES"

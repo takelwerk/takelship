@@ -1,23 +1,23 @@
 {{ takel_ship_scripts_shebang }}
 
 # All images which can be cached
-IMAGES=$(curl \
+IMAGES=$(/usr/bin/curl \
          --silent \
          --request GET \
          http://localhost:{{
          takel_ship_registry_takelship_registry_http_5555['port']
          }}/v2/_catalog \
-         | jq -r '.["repositories"][]')
+         | /usr/bin/jq -r '.["repositories"][]')
 
 # List images in takelship registry
 while IFS= read -r IMAGE; do
-  TAGS=$(curl \
+  TAGS=$(/usr/bin/curl \
          --silent \
          --request GET \
          http://localhost:{{
          takel_ship_registry_takelship_registry_http_5555['port']
          }}/v2/$IMAGE/tags/list \
-         | jq -r '.["tags"][]')
+         | /usr/bin/jq -r '.["tags"][]')
   while IFS= read -r TAG; do
     echo localhost:{{
     takel_ship_registry_takelship_registry_http_5555['port']

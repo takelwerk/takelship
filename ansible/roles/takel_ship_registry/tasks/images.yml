@@ -16,7 +16,8 @@
   ansible.builtin.cron:
     name: sync images
     minute: "*/5"
-    user: podman
+    user: root
+    cron_file: images_sync
     job: >-
       {{ takel_ship_scripts_dir }}/{{
       takel_ship_registry_images_sync.name

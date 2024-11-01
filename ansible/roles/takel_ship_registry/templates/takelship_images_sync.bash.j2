@@ -6,8 +6,8 @@ SYNC="${SYNC,,}"
 
 echo "Syncing images"
 
+{{ takel_ship_scripts_dir }}/{{ takel_ship_registry_images_push['name'] }}
+{{ takel_ship_scripts_dir }}/{{ takel_ship_registry_images_pull['name'] }}
+
 # touch a file to leave a trace
 touch /tmp/images_sync
-
-{{ takel_ship_registry_images_push['name'] }}
-{{ takel_ship_registry_images_pull['name'] }}

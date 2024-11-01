@@ -1,7 +1,9 @@
 {{ takel_ship_scripts_shebang }}
 
+POD={{ takel_ship_scripts_dir }}/{{ takel_ship_scripts_script_pod['name'] }}
+
 # All images in the takelship registry
-IMAGES=$(curl \
+IMAGES=$(/usr/bin/curl \
          --silent \
          --request GET \
          http://localhost:{{
@@ -11,7 +13,7 @@ IMAGES=$(curl \
 
 # Pull images from takelship registry
 while IFS= read -r IMAGE; do
-  TAGS=$(curl \
+  TAGS=$(/usr/bin/curl \
          --silent \
          --request GET \
          http://localhost:{{
@@ -19,16 +21,16 @@ while IFS= read -r IMAGE; do
          }}/v2/$IMAGE/tags/list \
          | jq -r '.["tags"][]')
   while IFS= read -r TAG; do
-    echo podman pull localhost:{{
+    echo $POD podman pull localhost:{{
     takel_ship_registry_takelship_registry_http_5555['port']
     }}/$IMAGE:$TAG
-    podman pull localhost:{{
+    $POD podman pull localhost:{{
     takel_ship_registry_takelship_registry_http_5555['port']
     }}/$IMAGE:$TAG
-    echo podman tag localhost:{{
+    echo $POD podman tag localhost:{{
     takel_ship_registry_takelship_registry_http_5555['port']
     }}/$IMAGE:$TAG $IMAGE:$TAG
-    podman tag localhost:{{
+    $POD podman tag localhost:{{
     takel_ship_registry_takelship_registry_http_5555['port']
     }}/$IMAGE:$TAG $IMAGE:$TAG
   done <<< "$TAGS"
