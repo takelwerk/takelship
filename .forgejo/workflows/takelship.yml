@@ -5,20 +5,35 @@ on:
   push:
   workflow_dispatch:
 
+env:
+  WORKDIR=/tmp/act/task-$GITHUB_RUN_NUMBER
+  PROJECTDIR=$WORKDIR/project
+
 jobs:
   takelship:
     runs-on: takelbuild
     container:
       volumes:
-        - /tmp/takelbuild:/tmp/takelbuild
+        - /tmp/act:/tmp/act
     steps:
       - name: Check out repository
+        run: git clone http://forgejo-server:3000/takelwerk/takelship.git /$RUNNER_TEMP/checkout
+
+      - name: Add takelbuild user
+        run: useradd --create-home --home-dir $HOMEDIR --user-group takelbuild
+
+      - name: Copy repository
         run: |
-          git clone http://forgejo-server:3000/takelwerk/takelship.git /$RUNNER_TEMP/checkout
-          rsync -a /$RUNNER_TEMP/checkout/ .
+          mkdir $HOMEDIR/project
+          rsync -a /$RUNNER_TEMP/checkout/ $PROJECTDIR
 
       - name: Link project directory
-        run: ln -s $PWD /project
+        run: ln -s $PROJECTDIR /project
+
+      - name: Become takelbuild
+        run: |
+          su - takelbuild
+          cd $PROJECTDIR
 
       - name: Lint ruby
         run: rake rubylint
