@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  WORKDIR: /tmp/act/task-$GITHUB_RUN_NUMBER
+  HOMEDIR: /tmp/act/task-$GITHUB_RUN_NUMBER
   PROJECTDIR: $WORKDIR/project
   DOCKER_HOST: tcp://docker:2375
   DOCKER_TLS_VERIFY:
