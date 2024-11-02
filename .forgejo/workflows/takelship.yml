@@ -26,9 +26,7 @@ jobs:
         run: useradd --create-home --home-dir $HOMEDIR --user-group takelbuild
 
       - name: Copy repository
-        run: |
-          mkdir $HOMEDIR/project
-          rsync -a /$RUNNER_TEMP/checkout/ $PROJECTDIR
+        run: rsync -a /$RUNNER_TEMP/checkout/ $PROJECTDIR
 
       - name: Link project directory
         run: ln -s $PROJECTDIR /project
