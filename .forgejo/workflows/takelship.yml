@@ -7,7 +7,7 @@ on:
 
 env:
   HOMEDIR: /tmp/act/task-$GITHUB_RUN_NUMBER
-  PROJECTDIR: $WORKDIR/project
+  PROJECTDIR: $HOMEDIR/project
   DOCKER_HOST: tcp://docker:2375
   DOCKER_TLS_VERIFY:
   DOCKER_CERT_PATH:
