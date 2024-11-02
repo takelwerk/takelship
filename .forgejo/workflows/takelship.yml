@@ -10,7 +10,7 @@ jobs:
     runs-on: takelbuild
     container:
       volumes:
-        - ./takelbuild:/home/takelbuild
+        - /tmp/takelbuild:/home/takelbuild
     steps:
       - name: Check out repository
         run: |
