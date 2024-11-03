@@ -17,7 +17,12 @@ jobs:
         - /tmp/act:/tmp/act
     steps:
       - name: Set docker environment
-        run: echo "DOCKER_HOST=tcp://docker:2375\nDOCKER_TLS_VERIFY=\nDOCKER_CERT_PATH=" >> /etc/environment
+        run: |
+          cat << HEREDOC > /etc/environment
+          DOCKER_HOST=tcp://docker:2375
+          DOCKER_TLS_VERIFY=
+          DOCKER_CERT_PATH=
+          HEREDOC
 
       - name: Check out repository
         run: git clone http://forgejo-server:3000/takelwerk/takelship.git /$RUNNER_TEMP/checkout
