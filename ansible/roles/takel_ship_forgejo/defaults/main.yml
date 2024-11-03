@@ -57,7 +57,6 @@ takelship_forgejo_runner_labels:
   - ubuntu:docker://ghcr.io/catthehacker/ubuntu:runner-latest
   - ubuntu-root:docker://ghcr.io/catthehacker/ubuntu:act-latest
   - ubuntu-full:docker://ghcr.io/catthehacker/ubuntu:full-latest
-  - takelbuild:docker://docker.io/takelwerk/takelbuild:latest
 
 takel_ship_forgejo_server_image:
   name: codeberg.org/forgejo/forgejo

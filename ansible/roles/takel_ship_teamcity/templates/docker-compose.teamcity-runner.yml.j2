@@ -17,6 +17,9 @@ services:
     environment:
       SERVER_URL: http://{{
       takel_ship_teamcity_server_service['name'] }}:8111
+      DOCKER_HOST: tcp://docker:2375
+      DOCKER_CERT_PATH: ""
+      DOCKER_TLS_VERIFY:
       DOCKER_IN_DOCKER: start
       AGENT_NAME: >-
         {{ takel_ship_teamcity_runner_service['name'] }}-{{ runner }}
