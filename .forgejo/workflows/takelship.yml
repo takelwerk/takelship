@@ -14,7 +14,7 @@ jobs:
     runs-on: takelbuild
     container:
       volumes:
-        - /tmp/act:/tmp/act
+        - act:/tmp/act
     steps:
       - name: Set docker environment
         run: |
@@ -36,22 +36,16 @@ jobs:
       - name: Link project directory
         run: ln -s $PROJECTDIR /project
 
-      - name: Become takelbuild
-        run: |
-          env
-          su - takelbuild
-          cd $PROJECTDIR
+      - name: Lint ruby
+        run: cd $PROJECTDIR && rake rubylint
+
+      - name: Lint project
+        run: cd $PROJECTDIR && rake images:project:registry:molecule:lint
 
       - name: Interrupt workflow
         run: |
           touch /$RUNNER_TEMP/delete_me_to_continue_workflow
           while [ -f /$RUNNER_TEMP/delete_me_to_continue_workflow ]; do sleep 1; done
-
-      - name: Lint ruby
-        run: rake rubylint
-
-      - name: Lint project
-        run: rake images:project:registry:molecule:lint
 
       - name: Build takelage project image with packer
         run: rake images:project:build
