@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  HOMEDIR: /tmp/act/task-$GITHUB_RUN_NUMBER
+  HOMEDIR: /tmp/act/task-runner-takelbuild
   PROJECTDIR: $HOMEDIR/project
   DOCKER_HOST: tcp://docker:2375
   DOCKER_TLS_VERIFY:
