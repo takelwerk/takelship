@@ -13,7 +13,7 @@ services:
     restart: ${TAKELSHIP_TEAMCITY_SERVER_RESTART:-{{
     takel_ship_teamcity_restart }}}
     ports:
-        - "${TAKELSHIP_TEAMCITY_SERVER_HTTP_PORT:-{{
+        - "${TAKELSHIP_TEAMCITY_SERVER_HTTP_38111:-{{
         takel_ship_teamcity_server_http_38111['port'] }}}:8111"
     volumes:
       - ${TAKELSHIP_TEAMCITY_SERVER_DATA_DIR:-{{
