@@ -18,16 +18,16 @@
   loop_control:
     loop_var: takel_ship_compose_project
 
-- name: (compose) (projects) deploy bash halt docker script
+- name: (compose) (projects) deploy bash run docker down script
   ansible.builtin.template:
-    src: halt-docker.project.bash.j2
+    src: run-docker-down.project.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_projects_dir }}/{{
       takel_ship_compose_project.name }}/{{
-      takel_ship_compose_halt_docker }}
+      takel_ship_compose_run_docker_down }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     mode: "{{ takel_ship_podman_user.mode.dir }}"
@@ -35,16 +35,16 @@
   loop_control:
     loop_var: takel_ship_compose_project
 
-- name: (compose) (projects) deploy bash run docker script
+- name: (compose) (projects) deploy bash run docker up script
   ansible.builtin.template:
-    src: run-docker.project.bash.j2
+    src: run-docker-up.project.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_projects_dir }}/{{
       takel_ship_compose_project.name }}/{{
-      takel_ship_compose_run_docker }}
+      takel_ship_compose_run_docker_up }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     mode: "{{ takel_ship_podman_user.mode.dir }}"
@@ -52,16 +52,33 @@
   loop_control:
     loop_var: takel_ship_compose_project
 
-- name: (compose) (projects) deploy bash run podman script
+- name: (compose) (projects) deploy bash run podman down script
   ansible.builtin.template:
-    src: run-podman.project.bash.j2
+    src: run-podman-down.project.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_projects_dir }}/{{
       takel_ship_compose_project.name }}/{{
-      takel_ship_compose_run_podman }}
+      takel_ship_compose_run_podman_down }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
+  loop: "{{ takel_ship_compose_projects }}"
+  loop_control:
+    loop_var: takel_ship_compose_project
+
+- name: (compose) (projects) deploy bash run podman up script
+  ansible.builtin.template:
+    src: run-podman-up.project.bash.j2
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_projects_dir }}/{{
+      takel_ship_compose_project.name }}/{{
+      takel_ship_compose_run_podman_up }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     mode: "{{ takel_ship_podman_user.mode.dir }}"

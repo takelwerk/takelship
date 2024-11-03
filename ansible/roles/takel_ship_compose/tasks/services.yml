@@ -40,17 +40,17 @@
     - takel_ship_compose_service.env is defined
     - "'docker' in takel_ship_compose_service.profiles"
 
-- name: (compose) (services) deploy bash halt docker script
+- name: (compose) (services) deploy bash run docker down script
   ansible.builtin.template:
     src: >-
-      halt-docker.service.bash.j2
+      run-docker-down.service.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_services_dir }}/{{
       takel_ship_compose_service.name }}/{{
-      takel_ship_compose_halt_docker }}
+      takel_ship_compose_run_docker_down }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     # we use dir mode as the file should be executable
@@ -61,17 +61,17 @@
   when:
     - "'docker' in takel_ship_compose_service.profiles"
 
-- name: (compose) (services) deploy bash run docker script
+- name: (compose) (services) deploy bash run docker up script
   ansible.builtin.template:
     src: >-
-      run-docker.service.bash.j2
+      run-docker-up.service.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_services_dir }}/{{
       takel_ship_compose_service.name }}/{{
-      takel_ship_compose_run_docker }}
+      takel_ship_compose_run_docker_up }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     # we use dir mode as the file should be executable
@@ -85,14 +85,35 @@
 - name: (compose) (services) deploy bash run podman script
   ansible.builtin.template:
     src: >-
-      run-podman.service.bash.j2
+      run-podman-down.service.bash.j2
     dest: >-
       {{ takel_ship_compose_home_dir }}/{{
       takel_ship_compose_dist_dir }}/{{
       takel_ship_compose_compose_dir }}/{{
       takel_ship_compose_services_dir }}/{{
       takel_ship_compose_service.name }}/{{
-      takel_ship_compose_run_podman }}
+      takel_ship_compose_run_podman_down }}
+    owner: "{{ takel_ship_podman_user.owner }}"
+    group: "{{ takel_ship_podman_user.group }}"
+    # we use dir mode as the file should be executable
+    mode: "{{ takel_ship_podman_user.mode.dir }}"
+  loop: "{{ takel_ship_compose_services }}"
+  loop_control:
+    loop_var: takel_ship_compose_service
+  when:
+    - "'podman' in takel_ship_compose_service.profiles"
+
+- name: (compose) (services) deploy bash run podman up script
+  ansible.builtin.template:
+    src: >-
+      run-podman-up.service.bash.j2
+    dest: >-
+      {{ takel_ship_compose_home_dir }}/{{
+      takel_ship_compose_dist_dir }}/{{
+      takel_ship_compose_compose_dir }}/{{
+      takel_ship_compose_services_dir }}/{{
+      takel_ship_compose_service.name }}/{{
+      takel_ship_compose_run_podman_up }}
     owner: "{{ takel_ship_podman_user.owner }}"
     group: "{{ takel_ship_podman_user.group }}"
     # we use dir mode as the file should be executable

@@ -8,7 +8,7 @@ echo Starting project {{ takel_ship_compose_project['name'] }}
 echo
 $SCRIPT_DIR/{{ takel_ship_compose_to_services_dir }}/{{
 takel_ship_registry_takelship_registry_service['name'] }}/{{
-takel_ship_compose_run_docker }}
+takel_ship_compose_run_docker_up }}
 
 echo Starting project services
 docker compose --profile docker \
