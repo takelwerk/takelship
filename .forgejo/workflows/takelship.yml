@@ -13,6 +13,7 @@ jobs:
   takelship:
     runs-on: takelbuild
     container:
+      image: takelwerk/takelbuild
       volumes:
         - act:/tmp/act
     steps:
@@ -37,14 +38,14 @@ jobs:
         run: ln -s $PROJECTDIR /project
 
       - name: Lint ruby
-        run: cd $PROJECTDIR && rake rubylint
+        run: su takelbuild -c "cd $PROJECTDIR && rake rubylint"
 
       - name: Lint project
-        run: cd $PROJECTDIR && rake images:project:registry:molecule:lint
+        run: su takelbuild -c "cd $PROJECTDIR && rake images:project:registry:molecule:lint"
 
       - name: Interrupt workflow
         run: |
-          touch /$RUNNER_TEMP/delete_me_to_continue_workflow
+          su takelbuild -c "touch /$RUNNER_TEMP/delete_me_to_continue_workflow"
           while [ -f /$RUNNER_TEMP/delete_me_to_continue_workflow ]; do sleep 1; done
 
       - name: Build takelage project image with packer
