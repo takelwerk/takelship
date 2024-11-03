@@ -37,16 +37,16 @@ jobs:
           su - takelbuild
           cd $PROJECTDIR
 
+      - name: Interrupt workflow
+        run: |
+          touch /$RUNNER_TEMP/delete_me_to_continue_workflow
+          while [ -f /$RUNNER_TEMP/delete_me_to_continue_workflow ]; do sleep 1; done
+
       - name: Lint ruby
         run: rake rubylint
 
       - name: Lint project
         run: rake images:project:registry:molecule:lint
-
-      - name: Interrupt workflow
-        run: |
-          touch /$RUNNER_TEMP/delete_me_to_continue_workflow
-          while [ -f /$RUNNER_TEMP/delete_me_to_continue_workflow ]; do sleep 1; done
 
       - name: Build takelage project image with packer
         run: rake images:project:build
