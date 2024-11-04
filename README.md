@@ -145,7 +145,7 @@ If you like nautical language you can also use `ship sail` (for `ship start`), `
 
 ## Example: project forgejo
 
-We can start the project forgejo to start a [Forgejo](https://forgejo.org/) build server and three runners, an [Apt Proxy](https://github.com/soulteary/apt-proxy) and a [Portainer CE](https://docs.portainer.io/) container management web interface like this:
+We can start the project forgejo to start a [Forgejo](https://forgejo.org/) build server with three runners and an [Apt Proxy](https://github.com/soulteary/apt-proxy) like this:
 
 ```
 ~/takelshiptest$ ship start forgejo
