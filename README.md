@@ -243,10 +243,10 @@ You have used the takelship as a one-time command to create and preconfigure a `
 
 ## tea command line tool
 
-You can find a preconfigured [tea](https://gitea.com/gitea/tea) configuration file in the forgejo server project:
+You can find a preconfigured [tea](https://gitea.com/gitea/tea) configuration file in the forgejo-server service directory:
 
 ```bash
-takelship/compose/projects/forgejo-server/config.yml
+takelship/compose/services/forgejo-server/config.yml
 ```
 
 This file can be symlinked as your host tea configuration file:
