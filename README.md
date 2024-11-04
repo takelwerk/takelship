@@ -379,4 +379,4 @@ We use Jinja2 to create configuration files and bash scripts in the takelship. T
 
 The command line tool is written in Ruby because Ruby makes programmers happy.
 
-Don't run this in production. It's meant to be hacked.
+Don't run it in production. It's meant to be hacked.
