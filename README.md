@@ -145,7 +145,9 @@ If you like nautical language you can also use `ship sail` (for `ship start`), `
 
 ## Example: project forgejo
 
-We can start the project forgejo to start a [Forgejo](https://forgejo.org/) build server with three runners and an [Apt Proxy](https://github.com/soulteary/apt-proxy) like this:
+(There exists a short presentation in German language of the [TeamCity takelship-project](https://github.com/stephan-devop/24-11-teamcity-takelship/blob/main/README.md).)
+
+We can start the project forgejo to start a [Forgejo](https://forgejo.org/) build server with three runners and an [Apt Proxy](https://github.com/soulteary/apt-proxy) cache server like this:
 
 ```
 ~/takelshiptest$ ship start forgejo
@@ -253,8 +255,6 @@ This file can be symlinked as your host tea configuration file:
 - Linux: `~/.config/tea/config.yml`
 - macOS: `~/Library/Application\ Support/tea/config.yml`
 
-There exists a short presentation of the [TeamCity takelship-project](https://github.com/stephan-devop/24-11-teamcity-takelship/blob/main/README.md) (in German).
-
 ## takelship registry
 
 The takelship comes preshipped with a single internal docker image:
@@ -268,6 +268,8 @@ When you start a takelship project on your host with a `docker-compose-up` scrip
 The `docker-compose-up` will use the `env-docker` environment files so that the `docker-compose.yml` files will point to the correct `takelship-registry` host.
 
 When you manually update the `docker-compose.yml` files on your host then you have to set `ship_update: false` or your changes will be overwritten.
+
+## debugging the takelship
 
 If you want to debug `ship` or `takelship` then invoke the `ship` command with `--debug` or `-d`. If you run `ship start -d` then first you'll see a lot of debug output by the `ship` command. 
 
