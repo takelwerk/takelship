@@ -334,7 +334,7 @@ Run a command as podman user:
 docker exec -it takelship pod podman ps -a
 ```
 
-Alternatively, get the same result using docker on your host:
+Alternatively, get the same result using docker on your host (replace the port with the output of `ship sail`):
 
 ```bash
 DOCKER_HOST=tcp://localhost:32375 docker ps
