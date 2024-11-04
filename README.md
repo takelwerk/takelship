@@ -308,7 +308,7 @@ docker run --rm --interactive --tty --name takelship --hostname takelship --priv
 docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:33000:33000" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:38111:38111" --publish "127.0.0.1:39000:39000" --volume ./takelship:/home/podman/takelship takelwerk/takelship teamcity
 ```
 
-List available container commands:
+List available container commands of a running takelship:
 
 ```bash
 docker exec -it takelship cli
@@ -338,7 +338,7 @@ Run a command as podman user:
 docker exec -it takelship pod podman ps -a
 ```
 
-Alternatively, get the same result using docker on your host (replace the port with the output of `ship sail`):
+Alternatively, get the same result using docker on your host:
 
 ```bash
 DOCKER_HOST=tcp://localhost:32375 docker ps
