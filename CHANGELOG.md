@@ -17,8 +17,8 @@
 - Added portainer role.
 - Added tau ship subcommand.
 - Added documentation.
-- Add etherpad role. (TODO)
 
 ### Version 0.2.x
+- Add etherpad role. (TODO)
 - Add systemd role. (TODO)
 - Add quadlets for existing roles. (TODO)
