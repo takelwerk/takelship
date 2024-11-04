@@ -145,7 +145,7 @@ If you like nautical language you can also use `ship sail` (for `ship start`), `
 
 ## Example: project forgejo
 
-(There exists a short presentation in German language of the [TeamCity takelship-project](https://github.com/stephan-devop/24-11-teamcity-takelship/blob/main/README.md).)
+(There is a short presentation of the [TeamCity takelship-project](https://github.com/stephan-devop/24-11-teamcity-takelship/blob/main/README.md) in German language. The TeamCity takelship project includes the services of the Forgejo takelship project.)
 
 We can start the project forgejo to start a [Forgejo](https://forgejo.org/) build server with three runners and an [Apt Proxy](https://github.com/soulteary/apt-proxy) cache server like this:
 
