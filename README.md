@@ -253,6 +253,8 @@ This file can be symlinked as your host tea configuration file:
 - Linux: `~/.config/tea/config.yml`
 - macOS: `~/Library/Application\ Support/tea/config.yml`
 
+There exists a short presentation of the [TeamCity takelship-project](https://github.com/stephan-devop/24-11-teamcity-takelship/blob/main/README.md) (in German).
+
 ## takelship registry
 
 The takelship comes preshipped with a single internal docker image:
