@@ -11,7 +11,6 @@ env:
 
 jobs:
   takelship:
-    runs-on: takelbuild
     container:
       image: takelwerk/takelbuild
       volumes:
