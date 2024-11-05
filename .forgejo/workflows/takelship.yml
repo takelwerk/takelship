@@ -13,7 +13,7 @@ jobs:
   takelship:
     container:
       image: takelwerk/takelbuild
-      options: "--tty --detach --hostname job-${{ github.run_id }}"
+      options: "--tty -d --hostname job-${{ github.run_id }}"
       volumes:
         - act:/tmp/act
     steps:
