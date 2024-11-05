@@ -14,7 +14,6 @@ jobs:
     runs-on: takelbuild
     container:
       image: takelwerk/takelbuild
-      tty: true
       volumes:
         - act:/tmp/act
     steps:
