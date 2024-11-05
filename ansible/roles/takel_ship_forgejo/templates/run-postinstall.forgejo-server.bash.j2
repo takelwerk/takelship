@@ -2,23 +2,18 @@
 
 echo Running {{ takel_ship_forgejo_server_service['name'] }} postinstallation
 
-# if a tea config file with a token exists
-# then update the tea host config file
+# update the tea host config file
 # with the current port configuration and exit
-if grep -Fxq TOKEN {{ takel_ship_forgejo_script_tea_config['path'] }}/{{
-         takel_ship_forgejo_script_tea_config['name'] }}; then
-  echo Updating tea configuration file
-  sed s/33000/$TAKELSHIP_SHIP_PORTS_FORGEJO_SERVER_HTTP_33000/ {{
-    takel_ship_forgejo_script_tea_config['path'] }}/{{
-    takel_ship_forgejo_script_tea_config['name'] }} > {{
-    takel_ship_compose_home_dir }}/{{
-    takel_ship_compose_data_dir }}/{{
-    takel_ship_compose_compose_dir }}/{{
-    takel_ship_compose_services_dir }}/{{
-    takel_ship_forgejo_server_service['name'] }}/{{
-    takel_ship_forgejo_script_tea_config['name'] }}
-  exit
-fi
+echo Updating tea configuration file
+sed s/33000/$TAKELSHIP_SHIP_PORTS_FORGEJO_SERVER_HTTP_33000/ {{
+  takel_ship_forgejo_script_tea_config['path'] }}/{{
+  takel_ship_forgejo_script_tea_config['name'] }} > {{
+  takel_ship_compose_home_dir }}/{{
+  takel_ship_compose_data_dir }}/{{
+  takel_ship_compose_compose_dir }}/{{
+  takel_ship_compose_services_dir }}/{{
+  takel_ship_forgejo_server_service['name'] }}/{{
+  takel_ship_forgejo_script_tea_config['name'] }}
 
 # wait until the server is up
 RETRY=1
@@ -29,24 +24,18 @@ while ! forgejo admin user list &> /dev/null; do
   ((RETRY++))
 done
 
-USERLIST=$(forgejo admin user list)
-
-# if the forgejo command failed then exit
-[ $? -ne 0 ] && exit
-
-# if there is a @-sign in the user list then exit
-[[ "$USERLIST" = *@* ]] && exit
-
 echo Creating forgejo admin account
 forgejo admin user create \
   --admin \
   --username ${TAKELSHIP_FORGEJO_SERVER_ADMIN_NAME:-{{ takel_ship_forgejo_admin['name'] }}} \
   --password ${TAKELSHIP_FORGEJO_SERVER_ADMIN_PASSWORD:-{{ takel_ship_forgejo_admin['password'] }}} \
-  --email ${TAKELSHIP_FORGEJO_SERVER_ADMIN_EMAIL:-{{ takel_ship_forgejo_admin['email'] }}}
+  --email ${TAKELSHIP_FORGEJO_SERVER_ADMIN_EMAIL:-{{ takel_ship_forgejo_admin['email'] }}} \
+  >/dev/null 2>&1
 
 echo Creating forgejo access token
+UNIQUE=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 10)
 FORGEJO_TOKEN=$(forgejo admin user generate-access-token \
-  --token-name fortea \
+  --token-name fortea_$UNIQUE \
   --username administrator \
   --scopes all \
   --raw)
