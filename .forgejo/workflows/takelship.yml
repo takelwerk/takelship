@@ -13,7 +13,7 @@ jobs:
   takelship:
     container:
       image: takelwerk/takelbuild
-      options: '--tty'
+      options: '--tty --shm-size 512M'
       volumes:
         - act:/tmp/act
     steps:
