@@ -13,7 +13,7 @@ jobs:
   takelship:
     container:
       image: takelwerk/takelbuild
-      options: "--tty --shm-size 512M --hostname job-${{ github.run_id }}"
+      options: "--tty --detach --hostname job-${{ github.run_id }}"
       volumes:
         - act:/tmp/act
     steps:
