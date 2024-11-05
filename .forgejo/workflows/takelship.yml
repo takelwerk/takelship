@@ -44,10 +44,10 @@ jobs:
         run: su takelbuild -c "cd $PROJECTDIR && rake images:project:registry:molecule:lint"
 
       - name: Build takelage project image with packer
-        run: rake images:project:build
+        run: su takelbuild -c "cd $PROJECTDIR && rake images:project:build"
 
       - name: Test takelship project registry
-        run: rake images:project:registry:molecule:test
+        run: su takelbuild -c "cd $PROJECTDIR && rake images:project:registry:molecule:test"
 
       - name: Test takelship project forgejo
-        run: rake images:project:forgejo:molecule:test
+        run: su takelbuild -c "cd $PROJECTDIR && rake images:project:forgejo:molecule:test"
