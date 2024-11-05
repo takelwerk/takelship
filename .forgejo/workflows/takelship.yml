@@ -13,18 +13,10 @@ jobs:
   takelship:
     container:
       image: takelwerk/takelbuild
-      options: "--tty --interactive --privileged --hostname job-${{ github.run_id }}"
+      options: "--tty --hostname job-${{ github.run_id }} --env DOCKER_HOST=tcp://docker:2375 --env DOCKER_TLS_VERIFY= --env DOCKER_CERT_PATH="
       volumes:
         - act:/tmp/act
     steps:
-      - name: Set docker environment
-        run: |
-          cat << HEREDOC > /etc/environment
-          DOCKER_HOST=tcp://docker:2375
-          DOCKER_TLS_VERIFY=
-          DOCKER_CERT_PATH=
-          HEREDOC
-
       - name: Check out repository
         run: git clone http://forgejo-server:3000/takelwerk/takelship.git /$RUNNER_TEMP/checkout
 
@@ -45,6 +37,7 @@ jobs:
 
       - name: Interrupt workflow
         run: |
+          echo Delete /$RUNNER_TEMP/delete_me_to_continue_workflow to continue workflow
           su takelbuild -c "touch /$RUNNER_TEMP/delete_me_to_continue_workflow"
           while [ -f /$RUNNER_TEMP/delete_me_to_continue_workflow ]; do sleep 1; done
 
