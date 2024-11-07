@@ -1,0 +1,43 @@
+{{ takel_ship_scripts_shebang }}
+
+set -eo pipefail
+
+if [ -z "${1}" ]; then
+  echo "Missing SSH key."
+  echo "Example usage:"
+  echo "{{ takel_ship_forgejo_script_fortea_add_ssh_key['name'] }} 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMC8y1nRdLdyFPl9h7JajWa/AA1vYLV+4j0cvTgA8h0v'"
+  exit 1
+fi
+
+SSH_KEY="${1}"
+
+TOKEN="$(cat {{
+  takel_ship_forgejo_script_tea_config['path'] }}/{{
+  takel_ship_forgejo_script_tea_config['name']
+  }} | yq -r '.["logins"][]["token"]')"
+
+if [ -z "${TOKEN}" ]; then
+  echo "Missing token in {{
+  takel_ship_forgejo_script_tea_config['path'] }}/{{
+  takel_ship_forgejo_script_tea_config['name'] }}"
+  exit 2
+fi
+
+DATE="$(date +"%Y-%m-%d-%H-%M")"
+BASIC_AUTH_DEFAULT="$(echo -n "{{
+takel_ship_forgejo_admin['name'] }}:{{
+takel_ship_forgejo_admin['password'] }}" | base64)"
+BASIC_AUTH="${TAKELSHIP_FORGEJO_SERVER_BASIC_AUTH:-$BASIC_AUTH_DEFAULT}"
+TITLE="${TAKELSHIP_FORGEJO_SERVER_ADD_SSH_TITLE:-$DATE takelship administrator}"
+PAYLOAD='{"key": "'$SSH_KEY'", "read_only": false, "title": "'$TITLE'"}'
+
+echo Adding ssh key for forgejo user: {{ takel_ship_forgejo_admin['name'] }}
+curl -X "POST" \
+  "http://localhost:{{
+  takel_ship_forgejo_server_http_33000['port']
+  }}/api/v1/user/keys" \
+  -H "'accept: application/json'" \
+  -H "'authorization: Basic $BASIC_AUTH'" \
+  -H "'X-FORGEJO-OTP: $TOKEN'" \
+  -H "'Content-Type: application/json'" \
+  -d "$PAYLOAD"

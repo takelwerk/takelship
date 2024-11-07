@@ -6,6 +6,8 @@ takel_ship_forgejo_services:
 takel_ship_forgejo_scripts:
   - "{{ takel_ship_forgejo_script_forgejo }}"
   - "{{ takel_ship_forgejo_script_tea_config }}"
+  - "{{ takel_ship_forgejo_script_fortea_add_ssh_key }}"
+  - "{{ takel_ship_forgejo_script_fortea_generate_ssh_key }}"
   - "{{ takel_ship_forgejo_script_runner_config }}"
 
 ### end of group_vars
@@ -85,6 +87,19 @@ takel_ship_forgejo_script_tea_config:
     {{ takel_ship_compose_home_dir
     }}/.config/tea
 
+takel_ship_forgejo_script_fortea_add_ssh_key:
+  name: fortea-add-ssh-key
+  description: Add ssh key to forgejo server admin account.
+  list: true
+  role: takel_ship_forgejo
+  template: fortea-add-ssh-key.bash.j2
+
+takel_ship_forgejo_script_fortea_generate_ssh_key:
+  name: fortea-generate-ssh-key
+  description: Generate an ssh key pair for the forgejo server admin account.
+  role: takel_ship_forgejo
+  template: fortea-generate-ssh-key.bash.j2
+
 takel_ship_forgejo_script_runner_config:
   name: config.yml
   role: takel_ship_forgejo
@@ -118,6 +133,29 @@ takel_ship_forgejo_admin:
   name: administrator
   password: administrator
   email: administrator@example.com
+
+takel_ship_forgejo_server_ssh_key:
+  private_key_file: >-
+    {{ takel_ship_compose_home_dir }}/{{
+    takel_ship_compose_data_dir }}/{{
+    takel_ship_compose_compose_dir }}/{{
+    takel_ship_compose_services_dir }}/{{
+    takel_ship_forgejo_server_service.name
+    }}/id_ed25519.administrator
+  public_key_file: >-
+    {{ takel_ship_compose_home_dir }}/{{
+    takel_ship_compose_data_dir }}/{{
+    takel_ship_compose_compose_dir }}/{{
+    takel_ship_compose_services_dir }}/{{
+    takel_ship_forgejo_server_service.name
+    }}/id_ed25519.administrator.pub
+
+# -C '' = no comment
+# -N '' = no password
+# -f <file> = private key file name
+takel_ship_forgejo_server_ssh_keygen: >-
+  ssh-keygen -C '' -N '' -f {{
+  takel_ship_forgejo_server_ssh_key.private_key_file }}
 
 takelship_forgejo_runner_secret: >-
   7c31591e8b67225a116d4a4519ea8e507e08f71f

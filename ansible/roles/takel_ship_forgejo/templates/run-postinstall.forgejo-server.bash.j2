@@ -56,3 +56,11 @@ sed s/33000/$TAKELSHIP_SHIP_PORTS_FORGEJO_SERVER_HTTP_33000/ {{
   takel_ship_compose_services_dir }}/{{
   takel_ship_forgejo_server_service['name'] }}/{{
   takel_ship_forgejo_script_tea_config['name'] }}
+
+echo Generating an ssh key pair for the forgejo admin account
+{{ takel_ship_forgejo_script_fortea_generate_ssh_key['name'] }}
+
+SSH_KEY="$(cat "{{ takel_ship_forgejo_server_ssh_key['public_key_file'] }}")"
+
+echo Adding an ssh public key to the forgejo admin account
+{{ takel_ship_forgejo_script_fortea_add_ssh_key['name'] }} "'""$SSH_KEY""'"

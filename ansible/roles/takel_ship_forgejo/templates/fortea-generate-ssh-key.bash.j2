@@ -1,0 +1,23 @@
+{{ takel_ship_scripts_shebang }}
+
+set -eo pipefail
+
+# echo If both the private and public ssh key file exist the exit
+if [ -e "{{ takel_ship_forgejo_server_ssh_key['private_key_file'] }}" ] &&
+  [ -e "{{ takel_ship_forgejo_server_ssh_key['public_key_file'] }}" ]; then
+  echo "SSH key pair for the forgejo {{
+    takel_ship_forgejo_admin['name'] }} account already exist."
+  echo "Remove {{
+    takel_ship_forgejo_server_ssh_key['private_key_file'] }} to force recreation."
+  exit
+fi
+
+echo "Generating an SSH key pair for the forgejo {{
+    takel_ship_forgejo_admin['name'] }} account."
+rm -fr {{
+    takel_ship_forgejo_server_ssh_key['private_key_file'] }}*
+{{ takel_ship_forgejo_server_ssh_keygen }}
+chown {{
+takel_ship_podman_user['owner'] }}:{{
+takel_ship_podman_user['group'] }} {{
+    takel_ship_forgejo_server_ssh_key['private_key_file'] }}*
