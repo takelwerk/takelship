@@ -255,6 +255,36 @@ This file can be symlinked as your host tea configuration file:
 - Linux: `~/.config/tea/config.yml`
 - macOS: `~/Library/Application\ Support/tea/config.yml`
 
+## takelship forgejo usage
+
+The `podman` account on the takelship has its own `tea` config file targeting the internal port of the forgejo server which is static.
+
+You can create a forgejo repo (`testorg/testrepo`) from the command line like this:
+
+```bash
+ship command tea org create testorg
+ship command tea repos create --name testrepo --owner testorg
+```
+
+You don't need a key to push a repo. Nonetheless, a key pair is generated for you and has already been added to the admin account:
+
+```bash
+takelship/compose/services/forgejo-server/id_ed25519.administrator
+takelship/compose/services/forgejo-server/id_ed25519.administrator.pub
+```
+
+You can add your own key like this:
+
+```bash
+ship command fortea-add-ssh-key ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMC8y1nRdLdyFPl9h7JajWa/AA1vYLV+4j0cvTgA8h0v
+```
+
+The `fortea-add-ssh-key` serves as an example on how to query the fabulous forgejo API. Have a look at the forgejo swagger page for all options:
+
+```bash
+http://localhost:<forgejo_port>/api/swagger
+```
+
 ## takelship registry
 
 The takelship comes preshipped with a single internal docker image:
