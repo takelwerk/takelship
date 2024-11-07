@@ -279,7 +279,7 @@ You can add your own key like this:
 ship command fortea-add-ssh-key ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMC8y1nRdLdyFPl9h7JajWa/AA1vYLV+4j0cvTgA8h0v
 ```
 
-The [`fortea-add-ssh-key` script](ansible/roles/takel_ship_forgejo/templates/fortea-add-ssh-key.bash.j2) serves as an example on how to query the fabulous forgejo API. Have a look at the forgejo swagger page for all options:
+The [`fortea-add-ssh-key`](ansible/roles/takel_ship_forgejo/templates/fortea-add-ssh-key.bash.j2) script serves as an example on how to query the fabulous forgejo API. Have a look at the forgejo swagger page for all options:
 
 ```bash
 http://localhost:<forgejo_port>/api/swagger
