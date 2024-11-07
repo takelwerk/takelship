@@ -36,7 +36,7 @@ echo Creating forgejo access token
 UNIQUE=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 10)
 FORGEJO_TOKEN=$(forgejo admin user generate-access-token \
   --token-name fortea_$UNIQUE \
-  --username administrator \
+  --username {{ takel_ship_forgejo_admin['name'] }} \
   --scopes all \
   --raw)
 
@@ -60,7 +60,14 @@ sed s/33000/$TAKELSHIP_SHIP_PORTS_FORGEJO_SERVER_HTTP_33000/ {{
 echo Generating an ssh key pair for the forgejo admin account
 {{ takel_ship_forgejo_script_fortea_generate_ssh_key['name'] }}
 
-SSH_KEY="$(cat "{{ takel_ship_forgejo_server_ssh_key['public_key_file'] }}")"
+echo Forgejo admin ssh public key: {{ takel_ship_forgejo_server_ssh_key['public_key_file'] }}
+echo Forgejo admin ssh private key: {{ takel_ship_forgejo_server_ssh_key['private_key_file'] }}
 
-echo Adding an ssh public key to the forgejo admin account
-{{ takel_ship_forgejo_script_fortea_add_ssh_key['name'] }} "'""$SSH_KEY""'"
+# read SSH_KEY
+SSH_KEY="$(cat "{{ takel_ship_forgejo_server_ssh_key['public_key_file'] }}")"
+# trim SSH_KEY
+SSH_KEY="${SSH_KEY%[$'\r\t\n ']}"
+
+echo Adding forgejo admin ssh public key to the forgejo admin account
+echo "Use {{ takel_ship_forgejo_script_fortea_add_ssh_key['name'] }} <key> to add your own key"
+{{ takel_ship_forgejo_script_fortea_add_ssh_key['name'] }} $SSH_KEY

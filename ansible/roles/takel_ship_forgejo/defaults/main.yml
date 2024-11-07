@@ -122,7 +122,9 @@ takel_ship_forgejo_server_ssh_30022:
 takel_ship_forgejo_server_http_33000:
   port: 33000
   protocol: http
-  description: administrator/administrator
+  description: >-
+    {{ takel_ship_forgejo_admin.name }}/{{
+    takel_ship_forgejo_admin.password }}
 
 takel_ship_forgejo_uid: 1000
 takel_ship_forgejo_gid: 1000
@@ -141,14 +143,16 @@ takel_ship_forgejo_server_ssh_key:
     takel_ship_compose_compose_dir }}/{{
     takel_ship_compose_services_dir }}/{{
     takel_ship_forgejo_server_service.name
-    }}/id_ed25519.administrator
+    }}/id_ed25519.{{
+    takel_ship_forgejo_admin.name }}
   public_key_file: >-
     {{ takel_ship_compose_home_dir }}/{{
     takel_ship_compose_data_dir }}/{{
     takel_ship_compose_compose_dir }}/{{
     takel_ship_compose_services_dir }}/{{
     takel_ship_forgejo_server_service.name
-    }}/id_ed25519.administrator.pub
+    }}/id_ed25519.{{
+    takel_ship_forgejo_admin.name }}.pub
 
 # -C '' = no comment
 # -N '' = no password
