@@ -312,14 +312,14 @@ Get info how to run a takelship project:
 ```
 $ docker run -it --rm takelwerk/takelship
 [takelship] This is a takelwerk takelship container
-[takelship] Image: takelwerk/takelship:0.1.101
+[takelship] Image: takelwerk/takelship:0.1.169
 [takelship] Info: https://github.com/takelwerk/takelship
 [takelship] CLI: https://github.com/takelwerk/takelage-cli
 [takelship] No project selected. Available projects:
 
 == Project: all
 = All services of all projects.
-docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:33142:33142" --publish "127.0.0.1:39000:39000" --publish "127.0.0.1:35000:35000" --publish "127.0.0.1:35080:35080" --publish "127.0.0.1:33000:33000" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:38111:38111" --volume ./takelship:/home/podman/takelship takelwerk/takelship all
+docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:38111:38111" --publish "127.0.0.1:33000:33000" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:33142:33142" --publish "127.0.0.1:39000:39000" --publish "127.0.0.1:35000:35000" --publish "127.0.0.1:35080:35080" --volume ./takelship:/home/podman/takelship takelwerk/takelship all
 
 == Project: aptproxy
 = APT Proxy (github.com/soulteary/apt-proxy) Provides package caching.
@@ -330,23 +330,18 @@ docker run --rm --interactive --tty --name takelship --hostname takelship --priv
 docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:35000:35000" --publish "127.0.0.1:35080:35080" --volume ./takelship:/home/podman/takelship takelwerk/takelship registry
 
 == Project: forgejo
-= Forgejo Gitea fork (forgejo.org). Provides git hosting. Provides CI/CD pipelines (GitHub style). Provides image hosting. Runs with Forgejo Runners. Runs with Portainer. Runs with Docker in Docker.
-docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:33000:33000" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:39000:39000" --volume ./takelship:/home/podman/takelship takelwerk/takelship forgejo
+= Forgejo Gitea fork (forgejo.org). Provides git hosting. Provides CI/CD pipelines (GitHub style). Provides image hosting. Runs with Forgejo Runners. Runs with Docker in Docker. Runs with Apt Proxy. Runs with Docker in Docker.
+docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:33000:33000" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:33142:33142" --volume ./takelship:/home/podman/takelship takelwerk/takelship forgejo
 
 == Project: teamcity
-= TeamCity build server (jetbrains.com/teamcity). Provides CI/CD pipelines (JetBrains style). Runs with TeamCity Runners. Runs with Forgejo and its runners. Runs with Portainer. Runs with Docker in Docker.
-docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:33000:33000" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:38111:38111" --publish "127.0.0.1:39000:39000" --volume ./takelship:/home/podman/takelship takelwerk/takelship teamcity
+= TeamCity build server (jetbrains.com/teamcity). Provides CI/CD pipelines (JetBrains style). Runs with TeamCity Runners. Runs with Forgejo and its runners. (Mimics GitHub) Runs with Registry and its UI. (Mimics DockerHub) Runs with Apt Proxy. Runs with Portainer. Runs with Docker in Docker.
+docker run --rm --interactive --tty --name takelship --hostname takelship --privileged --publish "127.0.0.1:32375:32375" --publish "127.0.0.1:38111:38111" --publish "127.0.0.1:33000:33000" --publish "127.0.0.1:30022:30022" --publish "127.0.0.1:35000:35000" --publish "127.0.0.1:35080:35080" --publish "127.0.0.1:33142:33142" --publish "127.0.0.1:39000:39000" --volume ./takelship:/home/podman/takelship takelwerk/takelship teamcity
 ```
 
 List available container commands of a running takelship:
 
 ```bash
-docker exec -it takelship cli
-```
-
-Which gives
-
-```
+$ docker exec -it takelship cli
 takelship command line interface:
 
 == cli
@@ -360,6 +355,9 @@ takelship command line interface:
 
 == forgejo
 = Forgejo admin command line interface.
+
+== fortea-add-ssh-key
+= Add ssh key to forgejo server admin account.
 ```
 
 Run a command as podman user:
