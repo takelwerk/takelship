@@ -316,11 +316,9 @@ git remote add takelship ssh://git@localhost:$SSH_PORT/testorg/testrepo.git
 
 This way, the repo belongs to the forgejo admin user as its preconfigured token is used by `tea`. 
 
-Now you could simply push your repo. But how does forgejo know who pushes?
+Now you could simply push your repo. But how does forgejo know who pushes? If there is a second forgejo user and you happen to have the public ssh key of that user in your ssh agent then forgejo might use that key. This will be at least confusing if your goal is a reproducible scripted environment.
 
-If there is a second forgejo user and you happen to have the public ssh key of that user in your ssh agent then forgejo might use that key. This will be at least confusing if your goal is a reproducible scripted environment.
-
-You can control which ssh key is by git by disabling the socket connection to your ssh agent and telling git explicitly which private key file to use:
+You can control which ssh key is used by git by disabling the socket connection to your ssh agent and telling git explicitly which private key file to use:
 
 ```bash
 # make sure that the key has the right permissions
