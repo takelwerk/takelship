@@ -320,7 +320,7 @@ Now you could simply push your repo:
 git push --set-upstream takelship main
 ```
 
-But how pushes? If there is a second forgejo user and you happen to have the key associated to that user loaded in to your ssh agent then forgejo might use that key. This is how you can control which key is used:
+But who pushes? If there is a second forgejo user and you happen to have the key associated to that user loaded in to your ssh agent then forgejo might use that key. This is how you can control which key is used:
 
 ```bash
 chmod 400 $TAKELSHIP/takelship/compose/services/forgejo-server/id_ed25519.administrator
