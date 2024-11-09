@@ -314,16 +314,18 @@ SSH_PORT=$(cat $TAKELSHIP/takelage.yml | yq .ship_ports_forgejo_server_ssh_30022
 git remote add takelship ssh://git@localhost:$SSH_PORT/testorg/testrepo.git
 ```
 
-Now you could simply push your repo:
+This way, the repo belongs to the forgejo admin user as its preconfigured token is used by `tea`. 
+
+Now you could simply push your repo. But how does forgejo know who pushes?
+
+If there is a second forgejo user and you happen to have the public ssh key of that user in your ssh agent then forgejo might use that key. This will be at least confusing if your goal is a reproducible scripted environment.
+
+You can control which ssh key is by git by disabling the socket connection to your ssh agent and telling git explicitly which private key file to use:
 
 ```bash
-git push --set-upstream takelship main
-```
-
-But how does forgejo know who pushes? If there is a second forgejo user and you happen to have the public ssh key of that user loaded in to your ssh agent then forgejo might use that key. You can control which key is used by disabling the socket connection to your ssh agent and telling git which private key file to use:
-
-```bash
+# make sure that the key has the right permissions
 chmod 400 $TAKELSHIP/takelship/compose/services/forgejo-server/id_ed25519.administrator
+# disable ssh agent keys and use the takelship ssh key to push
 SSH_AUTH_SOCK= GIT_SSH_COMMAND="ssh -i $TAKELSHIP/takelship/compose/services/forgejo-server/id_ed25519.administrator" git push --set-upstream takelship main
 ```
 
