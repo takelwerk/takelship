@@ -318,13 +318,13 @@ This way, the organization and the repository belong to the forgejo admin user a
 
 Now you could simply push your repo. But how does forgejo know who pushes? If there is a second forgejo user and you happen to have the public ssh key of that user in your ssh agent then forgejo might use that key. Unexpected authors in your git history will be at least confusing if your goal is a reproducible scripted environment.
 
-You can control which ssh key is used by git by disabling the socket connection to your ssh agent and telling git explicitly which private key file to use:
+You can control which ssh key is used by git by disabling the socket connection to your ssh agent, disabling the global ssh configuration file and telling git explicitly which private key file to use:
 
 ```bash
 # make sure that the key has the right permissions
 chmod 400 $TAKELSHIP/takelship/compose/services/forgejo-server/id_ed25519.administrator
 # disable ssh agent keys and use the takelship ssh key to push
-SSH_AUTH_SOCK= GIT_SSH_COMMAND="ssh -i $TAKELSHIP/takelship/compose/services/forgejo-server/id_ed25519.administrator" git push --set-upstream takelship main
+SSH_AUTH_SOCK= GIT_SSH_COMMAND="ssh -F /dev/null -i $TAKELSHIP/takelship/compose/services/forgejo-server/id_ed25519.administrator" git push --set-upstream takelship main
 ```
 
 Alternatively, you could configure different remotes with different keys in your `.ssh/config`.
