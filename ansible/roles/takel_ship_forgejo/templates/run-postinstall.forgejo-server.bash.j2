@@ -67,4 +67,4 @@ SSH_KEY="${SSH_KEY%[$'\r\t\n ']}"
 
 echo Adding forgejo admin ssh public key to the forgejo admin account
 echo "Use {{ takel_ship_forgejo_script_fortea_add_ssh_key['name'] }} <key> to add another key"
-{{ takel_ship_forgejo_script_fortea_add_ssh_key['name'] }} $SSH_KEY
+(r=3;while ! {{ takel_ship_forgejo_script_fortea_add_ssh_key['name'] }} $SSH_KEY ; do ((--r))||exit;sleep 2;done)
