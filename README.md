@@ -295,9 +295,9 @@ FORGEJO__REPOSITORY__ENABLE_PUSH_CREATE_ORG: 'true'
 FORGEJO__REPOSITORY__DEFAULT_PUSH_CREATE_PRIVATE: 'false'
 ```
 
-You can simply push a repo and it will be automatically created for you. The problem is: who is *you*?
+You can simply push a repo and a personal repo will be created for you. The problem is: who is *you*? And you probably don't want personal repos anyway.
 
-Suppose you have a local git repo which you want to deploy as `testorg/testrepo` as the prefconfigured admin user to a takelship in `~/forgejo`. You might do this:
+Suppose you have a local git repo that you want to deploy as `testorg/testrepo` which should belong to the prefconfigured admin user to a takelship in `~/forgejo`. You might do this:
 
 ```bash
 # start takelship
@@ -314,9 +314,9 @@ SSH_PORT=$(cat $TAKELSHIP/takelage.yml | yq .ship_ports_forgejo_server_ssh_30022
 git remote add takelship ssh://git@localhost:$SSH_PORT/testorg/testrepo.git
 ```
 
-This way, the repo belongs to the forgejo admin user as its preconfigured token is used by `tea`. 
+This way, the organization and the repository belong to the forgejo admin user as its preconfigured token is used by `tea`. 
 
-Now you could simply push your repo. But how does forgejo know who pushes? If there is a second forgejo user and you happen to have the public ssh key of that user in your ssh agent then forgejo might use that key. This will be at least confusing if your goal is a reproducible scripted environment.
+Now you could simply push your repo. But how does forgejo know who pushes? If there is a second forgejo user and you happen to have the public ssh key of that user in your ssh agent then forgejo might use that key. Unexpected authors in your git history will be at least confusing if your goal is a reproducible scripted environment.
 
 You can control which ssh key is used by git by disabling the socket connection to your ssh agent and telling git explicitly which private key file to use:
 
@@ -328,6 +328,24 @@ SSH_AUTH_SOCK= GIT_SSH_COMMAND="ssh -i $TAKELSHIP/takelship/compose/services/for
 ```
 
 Alternatively, you could configure different remotes with different keys in your `.ssh/config`.
+
+## takelship forgejo actions
+
+You can try out the takelship forgejo runners by adding this to `.forgejo/workflows/demo.yml` in your git repo:
+
+```yaml
+---
+on:
+  - push
+  - workflow_dispatch
+jobs:
+  test:
+    runs-on: debian
+    steps:
+      - run: echo All Good
+```
+
+When pushed, this will trigger a workflow run on a `node:20-bookworm` image. You don't need to use the preconfigured images as you can specify any image with the [`container:` key word](https://forgejo.org/docs/latest/user/actions/#jobsjob_idcontainerimage).  
 
 ## takelship registry
 
