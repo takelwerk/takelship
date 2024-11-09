@@ -295,7 +295,7 @@ FORGEJO__REPOSITORY__ENABLE_PUSH_CREATE_ORG: 'true'
 FORGEJO__REPOSITORY__DEFAULT_PUSH_CREATE_PRIVATE: 'false'
 ```
 
-This works great if you have one account. But if you have more than one account then you have to specify *who* pushes. This is done by using the SSH key of the forgejo user to use. 
+This works great if you have one account. But if you have more than one account then you have to specify *who* pushes.
 
 Suppose you have a local git repo which you want to deploy as `testorg/testrepo` to a takelship in `~/forgejo`:
 
@@ -320,7 +320,7 @@ Now you could simply push your repo:
 git push --set-upstream takelship main
 ```
 
-But who pushes? If there is a second forgejo user and you happen to have the key associated to that user loaded in to your ssh agent then forgejo might use that key. This is how you can control which key is used:
+But how does forgejo know who pushes? If there is a second forgejo user and you happen to have the public ssh key of to that user loaded in to your ssh agent then forgejo might use that key. This is how you can control which key is used:
 
 ```bash
 chmod 400 $TAKELSHIP/takelship/compose/services/forgejo-server/id_ed25519.administrator
