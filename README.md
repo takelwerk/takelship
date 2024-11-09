@@ -295,7 +295,9 @@ FORGEJO__REPOSITORY__ENABLE_PUSH_CREATE_ORG: 'true'
 FORGEJO__REPOSITORY__DEFAULT_PUSH_CREATE_PRIVATE: 'false'
 ```
 
-Suppose you have a local git repo which you want to deploy as `testorg/testrepo` to a takelship in `~/forgejo`:
+You can simply push a repo and it will be automatically created for you. The problem is: who is *you*?
+
+Suppose you have a local git repo which you want to deploy as `testorg/testrepo` as the prefconfigured admin user to a takelship in `~/forgejo`. You might do this:
 
 ```bash
 # start takelship
@@ -318,14 +320,14 @@ Now you could simply push your repo:
 git push --set-upstream takelship main
 ```
 
-But how does forgejo know who pushes? If there is a second forgejo user and you happen to have the public ssh key of that user loaded in to your ssh agent then forgejo might use that key. This is how you can control which key is used:
+But how does forgejo know who pushes? If there is a second forgejo user and you happen to have the public ssh key of that user loaded in to your ssh agent then forgejo might use that key. You can control which key is used by disabling the socket connection to your ssh agent and telling git which private key file to use:
 
 ```bash
 chmod 400 $TAKELSHIP/takelship/compose/services/forgejo-server/id_ed25519.administrator
 SSH_AUTH_SOCK= GIT_SSH_COMMAND="ssh -i $TAKELSHIP/takelship/compose/services/forgejo-server/id_ed25519.administrator" git push --set-upstream takelship main
 ```
 
-Alternatively, you can configure different remotes with different keys in your `.ssh/config`.
+Alternatively, you could configure different remotes with different keys in your `.ssh/config`.
 
 ## takelship registry
 
