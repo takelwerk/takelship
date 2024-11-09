@@ -255,7 +255,7 @@ This file can be symlinked as your host tea configuration file:
 - Linux: `~/.config/tea/config.yml`
 - macOS: `~/Library/Application\ Support/tea/config.yml`
 
-## takelship forgejo usage
+## takelship forgejo ssh keys
 
 The `podman` account on the takelship has its own `tea` config file targeting the internal port of the forgejo server which is static.
 
@@ -284,6 +284,50 @@ The [`fortea-add-ssh-key`](ansible/roles/takel_ship_forgejo/templates/fortea-add
 ```bash
 http://localhost:<forgejo_port>/api/swagger
 ```
+
+## takelship forgejo push repo
+
+The takelship forgejo server environment variables controlling the default push behaviour are permissive:
+
+```bash
+FORGEJO__REPOSITORY__ENABLE_PUSH_CREATE_USER: 'true'
+FORGEJO__REPOSITORY__ENABLE_PUSH_CREATE_ORG: 'true'
+FORGEJO__REPOSITORY__DEFAULT_PUSH_CREATE_PRIVATE: 'false'
+```
+
+This works great if you have one account. But if you have more than one account then you have to specify *who* pushes. This is done by using the SSH key of the forgejo user to use. 
+
+Suppose you have a local git repo which you want to deploy as `testorg/testrepo` to a takelship in `~/forgejo`:
+
+```bash
+# start takelship
+TAKELSHIP=~/forgejo
+mkdir -p $TAKELSHIP
+ship -w $TAKELSHIP start
+
+# create org/repo as admin user
+ship -w $TAKELSHIP command tea org create testorg
+ship -w $TAKELSHIP command tea repos create --name testrepo --owner testorg
+
+# add git takelship remote
+SSH_PORT=$(cat $TAKELSHIP/takelage.yml | yq .ship_ports_forgejo_server_ssh_30022)
+git remote add takelship ssh://git@localhost:$SSH_PORT/testorg/testrepo.git
+```
+
+Now you could simply push your repo:
+
+```bash
+git push --set-upstream takelship main
+```
+
+But how pushes? If there is a second forgejo user and you happen to have the key associated to that user loaded in to your ssh agent then forgejo might use that key. This is how you can control which key is used:
+
+```bash
+chmod 400 $TAKELSHIP/takelship/compose/services/forgejo-server/id_ed25519.administrator
+SSH_AUTH_SOCK= GIT_SSH_COMMAND="ssh -i $TAKELSHIP/takelship/compose/services/forgejo-server/id_ed25519.administrator" git push --set-upstream takelship main
+```
+
+Alternatively, you can configure different remotes with different keys in your `.ssh/config`.
 
 ## takelship registry
 
