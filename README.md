@@ -304,7 +304,11 @@ Suppose you have a local git repo that you want to deploy as `testorg/testrepo` 
 TAKELSHIP=~/forgejo
 mkdir -p $TAKELSHIP
 ship -w $TAKELSHIP start
+```
 
+Wait until you can access the forgejo localhost website.
+
+```bash
 # create org/repo as admin user
 ship -w $TAKELSHIP command tea org create testorg
 ship -w $TAKELSHIP command tea repos create --name testrepo --owner testorg
