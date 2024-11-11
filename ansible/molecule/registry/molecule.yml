@@ -17,8 +17,6 @@ platforms:
       - 127.0.0.1:55000:35000/tcp
     volumes:
       - $TAKELAGE_PROJECT_BASE_DIR/takelship/cache:/home/podman/takelship/cache
-    env:
-      TAKELSHIP_DEBUG: "true"
 provisioner:
   name: ansible
   playbooks:
