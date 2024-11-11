@@ -1,0 +1,11 @@
+{{ takel_ship_scripts_shebang }}
+
+echo Creating {{ takel_ship_teamcity_server_service['name'] }} preinstallation
+
+LOGSDIR={{ takel_ship_compose_to_services_dir }}/{{ takel_ship_teamcity_server_service['name'] }}/teamcity-logs
+DATADIR={{ takel_ship_compose_to_services_dir }}/{{ takel_ship_teamcity_server_service['name'] }}/teamcity-data
+
+mkdir -p $LOGSDIR
+mkdir -p $DATADIR
+chmod 777 -R $LOGSDIR
+chmod 777 -R $DATADIR

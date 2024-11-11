@@ -13,6 +13,7 @@ takel_ship_teamcity_server_service:
   role: takel_ship_teamcity
   template: docker-compose.teamcity-server.yml.j2
   env: env.teamcity-server.j2
+  preinstall: run-preinstall.teamcity-server.bash.j2
   images:
     - "{{ takel_ship_teamcity_server_image }}"
   ports:
