@@ -357,7 +357,7 @@ The takelship comes preshipped with a single internal docker image:
 [Distribution Registry](https://distribution.github.io/distribution/).
 This is the official docker registry which has a size of less than 26 Megabytes. 
 
-When you start a takelship, a registry container is started: the `takelship-registry`. Its date directory is `takelship/cache`.
+When you start a takelship, a registry container is started: the `takelship-registry`. Its data directory is `takelship/cache`.
 
 When you start a takelship project on your host with a `docker-compose-up` script then docker will pull a copy of the docker registry and start a `takelship-registry` on your host *using the same data* directory.
 
