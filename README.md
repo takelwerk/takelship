@@ -147,7 +147,7 @@ If you like nautical language you can also use `ship sail` (for `ship start`), `
 
 (There is a short presentation of the [TeamCity takelship-project](https://github.com/stephan-devop/24-11-teamcity-takelship/blob/main/README.md) in German language. The TeamCity takelship project includes the services of the Forgejo takelship project.)
 
-We can start the project forgejo to start a [Forgejo](https://forgejo.org/) build server with three runners and an [Apt Proxy](https://github.com/soulteary/apt-proxy) cache server like this:
+We can start the takelship project forgejo which includes a [Forgejo](https://forgejo.org/) build server with three runners and an [Apt Proxy](https://github.com/soulteary/apt-proxy) cache server with one command:
 
 ```
 ~/takelshiptest$ ship start forgejo
