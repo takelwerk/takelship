@@ -57,6 +57,7 @@ takel_ship_forgejo_runner_service:
 takelship_forgejo_runner_labels:
   - debian:docker://docker.io/node:20-bookworm
   - ubuntu:docker://ghcr.io/catthehacker/ubuntu:runner-latest
+  - ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:runner-latest
   - ubuntu-root:docker://ghcr.io/catthehacker/ubuntu:act-latest
   - ubuntu-full:docker://ghcr.io/catthehacker/ubuntu:full-latest
 
