@@ -86,7 +86,7 @@ echo $LOG Changing podman uid and gid and chowning data dir
 # From here on non-privileged containers will fail
 
 echo $LOG Setting time zone
-ln -sf /usr/share/zoneinfo/${TAKELSHIP_TIMEZONE:-CET} /etc/localtime
+cp --force /usr/share/zoneinfo/${TAKELSHIP_TIMEZONE:-CET} /etc/localtime
 
 [[ "$DEBUG" == "true" ]] && echo Suppressing warning message about shared mount
 mount / --make-rshare
