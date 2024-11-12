@@ -325,8 +325,6 @@ Now you could simply push your repo. But how does forgejo know who pushes? If th
 You can control which ssh key is used by git by disabling the socket connection to your ssh agent, disabling the global ssh configuration file and telling git explicitly which private key file to use:
 
 ```bash
-# make sure that the key has the right permissions
-chmod 400 $TAKELSHIP/takelship/compose/services/forgejo-server/id_ed25519.administrator
 # disable ssh agent keys and use the takelship ssh key to push
 SSH_AUTH_SOCK= GIT_SSH_COMMAND="ssh -F /dev/null -i $TAKELSHIP/takelship/compose/services/forgejo-server/id_ed25519.administrator" git push --set-upstream takelship main
 ```

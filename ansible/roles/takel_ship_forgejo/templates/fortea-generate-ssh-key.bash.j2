@@ -13,11 +13,13 @@ if [ -e "{{ takel_ship_forgejo_server_ssh_key['private_key_file'] }}" ] &&
 fi
 
 echo "Generating an SSH key pair for the forgejo {{
-    takel_ship_forgejo_admin['name'] }} account."
+  takel_ship_forgejo_admin['name'] }} account."
 rm -fr {{
-    takel_ship_forgejo_server_ssh_key['private_key_file'] }}*
+  takel_ship_forgejo_server_ssh_key['private_key_file'] }}*
 {{ takel_ship_forgejo_server_ssh_keygen }}
 chown {{
-takel_ship_podman_user['owner'] }}:{{
-takel_ship_podman_user['group'] }} {{
-    takel_ship_forgejo_server_ssh_key['private_key_file'] }}*
+  takel_ship_podman_user['owner'] }}:{{
+  takel_ship_podman_user['group'] }} {{
+  takel_ship_forgejo_server_ssh_key['private_key_file'] }}*
+chmod 600 {{
+  takel_ship_forgejo_server_ssh_key['private_key_file'] }}
