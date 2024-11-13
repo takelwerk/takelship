@@ -35,12 +35,6 @@ jobs:
       - name: Lint project
         run: su takelbuild -c "cd $PROJECTDIR && rake images:project:registry:molecule:lint"
 
-      - name: Interrupt workflow
-        run: |
-          echo Delete /$RUNNER_TEMP/delete_me_to_continue_workflow to continue workflow
-          su takelbuild -c "touch /$RUNNER_TEMP/delete_me_to_continue_workflow"
-          while [ -f /$RUNNER_TEMP/delete_me_to_continue_workflow ]; do sleep 1; done
-
       - name: Build takelage project image with packer
         run: su takelbuild -c "cd $PROJECTDIR && rake images:project:build"
 
