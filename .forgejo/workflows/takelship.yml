@@ -13,8 +13,9 @@ jobs:
   takelship:
     container:
       image: takelwerk/takelbuild
-      options: "--tty --hostname job-${{ github.run_id }} --env DOCKER_HOST=tcp://docker:2375 --env DOCKER_TLS_VERIFY= --env DOCKER_CERT_PATH="
+      options: "--tty --hostname job-${{ github.run_id }}"
       volumes:
+        - /home/podman/.run/podman.sock:/var/run/docker.sock
         - act:/tmp/act
     steps:
       - name: Check out repository
