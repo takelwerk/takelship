@@ -347,7 +347,17 @@ jobs:
       - run: echo All Good
 ```
 
-When pushed, this will trigger a workflow run on a `node:20-bookworm` image. You don't need to use the preconfigured images as you can specify any image with the [`container:` key word](https://forgejo.org/docs/latest/user/actions/#jobsjob_idcontainerimage).  
+When pushed, this will trigger a workflow run on a `node:20-bookworm` image – the act container. You don't need to use the preconfigured images as you can specify any image with the [`container:` key word](https://forgejo.org/docs/latest/user/actions/#jobsjob_idcontainerimage).  
+
+## takelship docker in docker
+
+When you run a pipeline in forgejo in a takelship, the forgejo server, the forgejo runners and the act container all runs in the takelship. They all share the same network so the act container can checkout the code from the forgejo server.
+
+But the act container can also mount a  
+
+The takelship is itself some kind of docker in docker. Although podman aims for compatibility there are limits.
+
+
 
 ## takelship registry
 
