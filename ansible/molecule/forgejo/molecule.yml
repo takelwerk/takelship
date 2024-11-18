@@ -18,8 +18,6 @@ platforms:
       TAKELSHIP_SHIP_PORTS_TAKELSHIP_REGISTRY_HTTP_5555: '52375'
       TAKELSHIP_SHIP_PORTS_FORGEJO_SERVER_HTTP_33000: '53000'
       TAKELSHIP_SHIP_PORTS_APTPROXY_SERVER_HTTP_33142: '53142'
-    # volumes:
-    #   - $TAKELAGE_PROJECT_BASE_DIR/takelship/cache:/home/podman/takelship/cache
 provisioner:
   name: ansible
   playbooks:
