@@ -17,6 +17,8 @@ services:
       DOCKER_TLS_VERIFY:
     user: 1000:1000
     volumes:
+      - ${TAKELSHIP_FORGEJO_RUNNER_DOCKER_SOCKET:-{{ takel_ship_dind_podman_socket['file']
+      }}}:/var/run/docker.sock:Z
       - {{ takel_ship_compose_to_services_dir }}/{{
       takel_ship_forgejo_runner_service['name'] }}/config.yml:/config.yml
       - {{ takel_ship_compose_to_services_dir }}/{{
