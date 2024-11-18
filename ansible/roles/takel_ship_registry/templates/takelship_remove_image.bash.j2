@@ -3,8 +3,8 @@
 IMAGE=$1
 
 # Removing $IMAGE
-docker image rm $IMAGE
-docker image rm localhost:{{
+podman image rm $IMAGE
+podman image rm localhost:{{
   takel_ship_registry_takelship_registry_http_5555['port']
   }}/$IMAGE
 skopeo delete localhost:{{
