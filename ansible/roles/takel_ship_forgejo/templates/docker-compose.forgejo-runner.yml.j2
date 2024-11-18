@@ -12,9 +12,7 @@ services:
     takel_ship_forgejo_runner_image['tag'] }}}
     profiles: {{ takel_ship_forgejo_runner_service['profiles'] }}
     environment:
-      DOCKER_HOST: tcp://docker:2375
-      DOCKER_CERT_PATH: ""
-      DOCKER_TLS_VERIFY:
+      DOCKER_HOST: unix:///var/run/docker.sock
     user: 1000:1000
     volumes:
       - ${TAKELSHIP_FORGEJO_RUNNER_DOCKER_SOCKET:-{{ takel_ship_dind_podman_socket['file']
