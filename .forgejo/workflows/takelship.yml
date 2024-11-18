@@ -13,7 +13,7 @@ jobs:
   takelship:
     container:
       image: takelwerk/takelbuild
-      options: "--hostname job-${{ github.run_id }} --tty"
+      options: "--volume /var/run/docker.sock:/var/run/docker.sock --hostname job-${{ github.run_id }} --tty"
       volumes:
         - act:/tmp/act
     steps:

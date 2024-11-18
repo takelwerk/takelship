@@ -66,7 +66,7 @@ container:
   # Whether to use privileged mode or not when launching task containers (privileged mode is required for Docker-in-Docker).
   privileged: true
   # And other options to be used when the container is started (eg, --add-host=my.forgejo.url:host-gateway).
-  options: "--volume {{ takel_ship_dind_podman_socket['file'] }}:/var/run/docker.sock:Z --env DOCKER_HOST=unix:///var/run/docker.sock --tty"
+  options: "--env DOCKER_HOST=unix:///var/run/docker.sock --volume /var/run/docker.sock:/var/run/docker.sock"
   # The parent directory of a job's working directory.
   # If it's empty, /workspace will be used.
   workdir_parent:
