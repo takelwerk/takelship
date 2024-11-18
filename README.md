@@ -349,15 +349,19 @@ jobs:
 
 When pushed, this will trigger a workflow run on a `node:20-bookworm` image – the act container. You don't need to use the preconfigured images as you can specify any image with the [`container:` key word](https://forgejo.org/docs/latest/user/actions/#jobsjob_idcontainerimage).  
 
-## takelship docker in docker
+## the takelship builds itself 
 
 When you run a pipeline in forgejo in a takelship, the forgejo server, the forgejo runners and the act container all runs in the takelship. They all share the same network so the act container can checkout the code from the forgejo server.
 
-But the act container can also mount a  
+The runner containers are [configured](https://github.com/takelwerk/takelship/blob/main/ansible/roles/takel_ship_forgejo/templates/runner.config.yml.j2) to detect a docker host (and it detects a podman socket) but they won't mount the socket to job containers. It simply doesn't work.
 
-The takelship is itself some kind of docker in docker. Although podman aims for compatibility there are limits.
+The takelship is itself some kind of docker in docker but it uses podman, not docker. Although podman aims for compatibility there are limits.
 
+Fortunately, there is a solution for this problem: when you start a takelship, the docker socket of your host (in case you use docker engine) or the socket of the docker vm on your host (in case you use docker desktop) will be mounted to `/var/run/docker.sock`. When you start an act container you can mount the socket to the act container and set the `DOCKER_HOST` environment variable.
 
+This has two effects: if your act container starts another docker container, this container will be started on your host. And if your act container produces a local docker image it will end up on your host and not in the takelship.
+
+An example is the [forgejo workflow](https://github.com/takelwerk/takelship/blob/main/.forgejo/workflows/takelship.yml) of the takelship. All containers run in the takelship except the last one which is started by packer on the host. When the takelship builds itself then the image ends up in you local docker registry.
 
 ## takelship registry
 
