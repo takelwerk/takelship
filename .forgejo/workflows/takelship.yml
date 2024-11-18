@@ -17,9 +17,6 @@ jobs:
       volumes:
         - act:/tmp/act
     steps:
-      - name: Prepare docker socket
-        run: chgrp docker /var/run/docker.sock
-
       - name: Check out repository
         run: git clone http://forgejo-server:3000/takelwerk/takelship.git /$RUNNER_TEMP/checkout
 
