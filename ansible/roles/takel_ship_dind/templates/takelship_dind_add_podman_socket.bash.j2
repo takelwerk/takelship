@@ -1,7 +1,10 @@
 {{ takel_ship_scripts_shebang }}
 
-# debug create podman socket
+echo Create podman socket
 {{ takel_ship_scripts_script_pod['name'] }} "podman system service --time=0 {{ takel_ship_dind_podman_socket['socket'] }} &"
 
-# debug forward podman socket
+echo Forward podman socket
 {{ takel_ship_scripts_script_pod['name'] }} "{{ takel_ship_dind_podman_socat_command }} &"
+
+echo Change socket permissions
+{{ takel_ship_scripts_script_pod['name'] }} "chmod a+rw {{ takel_ship_dind_podman_socket['socket'] }}"

@@ -14,12 +14,13 @@ services:
     privileged: true
     restart: ${TAKELSHIP_TEAMCITY_RESTART:-{{
     takel_ship_teamcity_restart }}}
+    volumes:
+      - ${TAKELSHIP_TEAMCITY_RUNNER_DOCKER_SOCKET:-{{ takel_ship_dind_podman_socket['file']
+      }}}:/var/run/docker.sock:Z
     environment:
       SERVER_URL: http://{{
       takel_ship_teamcity_server_service['name'] }}:8111
-      DOCKER_HOST: tcp://docker:2375
-      DOCKER_CERT_PATH: ""
-      DOCKER_TLS_VERIFY:
+      DOCKER_HOST: unix:///var/run/docker.sock
       DOCKER_IN_DOCKER: start
       AGENT_NAME: >-
         {{ takel_ship_teamcity_runner_service['name'] }}-{{ runner }}

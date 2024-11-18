@@ -17,6 +17,7 @@ takel_ship_podman_deb_install_packages:
   - bash-completion
   - bat
   - ca-certificates
+  - catatonit
   - cron
   - curl
   - git

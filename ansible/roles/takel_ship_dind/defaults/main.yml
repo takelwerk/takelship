@@ -1,30 +1,8 @@
 ---
-takel_ship_dind_services:
-  - "{{ takel_ship_dind_docker_service }}"
-
 takel_ship_dind_scripts:
   - "{{ takel_ship_dind_script_add_podman_socket }}"
 
 ### end of group_vars
-
-takel_ship_dind_docker_service:
-  name: dind-docker
-  description: >-
-    Docker in Docker.
-    Provides Docker in Docker by tunneling a docker socket.
-  role: takel_ship_dind
-  template: docker-compose.dind-docker.yml.j2
-  env: env.dind-docker.j2
-  nologs: true
-  images:
-    - "{{ takel_ship_dind_docker_image }}"
-  profiles:
-    - podman
-    - docker
-
-takel_ship_dind_docker_image:
-  name: docker.io/alpine/socat
-  tag: latest
 
 takel_ship_dind_podman_socket:
   file: /home/podman/.run/podman.sock
@@ -36,10 +14,6 @@ takel_ship_dind_deb_install_packages:
 takel_ship_dind_docker_32375:
   port: 32375
   protocol: docker
-
-takel_ship_dind_docker_socat_command: >-
-  tcp-listen:2375,fork,reuseaddr
-  unix-connect:/var/run/docker.sock
 
 takel_ship_dind_podman_socat_command: >-
   socat tcp-listen:{{

@@ -15,13 +15,10 @@ jobs:
       image: takelwerk/takelbuild
       options: "--tty --hostname job-${{ github.run_id }}"
       volumes:
-        - /home/podman/.run/podman.sock:/var/run/docker.sock
         - act:/tmp/act
     steps:
       - name: Prepare docker socket
-        run: |
-          chmod g+rw /var/run/docker.sock
-          chgrp docker /var/run/docker.sock
+        run: chgrp docker /var/run/docker.sock
 
       - name: Check out repository
         run: git clone http://forgejo-server:3000/takelwerk/takelship.git /$RUNNER_TEMP/checkout

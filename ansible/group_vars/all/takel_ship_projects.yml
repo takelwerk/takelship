@@ -6,7 +6,6 @@ takel_ship_compose_projects:
     services:
       - "{{ takel_ship_teamcity_server_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
-      - "{{ takel_ship_dind_docker_service }}"
       - "{{ takel_ship_teamcity_runner_service }}"
       - "{{ takel_ship_forgejo_runner_service }}"
       - "{{ takel_ship_aptproxy_server_service }}"
@@ -35,12 +34,9 @@ takel_ship_compose_projects:
       Provides CI/CD pipelines (GitHub style).
       Provides image hosting.
       Runs with Forgejo Runners.
-      Runs with Docker in Docker.
       Runs with Apt Proxy.
-      Runs with Docker in Docker.
     services:
       - "{{ takel_ship_forgejo_server_service }}"
-      - "{{ takel_ship_dind_docker_service }}"
       - "{{ takel_ship_aptproxy_server_service }}"
       - "{{ takel_ship_forgejo_runner_service }}"
   - name: teamcity
@@ -52,12 +48,10 @@ takel_ship_compose_projects:
       Runs with Registry and its UI. (Mimics DockerHub)
       Runs with Apt Proxy.
       Runs with Portainer.
-      Runs with Docker in Docker.
     services:
       - "{{ takel_ship_teamcity_server_service }}"
       - "{{ takel_ship_forgejo_server_service }}"
       - "{{ takel_ship_teamcity_runner_service }}"
-      - "{{ takel_ship_dind_docker_service }}"
       - "{{ takel_ship_registry_server_service }}"
       - "{{ takel_ship_registry_ui_service }}"
       - "{{ takel_ship_aptproxy_server_service }}"

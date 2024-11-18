@@ -1,7 +1,6 @@
 ---
 takel_ship_compose_services: >-
   {{ takel_ship_registry_services +
-  takel_ship_dind_services +
   takel_ship_portainer_services +
   takel_ship_aptproxy_services +
   takel_ship_forgejo_services +
