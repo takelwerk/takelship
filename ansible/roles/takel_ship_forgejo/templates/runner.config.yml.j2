@@ -8,10 +8,8 @@ runner:
   # Execute how many tasks concurrently at the same time.
   capacity: 1
   # Extra environment variables to run jobs.
-  envs:
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_CERT_PATH: ""
-    DOCKER_TLS_VERIFY:
+  # envs:
+  #   DOCKER_HOST: unix:///var/run/docker.sock
   # Extra environment variables to run jobs from a file.
   # It will be ignored if it's empty or the file doesn't exist.
   env_file: .env
