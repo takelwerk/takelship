@@ -10,4 +10,4 @@ echo Change podman socket permissions
 {{ takel_ship_scripts_script_pod['name'] }} "chmod a+rw {{ takel_ship_dind_podman_socket['file'] }}"
 
 echo Change docker socket permissions
-{{ takel_ship_scripts_script_pod['name'] }} "chmod a+rw /var/run/docker.sock"
+chmod a+rw /var/run/docker.sock
