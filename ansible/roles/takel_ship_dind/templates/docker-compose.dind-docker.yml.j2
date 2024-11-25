@@ -1,0 +1,14 @@
+---
+services:
+  {{ takel_ship_dind_docker_service['name'] }}-service:
+    container_name: docker
+    hostname: docker
+    image: ${TAKELSHIP_DIND_DOCKER_IMAGE:-localhost:{{
+    takel_ship_registry_takelship_registry_http_5555['port'] }}/{{
+    takel_ship_dind_docker_image['name'] }}:{{
+    takel_ship_dind_docker_image['tag'] }}}
+    restart: always
+    command: {{ takel_ship_dind_docker_socat_command }}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    profiles: {{ takel_ship_dind_docker_service['profiles'] }}
