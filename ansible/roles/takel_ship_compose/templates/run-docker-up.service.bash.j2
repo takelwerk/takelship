@@ -13,7 +13,7 @@ takel_ship_compose_run_docker_up }}
 
 {% endif %}
 echo Starting service {{ takel_ship_compose_service['name'] }}
-docker compose --profile docker \
+docker compose --project takelship --profile docker \
   --env-file $SCRIPT_DIR/{{ takel_ship_compose_env_docker }} \
   --file $SCRIPT_DIR/{{ takel_ship_compose_docker_compose_yml }} \
   up -d

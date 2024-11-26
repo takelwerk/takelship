@@ -11,7 +11,7 @@ takel_ship_registry_takelship_registry_service['name'] }}/{{
 takel_ship_compose_run_docker_up }}
 
 echo Starting project services
-docker compose --profile docker \
+docker compose --project takelship --profile docker \
 {% for service in takel_ship_compose_project['services'] %}
 {% if 'docker' in service['profiles'] %}
 {% if 'env' in service and service['env'] %}

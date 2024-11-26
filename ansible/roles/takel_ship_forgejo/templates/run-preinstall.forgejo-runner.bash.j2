@@ -7,13 +7,6 @@ RUNNERDIR="{{
 takel_ship_compose_to_services_dir }}/{{
 takel_ship_forgejo_runner_service['name'] }}/data"
 
-echo Changing forgejo runner container network configuration
-RUNNER_CONFIG_FILE={{
-takel_ship_compose_to_services_dir }}/{{
-takel_ship_forgejo_runner_service['name'] }}/{{
-takel_ship_forgejo_script_runner_config['name'] }}
-sed -i s"|^.*network: .*|  network: \"${PROJECT}_default\"|" $RUNNER_CONFIG_FILE
-
 # if the first runner is already configured then exit
 if [ -w "$RUNNERDIR-1/.runner" ]; then
   echo First forgejo runner is already configured: skipping runner registration

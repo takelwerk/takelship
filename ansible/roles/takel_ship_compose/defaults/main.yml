@@ -64,6 +64,10 @@ takel_ship_compose_script_takelship_docker_compose:
 
 takel_ship_compose_create_local_compose_file: true
 
+# networks
+
+takel_ship_compose_default_network: takelship
+
 # files
 takel_ship_compose_env_docker: env-docker
 takel_ship_compose_run_docker_down: docker-compose-down
