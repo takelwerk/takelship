@@ -15,7 +15,11 @@ services:
     restart: ${TAKELSHIP_TEAMCITY_RESTART:-{{
     takel_ship_teamcity_restart }}}
     volumes:
-      /opt/buildagent:/opt/buildagent
+      - /opt/buildagent/plugins:/opt/buildagent/plugins
+      - /opt/buildagent/system:/opt/buildagent/system
+      - /opt/buildagent/work:/opt/buildagent/work
+      - /opt/buildagent/temp:/opt/buildagent/temp
+      - /opt/buildagent/tools:/opt/buildagent/tools
     environment:
       SERVER_URL: http://{{
       takel_ship_teamcity_server_service['name'] }}:8111
