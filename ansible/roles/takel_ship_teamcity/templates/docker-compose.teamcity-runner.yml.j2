@@ -14,13 +14,14 @@ services:
     privileged: true
     restart: ${TAKELSHIP_TEAMCITY_RESTART:-{{
     takel_ship_teamcity_restart }}}
+    volumes:
+      /opt/buildagent:/opt/buildagent
     environment:
       SERVER_URL: http://{{
       takel_ship_teamcity_server_service['name'] }}:8111
       DOCKER_HOST: tcp://docker:2375
       DOCKER_CERT_PATH: ""
       DOCKER_TLS_VERIFY:
-      DOCKER_IN_DOCKER: start
       AGENT_NAME: >-
         {{ takel_ship_teamcity_runner_service['name'] }}-{{ runner }}
       AGENT_OPTS: ${TAKELSHIP_TEAMCITY_RUNNER_AGENT_OPTS:-docker.server.osType=Linux docker.server.version=N/A teamcity.agent.os.family=Linux}
