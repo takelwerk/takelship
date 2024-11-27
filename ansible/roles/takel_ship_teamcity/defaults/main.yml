@@ -13,7 +13,7 @@ takel_ship_teamcity_server_service:
   role: takel_ship_teamcity
   template: docker-compose.teamcity-server.yml.j2
   env: env.teamcity-server.j2
-  preinstall: run-preinstall.teamcity-server.bash.j2
+  preinstall: preinstall.teamcity-server.bash.j2
   images:
     - "{{ takel_ship_teamcity_server_image }}"
   ports:
@@ -30,8 +30,8 @@ takel_ship_teamcity_runner_service:
   role: takel_ship_teamcity
   template: docker-compose.teamcity-runner.yml.j2
   env: env.teamcity-runner.j2
-  preinstall: run-preinstall.teamcity-runner.bash.j2
-  postinstall: run-postinstall.teamcity-runner.bash.j2
+  preinstall: preinstall.teamcity-runner.bash.j2
+  postinstall: postinstall.teamcity-runner.bash.j2
   instances: 1
   images:
     - "{{ takel_ship_teamcity_runner_amd64_image }}"

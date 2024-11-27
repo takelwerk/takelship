@@ -25,8 +25,8 @@ takel_ship_forgejo_server_service:
   role: takel_ship_forgejo
   template: docker-compose.forgejo-server.yml.j2
   env: env.forgejo-server.j2
-  preinstall: run-preinstall.forgejo-server.bash.j2
-  postinstall: run-postinstall.forgejo-server.bash.j2
+  preinstall: preinstall.forgejo-server.bash.j2
+  postinstall: postinstall.forgejo-server.bash.j2
   nonroot: true
   images:
     - "{{ takel_ship_forgejo_server_image }}"
@@ -45,7 +45,7 @@ takel_ship_forgejo_runner_service:
   role: takel_ship_forgejo
   template: docker-compose.forgejo-runner.yml.j2
   env: env.forgejo-runner.j2
-  preinstall: run-postinstall.forgejo-runner.bash.j2
+  preinstall: preinstall.forgejo-runner.bash.j2
   nonroot: true
   instances: 3
   images:

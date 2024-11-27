@@ -74,8 +74,8 @@ takel_ship_compose_run_docker_down: docker-compose-down
 takel_ship_compose_run_docker_up: docker-compose-up
 takel_ship_compose_run_podman_down: run-podman-down
 takel_ship_compose_run_podman_up: run-podman-up
-takel_ship_compose_run_preinstall: run-preinstall
-takel_ship_compose_run_postinstall: run-postinstall
+takel_ship_compose_preinstall_file: 50-takelship
+takel_ship_compose_postinstall_file: 50-takelship
 takel_ship_compose_dockerfile: Dockerfile
 takel_ship_compose_copy_images: copy-images
 takel_ship_compose_copy_project: copy-project
@@ -91,8 +91,10 @@ takel_ship_compose_dist_dir: dist
 takel_ship_compose_compose_dir: compose
 takel_ship_compose_projects_dir: projects
 takel_ship_compose_services_dir: services
-takel_ship_compose_to_services_dir: >-
-  ../../{{ takel_ship_compose_services_dir }}
+takel_ship_compose_preinstall_dir: preinstall
+takel_ship_compose_postinstall_dir: postinstall
 takel_ship_compose_to_projects_dir: >-
   ../../{{ takel_ship_compose_projects_dir }}
+takel_ship_compose_to_services_dir: >-
+  ../../{{ takel_ship_compose_services_dir }}
 takel_ship_compose_project_symlink: takelship
