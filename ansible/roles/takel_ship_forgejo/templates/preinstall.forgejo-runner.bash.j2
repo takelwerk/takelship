@@ -38,7 +38,7 @@ chmod g+s $RUNNERDIR-{{ runner }}/.cache
 echo Starting forgejo runner {{ runner }} in register mode
 TAKELSHIP_FORGEJO_RUNNER_COMMAND={{ takelship_forgejo_runner_command_register }} \
   compose-nonroot --profile podman \
-  --file {{ takel_ship_compose_to_projects_dir }}/$PROJECT/{{ takel_ship_compose_docker_compose_yml }} \
+  --file ../{{ takel_ship_compose_to_projects_dir }}/$PROJECT/{{ takel_ship_compose_docker_compose_yml }} \
   up {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}-service -d 2> /dev/null
 
 {% endfor %}
@@ -77,7 +77,7 @@ podman exec -it {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }} for
 {% for runner in range(1, takel_ship_forgejo_runner_service['instances'] + 1) %}
 echo Killing forgejo runner {{ runner }} in register mode
 compose-nonroot --profile podman \
-  --file {{ takel_ship_compose_to_projects_dir }}/$PROJECT/{{ takel_ship_compose_docker_compose_yml }} \
+  --file ../{{ takel_ship_compose_to_projects_dir }}/$PROJECT/{{ takel_ship_compose_docker_compose_yml }} \
   kill {{ takel_ship_forgejo_runner_service['name'] }}-{{ runner }}-service 2> /dev/null
 
 # add labels to runner config
