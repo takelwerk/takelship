@@ -6,5 +6,5 @@ echo Starting socat in {{ takel_ship_teamcity_runner_service['name'] }} containe
 {% for runner in range(1, takel_ship_teamcity_runner_service['instances'] + 1) %}
 podman exec -it {{ takel_ship_forgejo_runner_service['instances'] }}-{{ runner }} sudo apt-get update
 podman exec -it {{ takel_ship_forgejo_runner_service['instances'] }}-{{ runner }} sudo apt-get install --yes socat
-podman exec -it -d {{ takel_ship_forgejo_runner_service['instances'] }}-{{ runner }} socat tcp-listen:$TAKELSHIP_SHIP_PORTS_FORGEJO_SERVER_HTTP_33000,fork,reuseaddr tcp:forgejo-server:3000
+podman exec -it -d {{ takel_ship_forgejo_runner_service['instances'] }}-{{ runner }} socat tcp-listen:$TAKELSHIP_SHIP_PORTS_FORGEJO_SERVER_HTTP_33000,fork,reuseaddr tcp:{{ takel_ship_teamcity_server_service['name'] }}:{{ takel_ship_forgejo_server_ssh_30022['port'] }}
 {% endfor %}
