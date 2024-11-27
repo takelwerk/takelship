@@ -31,6 +31,7 @@ takel_ship_teamcity_runner_service:
   template: docker-compose.teamcity-runner.yml.j2
   env: env.teamcity-runner.j2
   preinstall: run-preinstall.teamcity-runner.bash.j2
+  postinstall: run-postinstall.teamcity-runner.bash.j2
   instances: 1
   images:
     - "{{ takel_ship_teamcity_runner_amd64_image }}"
