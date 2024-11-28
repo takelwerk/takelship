@@ -6,12 +6,18 @@ if [[ "$(arch)" == "aarch64" ]]; then
   echo "Changing TeamCity runner image to arm64"
   sed -i \
     s/linux-sudo/linux-arm64-sudo/g \
-    ../{{ takel_ship_compose_to_services_dir }}/{{
+    {{ takel_ship_compose_home_dir }}/{{
+    takel_ship_compose_data_dir }}/{{
+    takel_ship_compose_compose_dir }}/{{
+    takel_ship_compose_services_dir }}/{{
     takel_ship_teamcity_runner_service['name'] }}/{{
     takel_ship_compose_docker_compose_yml }}
   sed -i \
     s/linux-sudo/linux-arm64-sudo/g \
-    ../{{ takel_ship_compose_to_services_dir }}/{{
+    {{ takel_ship_compose_home_dir }}/{{
+    takel_ship_compose_data_dir }}/{{
+    takel_ship_compose_compose_dir }}/{{
+    takel_ship_compose_services_dir }}/{{
     takel_ship_teamcity_runner_service['name'] }}/{{
     takel_ship_compose_env_docker }}
 fi

@@ -15,7 +15,6 @@ jobs:
       image: takelwerk/takelbuild
       options: "--hostname job-${{ github.run_id }}"
       volumes:
-        - act:/tmp/act
         - /var/run/docker.sock:/var/run/docker.sock
     steps:
       - name: Check out repository
