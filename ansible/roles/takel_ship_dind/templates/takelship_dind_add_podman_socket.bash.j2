@@ -3,11 +3,11 @@
 echo Create podman socket
 {{ takel_ship_scripts_script_pod['name'] }} "podman system service --time=0 {{ takel_ship_dind_podman_socket['socket'] }} &"
 
+echo Change docker socket permissions
+chmod a+rw /var/run/docker.sock
+
 echo Forward podman socket
 {{ takel_ship_scripts_script_pod['name'] }} "{{ takel_ship_dind_podman_socat_command }} &"
 
 echo Change podman socket permissions
 {{ takel_ship_scripts_script_pod['name'] }} "chmod a+rw {{ takel_ship_dind_podman_socket['file'] }}"
-
-echo Change docker socket permissions
-chmod a+rw /var/run/docker.sock
