@@ -87,6 +87,7 @@ echo $LOG Changing podman uid and gid and chowning data dir
 
 echo $LOG Setting time zone
 cp --force /usr/share/zoneinfo/${TAKELSHIP_TIMEZONE:-Europe/Amsterdam} /etc/localtime
+cat ${TAKELSHIP_TIMEZONE:-Europe/Amsterdam} > /etc/timezone
 
 [[ "$DEBUG" == "true" ]] && echo Suppressing warning message about shared mount
 mount / --make-rshare
