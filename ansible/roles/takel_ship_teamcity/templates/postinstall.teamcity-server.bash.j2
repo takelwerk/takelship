@@ -1,0 +1,10 @@
+{{ takel_ship_scripts_shebang }}
+
+echo Running {{ takel_ship_teamcity_server_service['name'] }} postinstallation
+
+echo Update apt repositories
+podman exec -it -u 0 {{ takel_ship_teamcity_server_service['name'] }} apt-get update >/dev/null 2>&1
+echo Install socat
+podman exec -it -u 0 {{ takel_ship_teamcity_server_service['name'] }} apt-get install --yes socat >/dev/null 2>&1
+echo Forward forgejo server localhost port to forgejo server docker container port
+podman exec -it -d -u 0 {{ takel_ship_teamcity_server_service['name'] }} socat tcp-listen:$TAKELSHIP_SHIP_PORTS_FORGEJO_SERVER_HTTP_33000,fork,reuseaddr tcp:{{ takel_ship_forgejo_server_service['name'] }}:3000
