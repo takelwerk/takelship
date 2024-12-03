@@ -3,12 +3,12 @@
 echo Running {{ takel_ship_teamcity_runner_service['name'] }} postinstallation
 
 {% for runner in range(1, takel_ship_teamcity_runner_service['instances'] + 1) %}
-# update apt repositories
-podman exec -it {{ takel_ship_teamcity_runner_service['name'] }}-{{ runner }} sudo apt-get update
-# install socat
-podman exec -it {{ takel_ship_teamcity_runner_service['name'] }}-{{ runner }} sudo apt-get install --yes socat
-# forward forgejo server localhost port to forgejo server docker container port
+echo Update apt repositories
+podman exec -it {{ takel_ship_teamcity_runner_service['name'] }}-{{ runner }} sudo apt-get update >/dev/null 2>&1
+echo Install socat
+podman exec -it {{ takel_ship_teamcity_runner_service['name'] }}-{{ runner }} sudo apt-get install --yes socat >/dev/null 2>&1
+echo Forward forgejo server localhost port to forgejo server docker container port
 podman exec -it -d {{ takel_ship_teamcity_runner_service['name'] }}-{{ runner }} sudo socat tcp-listen:$TAKELSHIP_SHIP_PORTS_FORGEJO_SERVER_HTTP_33000,fork,reuseaddr tcp:{{ takel_ship_forgejo_server_service['name'] }}:3000
-# set umask 000 (which results in 777 file permissions)
-podman exec -it {{ takel_ship_teamcity_runner_service['name'] }}-{{ runner }} bash -c "echo 'umask 000' | sudo tee --append /etc/bash.bashrc"
+echo Run umask 000 (which results in 777 file permissions)
+podman exec -it {{ takel_ship_teamcity_runner_service['name'] }}-{{ runner }} bash -c "echo 'umask 000' | sudo tee --append /etc/bash.bashrc" >/dev/null 2>&1
 {% endfor %}
