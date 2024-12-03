@@ -16,7 +16,7 @@ def test_forgejo_podman_socket_file(host, testvars):
     assert file.is_socket
     assert file.user == user
     assert file.group == group
-    assert file.mode == 0o600
+    assert file.mode == 0o666
 
     assert socket.is_listening
 
