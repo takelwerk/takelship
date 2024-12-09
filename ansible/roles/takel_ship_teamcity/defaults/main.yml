@@ -41,7 +41,7 @@ takel_ship_teamcity_runner_service:
     - podman
     - docker
 
-takel_ship_teamcity_version: 2024.07.3
+takel_ship_teamcity_version: 2024.12
 
 takel_ship_teamcity_server_image:
   name: docker.io/jetbrains/teamcity-server
