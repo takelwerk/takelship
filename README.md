@@ -219,7 +219,7 @@ When you start a takelship forgejo project some pretty complex things happen. Th
 [server postinstallation](https://github.com/takelwerk/takelship/blob/main/ansible/roles/takel_ship_forgejo/templates/run-postinstall.forgejo-server.bash.j2) and the
 [runner preinstallation](https://github.com/takelwerk/takelship/blob/main/ansible/roles/takel_ship_forgejo/templates/run-preinstall.forgejo-runner.bash.j2) is done in the takelship but the configuration and the data end up in the `takelship` directory on your host. From here, you can run it *on your host* with `docker compose`.
 
-The configuration for `podman-compose` which is used in the takelship differs slightly from the `docker-compose` one on your host. For example, the port configuration is probably different than the default configuration in the takelship.
+The configuration for `podman-compose` which is used in the takelship differs slightly from the `docker-compose` one on your host. For example, the port configuration is probably different from the default configuration in the takelship.
 
 The solution to this problem are `docker-env` files for each service:
 
