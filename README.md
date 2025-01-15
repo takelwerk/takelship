@@ -297,7 +297,7 @@ FORGEJO__REPOSITORY__DEFAULT_PUSH_CREATE_PRIVATE: 'false'
 
 You can simply push a repo and a personal repo will be created for you. The problem is: who is *you*? And you probably don't want personal repos anyway.
 
-Suppose you have a local git repo that you want to deploy as `testorg/testrepo` which should belong to the prefconfigured admin user to a takelship in `~/forgejo`. You might do this:
+Suppose you have a local git repo that you want to deploy as `testorg/testrepo` which should belong to the prefconfigured admin user of a takelship in `~/forgejo`. You might do this:
 
 ```bash
 # start takelship
