@@ -73,7 +73,7 @@ If you want to use the `ship` command line tool (which is a wrapper for `tau shi
 gem install takeltau
 ```
 
-We recommended to install ruby as a user by using the Ruby Version Manager ([rvm](https://rvm.io/)).
+We recommend to install ruby as a user by using the Ruby Version Manager ([rvm](https://rvm.io/)) if you want to keep your host system clean.
 
 ## Update
 
