@@ -86,7 +86,7 @@ namespace :images do
   images = @project['images']
   images.each do |project_image|
     image = project_image.first
-    keep_interim_images = images[image]['keep_interim_images'].nil? ? true : images[image]['keep_interim_images']
+    keep_interim_images = images[image]['keep_interim_images'].nil? || images[image]['keep_interim_images']
     namespace image.to_sym do |env_image|
       subtasks(env_image.scope.path) do
         desc 'Update docker base image'
