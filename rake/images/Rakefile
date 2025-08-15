@@ -303,8 +303,6 @@ namespace :images do
 end
 # rubocop:enable Metrics/BlockLength
 
-private
-
 # rubocop:disable Metrics/MethodLength
 def molecule_verifier_files(layers)
   verifier_files = []
